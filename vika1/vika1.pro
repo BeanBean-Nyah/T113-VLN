@@ -12,9 +12,11 @@ TEMPLATE = app
 SOURCES += main.cpp \
     data.cpp \
     domain.cpp \
-    toplayer.cpp
+    toplayer.cpp \
+    person.cpp
 
 HEADERS += \
     data.h \
     domain.h \
-    toplayer.h
+    toplayer.h \
+    person.h

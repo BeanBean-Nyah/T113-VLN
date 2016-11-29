@@ -1,6 +1,5 @@
 #include "data.h"
-#include <iostream>
-#include <fstream>
+
 
 using namespace std;
 data::data()
@@ -21,7 +20,7 @@ void data::read()
 void data::write()
 {
     ofstream output;
-    output.open ("people.txt");
+    output.open ("people2.txt");
 
 
     if (output.is_open())
