@@ -7,10 +7,7 @@ int main()
 {
     toplayer ui;
     ui.run();
-//hallo
+
     return 0;
 }
-// prufa
 
-//Pétur Push3
-//Pétur Pull
