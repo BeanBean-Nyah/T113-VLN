@@ -8,8 +8,10 @@ int main()
 {
     toplayer ui;
     ui.run();
+
     data dat;
     dat.write();
+
     return 0;
 }
 

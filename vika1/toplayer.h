@@ -9,6 +9,7 @@ public:
     void run();
 private:
     void help();
+    void selection();
 };
 
 #endif // TOPLAYER_H
