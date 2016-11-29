@@ -6,11 +6,15 @@ using namespace std;
 
 int main()
 {
+    data dat;
+    dat.read();
+    dat.write();
+
+
     toplayer ui;
     ui.run();
 
-    data dat;
-    dat.write();
+
 
     return 0;
 }
