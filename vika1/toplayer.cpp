@@ -19,11 +19,12 @@ void toplayer::run()
 }
 void toplayer::help()
 {
-    cout << "*************************************" << endl;
-    cout << "** enter -list for a list          **" << endl;
-    cout << "** enter -new  to add a new person **" << endl;
-    cout << "** enter -exit to exit the program **" << endl;
-    cout << "*************************************" << endl;
+    cout << "*********************************************" << endl;
+    cout << "**     enter -list for a list              **" << endl;
+    cout << "**     enter -search to search the list    **" << endl;
+    cout << "**     enter -new  to add a new person     **" << endl;
+    cout << "**     enter -exit to exit the program     **" << endl;
+    cout << "*********************************************" << endl;
 }
 void toplayer::selection()
 {
