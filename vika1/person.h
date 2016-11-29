@@ -24,6 +24,11 @@ public:
     {
         return _name;
     }
+    void setName(string name)
+    {
+        _name = name;
+    }
+
     string getSex() const
     {
         return _sex;

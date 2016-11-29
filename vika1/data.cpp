@@ -3,24 +3,26 @@
 #include <fstream>
 #include <string>
 
+
 using namespace std;
 data::data()
 {
 
 }
 
-void data::read()
+void data::read(vector<Person>& pers)
 {
-    string aa;
-
+    string name, sex;
+    int birth = 0, death = 0;
     ifstream input;
     input.open ("..\\vika1\\people.txt");
     while (!input.eof()) {
 
-        input >> aa;
-
+        input >> name >> sex >> birth >> death;
+        Person p(name, sex, birth, death);
+        pers.push_back(p);
     }
-    cout << "---" << aa << endl;
+
     input.close();
 
 }
@@ -35,8 +37,12 @@ void data::write()
         cout << "file is open!" << endl;
         // nafn
         output << "Smari" << endl;
-        // year born
-        output << "1992" << endl;
+        // sex
+        output << "Male" << endl;
+        // Birth
+        output << "1954" << endl;
+        // Death
+        output << "2043" << endl;
         output.close();
       }
     else {
