@@ -12,18 +12,22 @@ data::data()
 void data::read()
 {
     string aa;
+
     ifstream input;
-    input.open ("people.txt");
+    input.open ("..\\vika1\\people.txt");
     while (!input.eof()) {
+
         input >> aa;
+
     }
     cout << "---" << aa << endl;
+    input.close();
 
 }
 
 void data::write()
 {
-  ofstream output ("people1.txt");
+  ofstream output ("..\\vika1\\people.txt", ios::app);
 
 
     if (output.is_open())
