@@ -1,10 +1,12 @@
 #include <iostream>
+#include "toplayer.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello" << endl;
+    toplayer ui;
+    ui.run();
 
     return 0;
 }
