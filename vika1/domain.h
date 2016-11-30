@@ -14,10 +14,11 @@ public:
     void list();
     void add();
     void sort();
-    void search();
+
     void print(vector<Person>& pers);
 
 
+    void search(string input);
 };
 
 #endif // DOMAIN_H

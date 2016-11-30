@@ -12,7 +12,7 @@ toplayer::toplayer()
 void toplayer::run()
 {
     help();
-    cout << "\n enter -help to display the command list again " << endl;
+    cout << "\n Enter -help to display the command list again " << endl;
     while(selection())
     {
 
@@ -21,13 +21,17 @@ void toplayer::run()
 void toplayer::help()
 {
     cout << "*********************************************" << endl;
-    cout << "**     enter -list for a list              **" << endl;
-    cout << "**     enter -search to search the list    **" << endl;
-    cout << "**     enter -new  to add a new person     **" << endl;
+    cout << "**  Notable Computer Scientists In History **" << endl;
+    cout << "**                                         **" << endl;
+    cout << "**     Enter -new to add a new person      **" << endl;
+    cout << "**     Enter -list for a full list         **" << endl;
+    cout << "**     Enter -search to search the list    **" << endl;
     cout << "**     enter -sort to sort the list        **" << endl;
-    cout << "**     enter -exit to exit the program     **" << endl;
+    cout << "**     Enter -exit to exit the program     **" << endl;
+    cout << "**                                         **" << endl;
     cout << "*********************************************" << endl;
 }
+
 bool toplayer::selection()
 {
     string input;
@@ -36,6 +40,14 @@ bool toplayer::selection()
     {
         domain d;
         d.list();
+    }
+    if (input == "-search")
+    {
+        domain d;
+        string in;
+        cout << "enter a name to search for: ";
+        cin >> in;
+        d.search(in);
     }
     else if (input == "-new")
     {
@@ -50,7 +62,10 @@ bool toplayer::selection()
     else if (input == "-search")
     {
         domain d;
-        d.search();
+        string in;
+        cout << "enter a name to search for: ";
+        cin >> in;
+        d.search(in);
     }
     else if (input == "-help")
     {

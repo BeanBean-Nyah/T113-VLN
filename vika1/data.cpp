@@ -13,14 +13,14 @@ data::data()
 void data::read(vector<Person>& pers)
 {
 
-    string name, sex;
-    int birth = 0, death = 0;
+    string firstname, lastname, sex, death;
+    int birth = 0;
     ifstream input;
     input.open ("..\\vika1\\people.txt");
     while (!input.eof()) {
 
-        input >> name >> sex >> birth >> death;
-        Person p(name, sex, birth, death);
+        input >> firstname >> lastname >> sex >> birth >> death;
+        Person p(firstname, lastname, sex, birth, death);
         pers.push_back(p);
     }
 
@@ -28,20 +28,21 @@ void data::read(vector<Person>& pers)
 
 }
 
-void data::write(string& name, string& sex, int& birth, int& death)
+void data::write(string& firstname, string& lastname, string& sex, int& birth, string& death)
 {
   ofstream output ("..\\vika1\\people.txt", ios::app);
 
     if (output.is_open())
     {
-        // nafn
-        output << name << endl;
+        // fyrra nafn
+        output << firstname  << endl;
+        output << lastname  << endl;
         // sex
-        output << sex << endl;
+        output << sex  << endl;
         // Birth
-        output << birth << endl;
+        output << birth  << endl;
         // Death
-        output << death << endl;
+        output << death  << endl;
         output.close();
     }
     else

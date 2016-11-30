@@ -15,7 +15,7 @@ private:
 public:
     data();
     void read(vector<Person>& pers);
-    void write(string& name, string& sex, int& birth, int& death);
+    void write(string& firstname, string& lastname, string& sex, int& birth, string& death);
 
 };
 

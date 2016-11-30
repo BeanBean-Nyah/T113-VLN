@@ -9,24 +9,33 @@ class Person
 {
 public:
     Person();
-    Person(string name, string sex, int birth, int death);
+    Person(string firstname, string lastname, string sex, int birth, string death);
 
 
     int getBirth() const
     {
         return _birth;
     }
-    int getDeath() const
+    string getDeath() const
     {
         return _death;
     }
-    string getName() const
+    string getFirstname() const
     {
-        return _name;
+        return _firstname;
     }
-    void setName(string name)
+    void setFirstname(string firstname)
     {
-        _name = name;
+        _firstname = firstname;
+    }
+
+    string getLastname() const
+    {
+        return _lastname;
+    }
+    void setLastname(string lastname)
+    {
+       _lastname = lastname;
     }
 
     string getSex() const
@@ -36,9 +45,10 @@ public:
 
 
 private:
-    string _name;
+    string _firstname;
+    string _lastname;
     string _sex;
-    int _death;
+    string _death;
     int _birth;
 };
 
