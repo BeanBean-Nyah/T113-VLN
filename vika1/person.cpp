@@ -5,9 +5,10 @@ Person::Person()
 
 }
 
-Person::Person(string name, string sex, int birth, int death)
+Person::Person(string firstname, string lastname, string sex, int birth, int death)
 {
-    _name  = name;
+    _firstname  = firstname;
+    _lastname = lastname;
     _sex   = sex;
     _birth = birth;
     _death = death;
