@@ -26,6 +26,7 @@ void toplayer::help()
     cout << "**     Enter -new to add a new person      **" << endl;
     cout << "**     Enter -list for a full list         **" << endl;
     cout << "**     Enter -search to search the list    **" << endl;
+    cout << "**     enter -sort to sort the list        **" << endl;
     cout << "**     Enter -exit to exit the program     **" << endl;
     cout << "**                                         **" << endl;
     cout << "*********************************************" << endl;
@@ -43,12 +44,28 @@ bool toplayer::selection()
     if (input == "-search")
     {
         domain d;
-        d.search();
+        string in;
+        cout << "enter a name to search for: ";
+        cin >> in;
+        d.search(in);
     }
     else if (input == "-new")
     {
         domain d;
         d.add();
+    }
+    else if (input == "-sort")
+    {
+        domain d;
+        d.sort();
+    }
+    else if (input == "-search")
+    {
+        domain d;
+        string in;
+        cout << "enter a name to search for: ";
+        cin >> in;
+        d.search(in);
     }
     else if (input == "-help")
     {
