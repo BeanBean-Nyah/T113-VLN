@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 hda
 jdsfl
 m
@@ -31,3 +32,15 @@ male
 -
 =======
 >>>>>>> 1d735880aa5236fddf15d4bd222c45cacd629051
+=======
+Q
+AI
+Bot
+1999
+2119
+Q
+Bestson
+Bot
+1998
+2000
+>>>>>>> 1e9c2387a481306729bc725c911eb3bbcad220aa

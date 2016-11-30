@@ -59,14 +59,6 @@ bool toplayer::selection()
         domain d;
         d.sort();
     }
-    else if (input == "-search")
-    {
-        domain d;
-        string in;
-        cout << "enter a name to search for: ";
-        cin >> in;
-        d.search(in);
-    }
     else if (input == "-help")
     {
         help();
