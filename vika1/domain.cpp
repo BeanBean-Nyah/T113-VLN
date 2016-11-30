@@ -69,12 +69,14 @@ void domain::print(vector<Person>& pers)
 {
 
 
-    cout << "===== List =====" << endl;
+    cout << "=========== List ===========" << endl;
     for(unsigned int i = 0; i < pers.size(); i++) {
-        cout << pers[i].getFirstname() << "\t" << pers[i].getSex() << "\t"
-        << pers[i].getBirth() << "\t" << pers[i].getDeath() << endl;
-    }
-    cout << "================" << endl;
+        cout << pers[i].getFirstname() << " "
+             << pers[i].getLastname()  << "\t"
+             << pers[i].getSex() << "\t"
+             << pers[i].getBirth() << "\t"
+             << pers[i].getDeath() << endl;    }
+    cout << "============================" << endl;
 }
 
 

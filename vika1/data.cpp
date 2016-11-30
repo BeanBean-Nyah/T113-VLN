@@ -16,7 +16,7 @@ void data::read(vector<Person>& pers)
     string firstname, lastname, sex, death;
     int birth = 0;
     ifstream input;
-    input.open ("..\\vika1\\people.txt");
+    input.open ("..//vika1//people.txt");
     while (!input.eof()) {
 
         input >> firstname >> lastname >> sex >> birth >> death;
@@ -30,7 +30,7 @@ void data::read(vector<Person>& pers)
 
 void data::write(string& firstname, string& lastname, string& sex, int& birth, string& death)
 {
-  ofstream output ("..\\vika1\\people.txt", ios::app);
+  ofstream output ("..//vika1//people.txt", ios::app);
 
     if (output.is_open())
     {
