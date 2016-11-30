@@ -34,13 +34,13 @@ void data::write(string& firstname, string& lastname, string& sex, int& birth, i
     if (output.is_open())
     {
         // nafn
-        output << firstname << lastname << endl;
+        output << firstname  << lastname  << endl;
         // sex
-        output << sex << endl;
+        output << sex  << endl;
         // Birth
-        output << birth << endl;
+        output << birth  << endl;
         // Death
-        output << death << endl;
+        output << death  << endl;
         output.close();
     }
     else
