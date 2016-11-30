@@ -3,7 +3,7 @@
 #include "person.h"
 #include <iostream>
 #include <algorithm>
-#include <stdlib.h>
+
 
 using namespace std;
 domain::domain()
@@ -11,29 +11,17 @@ domain::domain()
 
 }
 
-void domain::list()
+vector<Person> domain::list()
 {
     data dat;
     vector<Person> persons;
     dat.read(persons);
-    cout << "===== List =====" << endl;
-    print(persons);
+
+    return persons;
 }
 
-void domain::add()
+void domain::add(string& firstname, string& lastname, string& sex, int& birth, string& death)
 {
-    string firstname, lastname, sex, death;
-    int birth;
-    cout << "Enter first and last name: ";
-    cin >> firstname;
-    cin >> lastname;
-    cout << "Enter sex: ";
-    cin >> sex;
-    cout << "Enter year of birth: ";
-    cin >> birth;
-    cout << "Enter year of death, if the person has not died please type \"-\": ";
-    cin >> death;
-
     data dat;
     dat.write(firstname, lastname, sex, birth, death);
 }
@@ -62,16 +50,12 @@ struct DeathYearSorting {
   bool operator() (Person i,Person j) { return (i.getDeath()<j.getDeath());}
 }yearDeath;
 
-void domain::sort()
+vector<Person> domain::sort(string& input)
 {
     data dat;
     vector<Person> persons;
     dat.read(persons);
-    string input;
-    cout << "What do you want to sort by?" << endl;
-    cout << "-firstname" << endl << "-lastname" << endl << "-sex" << endl
-         << "-yearborn" << endl << "-deathyear" << endl;
-    cin >> input;
+
     if (input == "-firstname") {
         std::sort(persons.begin(), persons.end(), firstName);
     }
@@ -91,40 +75,53 @@ void domain::sort()
     {
         std::sort(persons.begin(), persons.end(), yearDeath);
     }
-
-    cout << "===== Sorted list =====" << endl;
-    print(persons);
-
+    return persons;
 }
 
-void domain::print(vector<Person>& pers)
-{
-    for(unsigned int i = 0; i < pers.size(); i++) {
-        cout << pers[i].getFirstname() << "\t"
-             << pers[i].getLastname()  << "\t"
-             << pers[i].getSex() << "\t"
-             << pers[i].getBirth() << "\t"
-             << pers[i].getDeath() << endl;
-    }
-    cout << "============================" << endl;
-}
-
-
-void domain::search(string input)
+vector<Person> domain::search(string& whattype, string& input)
 {
     data dat;
-    vector<Person> persons;
+    vector<Person> persons, res;
     dat.read(persons);
-    cout << "===== Search results =====" << endl;
+
     for(unsigned int i = 0; i < persons.size(); i++) {
+        if (whattype == "-firstname")
+        {
             if(persons[i].getFirstname() == input)
             {
-                cout << persons[i].getFirstname() << " "
-                     << persons[i].getLastname() << "\t"
-                     << persons[i].getSex() << "\t"
-                     << persons[i].getBirth() << "\t"
-                     << persons[i].getDeath() << endl;
+                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
             }
+        } else if (whattype == "-lastname"){
+            if(persons[i].getLastname() == input)
+            {
+                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
+            }
+        } else if (whattype == "-sex"){
+            if(persons[i].getSex() == input)
+            {
+                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
+            }
+        } else if (whattype == "-birthyear"){
+            if(persons[i].getBirthstring() == input)
+            {
+                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
+            }
+        } else if (whattype == "-deathyear"){
+            if(persons[i].getDeath() == input)
+            {
+                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
+            }
+        }
     }
-    cout << "================" << endl;
+    return res;
 }

@@ -11,14 +11,10 @@ class domain
 {
 public:
     domain();
-    void list();
-    void add();
-    void sort();
-
-    void print(vector<Person>& pers);
-
-
-    void search(string input);
+    vector<Person> list();
+    void add(string& firstname, string& lastname, string& sex, int& birth, string& death);
+    vector<Person> sort(string& input);
+    vector<Person> search(string& whattype, string& input);
 };
 
 #endif // DOMAIN_H

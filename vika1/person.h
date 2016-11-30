@@ -2,6 +2,7 @@
 #define PERSON_H
 
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -19,6 +20,11 @@ public:
     string getDeath() const
     {
         return _death;
+    }
+    string getBirthstring() const
+    {
+        string bi = static_cast<ostringstream*>( &(ostringstream() << _birth) )->str();
+        return bi;
     }
     string getFirstname() const
     {

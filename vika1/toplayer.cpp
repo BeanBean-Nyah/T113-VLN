@@ -32,32 +32,81 @@ void toplayer::help()
     cout << "*********************************************" << endl;
 }
 
+void toplayer::print(vector<Person>& pers) {
+
+    for(unsigned int i = 0; i < pers.size(); i++) {
+        cout << pers[i].getFirstname() << "\t"
+             << pers[i].getLastname()  << "\t"
+             << pers[i].getSex() << "\t"
+             << pers[i].getBirth() << "\t"
+             << pers[i].getDeath() << endl;
+    }
+    cout << "============================" << endl;
+
+}
+
 bool toplayer::selection()
 {
     string input;
     cin >> input;
     if (input == "-list")
     {
+        vector<Person> p;
         domain d;
-        d.list();
+        p = d.list();
+        cout << "===== List =====" << endl;
+        print(p);
     }
     else if (input == "-search")
     {
+        vector<Person> p;
         domain d;
-        string in;
-        cout << "enter a name to search for: ";
-        cin >> in;
-        d.search(in);
+        string whattype, input;
+        cout << "What do you want to search for?" << endl;
+        cout << "-firstname" << endl << "-lastname" << endl << "-sex"
+             << endl << "-birthyear" << endl << "-deathyear" << endl;
+        cout << "Enter your choice: ";
+        cin >> whattype;
+        cout << "What is word do you want to serch for? ";
+        cin >> input;
+        p = d.search(whattype, input);
+        if (p.size() == 0){
+            cout << "Sorry, no results!" << endl;
+        } else {
+            cout << "===== Search results =====" << endl;
+            print(p);
+        }
+
     }
     else if (input == "-new")
     {
+        string firstname, lastname, sex, death;
+        int birth;
+        cout << "Enter first and last name: ";
+        cin >> firstname;
+        cin >> lastname;
+        cout << "Enter sex: ";
+        cin >> sex;
+        cout << "Enter year of birth: ";
+        cin >> birth;
+        cout << "Enter year of death, if the person has not died please type \"-\": ";
+        cin >> death;
         domain d;
-        d.add();
+        d.add(firstname, lastname, sex, birth, death);
     }
     else if (input == "-sort")
     {
+        vector<Person> p;
+        string input;
+        cout << "What do you want to sort by?" << endl;
+        cout << "-firstname" << endl << "-lastname" << endl << "-sex" << endl
+             << "-yearborn" << endl << "-deathyear" << endl;
+        cin >> input;
         domain d;
-        d.sort();
+        p = d.sort(input);
+        cout << "===== Sorted list =====" << endl;
+        print(p);
+
     }
     else if (input == "-help")
     {
@@ -69,8 +118,9 @@ bool toplayer::selection()
     }
     else
     {
-        cout << "this command does not exist" << endl;
+        cout << "This command does not exist" << endl;
     }
     return true;
 
 }
+
