@@ -15,7 +15,7 @@ void data::read(vector<Person>& pers)
     string firstname, lastname, sex;
     int birth = 0, death = 0;
     ifstream input;
-    input.open ("..\\vika1\\people.txt");
+    input.open ("tempdata2.dat");
     while (!input.eof()) {
 
         input >> firstname >> lastname >> sex >> birth >> death;
@@ -29,12 +29,13 @@ void data::read(vector<Person>& pers)
 
 void data::write(string& firstname, string& lastname, string& sex, int& birth, int& death)
 {
-  ofstream output ("..\\vika1\\people.txt", ios::app);
+  ofstream output ("tempdata2.dat", ios::app);
 
     if (output.is_open())
     {
         // nafn
-        output << firstname << lastname << endl;
+        output << firstname << endl;
+        output << lastname << endl;
         // sex
         output << sex << endl;
         // Birth
