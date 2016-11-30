@@ -1,4 +1,4 @@
-#include "domain.h"
+include "domain.h"
 #include "data.h"
 #include <iostream>
 
@@ -16,8 +16,8 @@ void domain::list()
     dat.read(persons);
     cout << "===== List =====" << endl;
     for(unsigned int i = 0; i < persons.size(); i++) {
-        cout << persons[i].getFirstname() << " " << persons[i].getLastname() << "\t" << persons[i].getSex() << "\t"
-        << persons[i].getBirth() << "\t" << persons[i].getDeath() << endl;
+<<<<<<< HEAD
+        cout << persons[i].getFirstname() << " " << persons[i].getLastname() << "\t" << persons[i].getSex() << "\t"  << persons[i].getBirth() << "\t" << persons[i].getDeath() << endl;
     }
     cout << "================" << endl;;
 }
