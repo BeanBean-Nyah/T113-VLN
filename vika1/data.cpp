@@ -49,4 +49,23 @@ void data::write(string& firstname, string& lastname, string& sex, int& birth, s
     }
 
 }
+//Overridear people.txt med nyjum vector
+void data::remove(vector<Person>& pers) {
+    ofstream output ("..\\vika1\\people.txt");
 
+      if (output.is_open())
+      {
+          for (unsigned int i = 0; i < pers.size(); i++) {
+          output << pers[i].getFirstname() << endl;
+          output << pers[i].getLastname()  << endl;
+          output << pers[i].getSex()  << endl;
+          output << pers[i].getBirth() << endl;
+          output << pers[i].getDeath()  << endl;
+          }
+          output.close();
+      }
+      else
+      {
+          cout << "File didn't open!" << endl;
+      }
+}

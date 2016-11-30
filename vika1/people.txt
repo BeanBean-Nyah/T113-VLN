@@ -1,8 +1,3 @@
-jl
-lj
-m
-767
-7678
 hannes
 joh
 male
@@ -33,3 +28,8 @@ bjo
 male
 34
 63345
+bjarni
+krist
+male
+32
+53

@@ -20,16 +20,17 @@ void toplayer::run()
 }
 void toplayer::help()
 {
-    cout << "*********************************************" << endl;
-    cout << "**  Notable Computer Scientists In History **" << endl;
-    cout << "**                                         **" << endl;
-    cout << "**     Enter -new to add a new person      **" << endl;
-    cout << "**     Enter -list for a full list         **" << endl;
-    cout << "**     Enter -search to search the list    **" << endl;
-    cout << "**     Enter -sort to sort the list        **" << endl;
-    cout << "**     Enter -exit to exit the program     **" << endl;
-    cout << "**                                         **" << endl;
-    cout << "*********************************************" << endl;
+    cout << "*********************************************************" << endl;
+    cout << "**        Notable Computer Scientists In History       **" << endl;
+    cout << "**                                                     **" << endl;
+    cout << "**     Enter -new to add a new person                  **" << endl;
+    cout << "**     Enter -list for a full list                     **" << endl;
+    cout << "**     Enter -search to search the list                **" << endl;
+    cout << "**     Enter -remove to remove element from the list   **" << endl;
+    cout << "**     Enter -sort to sort the list                    **" << endl;
+    cout << "**     Enter -exit to exit the program                 **" << endl;
+    cout << "**                                                     **" << endl;
+    cout << "*********************************************************" << endl;
 }
 
 void toplayer::print(vector<Person>& pers) {
@@ -88,11 +89,16 @@ bool toplayer::selection()
         cout << "Enter sex: ";
         cin >> sex;
         cout << "Enter year of birth: ";
-        cin >> birth;
+        while(!(cin>>birth)) {
+            cin.clear();
+            cin.ignore();
+            cout << "Invalid input!" << endl << "Try again: ";
+            }
         cout << "Enter year of death, if the person has not died please type \"-\": ";
         cin >> death;
         domain d;
         d.add(firstname, lastname, sex, birth, death);
+        cout << "You successfully created new person!" << endl;
     }
     else if (input == "-sort")
     {
@@ -106,7 +112,33 @@ bool toplayer::selection()
         p = d.sort(input);
         cout << "===== Sorted list =====" << endl;
         print(p);
-
+    }
+    else if (input == "-remove")
+    {
+        unsigned int lineNumber = 1;
+        vector<Person> p;
+        domain d;
+        p = d.list();
+        cout << "===== List =====" << endl;
+        for(unsigned int i = 0; i < p.size(); i++) {
+            cout << i+1 << "\t"
+                 << p[i].getFirstname() << "\t"
+                 << p[i].getLastname()  << "\t"
+                 << p[i].getSex() << "\t"
+                 << p[i].getBirth() << "\t"
+                 << p[i].getDeath() << endl;
+        }
+        cout << "Which entry do you want to remove?" << endl;
+        cout << "Type the line number: ";
+        do {
+            if (lineNumber <= 0 || lineNumber > p.size()) {
+                cout << "Sorry this isn't a vailid line, try again: ";
+            }
+            cin >> lineNumber;
+        } while (lineNumber <= 0 || lineNumber > p.size());
+        p.erase (p.begin()+(lineNumber-1));
+        d.remove(p);
+        cout << "You successfully removed line " << lineNumber << endl;
     }
     else if (input == "-help")
     {
