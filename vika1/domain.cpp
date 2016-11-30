@@ -17,7 +17,6 @@ void domain::list()
     dat.read(persons);
     cout << "===== List =====" << endl;
     print(persons);
-
 }
 
 void domain::add()
@@ -58,12 +57,13 @@ void domain::sort()
 
 void domain::print(vector<Person>& pers)
 {
-
     for(unsigned int i = 0; i < pers.size(); i++) {
-        cout << pers[i].getFirstname() << "\t" << pers[i].getSex() << "\t"
-        << pers[i].getBirth() << "\t" << pers[i].getDeath() << endl;
-    }
-    cout << "================" << endl;
+        cout << pers[i].getFirstname() << " "
+             << pers[i].getLastname()  << "\t"
+             << pers[i].getSex() << "\t"
+             << pers[i].getBirth() << "\t"
+             << pers[i].getDeath() << endl;    }
+    cout << "============================" << endl;
 }
 
 
