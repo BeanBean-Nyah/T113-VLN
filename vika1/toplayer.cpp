@@ -41,7 +41,7 @@ bool toplayer::selection()
         domain d;
         d.list();
     }
-    if (input == "-search")
+    else if (input == "-search")
     {
         domain d;
         string in;

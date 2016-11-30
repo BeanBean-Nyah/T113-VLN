@@ -17,6 +17,7 @@ void domain::list()
     dat.read(persons);
 
     print(persons);
+
     for(unsigned int i = 0; i < persons.size(); i++) {
         cout << persons[i].getFirstname() << "\t"
              << persons[i].getLastname() << "\t"
@@ -25,7 +26,6 @@ void domain::list()
              << persons[i].getDeath() << endl;
     }
     cout << "================" << endl;;
-
 }
 
 void domain::add()

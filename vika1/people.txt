@@ -23,8 +23,11 @@ bj
 m
 453
 745
+<<<<<<< HEAD
 john
 Doe
 male
 1957
 -
+=======
+>>>>>>> 1d735880aa5236fddf15d4bd222c45cacd629051
