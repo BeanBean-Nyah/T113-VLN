@@ -12,6 +12,7 @@ public:
     void list();
     void add();
     void sort();
+    void search();
 };
 
 #endif // DOMAIN_H

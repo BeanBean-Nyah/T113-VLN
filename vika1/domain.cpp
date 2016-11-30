@@ -16,8 +16,11 @@ void domain::list()
     dat.read(persons);
     cout << "===== List =====" << endl;
     for(unsigned int i = 0; i < persons.size(); i++) {
-        cout << persons[i].getFirstname() << "\t" <<  persons[i].getLastname() << "\t" << persons[i].getSex() << "\t"
-        << persons[i].getBirth() << "\t" << persons[i].getDeath() << endl;
+        cout << persons[i].getFirstname() << " "
+             << persons[i].getLastname() << "\t"
+             << persons[i].getSex() << "\t"
+             << persons[i].getBirth() << "\t"
+             << persons[i].getDeath() << endl;
     }
     cout << "================" << endl;;
 }
@@ -27,7 +30,8 @@ void domain::add()
     string firstname, lastname, sex;
     int birth, death;
     cout << "Enter first and last name: ";
-    cin >> firstname >> lastname;
+    cin >> firstname;
+    cin >> lastname;
     cout << "Enter sex: ";
     cin >> sex;
     cout << "Enter year of birth: ";
@@ -40,6 +44,11 @@ void domain::add()
 }
 
 void domain::sort()
+{
+
+}
+
+void domain::search()
 {
 
 }
