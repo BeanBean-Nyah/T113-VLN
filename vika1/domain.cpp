@@ -27,8 +27,8 @@ void domain::list()
 
 void domain::add()
 {
-    string firstname, lastname, sex;
-    int birth, death;
+    string firstname, lastname, sex, death;
+    int birth;
     cout << "Enter first and last name: ";
     cin >> firstname;
     cin >> lastname;
@@ -36,7 +36,7 @@ void domain::add()
     cin >> sex;
     cout << "Enter year of birth: ";
     cin >> birth;
-    cout << "Enter year of death: ";
+    cout << "Enter year of death, if the person has not died please type \"-\": ";
     cin >> death;
 
     data dat;

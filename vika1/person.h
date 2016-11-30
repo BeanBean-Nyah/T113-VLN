@@ -9,14 +9,14 @@ class Person
 {
 public:
     Person();
-    Person(string firstname, string lastname, string sex, int birth, int death);
+    Person(string firstname, string lastname, string sex, int birth, string death);
 
 
     int getBirth() const
     {
         return _birth;
     }
-    int getDeath() const
+    string getDeath() const
     {
         return _death;
     }
@@ -48,7 +48,7 @@ private:
     string _firstname;
     string _lastname;
     string _sex;
-    int _death;
+    string _death;
     int _birth;
 };
 
