@@ -48,7 +48,21 @@ void domain::sort()
 
 }
 
-void domain::search()
+void domain::search(string input)
 {
-
+    data dat;
+    vector<Person> persons;
+    dat.read(persons);
+    cout << "===== List =====" << endl;
+    for(unsigned int i = 0; i < persons.size(); i++) {
+        if(persons[i].getFirstname() == input)
+        {
+            cout << persons[i].getFirstname() << " "
+                 << persons[i].getLastname() << "\t"
+                 << persons[i].getSex() << "\t"
+                 << persons[i].getBirth() << "\t"
+                 << persons[i].getDeath() << endl;
+        }
+    }
+    cout << "================" << endl;;
 }

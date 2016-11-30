@@ -42,7 +42,10 @@ bool toplayer::selection()
     if (input == "-search")
     {
         domain d;
-        d.search();
+        string in;
+        cout << "enter a name to search for: ";
+        cin >> in;
+        d.search(in);
     }
     else if (input == "-new")
     {
