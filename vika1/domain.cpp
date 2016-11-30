@@ -15,18 +15,9 @@ void domain::list()
     data dat;
     vector<Person> persons;
     dat.read(persons);
-
+    cout << "===== List =====" << endl;
     print(persons);
-/*=======
-    for(unsigned int i = 0; i < persons.size(); i++) {
-        cout << persons[i].getFirstname() << " "
-             << persons[i].getLastname() << "\t"
-             << persons[i].getSex() << "\t"
-             << persons[i].getBirth() << "\t"
-             << persons[i].getDeath() << endl;
-    }
-    cout << "================" << endl;;
->>>>>>> 78de1fdcef954b32a8b367d0ab919d264399f663*/
+
 }
 
 void domain::add()
@@ -60,7 +51,7 @@ void domain::sort()
     dat.read(persons);
 
     std::sort(persons.begin(), persons.end(), myob);
-
+    cout << "===== Sorted list =====" << endl;
     print(persons);
 
 }
@@ -68,8 +59,6 @@ void domain::sort()
 void domain::print(vector<Person>& pers)
 {
 
-
-    cout << "===== List =====" << endl;
     for(unsigned int i = 0; i < pers.size(); i++) {
         cout << pers[i].getFirstname() << "\t" << pers[i].getSex() << "\t"
         << pers[i].getBirth() << "\t" << pers[i].getDeath() << endl;
@@ -83,16 +72,16 @@ void domain::search(string input)
     data dat;
     vector<Person> persons;
     dat.read(persons);
-    cout << "===== List =====" << endl;
+    cout << "===== Search results =====" << endl;
     for(unsigned int i = 0; i < persons.size(); i++) {
-        if(persons[i].getFirstname() == input)
-        {
-            cout << persons[i].getFirstname() << " "
-                 << persons[i].getLastname() << "\t"
-                 << persons[i].getSex() << "\t"
-                 << persons[i].getBirth() << "\t"
-                 << persons[i].getDeath() << endl;
-        }
+            if(persons[i].getFirstname() == input)
+            {
+                cout << persons[i].getFirstname() << " "
+                     << persons[i].getLastname() << "\t"
+                     << persons[i].getSex() << "\t"
+                     << persons[i].getBirth() << "\t"
+                     << persons[i].getDeath() << endl;
+            }
     }
-    cout << "================" << endl;;
+    cout << "================" << endl;
 }

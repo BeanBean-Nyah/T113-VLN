@@ -17,9 +17,7 @@ void data::read(vector<Person>& pers)
     int birth = 0;
     ifstream input;
     input.open ("..\\vika1\\people.txt");
-    while (!input.eof()) {
-
-        input >> firstname >> lastname >> sex >> birth >> death;
+    while (input >> firstname >> lastname >> sex >> birth >> death) {
         Person p(firstname, lastname, sex, birth, death);
         pers.push_back(p);
     }
