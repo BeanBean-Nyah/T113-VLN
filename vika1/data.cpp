@@ -12,8 +12,8 @@ data::data()
 
 void data::read(vector<Person>& pers)
 {
-    string firstname, lastname, sex;
-    int birth = 0, death = 0;
+    string firstname, lastname, sex, death;
+    int birth = 0;
     ifstream input;
     input.open ("tempdata2.dat");
     while (!input.eof()) {
@@ -27,7 +27,7 @@ void data::read(vector<Person>& pers)
 
 }
 
-void data::write(string& firstname, string& lastname, string& sex, int& birth, int& death)
+void data::write(string& firstname, string& lastname, string& sex, int& birth, string& death)
 {
   ofstream output ("tempdata2.dat", ios::app);
 
