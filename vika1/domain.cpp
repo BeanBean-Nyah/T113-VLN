@@ -12,14 +12,11 @@ domain::domain()
 
 void domain::list()
 {
-    vector<Person> persons;
     data dat;
+    vector<Person> persons;
     dat.read(persons);
     cout << "===== List =====" << endl;
-    for(unsigned int i = 0; i < persons.size(); i++) {
-        cout << persons[i].getName() << "\t" << persons[i].getSex() << "\t" << persons[i].getBirth() << "\t" << persons[i].getDeath() << endl;
-    }
-    cout << "================" << endl;;
+    print(persons);
 }
 
 void domain::add()
@@ -59,12 +56,14 @@ void domain::sort()
 
 void domain::print(vector<Person>& pers)
 {
-    cout << "===== List =====" << endl;
+    cout << pers[1].getBirth();
+
+    /*cout << "===== List =====" << endl;
     for(unsigned int i = 0; i < pers.size(); i++) {
         cout << pers[i].getName() << "\t" << pers[i].getSex() << "\t"
         << pers[i].getBirth() << "\t" << pers[i].getDeath() << endl;
     }
-    cout << "================" << endl;;
+    cout << "================" << endl;*/
 }
 
 void domain::search()
