@@ -26,7 +26,7 @@ void toplayer::help()
     cout << "**     Enter -new to add a new person      **" << endl;
     cout << "**     Enter -list for a full list         **" << endl;
     cout << "**     Enter -search to search the list    **" << endl;
-    cout << "**     enter -sort to sort the list        **" << endl;
+    cout << "**     Enter -sort to sort the list        **" << endl;
     cout << "**     Enter -exit to exit the program     **" << endl;
     cout << "**                                         **" << endl;
     cout << "*********************************************" << endl;

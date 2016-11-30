@@ -3,6 +3,7 @@
 #include "person.h"
 #include <iostream>
 #include <algorithm>
+#include <stdlib.h>
 
 using namespace std;
 domain::domain()
@@ -38,18 +39,59 @@ void domain::add()
 }
 
 
-struct PersonComparison {
+struct FirstNameComparison {
   bool operator() (Person i,Person j) { return (i.getFirstname()<j.getFirstname());}
-}myob;
+}firstName;
 
+struct LastNameComparison {
+  bool operator() (Person i,Person j) { return (i.getLastname()<j.getLastname());}
+}lastName;
+
+struct SexSorting {
+  bool operator() (Person i,Person j) { return (i.getSex()<j.getSex());}
+}sex;
+
+struct BirthYearSorting {
+  bool operator() (Person i,Person j)
+  {
+      return (i.getBirth()<j.getBirth());
+  }
+}yearBorn;
+
+struct DeathYearSorting {
+  bool operator() (Person i,Person j) { return (i.getDeath()<j.getDeath());}
+}yearDeath;
 
 void domain::sort()
 {
     data dat;
     vector<Person> persons;
     dat.read(persons);
+    string input;
+    cout << "What do you want to sort by?" << endl;
+    cout << "-firstname" << endl << "-lastname" << endl << "-sex" << endl
+         << "-yearborn" << endl << "-deathyear" << endl;
+    cin >> input;
+    if (input == "-firstname") {
+        std::sort(persons.begin(), persons.end(), firstName);
+    }
+    else if (input == "-lastname")
+    {
+        std::sort(persons.begin(), persons.end(), lastName);
+    }
+    else if (input == "-sex")
+    {
+        std::sort(persons.begin(), persons.end(), sex);
+    }
+    else if (input == "-yearborn")
+    {
+        std::sort(persons.begin(), persons.end(), yearBorn);
+    }
+    else if (input == "-deathyear")
+    {
+        std::sort(persons.begin(), persons.end(), yearDeath);
+    }
 
-    std::sort(persons.begin(), persons.end(), myob);
     cout << "===== Sorted list =====" << endl;
     print(persons);
 
@@ -58,11 +100,12 @@ void domain::sort()
 void domain::print(vector<Person>& pers)
 {
     for(unsigned int i = 0; i < pers.size(); i++) {
-        cout << pers[i].getFirstname() << " "
+        cout << pers[i].getFirstname() << "\t"
              << pers[i].getLastname()  << "\t"
              << pers[i].getSex() << "\t"
              << pers[i].getBirth() << "\t"
-             << pers[i].getDeath() << endl;    }
+             << pers[i].getDeath() << endl;
+    }
     cout << "============================" << endl;
 }
 
