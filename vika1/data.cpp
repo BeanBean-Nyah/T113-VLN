@@ -34,7 +34,8 @@ void data::write(string& firstname, string& lastname, string& sex, int& birth, s
     if (output.is_open())
     {
         // fyrra nafn
-        output << firstname  << lastname  << endl;
+        output << firstname << endl;
+        output << lastname  << endl;
         // sex
         output << sex  << endl;
         // Birth
