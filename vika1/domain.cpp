@@ -16,7 +16,7 @@ void domain::list()
     dat.read(persons);
     cout << "===== List =====" << endl;
     for(unsigned int i = 0; i < persons.size(); i++) {
-        cout << persons[i].getFirstname() << " "
+        cout << persons[i].getFirstname() << "\t "
              << persons[i].getLastname() << "\t"
              << persons[i].getSex() << "\t"
              << persons[i].getBirth() << "\t"
