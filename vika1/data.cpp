@@ -12,6 +12,7 @@ data::data()
 
 void data::read(vector<Person>& pers)
 {
+
     string name, sex;
     int birth = 0, death = 0;
     ifstream input;

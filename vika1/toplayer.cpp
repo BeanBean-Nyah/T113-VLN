@@ -24,6 +24,7 @@ void toplayer::help()
     cout << "**     enter -list for a list              **" << endl;
     cout << "**     enter -search to search the list    **" << endl;
     cout << "**     enter -new  to add a new person     **" << endl;
+    cout << "**     enter -sort to sort the list        **" << endl;
     cout << "**     enter -exit to exit the program     **" << endl;
     cout << "*********************************************" << endl;
 }
@@ -40,6 +41,16 @@ bool toplayer::selection()
     {
         domain d;
         d.add();
+    }
+    else if (input == "-sort")
+    {
+        domain d;
+        d.sort();
+    }
+    else if (input == "-search")
+    {
+        domain d;
+        d.search();
     }
     else if (input == "-help")
     {
