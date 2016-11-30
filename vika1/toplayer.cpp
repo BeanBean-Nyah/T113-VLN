@@ -36,6 +36,11 @@ bool toplayer::selection()
         domain d;
         d.list();
     }
+    if (input == "-search")
+    {
+        domain d;
+        d.search();
+    }
     else if (input == "-new")
     {
         domain d;
