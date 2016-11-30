@@ -12,8 +12,8 @@ data::data()
 
 void data::read(vector<Person>& pers)
 {
-    string firstname, lastname, sex;
-    int birth = 0, death = 0;
+    string firstname, lastname, sex, death;
+    int birth = 0;
     ifstream input;
     input.open ("./Persondata.dat");
     while (!input.eof()) {
@@ -27,21 +27,20 @@ void data::read(vector<Person>& pers)
 
 }
 
-void data::write(string& firstname, string& lastname, string& sex, int& birth, int& death)
+void data::write(string& firstname, string& lastname, string& sex, int& birth, string& death)
 {
   ofstream output ("./Persondata.dat", ios::app);
 
     if (output.is_open())
     {
-        // nafn
-        output << firstname << endl;
-        output << lastname << endl;
+        // fyrra nafn
+        output << firstname  << lastname  << endl;
         // sex
-        output << sex << endl;
+        output << sex  << endl;
         // Birth
-        output << birth << endl;
+        output << birth  << endl;
         // Death
-        output << death << endl;
+        output << death  << endl;
         output.close();
     }
     else

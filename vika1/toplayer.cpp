@@ -23,13 +23,14 @@ void toplayer::help()
     cout << "*********************************************" << endl;
     cout << "**  Notable Computer Scientists In History **" << endl;
     cout << "**                                         **" << endl;
+    cout << "**     Enter -new to add a new person      **" << endl;
     cout << "**     Enter -list for a full list         **" << endl;
     cout << "**     Enter -search to search the list    **" << endl;
-    cout << "**     Enter -new  to add a new person     **" << endl;
     cout << "**     Enter -exit to exit the program     **" << endl;
     cout << "**                                         **" << endl;
     cout << "*********************************************" << endl;
 }
+
 bool toplayer::selection()
 {
     string input;
