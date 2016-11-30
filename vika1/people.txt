@@ -14,3 +14,15 @@ Smari
 Male
 1954
 2043
+Hannes
+male
+1993
+4000
+jon
+male
+344
+352
+jpe
+dsf
+543
+456

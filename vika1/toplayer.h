@@ -9,7 +9,7 @@ public:
     void run();
 private:
     void help();
-    void selection();
+    bool selection();
 };
 
 #endif // TOPLAYER_H

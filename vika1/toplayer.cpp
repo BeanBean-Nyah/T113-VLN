@@ -1,6 +1,7 @@
 #include "toplayer.h"
+#include "domain.h"
 #include <iostream>
-#include <cstdlib>
+
 
 using namespace std;
 
@@ -12,9 +13,9 @@ void toplayer::run()
 {
     help();
     cout << "\n enter -help to display the command list again " << endl;
-    for (int i = 0; i < 100; i++)
+    while(selection())
     {
-        selection();
+
     }
 }
 void toplayer::help()
@@ -26,19 +27,19 @@ void toplayer::help()
     cout << "**     enter -exit to exit the program     **" << endl;
     cout << "*********************************************" << endl;
 }
-void toplayer::selection()
+bool toplayer::selection()
 {
     string input;
     cin >> input;
     if (input == "-list")
     {
-        cout << "getting list";
-        //todo
+        domain d;
+        d.list();
     }
     else if (input == "-new")
     {
-        cout << "adding new";
-        //todo
+        domain d;
+        d.add();
     }
     else if (input == "-help")
     {
@@ -46,11 +47,12 @@ void toplayer::selection()
     }
     else if (input == "-exit")
     {
-        exit(0);
+        return false;
     }
     else
     {
         cout << "this command does not exist" << endl;
     }
+    return true;
 
 }

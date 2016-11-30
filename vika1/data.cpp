@@ -27,25 +27,24 @@ void data::read(vector<Person>& pers)
 
 }
 
-void data::write()
+void data::write(string& name, string& sex, int& birth, int& death)
 {
   ofstream output ("..\\vika1\\people.txt", ios::app);
 
-
     if (output.is_open())
-      {
-        cout << "file is open!" << endl;
+    {
         // nafn
-        output << "Smari" << endl;
+        output << name << endl;
         // sex
-        output << "Male" << endl;
+        output << sex << endl;
         // Birth
-        output << "1954" << endl;
+        output << birth << endl;
         // Death
-        output << "2043" << endl;
+        output << death << endl;
         output.close();
-      }
-    else {
+    }
+    else
+    {
         cout << "File didn't open!" << endl;
     }
 
