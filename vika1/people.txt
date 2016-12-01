@@ -1,8 +1,3 @@
-Charles
-Babbage
-male
-1791
-1871
 Ada
 Lovelace
 female
@@ -58,3 +53,13 @@ Boole
 male
 1815
 1864
+hann
+djfs
+male
+34
+34
+dshf
+dshf
+male
+3543
+453
