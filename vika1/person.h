@@ -10,39 +10,40 @@ class Person
 {
 public:
     Person();
-    Person(string firstname, string lastname, string sex, int birth, string death);
+    Person(string firstname, string lastname, string sex, string birth, string death);
 
 
-    int getBirth() const
+    string getBirth() const
     {
         return _birth;
+    }
+    // Notad til ad sortera eftir birthyear
+    int getBirthint() const
+    {
+        int b = atoi(_birth.c_str());
+        return b;
     }
     string getDeath() const
     {
         return _death;
     }
-    string getBirthstring() const
+    // Notad til ad sortera eftir deathyear
+    int getDeathint() const
     {
-        string bi = static_cast<ostringstream*>( &(ostringstream() << _birth) )->str();
-        return bi;
+        int d = atoi(_death.c_str());
+        return d;
     }
     string getFirstname() const
     {
         return _firstname;
     }
-    void setFirstname(string firstname)
-    {
-        _firstname = firstname;
-    }
+
 
     string getLastname() const
     {
         return _lastname;
     }
-    void setLastname(string lastname)
-    {
-       _lastname = lastname;
-    }
+
 
     string getSex() const
     {
@@ -55,7 +56,7 @@ private:
     string _lastname;
     string _sex;
     string _death;
-    int _birth;
+    string _birth;
 };
 
 #endif // PERSON_H

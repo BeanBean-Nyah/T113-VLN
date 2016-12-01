@@ -18,11 +18,6 @@ gumm
 female
 345
 5325
-joe
-john
-male
-90
-453
 aron
 bjo
 male
@@ -33,3 +28,8 @@ krist
 male
 32
 53
+petur
+chan
+female
+563
+754

@@ -20,7 +20,7 @@ vector<Person> domain::list()
     return persons;
 }
 
-void domain::add(string& firstname, string& lastname, string& sex, int& birth, string& death)
+void domain::add(string& firstname, string& lastname, string& sex, string& birth, string& death)
 {
     data dat;
     dat.write(firstname, lastname, sex, birth, death);
@@ -40,14 +40,11 @@ struct SexSorting {
 }sex;
 
 struct BirthYearSorting {
-  bool operator() (Person i,Person j)
-  {
-      return (i.getBirth()<j.getBirth());
-  }
+  bool operator() (Person i,Person j) { return (i.getBirthint()<j.getBirthint());}
 }yearBorn;
 
 struct DeathYearSorting {
-  bool operator() (Person i,Person j) { return (i.getDeath()<j.getDeath());}
+  bool operator() (Person i,Person j) { return (i.getDeathint()<j.getDeathint());}
 }yearDeath;
 
 vector<Person> domain::sort(string& input)
@@ -108,7 +105,7 @@ vector<Person> domain::search(string& whattype, string& input)
                 res.push_back(p);
             }
         } else if (whattype == "-birthyear"){
-            if(persons[i].getBirthstring() == input)
+            if(persons[i].getBirth() == input)
             {
                 Person p(persons[i].getFirstname(), persons[i].getLastname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
