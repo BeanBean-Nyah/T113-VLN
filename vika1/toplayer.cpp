@@ -75,18 +75,18 @@ bool toplayer::selection()
         string whattype, input;
         cout << "What do you want to search for?" << endl;
         cout << "-firstname" << endl << "-lastname" << endl << "-sex"
-             << endl << "-birthyear" << endl << "-deathyear" << endl;
+             << endl << "-birth" << endl << "-death" << endl;
         cout << "Enter your choice: ";
         do {
             cin >> whattype;
             if (whattype != "-firstname" && whattype != "-lastname" && whattype != "-sex" &&
-                whattype != "-yearborn" && whattype != "-deathyear") {
+                whattype != "-birth" && whattype != "-death") {
                 cout << whattype << " is not valid input! Try again: ";
             }
         } while (whattype != "-firstname" && whattype != "-lastname" && whattype != "-sex" &&
-                 whattype != "-yearborn" && whattype != "-deathyear");
+                 whattype != "-birth" && whattype != "-death");
 
-        cout << "What is word do you want to serch for? ";
+        cout << "What is the word you want to search for? ";
         cin >> input;
         p = d.search(whattype, input);
         if (p.size() == 0){
@@ -150,15 +150,15 @@ bool toplayer::selection()
         string input;
         cout << "What do you want to sort by?" << endl;
         cout << "-firstname" << endl << "-lastname" << endl << "-sex" << endl
-             << "-yearborn" << endl << "-deathyear" << endl;
+             << "-birth" << endl << "-death" << endl;
         do {
             cin >> input;
             if (input != "-firstname" && input != "-lastname" && input != "-sex" &&
-                input != "-yearborn" && input != "-deathyear") {
+                input != "-birth" && input != "-death") {
                 cout << input << " is not valid command! Try again: ";
             }
         } while (input != "-firstname" && input != "-lastname" && input != "-sex" &&
-                 input != "-yearborn" && input != "-deathyear");
+                 input != "-birth" && input != "-death");
         domain d;
         p = d.sort(input);
 
@@ -185,7 +185,7 @@ bool toplayer::selection()
         cout << "Type the line number: ";
         do {
             if (lineNumber <= 0 || lineNumber > p.size()) {
-                cout << "Sorry this isn't a vailid line, try again: ";
+                cout << "Sorry this isn't a valid line, try again: ";
             }
             while (!(cin >> lineNumber)) {
                cin.clear();
