@@ -52,7 +52,7 @@ void toplayer::print(vector<Person>& pers) {
         cout<<left;
         cout << pers[i].getDeath()<<endl;
     }
-    cout << "==============================================" << endl;
+    cout << "==============================================" << endl << endl;
 
 }
 
@@ -67,6 +67,9 @@ bool toplayer::selection()
         p = d.list();
         cout << "==================== List ====================" << endl;
         print(p);
+        system("pause");
+        clearScreen();
+        help();
     }
     else if (input == "-search")
     {
@@ -95,7 +98,9 @@ bool toplayer::selection()
             cout << "===== Search results =====" << endl;
             print(p);
         }
-
+        system("pause");
+        clearScreen();
+        help();
     }
     else if (input == "-new")
     {
@@ -142,7 +147,10 @@ bool toplayer::selection()
         } while (contains_letters(death));
         domain d;
         d.add(firstname, lastname, sex, birth, death);
-        cout << "You successfully created new person!" << endl;
+        cout << "You successfully added a new person!" << endl << endl;
+        system("pause");
+        clearScreen();
+        help();
     }
     else if (input == "-sort")
     {
@@ -164,9 +172,13 @@ bool toplayer::selection()
 
         cout << "===== Sorted list =====" << endl;
         print(p);
+        system("pause");
+        clearScreen();
+        help();
     }
     else if (input == "-remove")
     {
+        help();
         unsigned int lineNumber = 1;
         vector<Person> p;
         domain d;
@@ -196,10 +208,14 @@ bool toplayer::selection()
         } while (lineNumber <= 0 || lineNumber > p.size());
         p.erase (p.begin()+(lineNumber-1));
         d.remove(p);
-        cout << "You successfully removed line " << lineNumber << endl;
+        cout << "You successfully removed a line " << lineNumber << endl << endl;
+        system("pause");
+        clearScreen();
+        help();
     }
     else if (input == "-help")
     {
+        clearScreen();
         help();
     }
     else if (input == "-exit")
@@ -211,7 +227,6 @@ bool toplayer::selection()
         cout << "This command does not exist" << endl;
     }
     return true;
-
 }
 
 // Villutjekk, athugar hvort thad se tolustafur i strengnum
@@ -228,5 +243,4 @@ bool toplayer::contains_letters(const string &c)
 void toplayer::clearScreen()
 {
     system("cls");
-    system("clear");
 }
