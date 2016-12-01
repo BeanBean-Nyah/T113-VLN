@@ -123,7 +123,7 @@ vector<Person> domain::search(string& whattype, string& input)
     return res;
 }
 
-void domain::remove(vector<Person>& pers) {
+void domain::edit(vector<Person>& pers) {
     data dat;
     dat.remove(pers);
 }

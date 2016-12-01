@@ -8,13 +8,26 @@ class toplayer
 public:
     toplayer();
     void run();
-    void print(vector<Person>& pers);
+
 private:
     void help();
+    void printList(vector<Person>& p);
+    void printLine(vector<Person>& pers, const int& i);
+    void clearScreen();
+    void print(vector<Person>& pers);
+
     bool selection();
     bool contains_number(const string &c);
     bool contains_letters(const string &c);
-    void clearScreen();
+
+    int lineEntry(const vector<Person>& p);
+
+    string getInputType();
+    string getNewFirstname();
+    string getNewLastname();
+    string getNewSex();
+    string getNewBirth();
+    string getNewDeath();
 };
 
 #endif // TOPLAYER_H
