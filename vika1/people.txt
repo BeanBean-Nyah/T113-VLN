@@ -58,13 +58,3 @@ Boole
 male
 1815
 1864
-Konrad
-Zuse
-male
-1910
-1995
-Willis
-Ware
-male
-1920
-2013
