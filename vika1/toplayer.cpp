@@ -52,7 +52,7 @@ void toplayer::print(vector<Person>& pers) {
         cout<<left;
         cout << pers[i].getDeath()<<endl;
     }
-    cout << "================================================" << endl;
+    cout << "================================================" << endl << endl;
 }
 
 bool toplayer::selection()
