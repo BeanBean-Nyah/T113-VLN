@@ -177,7 +177,6 @@ bool toplayer::selection()
     }
     else if (input == "-remove")
     {
-        help();
         unsigned int lineNumber = 1;
         vector<Person> p;
         domain d;
