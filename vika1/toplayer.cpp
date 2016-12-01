@@ -36,11 +36,21 @@ void toplayer::help()
 void toplayer::print(vector<Person>& pers) {
 
     for(unsigned int i = 0; i < pers.size(); i++) {
-        cout << pers[i].getFirstname() << "\t"
-             << pers[i].getLastname()  << "\t"
-             << pers[i].getSex() << "\t"
-             << pers[i].getBirth() << "\t"
-             << pers[i].getDeath() << endl;
+        cout.width(10);
+        cout<<left;
+        cout << pers[i].getFirstname();
+        cout.width(10);
+        cout<<left;
+        cout << pers[i].getLastname();
+        cout.width(10);
+        cout<<left;
+        cout << pers[i].getSex();
+        cout.width(10);
+        cout<<left;
+        cout << pers[i].getBirth();
+        cout.width(10);
+        cout<<left;
+        cout << pers[i].getDeath()<<endl;
     }
     cout << "============================" << endl;
 
@@ -127,6 +137,7 @@ bool toplayer::selection()
                  << p[i].getSex() << "\t"
                  << p[i].getBirth() << "\t"
                  << p[i].getDeath() << endl;
+
         }
         cout << "Which entry do you want to remove?" << endl;
         cout << "Type the line number: ";
