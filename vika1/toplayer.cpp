@@ -167,7 +167,7 @@ bool toplayer::selection()
         domain d;
         p = d.sort(input);
 
-        cout << "===== Sorted list =====" << endl;
+        cout << "================== Sorted list =================" << endl;
         print(p);
         system("pause");
         clearScreen();
