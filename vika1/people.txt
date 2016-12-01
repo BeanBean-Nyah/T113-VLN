@@ -18,11 +18,6 @@ gumm
 female
 345
 5325
-joe
-john
-male
-90
-453
 aron
 bjo
 male
@@ -38,8 +33,3 @@ chan
 female
 563
 754
-hann
-hsf
-male
-45
--

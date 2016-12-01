@@ -67,7 +67,15 @@ bool toplayer::selection()
         cout << "-firstname" << endl << "-lastname" << endl << "-sex"
              << endl << "-birthyear" << endl << "-deathyear" << endl;
         cout << "Enter your choice: ";
-        cin >> whattype;
+        do {
+            cin >> whattype;
+            if (whattype != "-firstname" && whattype != "-lastname" && whattype != "-sex" &&
+                whattype != "-yearborn" && whattype != "-deathyear") {
+                cout << whattype << " is not valid input! Try again: ";
+            }
+        } while (whattype != "-firstname" && whattype != "-lastname" && whattype != "-sex" &&
+                 whattype != "-yearborn" && whattype != "-deathyear");
+
         cout << "What is word do you want to serch for? ";
         cin >> input;
         p = d.search(whattype, input);
@@ -81,8 +89,8 @@ bool toplayer::selection()
     }
     else if (input == "-new")
     {
-        string firstname, lastname, sex, death;
-        int birth;
+        string firstname, lastname, sex, birth, death;
+
         cout << "Enter first name: ";
         do {
             cin >> firstname;
@@ -90,6 +98,7 @@ bool toplayer::selection()
                 cout << "First name can not contain numbers try again: ";
             }
         } while (contains_number(firstname));
+
         cout << "Enter last name: ";
         do {
             cin >> lastname;
@@ -97,6 +106,7 @@ bool toplayer::selection()
                 cout << "Last name can not contain numbers try again: ";
             }
         } while (contains_number(lastname));
+
         cout << "Enter sex: ";
         do {
             cin >> sex;
@@ -106,13 +116,20 @@ bool toplayer::selection()
         } while (sex != "male" && sex != "female");
 
         cout << "Enter year of birth: ";
-        while(!(cin>>birth)) {
-            cin.clear();
-            cin.ignore();
-            cout << "Invalid input!" << endl << "Try again: ";
+        do {
+            cin >> birth;
+            if (contains_letters(birth)){
+                cout << "Year of death can not contain letters, try again: ";
             }
+        } while (contains_letters(birth));
+
         cout << "Enter year of death, if the person has not died please type \"-\": ";
-        cin >> death;
+        do {
+            cin >> death;
+            if (contains_letters(death)){
+                cout << "Year of death can not contain letters, try again: ";
+            }
+        } while (contains_letters(death));
         domain d;
         d.add(firstname, lastname, sex, birth, death);
         cout << "You successfully created new person!" << endl;
@@ -159,7 +176,12 @@ bool toplayer::selection()
             if (lineNumber <= 0 || lineNumber > p.size()) {
                 cout << "Sorry this isn't a vailid line, try again: ";
             }
-            cin >> lineNumber;
+            while (!(cin >> lineNumber)) {
+               cin.clear();
+               cin.ignore();
+               cout << "Invalid input, try again: ";
+            }
+
         } while (lineNumber <= 0 || lineNumber > p.size());
         p.erase (p.begin()+(lineNumber-1));
         d.remove(p);
@@ -185,4 +207,15 @@ bool toplayer::selection()
 bool toplayer::contains_number(const string &c)
 {
     return (c.find_first_of("0123456789") != string::npos);
+}
+
+bool toplayer::contains_letters(const string &c)
+{
+    return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnm") != string::npos);
+}
+
+void toplayer::clearScreen()
+{
+    system("cls");
+    system("clear");
 }
