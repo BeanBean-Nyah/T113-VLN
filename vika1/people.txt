@@ -63,8 +63,3 @@ Zuse
 male
 1910
 1995
-Willis
-Ware
-male
-1920
-2013
