@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 
+//prufu komment
 
 using namespace std;
 domain::domain()
