@@ -142,7 +142,7 @@ bool toplayer::selection()
         } while (contains_letters(death));
         domain d;
         d.add(firstname, lastname, sex, birth, death);
-        cout << "You successfully created new person!" << endl;
+        cout << "You successfully added a new person!" << endl;
     }
     else if (input == "-sort")
     {
@@ -196,7 +196,7 @@ bool toplayer::selection()
         } while (lineNumber <= 0 || lineNumber > p.size());
         p.erase (p.begin()+(lineNumber-1));
         d.remove(p);
-        cout << "You successfully removed line " << lineNumber << endl;
+        cout << "You successfully removed a line " << lineNumber << endl;
     }
     else if (input == "-help")
     {
