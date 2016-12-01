@@ -213,10 +213,10 @@ bool toplayer::selection()
             cin >> yesorno;
             if (yesorno == "-yes") {
                 yesno = true;
+                clearScreen();
             } else {
                 yesno = false;
             }
-            clearScreen();
         }
         d.edit(p);
         system("pause");
