@@ -12,6 +12,7 @@ public:
 private:
     void help();
     bool selection();
+    bool contains_number(const string &c);
 };
 
 #endif // TOPLAYER_H

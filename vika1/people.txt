@@ -33,3 +33,13 @@ krist
 male
 32
 53
+petur
+chan
+female
+563
+754
+hann
+hsf
+male
+45
+-

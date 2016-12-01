@@ -83,11 +83,28 @@ bool toplayer::selection()
     {
         string firstname, lastname, sex, death;
         int birth;
-        cout << "Enter first and last name: ";
-        cin >> firstname;
-        cin >> lastname;
+        cout << "Enter first name: ";
+        do {
+            cin >> firstname;
+            if (contains_number(firstname)) {
+                cout << "First name can not contain numbers try again: ";
+            }
+        } while (contains_number(firstname));
+        cout << "Enter last name: ";
+        do {
+            cin >> lastname;
+            if (contains_number(lastname)) {
+                cout << "Last name can not contain numbers try again: ";
+            }
+        } while (contains_number(lastname));
         cout << "Enter sex: ";
-        cin >> sex;
+        do {
+            cin >> sex;
+            if (sex != "male" && sex != "female"){
+                cout << sex << " is not a gender, please choose male or female: ";
+            }
+        } while (sex != "male" && sex != "female");
+
         cout << "Enter year of birth: ";
         while(!(cin>>birth)) {
             cin.clear();
@@ -107,9 +124,17 @@ bool toplayer::selection()
         cout << "What do you want to sort by?" << endl;
         cout << "-firstname" << endl << "-lastname" << endl << "-sex" << endl
              << "-yearborn" << endl << "-deathyear" << endl;
-        cin >> input;
+        do {
+            cin >> input;
+            if (input != "-firstname" && input != "-lastname" && input != "-sex" &&
+                input != "-yearborn" && input != "-deathyear") {
+                cout << input << " is not valid command! Try again: ";
+            }
+        } while (input != "-firstname" && input != "-lastname" && input != "-sex" &&
+                 input != "-yearborn" && input != "-deathyear");
         domain d;
         p = d.sort(input);
+
         cout << "===== Sorted list =====" << endl;
         print(p);
     }
@@ -156,3 +181,8 @@ bool toplayer::selection()
 
 }
 
+// Villutjekk, athugar hvort thad se tolustafur i strengnum
+bool toplayer::contains_number(const string &c)
+{
+    return (c.find_first_of("0123456789") != string::npos);
+}
