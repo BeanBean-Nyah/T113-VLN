@@ -53,8 +53,3 @@ Boole
 male
 1815
 1864
-hann
-djfs
-male
-1910
-1995
