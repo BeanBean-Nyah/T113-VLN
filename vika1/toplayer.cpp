@@ -39,7 +39,7 @@ void toplayer::print(vector<Person>& pers) {
         cout.width(10);
         cout<<left;
         cout << pers[i].getFirstname();
-        cout.width(10);
+        cout.width(12);
         cout<<left;
         cout << pers[i].getLastname();
         cout.width(10);
@@ -52,7 +52,7 @@ void toplayer::print(vector<Person>& pers) {
         cout<<left;
         cout << pers[i].getDeath()<<endl;
     }
-    cout << "======================================" << endl;
+    cout << "==============================================" << endl;
 
 }
 
@@ -65,7 +65,7 @@ bool toplayer::selection()
         vector<Person> p;
         domain d;
         p = d.list();
-        cout << "================ List ================" << endl;
+        cout << "==================== List ====================" << endl;
         print(p);
     }
     else if (input == "-search")
