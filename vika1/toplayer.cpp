@@ -108,33 +108,41 @@ bool toplayer::selection()
     cin >> input;
     if (input == "-list")
     {
-        vector<Person> p;
-        domain d;
-        p = d.list();
-        cout << "===================== List =====================" << endl;
-        print(p);
+        if (!(isListEmpty())) {
+            cout << "================ List is empty =================" << endl << endl;
+        } else {
+            vector<Person> p;
+            domain d;
+            p = d.list();
+            cout << "===================== List =====================" << endl;
+            print(p);
+        }
         system("pause");
         clearScreen();
         help();
     }
     else if (input == "-search")
     {
-        vector<Person> p;
-        domain d;
-        string whattype, input;
-        cout << "What do you want to search for?" << endl;
-        cout << "-firstname" << endl << "-lastname" << endl << "-sex"
-             << endl << "-birth" << endl << "-death" << endl;
-        cout << "Enter your choice: ";
-        whattype = getInputType();
-        cout << "What is the word you want to search for? ";
-        cin >> input;
-        p = d.search(whattype, input);
-        if (p.size() == 0){
-            cout << "Sorry, no results!" << endl;
+        if (!(isListEmpty())) {
+            cout << "================ List is empty =================" << endl << endl;
         } else {
-            cout << "===== Search results =====" << endl;
-            print(p);
+            vector<Person> p;
+            domain d;
+            string whattype, input;
+            cout << "What do you want to search for?" << endl;
+            cout << "-firstname" << endl << "-lastname" << endl << "-sex"
+                 << endl << "-birth" << endl << "-death" << endl;
+            cout << "Enter your choice: ";
+            whattype = getInputType();
+            cout << "What is the word you want to search for? ";
+            cin >> input;
+            p = d.search(whattype, input);
+            if (p.size() == 0){
+                cout << "Sorry, no results!" << endl;
+            } else {
+                cout << "===== Search results =====" << endl;
+                print(p);
+            }
         }
         system("pause");
         clearScreen();
@@ -159,82 +167,94 @@ bool toplayer::selection()
     }
     else if (input == "-sort")
     {
-        vector<Person> p;
-        cout << "What do you want to sort by?" << endl;
-        cout << "-firstname" << endl << "-lastname" << endl << "-sex" << endl
-             << "-birth" << endl << "-death" << endl;
-        string input = getInputType();
-        domain d;
-        p = d.sort(input);
+        if (!(isListEmpty())) {
+            cout << "================ List is empty =================" << endl << endl;
+        } else {
+            vector<Person> p;
+            cout << "What do you want to sort by?" << endl;
+            cout << "   -firstname" << endl << "   -lastname" << endl << "   -sex" << endl
+                 << "   -birth" << endl << "   -death" << endl;
+            string input = getInputType();
+            domain d;
+            p = d.sort(input);
 
-        cout << "================== Sorted list =================" << endl;
-        print(p);
+            cout << "================== Sorted list =================" << endl;
+            print(p);
+        }
         system("pause");
         clearScreen();
         help();
     }
     else if (input == "-edit")
     {
-        string input, newElement;
-        bool yesno = true;
-        vector<Person> p;
-        domain d;
-        p = d.list();
-        printList(p);
-        cout << "Which entry do you want to edit? " << endl;
-        int lineNumber = lineEntry(p);
-        clearScreen();
-        while (yesno) {
-            printLine(p, lineNumber);
-            cout << "Which element do you want to edit? " << endl << "For firstname type: \t -firstname" << endl <<
-                 "For lastname type: \t -lastname" << endl << "For sex type: \t \t -sex" << endl <<
-                 "For birth year type: \t -birth" << endl << "For year of death type:  -death" << endl;
-            input = getInputType();
+        if (!(isListEmpty())) {
+            cout << "================ List is empty =================" << endl << endl;
+        } else {
+            string input, newElement;
+            bool yesno = true;
+            vector<Person> p;
+            domain d;
+            p = d.list();
+            printList(p);
+            cout << "Which entry do you want to edit? " << endl;
+            int lineNumber = lineEntry(p);
+            clearScreen();
+            while (yesno) {
+                printLine(p, lineNumber);
+                cout << "Which element do you want to edit? " << endl << "For firstname type: \t -firstname" <<
+                     endl << "For lastname type: \t -lastname" << endl << "For sex type: \t \t -sex" << endl <<
+                     "For birth year type: \t -birth" << endl << "For year of death type:  -death" << endl;
+                input = getInputType();
 
-            if (input == "-firstname") {
-                string firstname = getNewFirstname();
-                p[lineNumber-1].setFirstname(firstname);
-            } else if (input == "-lastname") {
-                string lastname = getNewLastname();
-                p[lineNumber-1].setLastname(lastname);
-            } else if (input == "-sex") {
-                string sex = getNewSex();
-                p[lineNumber-1].setSex(sex);
-            } else if (input == "-birth") {
-                string birth = getNewBirth();
-                p[lineNumber-1].setBirth(birth);
-            } else if (input == "-death") {
-                string death = getNewDeath();
-                p[lineNumber-1].setDeath(death);
+                if (input == "-firstname") {
+                    string firstname = getNewFirstname();
+                    p[lineNumber-1].setFirstname(firstname);
+                } else if (input == "-lastname") {
+                    string lastname = getNewLastname();
+                    p[lineNumber-1].setLastname(lastname);
+                } else if (input == "-sex") {
+                    string sex = getNewSex();
+                    p[lineNumber-1].setSex(sex);
+                } else if (input == "-birth") {
+                    string birth = getNewBirth();
+                    p[lineNumber-1].setBirth(birth);
+                } else if (input == "-death") {
+                    string death = getNewDeath();
+                    p[lineNumber-1].setDeath(death);
+                }
+                string yesorno;
+                cout << "Do you want to edit another element in this entry? " << endl << endl;
+                cout << "Type -yes if you want to else type anything else: ";
+                cin >> yesorno;
+                if (yesorno == "-yes") {
+                    yesno = true;
+                    clearScreen();
+                } else {
+                    yesno = false;
+                }
             }
-            string yesorno;
-            cout << "Do you want to edit another element in this entry? " << endl << endl;
-            cout << "Type -yes if you want to else type anything else: ";
-            cin >> yesorno;
-            if (yesorno == "-yes") {
-                yesno = true;
-                clearScreen();
-            } else {
-                yesno = false;
-            }
+            d.edit(p);
         }
-        d.edit(p);
         system("pause");
         clearScreen();
         help();
     }
     else if (input == "-remove")
     {
-        vector<Person> p;
-        domain d;
-        p = d.list();
-        cout << "=========================== List ===========================" << endl;
-        printList(p);
-        cout << "Which entry do you want to remove?" << endl;
-        int lineNumber = lineEntry(p);
-        p.erase (p.begin()+(lineNumber-1));
-        d.edit(p);
-        cout << "You successfully removed a line " << lineNumber << endl << endl;
+        if (!(isListEmpty())) {
+            cout << "================ List is empty =================" << endl << endl;
+        } else {
+            vector<Person> p;
+            domain d;
+            p = d.list();
+            cout << "=========================== List ===========================" << endl;
+            printList(p);
+            cout << "Which entry do you want to remove?" << endl;
+            int lineNumber = lineEntry(p);
+            p.erase (p.begin()+(lineNumber-1));
+            d.edit(p);
+            cout << "You successfully removed a line " << lineNumber << endl << endl;
+        }
         system("pause");
         clearScreen();
         help();
@@ -250,9 +270,21 @@ bool toplayer::selection()
     }
     else
     {
-        cout << "This command does not exist" << endl;
+        cout << input << " is not a valid command! Try again: ";
     }
     return true;
+}
+
+//Athugar hvort listinn se tomur
+bool toplayer::isListEmpty() {
+    vector<Person> p;
+    domain d;
+    p = d.list();
+    if (p.size() > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // Villutjekk, athugar hvort thad se tolustafur i strengnum
@@ -260,12 +292,12 @@ bool toplayer::contains_number(const string &c)
 {
     return (c.find_first_of("0123456789") != string::npos);
 }
-
+// Villutjekk, athugar hvort thad se bokstafur i strengnum
 bool toplayer::contains_letters(const string &c)
 {
     return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnm") != string::npos);
 }
-
+// clear -ar console
 void toplayer::clearScreen()
 {
     system("cls");
@@ -291,6 +323,7 @@ int toplayer::lineEntry(const vector<Person>& p) {
 string toplayer::getInputType() {
     string input;
     do {
+        cout << "Enter your choice: ";
         cin >> input;
         if (input != "-firstname" && input != "-lastname" && input != "-sex" &&
             input != "-birth" && input != "-death") {

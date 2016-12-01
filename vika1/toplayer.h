@@ -19,6 +19,7 @@ private:
     bool selection();
     bool contains_number(const string &c);
     bool contains_letters(const string &c);
+    bool isListEmpty();
 
     int lineEntry(const vector<Person>& p);
 
