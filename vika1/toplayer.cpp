@@ -39,7 +39,7 @@ void toplayer::print(vector<Person>& pers) {
         cout.width(10);
         cout<<left;
         cout << pers[i].getFirstname();
-        cout.width(10);
+        cout.width(12);
         cout<<left;
         cout << pers[i].getLastname();
         cout.width(10);
@@ -52,7 +52,7 @@ void toplayer::print(vector<Person>& pers) {
         cout<<left;
         cout << pers[i].getDeath()<<endl;
     }
-    cout << "======================================" << endl << endl;
+    cout << "==============================================" << endl << endl;
 
 }
 
@@ -65,7 +65,7 @@ bool toplayer::selection()
         vector<Person> p;
         domain d;
         p = d.list();
-        cout << "================ List ================" << endl;
+        cout << "==================== List ====================" << endl;
         print(p);
         system("pause");
         clearScreen();
@@ -147,7 +147,7 @@ bool toplayer::selection()
         } while (contains_letters(death));
         domain d;
         d.add(firstname, lastname, sex, birth, death);
-        cout << "You successfully created new person!" << endl << endl;
+        cout << "You successfully added a new person!" << endl << endl;
         system("pause");
         clearScreen();
         help();
@@ -208,7 +208,7 @@ bool toplayer::selection()
         } while (lineNumber <= 0 || lineNumber > p.size());
         p.erase (p.begin()+(lineNumber-1));
         d.remove(p);
-        cout << "You successfully removed line " << lineNumber << endl << endl;
+        cout << "You successfully removed a line " << lineNumber << endl << endl;
         system("pause");
         clearScreen();
         help();
