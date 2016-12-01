@@ -36,7 +36,7 @@ void toplayer::help()
 void toplayer::print(vector<Person>& pers) {
 
     for(unsigned int i = 0; i < pers.size(); i++) {
-        cout.width(10);
+        cout.width(12);
         cout<<left;
         cout << pers[i].getFirstname();
         cout.width(12);
@@ -52,7 +52,7 @@ void toplayer::print(vector<Person>& pers) {
         cout<<left;
         cout << pers[i].getDeath()<<endl;
     }
-    cout << "==============================================" << endl;
+    cout << "================================================" << endl;
 
 }
 
@@ -65,7 +65,7 @@ bool toplayer::selection()
         vector<Person> p;
         domain d;
         p = d.list();
-        cout << "==================== List ====================" << endl;
+        cout << "===================== List =====================" << endl;
         print(p);
     }
     else if (input == "-search")
@@ -171,14 +171,26 @@ bool toplayer::selection()
         vector<Person> p;
         domain d;
         p = d.list();
-        cout << "===== List =====" << endl;
+        cout << "=========================== List ===========================" << endl;
         for(unsigned int i = 0; i < p.size(); i++){
-            cout << i+1 << "\t"
-                 << p[i].getFirstname() << "\t"
-                 << p[i].getLastname() << "\t"
-                 << p[i].getSex() << "\t"
-                 << p[i].getBirth() << "\t"
-                 << p[i].getDeath() << endl;
+            cout.width(10);
+            cout << left;
+            cout << i+1;
+            cout.width(12);
+            cout << left;
+            cout << p[i].getFirstname();
+            cout.width(12);
+            cout << left;
+            cout << p[i].getLastname();
+            cout.width(10);
+            cout << left;
+            cout << p[i].getSex();
+            cout.width(10);
+            cout << left;
+            cout << p[i].getBirth();
+            cout.width(10);
+            cout << left;
+            cout << p[i].getDeath() << endl;
 
         }
         cout << "Which entry do you want to remove?" << endl;
