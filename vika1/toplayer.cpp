@@ -36,7 +36,7 @@ void toplayer::help()
 void toplayer::print(vector<Person>& pers) {
 
     for(unsigned int i = 0; i < pers.size(); i++) {
-        cout.width(10);
+        cout.width(12);
         cout<<left;
         cout << pers[i].getFirstname();
         cout.width(12);
@@ -52,8 +52,7 @@ void toplayer::print(vector<Person>& pers) {
         cout<<left;
         cout << pers[i].getDeath()<<endl;
     }
-    cout << "==============================================" << endl << endl;
-
+    cout << "================================================" << endl;
 }
 
 bool toplayer::selection()
@@ -65,7 +64,7 @@ bool toplayer::selection()
         vector<Person> p;
         domain d;
         p = d.list();
-        cout << "==================== List ====================" << endl;
+        cout << "===================== List =====================" << endl;
         print(p);
         system("pause");
         clearScreen();
@@ -78,18 +77,18 @@ bool toplayer::selection()
         string whattype, input;
         cout << "What do you want to search for?" << endl;
         cout << "-firstname" << endl << "-lastname" << endl << "-sex"
-             << endl << "-birthyear" << endl << "-deathyear" << endl;
+             << endl << "-birth" << endl << "-death" << endl;
         cout << "Enter your choice: ";
         do {
             cin >> whattype;
             if (whattype != "-firstname" && whattype != "-lastname" && whattype != "-sex" &&
-                whattype != "-yearborn" && whattype != "-deathyear") {
+                whattype != "-birth" && whattype != "-death") {
                 cout << whattype << " is not valid input! Try again: ";
             }
         } while (whattype != "-firstname" && whattype != "-lastname" && whattype != "-sex" &&
-                 whattype != "-yearborn" && whattype != "-deathyear");
+                 whattype != "-birth" && whattype != "-death");
 
-        cout << "What is word do you want to serch for? ";
+        cout << "What is the word you want to search for? ";
         cin >> input;
         p = d.search(whattype, input);
         if (p.size() == 0){
@@ -158,15 +157,15 @@ bool toplayer::selection()
         string input;
         cout << "What do you want to sort by?" << endl;
         cout << "-firstname" << endl << "-lastname" << endl << "-sex" << endl
-             << "-yearborn" << endl << "-deathyear" << endl;
+             << "-birth" << endl << "-death" << endl;
         do {
             cin >> input;
             if (input != "-firstname" && input != "-lastname" && input != "-sex" &&
-                input != "-yearborn" && input != "-deathyear") {
+                input != "-birth" && input != "-death") {
                 cout << input << " is not valid command! Try again: ";
             }
         } while (input != "-firstname" && input != "-lastname" && input != "-sex" &&
-                 input != "-yearborn" && input != "-deathyear");
+                 input != "-birth" && input != "-death");
         domain d;
         p = d.sort(input);
 
@@ -183,21 +182,33 @@ bool toplayer::selection()
         vector<Person> p;
         domain d;
         p = d.list();
-        cout << "===== List =====" << endl;
+        cout << "=========================== List ===========================" << endl;
         for(unsigned int i = 0; i < p.size(); i++){
-            cout << i+1 << "\t"
-                 << p[i].getFirstname() << "\t"
-                 << p[i].getLastname() << "\t"
-                 << p[i].getSex() << "\t"
-                 << p[i].getBirth() << "\t"
-                 << p[i].getDeath() << endl;
+            cout.width(10);
+            cout << left;
+            cout << i+1;
+            cout.width(12);
+            cout << left;
+            cout << p[i].getFirstname();
+            cout.width(12);
+            cout << left;
+            cout << p[i].getLastname();
+            cout.width(10);
+            cout << left;
+            cout << p[i].getSex();
+            cout.width(10);
+            cout << left;
+            cout << p[i].getBirth();
+            cout.width(10);
+            cout << left;
+            cout << p[i].getDeath() << endl;
 
         }
         cout << "Which entry do you want to remove?" << endl;
         cout << "Type the line number: ";
         do {
             if (lineNumber <= 0 || lineNumber > p.size()) {
-                cout << "Sorry this isn't a vailid line, try again: ";
+                cout << "Sorry this isn't a valid line, try again: ";
             }
             while (!(cin >> lineNumber)) {
                cin.clear();
