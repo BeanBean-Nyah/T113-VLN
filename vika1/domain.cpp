@@ -27,7 +27,7 @@ void domain::add(string& firstname, string& lastname, string& sex, string& birth
     dat.write(firstname, lastname, sex, birth, death);
 }
 
-
+//Foll til ad sortera eftir flokkum
 struct FirstNameComparison {
   bool operator() (Person i,Person j) { return (i.getFirstname()<j.getFirstname());}
 }firstName;
@@ -48,30 +48,31 @@ struct DeathYearSorting {
   bool operator() (Person i,Person j) { return (i.getDeathint()<j.getDeathint());}
 }yearDeath;
 
-vector<Person> domain::sort(string& input)
+
+vector<Person> domain::sorting(string& input)
 {
     data dat;
     vector<Person> persons;
     dat.read(persons);
 
     if (input == "-firstname") {
-        std::sort(persons.begin(), persons.end(), firstName);
+        sort(persons.begin(), persons.end(), firstName);
     }
     else if (input == "-lastname")
     {
-        std::sort(persons.begin(), persons.end(), lastName);
+        sort(persons.begin(), persons.end(), lastName);
     }
     else if (input == "-sex")
     {
-        std::sort(persons.begin(), persons.end(), sex);
+        sort(persons.begin(), persons.end(), sex);
     }
-    else if (input == "-yearborn")
+    else if (input == "-birth")
     {
-        std::sort(persons.begin(), persons.end(), yearBorn);
+        sort(persons.begin(), persons.end(), yearBorn);
     }
-    else if (input == "-deathyear")
+    else if (input == "-death")
     {
-        std::sort(persons.begin(), persons.end(), yearDeath);
+        sort(persons.begin(), persons.end(), yearDeath);
     }
     return persons;
 }
@@ -128,3 +129,4 @@ void domain::edit(vector<Person>& pers) {
     data dat;
     dat.remove(pers);
 }
+

@@ -60,8 +60,7 @@ public:
     {
         _birth = b;
     }
-    void setDeath(const string& d)
-    {
+    void setDeath(const string& d) {
         _death = d;
     }
 

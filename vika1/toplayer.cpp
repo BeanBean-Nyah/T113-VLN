@@ -1,6 +1,9 @@
 #include "toplayer.h"
 #include "domain.h"
 #include <iostream>
+#include <algorithm>
+#include <cctype>
+#include <iomanip>
 
 
 using namespace std;
@@ -21,7 +24,7 @@ void toplayer::run()
 void toplayer::help()
 {
     cout << "*********************************************************" << endl;
-    cout << "**        Notable Computer Scientists In History       **" << endl;
+    cout << "**     Notable Computer Scientists In History          **" << endl;
     cout << "**                                                     **" << endl;
     cout << "**     Enter -new to add a new person                  **" << endl;
     cout << "**     Enter -list for a full list                     **" << endl;
@@ -36,11 +39,13 @@ void toplayer::help()
 
 //Prentar ut lista med ollum personunum ur vector
 void toplayer::print(vector<Person>& pers) {
+    cout << left << setw(12) << "Firstname" << setw(14) << "Lastname" << setw(10)
+         << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
     for(unsigned int i = 0; i < pers.size(); i++) {
         cout.width(12);
         cout<<left;
         cout << pers[i].getFirstname();
-        cout.width(12);
+        cout.width(14);
         cout<<left;
         cout << pers[i].getLastname();
         cout.width(10);
@@ -53,17 +58,19 @@ void toplayer::print(vector<Person>& pers) {
         cout<<left;
         cout << pers[i].getDeath()<<endl;
     }
-    cout << "================================================" << endl << endl;
+    cout << "==================================================" << endl << endl;
 }
 
 //Prentar ut eina linu ur vector
 void toplayer::printLine(vector<Person>& pers, const int& i) {
     int k = i - 1;
-    cout << endl << "================ Line to edit ==================" << endl;
+    cout << endl << "================ Line to edit =====================" << endl;
+    cout << left << setw(12) << "Firstname" << setw(14) << "Lastname" << setw(10)
+         << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
     cout.width(12);
     cout<<left;
     cout << pers[k].getFirstname();
-    cout.width(12);
+    cout.width(14);
     cout<<left;
     cout << pers[k].getLastname();
     cout.width(10);
@@ -75,19 +82,21 @@ void toplayer::printLine(vector<Person>& pers, const int& i) {
     cout.width(10);
     cout<<left;
     cout << pers[k].getDeath()<<endl;
-    cout << "================================================" << endl << endl;
+    cout << "===================================================" << endl << endl;
 }
 
 //Prentar ut lista med numerum fyrir framan hvern einstakling
 void toplayer::printList(vector<Person>& p) {
+    cout << left << setw(5) << "Nr." << setw(12) << "Firstname" << setw(14) << "Lastname" << setw(10)
+         << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
     for(unsigned int i = 0; i < p.size(); i++){
-        cout.width(10);
+        cout.width(5);
         cout << left;
         cout << i+1;
         cout.width(12);
         cout << left;
         cout << p[i].getFirstname();
-        cout.width(12);
+        cout.width(14);
         cout << left;
         cout << p[i].getLastname();
         cout.width(10);
@@ -100,6 +109,7 @@ void toplayer::printList(vector<Person>& p) {
         cout << left;
         cout << p[i].getDeath() << endl;
     }
+    cout << "=======================================================" << endl << endl;
 }
 
 bool toplayer::selection()
@@ -114,7 +124,7 @@ bool toplayer::selection()
             vector<Person> p;
             domain d;
             p = d.list();
-            cout << "===================== List =====================" << endl;
+            cout << "====================== List =======================" << endl;
             print(p);
         }
         system("pause");
@@ -136,11 +146,12 @@ bool toplayer::selection()
             whattype = getInputType();
             cout << "What is the word you want to search for? ";
             cin >> input;
+            input = capFirstLetter(input);
             p = d.search(whattype, input);
             if (p.size() == 0){
                 cout << "Sorry, no results!" << endl;
             } else {
-                cout << "===== Search results =====" << endl;
+                cout << "================ Search results ==================" << endl;
                 print(p);
             }
         }
@@ -176,9 +187,9 @@ bool toplayer::selection()
                  << "   -birth" << endl << "   -death" << endl;
             string input = getInputType();
             domain d;
-            p = d.sort(input);
+            p = d.sorting(input);
 
-            cout << "================== Sorted list =================" << endl;
+            cout << "=================== Sorted list ===================" << endl;
             print(p);
         }
         system("pause");
@@ -247,7 +258,7 @@ bool toplayer::selection()
             vector<Person> p;
             domain d;
             p = d.list();
-            cout << "=========================== List ===========================" << endl;
+            cout << "========================= List ========================" << endl;
             printList(p);
             cout << "Which entry do you want to remove?" << endl;
             int lineNumber = lineEntry(p);
@@ -295,8 +306,22 @@ bool toplayer::contains_number(const string &c)
 // Villutjekk, athugar hvort thad se bokstafur i strengnum
 bool toplayer::contains_letters(const string &c)
 {
-    return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnm") != string::npos);
+    return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM") != string::npos);
 }
+// gerir alla stafi i streng lower case
+string toplayer::Lower_Ans(string word)
+{
+    transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator
+    return word;
+}
+
+//fixar input thannig ad fyrsti stafur er alltaf stor og rest litlir
+string toplayer::capFirstLetter(string& str) {
+    string output = Lower_Ans(str);
+    output[0] = toupper(output[0]);
+    return output;
+}
+
 // clear -ar console
 void toplayer::clearScreen()
 {
@@ -325,6 +350,7 @@ string toplayer::getInputType() {
     do {
         cout << "Enter your choice: ";
         cin >> input;
+        input = Lower_Ans(input);
         if (input != "-firstname" && input != "-lastname" && input != "-sex" &&
             input != "-birth" && input != "-death") {
             cout << input << " is not valid command! Try again: ";
@@ -339,6 +365,7 @@ string toplayer::getNewFirstname() {
     cout << "Enter first name: ";
     do {
         cin >> firstname;
+        firstname = capFirstLetter(firstname);
         if (contains_number(firstname)) {
             cout << "First name can not contain numbers try again: ";
         }
@@ -351,6 +378,7 @@ string toplayer::getNewLastname() {
     cout << "Enter last name: ";
     do {
         cin >> lastname;
+        lastname = capFirstLetter(lastname);
         if (contains_number(lastname)) {
             cout << "Last name can not contain numbers try again: ";
         }
@@ -363,10 +391,11 @@ string toplayer::getNewSex() {
     cout << "Enter sex: ";
     do {
         cin >> sex;
-        if (sex != "male" && sex != "female"){
+        sex = capFirstLetter(sex);
+        if (sex != "Male" && sex != "Female"){
             cout << sex << " is not a gender, please choose male or female: ";
         }
-    } while (sex != "male" && sex != "female");
+    } while (sex != "Male" && sex != "Female");
     return sex;
 }
 // skilar nyju birth

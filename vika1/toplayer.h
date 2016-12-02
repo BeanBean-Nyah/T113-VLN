@@ -3,6 +3,7 @@
 #include <vector>
 #include "person.h"
 #include <stdlib.h>
+#include <algorithm>
 class toplayer
 {
 public:
@@ -20,6 +21,10 @@ private:
     bool contains_number(const string &c);
     bool contains_letters(const string &c);
     bool isListEmpty();
+
+    string Lower_Ans(string word);
+    string capFirstLetter(string& str);
+
 
     int lineEntry(const vector<Person>& p);
 
