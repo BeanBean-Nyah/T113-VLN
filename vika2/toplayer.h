@@ -1,9 +1,11 @@
 #ifndef TOPLAYER_H
 #define TOPLAYER_H
 #include <vector>
+#include <string>
 #include "person.h"
 #include <stdlib.h>
 #include <algorithm>
+
 class toplayer
 {
 public:
@@ -30,7 +32,6 @@ private:
 
     string getInputType();
     string getNewFirstname();
-    string getNewLastname();
     string getNewSex();
     string getNewBirth();
     string getNewDeath();

@@ -20,21 +20,21 @@ vector<Person> domain::list()
 
     return persons;
 }
+void domain::openDatabase() {
+    data dat;
+    dat.openDatabase();
+}
 
-void domain::add(string& firstname, string& lastname, string& sex, string& birth, string& death)
+void domain::add(string& firstname, string& sex, string& birth, string& death)
 {
     data dat;
-    dat.write(firstname, lastname, sex, birth, death);
+    dat.write(firstname, sex, birth, death);
 }
 
 //Foll til ad sortera eftir flokkum
 struct FirstNameComparison {
   bool operator() (Person i,Person j) { return (i.getFirstname()<j.getFirstname());}
 }firstName;
-
-struct LastNameComparison {
-  bool operator() (Person i,Person j) { return (i.getLastname()<j.getLastname());}
-}lastName;
 
 struct SexSorting {
   bool operator() (Person i,Person j) { return (i.getSex()<j.getSex());}
@@ -57,10 +57,6 @@ vector<Person> domain::sorting(string& input)
 
     if (input == "-firstname") {
         sort(persons.begin(), persons.end(), firstName);
-    }
-    else if (input == "-lastname")
-    {
-        sort(persons.begin(), persons.end(), lastName);
     }
     else if (input == "-sex")
     {
@@ -88,35 +84,28 @@ vector<Person> domain::search(string& whattype, string& input)
         {
             if(persons[i].getFirstname() == input)
             {
-                Person p(persons[i].getFirstname(), persons[i].getLastname(),
-                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-                res.push_back(p);
-            }
-        } else if (whattype == "-lastname"){
-            if(persons[i].getLastname() == input)
-            {
-                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                Person p(persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
         } else if (whattype == "-sex"){
             if(persons[i].getSex() == input)
             {
-                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                Person p(persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
         } else if (whattype == "-birthyear"){
             if(persons[i].getBirth() == input)
             {
-                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                Person p(persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
         } else if (whattype == "-deathyear"){
             if(persons[i].getDeath() == input)
             {
-                Person p(persons[i].getFirstname(), persons[i].getLastname(),
+                Person p(persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
@@ -125,8 +114,15 @@ vector<Person> domain::search(string& whattype, string& input)
     return res;
 }
 
-void domain::edit(vector<Person>& pers) {
+void domain::remove(vector<Person>& pers, int& line) {
+    string name = pers[line].getFirstname();
     data dat;
-    dat.remove(pers);
+    dat.remove(name);
+}
+
+void domain::edit(string& type, string& newValue) {
+
+    data dat;
+    dat.edit(newValue, type);
 }
 

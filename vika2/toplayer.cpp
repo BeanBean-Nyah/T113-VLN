@@ -14,6 +14,8 @@ toplayer::toplayer()
 }
 void toplayer::run()
 {
+    domain d;
+    d.openDatabase();
     help();
     cout << "\n Enter -help to display the command list again " << endl;
     while(selection())
@@ -39,15 +41,12 @@ void toplayer::help()
 
 //Prentar ut lista med ollum personunum ur vector
 void toplayer::print(vector<Person>& pers) {
-    cout << left << setw(12) << "Firstname" << setw(14) << "Lastname" << setw(10)
+    cout << left << setw(25) << "Name" << setw(10)
          << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
     for(unsigned int i = 0; i < pers.size(); i++) {
-        cout.width(12);
+        cout.width(25);
         cout<<left;
         cout << pers[i].getFirstname();
-        cout.width(14);
-        cout<<left;
-        cout << pers[i].getLastname();
         cout.width(10);
         cout<<left;
         cout << pers[i].getSex();
@@ -65,14 +64,11 @@ void toplayer::print(vector<Person>& pers) {
 void toplayer::printLine(vector<Person>& pers, const int& i) {
     int k = i - 1;
     cout << endl << "================ Line to edit =====================" << endl;
-    cout << left << setw(12) << "Firstname" << setw(14) << "Lastname" << setw(10)
+    cout << left << setw(25) << "Name" << setw(10)
          << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
     cout.width(12);
     cout<<left;
     cout << pers[k].getFirstname();
-    cout.width(14);
-    cout<<left;
-    cout << pers[k].getLastname();
     cout.width(10);
     cout<<left;
     cout << pers[k].getSex();
@@ -87,18 +83,15 @@ void toplayer::printLine(vector<Person>& pers, const int& i) {
 
 //Prentar ut lista med numerum fyrir framan hvern einstakling
 void toplayer::printList(vector<Person>& p) {
-    cout << left << setw(5) << "Nr." << setw(12) << "Firstname" << setw(14) << "Lastname" << setw(10)
+    cout << left << setw(5) << "Nr." << setw(25) << "Name" << setw(10)
          << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
     for(unsigned int i = 0; i < p.size(); i++){
         cout.width(5);
         cout << left;
         cout << i+1;
-        cout.width(12);
+        cout.width(25);
         cout << left;
         cout << p[i].getFirstname();
-        cout.width(14);
-        cout << left;
-        cout << p[i].getLastname();
         cout.width(10);
         cout << left;
         cout << p[i].getSex();
@@ -140,12 +133,13 @@ bool toplayer::selection()
             domain d;
             string whattype, input;
             cout << "What do you want to search for?" << endl;
-            cout << "-firstname" << endl << "-lastname" << endl << "-sex"
+            cout << "-firstname" << endl << "-sex"
                  << endl << "-birth" << endl << "-death" << endl;
             cout << "Enter your choice: ";
             whattype = getInputType();
             cout << "What is the word you want to search for? ";
-            cin >> input;
+            cin.ignore();
+            getline(cin,input);
             input = capFirstLetter(input);
             p = d.search(whattype, input);
             if (p.size() == 0){
@@ -161,16 +155,15 @@ bool toplayer::selection()
     }
     else if (input == "-new")
     {
-        string firstname, lastname, sex, birth, death;
+        string firstname, sex, birth, death;
 
         firstname = getNewFirstname();
-        lastname = getNewLastname();
         sex = getNewSex();
         birth = getNewBirth();
         death = getNewDeath();
 
         domain d;
-        d.add(firstname, lastname, sex, birth, death);
+        d.add(firstname, sex, birth, death);
         cout << "You successfully added a new person!" << endl << endl;
         system("pause");
         clearScreen();
@@ -183,7 +176,7 @@ bool toplayer::selection()
         } else {
             vector<Person> p;
             cout << "What do you want to sort by?" << endl;
-            cout << "   -firstname" << endl << "   -lastname" << endl << "   -sex" << endl
+            cout << "   -firstname" << endl << "   -sex" << endl
                  << "   -birth" << endl << "   -death" << endl;
             string input = getInputType();
             domain d;
@@ -201,7 +194,7 @@ bool toplayer::selection()
         if (!(isListEmpty())) {
             cout << "================ List is empty =================" << endl << endl;
         } else {
-            string input, newElement;
+            string input, newElement, newValue;
             bool yesno = true;
             vector<Person> p;
             domain d;
@@ -212,27 +205,21 @@ bool toplayer::selection()
             clearScreen();
             while (yesno) {
                 printLine(p, lineNumber);
-                cout << "Which element do you want to edit? " << endl << "For firstname type: \t -firstname" <<
-                     endl << "For lastname type: \t -lastname" << endl << "For sex type: \t \t -sex" << endl <<
+                cout << "Which element do you want to edit? " << endl << "For name type: \t -firstname" <<
+                     endl << "For sex type: \t \t -sex" << endl <<
                      "For birth year type: \t -birth" << endl << "For year of death type:  -death" << endl;
                 input = getInputType();
 
                 if (input == "-firstname") {
-                    string firstname = getNewFirstname();
-                    p[lineNumber-1].setFirstname(firstname);
-                } else if (input == "-lastname") {
-                    string lastname = getNewLastname();
-                    p[lineNumber-1].setLastname(lastname);
+                    newValue = getNewFirstname();
                 } else if (input == "-sex") {
-                    string sex = getNewSex();
-                    p[lineNumber-1].setSex(sex);
+                    newValue = getNewSex();
                 } else if (input == "-birth") {
-                    string birth = getNewBirth();
-                    p[lineNumber-1].setBirth(birth);
+                    newValue = getNewBirth();
                 } else if (input == "-death") {
-                    string death = getNewDeath();
-                    p[lineNumber-1].setDeath(death);
+                    newValue = getNewDeath();
                 }
+                d.edit(input, newValue);
                 string yesorno;
                 cout << "Do you want to edit another element in this entry? " << endl << endl;
                 cout << "Type -yes if you want to else type anything else: ";
@@ -244,7 +231,7 @@ bool toplayer::selection()
                     yesno = false;
                 }
             }
-            d.edit(p);
+            //d.edit(p);
         }
         system("pause");
         clearScreen();
@@ -262,8 +249,8 @@ bool toplayer::selection()
             printList(p);
             cout << "Which entry do you want to remove?" << endl;
             int lineNumber = lineEntry(p);
-            p.erase (p.begin()+(lineNumber-1));
-            d.edit(p);
+            //p.erase (p.begin()+(lineNumber-1));
+            d.remove(p, lineNumber);
             cout << "You successfully removed a line " << lineNumber << endl << endl;
         }
         system("pause");
@@ -351,20 +338,21 @@ string toplayer::getInputType() {
         cout << "Enter your choice: ";
         cin >> input;
         input = Lower_Ans(input);
-        if (input != "-firstname" && input != "-lastname" && input != "-sex" &&
+        if (input != "-firstname" && input != "-sex" &&
             input != "-birth" && input != "-death") {
             cout << input << " is not valid command! Try again: ";
         }
-    } while (input != "-firstname" && input != "-lastname" && input != "-sex" &&
+    } while (input != "-firstname" && input != "-sex" &&
              input != "-birth" && input != "-death");
     return input;
 }
 //skilar nyju firstname
 string toplayer::getNewFirstname() {
     string firstname;
-    cout << "Enter first name: ";
+    cout << "Enter name: ";
     do {
-        cin >> firstname;
+        cin.ignore();
+        getline (cin, firstname);
         firstname = capFirstLetter(firstname);
         if (contains_number(firstname)) {
             cout << "First name can not contain numbers try again: ";
@@ -372,19 +360,7 @@ string toplayer::getNewFirstname() {
     } while (contains_number(firstname));
     return firstname;
 }
-//skilar nyju lastname
-string toplayer::getNewLastname() {
-    string lastname;
-    cout << "Enter last name: ";
-    do {
-        cin >> lastname;
-        lastname = capFirstLetter(lastname);
-        if (contains_number(lastname)) {
-            cout << "Last name can not contain numbers try again: ";
-        }
-    } while (contains_number(lastname));
-    return lastname;
-}
+
 //skilar nyju sex
 string toplayer::getNewSex() {
     string sex;

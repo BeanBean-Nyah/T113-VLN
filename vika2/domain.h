@@ -15,10 +15,12 @@ private:
 public:
     domain();
     vector<Person> list();
-    void add(string& firstname, string& lastname, string& sex, string& birth, string& death);
+    void add(string& firstname, string& sex, string& birth, string& death);
     vector<Person> sorting(string& input);
     vector<Person> search(string& whattype, string& input);
-    void edit(vector<Person>& pers);
+    void remove(vector<Person>& pers, int& line);
+    void edit(string& type, string& newValue);
+    void openDatabase();
 };
 
 #endif // DOMAIN_H

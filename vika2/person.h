@@ -10,7 +10,7 @@ class Person
 {
 public:
     Person();
-    Person(string firstname, string lastname, string sex, string birth, string death);
+    Person(string firstname, string sex, string birth, string death);
 
     // Notad til ad sortera eftir birthyear
     int getBirthint() const
@@ -36,10 +36,6 @@ public:
     {
         return _firstname;
     }
-    string getLastname() const
-    {
-        return _lastname;
-    }
     string getSex() const
     {
         return _sex;
@@ -47,10 +43,6 @@ public:
     void setFirstname(const string& fn)
     {
          _firstname = fn;
-    }
-    void setLastname(const string& ln)
-    {
-        _lastname = ln;
     }
     void setSex(const string& sex)
     {
@@ -66,7 +58,6 @@ public:
 
 private:
     string _firstname;
-    string _lastname;
     string _sex;
     string _death;
     string _birth;
