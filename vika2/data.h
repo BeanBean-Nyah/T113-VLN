@@ -8,6 +8,10 @@
 #include <vector>
 #include <QSqlDatabase>
 #include <QSql>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QDebug>
+#include <QVariant>
 
 
 class data
