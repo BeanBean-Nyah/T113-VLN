@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <QSqlDatabase>
+#include <QSql>
 
 
 class data
@@ -17,6 +19,7 @@ public:
     void read(vector<Person>& pers);
     void write(string& firstname, string& lastname, string& sex, string& birth, string& death);
     void remove(vector<Person>& pers);
+    QSqlDatabase m_db;
 
 };
 
