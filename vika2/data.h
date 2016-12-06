@@ -29,6 +29,8 @@ public:
     QSqlDatabase m_db;
     void openDatabase();
 
+    vector<Computer> sortComputer(string& type);
+
 };
 
 #endif // DATA_H
