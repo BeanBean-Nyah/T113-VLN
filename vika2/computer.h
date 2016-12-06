@@ -11,7 +11,8 @@ class Computer
 {
 public:
     Computer();
-    Computer(string name, string year, string type, string built);
+    Computer(string id, string name, string year, string type, string built);
+
 
     int getYearint() const
     {
@@ -55,6 +56,7 @@ public:
     }
 
 private:
+    string _id;
     string _name;
     string _year;
     string _type;

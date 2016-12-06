@@ -52,13 +52,41 @@ void data::read(vector<Person>& pers)
     }
 }
 
+void data::readComputer(vector<Computer>& comp)
+{
+    QSqlQuery query("SELECT ID, Name, Year, Type, Built, Status FROM persons");
+    int idID = query.record().indexOf("ID");
+    int idName = query.record().indexOf("Name");
+    int idYear = query.record().indexOf("Year");
+    int idType = query.record().indexOf("Type");
+    int idBuilt = query.record().indexOf("Built");
+    int idStatus = query.record().indexOf("Status");
+    while (query.next())
+    {
+        if (query.value(idStatus) == 0) {
+            QString qid = query.value(idID).toString();
+            string id = qid.toLocal8Bit().constData();
+            QString qname = query.value(idName).toString();
+            string name = qname.toLocal8Bit().constData();
+            QString qyear = query.value(idYear).toString();
+            string year = qyear.toLocal8Bit().constData();
+            QString qtype = query.value(idType).toString();
+            string type = qtype.toLocal8Bit().constData();
+            QString qbuilt = query.value(idBuilt).toString();
+            string built = qbuilt.toLocal8Bit().constData();
+            Computer c(id, name, year, type, built);
+            comp.push_back(c);
+        }
+    }
+}
+
 void data::write(string& firstname, string& sex, string& birth, string& death)
 {
     QSqlQuery query;
     QString qfirstname = QString::fromStdString(firstname);
     QString qsex = QString::fromStdString(sex);
     QString qbirth = QString::fromStdString(birth);
-    QString qdeath= QString::fromStdString(death);
+    QString qdeath = QString::fromStdString(death);
     query.prepare("INSERT INTO persons (Name, Sex, Birth, Death)"
                       "VALUES (:name, :sex, :birth, :death)");
         query.bindValue(":name", qfirstname);
@@ -66,8 +94,22 @@ void data::write(string& firstname, string& sex, string& birth, string& death)
         query.bindValue(":birth", qbirth);
         query.bindValue(":death", qdeath);
         query.exec();
+}
 
-
+void data::writeComputer(string& name, string& year, string& type, string& built)
+{
+    QSqlQuery query;
+    QString qname = QString::fromStdString(name);
+    QString qyear = QString::fromStdString(year);
+    QString qtype = QString::fromStdString(type);
+    QString qbuilt = QString::fromStdString(built);
+    query.prepare("INSERT INTO computer (computer_name, computer_year, computer_type, computer_built)"
+                      "VALUES (:name, :year, :type, :built)");
+        query.bindValue(":name", qname);
+        query.bindValue(":year", qyear);
+        query.bindValue(":type", qtype);
+        query.bindValue(":built", qbuilt);
+        query.exec();
 }
 
 void data::remove(string& ID) {
@@ -108,5 +150,4 @@ void data::edit(string& ID, string& value, string& type) {
         query.bindValue(":value", qvalue);
     }
     query.exec();
-
 }
