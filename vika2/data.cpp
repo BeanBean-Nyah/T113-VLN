@@ -12,7 +12,7 @@ data::data()
 
 void data::openDatabase() {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
+    m_db.setDatabaseName("vika2.sqlite");
 
     if (!m_db.open())
     {
@@ -59,12 +59,13 @@ void data::write(string& firstname, string& sex, string& birth, string& death)
     QString qsex = QString::fromStdString(sex);
     QString qbirth = QString::fromStdString(birth);
     QString qdeath= QString::fromStdString(death);
-    query.prepare("INSERT INTO persons (Name, Sex, Birth, Death)"
-                      "VALUES (:name, :sex, :birth, :death)");
+    query.prepare("INSERT INTO persons (Name, Sex, Birth, Death,Status)"
+                      "VALUES (:name, :sex, :birth, :death, :status)");
         query.bindValue(":name", qfirstname);
         query.bindValue(":sex", qsex);
         query.bindValue(":birth", qbirth);
         query.bindValue(":death", qdeath);
+        query.bindValue(":status",0);
         query.exec();
 
 

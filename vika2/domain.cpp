@@ -20,6 +20,14 @@ vector<Person> domain::list()
 
     return persons;
 }
+vector<Person> domain::list(char& selection)
+{
+    data dat;
+    vector<Person> persons;
+    dat.read(persons);
+
+    return persons;
+}
 void domain::openDatabase() {
     data dat;
     dat.openDatabase();

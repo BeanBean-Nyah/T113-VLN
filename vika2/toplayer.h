@@ -14,10 +14,16 @@ public:
 
 private:
     void help();
+    void newPerson();
+    void searchPerson();
+    void newComputer();
+    void searchComputer();
     void printList(vector<Person>& p);
     void printLine(vector<Person>& pers, const int& i);
     void clearScreen();
     void print(vector<Person>& pers);
+
+    char PersOrComp();
 
     bool selection();
     bool contains_number(const string &c);

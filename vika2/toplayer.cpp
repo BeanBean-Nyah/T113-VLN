@@ -114,60 +114,57 @@ bool toplayer::selection()
         if (!(isListEmpty())) {
             cout << "================ List is empty =================" << endl << endl;
         } else {
+            char selection;
+            selection = PersOrComp();
+            switch (selection)
+            {
+                case 'p':
+                        cout << "NEEDS WORK" << endl;
+                        break;
+
+                case 'c':
+                        cout << "TODO" << endl;
+                        break;
+                default:
+                        cout << "error" << endl;
+            }
             vector<Person> p;
             domain d;
-            p = d.list();
+            p = d.list(selection);
             cout << "====================== List =======================" << endl;
             print(p);
         }
         system("pause");
         clearScreen();
-        help();
+        //help();
     }
     else if (input == "-search")
     {
-        if (!(isListEmpty())) {
-            cout << "================ List is empty =================" << endl << endl;
-        } else {
-            vector<Person> p;
-            domain d;
-            string whattype, input;
-            cout << "What do you want to search for?" << endl;
-            cout << "-firstname" << endl << "-sex"
-                 << endl << "-birth" << endl << "-death" << endl;
-            cout << "Enter your choice: ";
-            whattype = getInputType();
-            cout << "What is the word you want to search for? ";
-            cin.ignore();
-            getline(cin,input);
-            input = capFirstLetter(input);
-            p = d.search(whattype, input);
-            if (p.size() == 0){
-                cout << "Sorry, no results!" << endl;
-            } else {
-                cout << "================ Search results ==================" << endl;
-                print(p);
-            }
+        switch(PersOrComp()) {
+            case 'p': searchPerson();
+                    break;
+
+            case 'c': searchComputer();
+                    break;
+
+            default : cout << "fatal error have you tried turning it off and on again" << endl;
         }
+
         system("pause");
         clearScreen();
         help();
     }
     else if (input == "-new")
     {
-        string firstname, sex, birth, death;
+        switch(PersOrComp()) {
+            case 'p': newPerson();
+                    break;
 
-        firstname = getNewFirstname();
-        sex = getNewSex();
-        birth = getNewBirth();
-        death = getNewDeath();
+            case 'c': newComputer();
+                    break;
 
-        domain d;
-        d.add(firstname, sex, birth, death);
-        cout << "You successfully added a new person!" << endl << endl;
-        system("pause");
-        clearScreen();
-        help();
+            default : cout << "fatal error have you tried turning it off and on again" << endl;
+        }
     }
     else if (input == "-sort")
     {
@@ -271,6 +268,56 @@ bool toplayer::selection()
         cout << input << " is not a valid command! Try again: ";
     }
     return true;
+}
+void toplayer::newPerson()
+{
+    string firstname, sex, birth, death;
+
+    firstname = getNewFirstname();
+    sex = getNewSex();
+    birth = getNewBirth();
+    death = getNewDeath();
+
+    domain d;
+    d.add(firstname, sex, birth, death);
+    cout << "You successfully added a new person!" << endl << endl;
+    system("pause");
+    clearScreen();
+    help();
+}
+void toplayer::searchPerson()
+{
+    if (!(isListEmpty())) {
+        cout << "================ List is empty =================" << endl << endl;
+    } else {
+        vector<Person> p;
+        domain d;
+        string whattype, input;
+        cout << "What do you want to search for?" << endl;
+        cout << "-firstname" << endl << "-sex"
+             << endl << "-birth" << endl << "-death" << endl;
+        cout << "Enter your choice: ";
+        whattype = getInputType();
+        cout << "What is the word you want to search for? ";
+        cin.ignore();
+        getline(cin,input);
+        input = capFirstLetter(input);
+        p = d.search(whattype, input);
+        if (p.size() == 0){
+            cout << "Sorry, no results!" << endl;
+        } else {
+            cout << "================ Search results ==================" << endl;
+            print(p);
+        }
+    }
+}
+void toplayer::newComputer()
+{
+    cout << "TODO";
+}
+void toplayer::searchComputer()
+{
+    cout << "TODO";
 }
 
 //Athugar hvort listinn se tomur
@@ -397,4 +444,17 @@ string toplayer::getNewDeath() {
         }
     } while (contains_letters(death));
     return death;
+}
+
+char toplayer::PersOrComp()
+{
+    char selector;
+    do
+    {
+        cout << "Enter 'p' for a person. \n" <<
+                "Or enter 'c' for a computer \n" <<
+                "input: ";
+        cin >> selector;
+    } while (selector !='c' && selector !='p');
+    return selector;
 }

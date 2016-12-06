@@ -11,7 +11,7 @@ class Computer
 {
 public:
     Computer();
-    Computer(string name, string year, string type, string built);
+    Computer(string name, string year, string type, string built, string creator);
 
     int getYearint() const
     {
@@ -33,6 +33,10 @@ public:
     {
         return _built;
     }
+    string getCreator() const
+    {
+        return _creator;
+    }
 
     void setName(const string& n)
     {
@@ -53,12 +57,17 @@ public:
     {
         _built = b;
     }
+    void setCreator(const string& c)
+    {
+        _creator = c;
+    }
 
 private:
     string _name;
     string _year;
     string _type;
     string _built;
+    string _creator;
 
 };
 
