@@ -72,6 +72,45 @@ void data::write(string& firstname, string& sex, string& birth, string& death)
         query.exec();
 }
 
+vector<Person> data::sortPersons(string& type) {
+    vector<Person> pers;
+    QSqlQuery query;
+    if (type == "-name") {
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Name");
+    } else if (type == "-sex") {
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Sex");
+    } else if (type == "-birth") {
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Birth");
+    } else if (type == "-death") {
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Death");
+    }
+
+    int idID = query.record().indexOf("ID");
+    int idName = query.record().indexOf("Name");
+    int idSex = query.record().indexOf("Sex");
+    int idBirth = query.record().indexOf("Birth");
+    int idDeath = query.record().indexOf("Death");
+    int idStatus = query.record().indexOf("Status");
+    while (query.next())
+    {
+        if (query.value(idStatus) == 0) {
+            QString qid = query.value(idID).toString();
+            string id = qid.toLocal8Bit().constData();
+            QString qname = query.value(idName).toString();
+            string name = qname.toLocal8Bit().constData();
+            QString qsex = query.value(idSex).toString();
+            string sex = qsex.toLocal8Bit().constData();
+            QString qbirth = query.value(idBirth).toString();
+            string birth = qbirth.toLocal8Bit().constData();
+            QString qdeath = query.value(idDeath).toString();
+            string death = qdeath.toLocal8Bit().constData();
+            Person p(id, name, sex, birth, death);
+            pers.push_back(p);
+        }
+    }
+
+    return pers;
+}
 void data::remove(string& ID) {
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
@@ -113,13 +152,15 @@ void data::edit(string& ID, string& value, string& type) {
 
 void data::readComputer(vector<Computer>& comp)
 {
-    QSqlQuery query("SELECT ID, Name, Year, Type, Built, Status FROM persons");
-    int idID = query.record().indexOf("ID");
-    int idName = query.record().indexOf("Name");
-    int idYear = query.record().indexOf("Year");
-    int idType = query.record().indexOf("Type");
-    int idBuilt = query.record().indexOf("Built");
-    int idStatus = query.record().indexOf("Status");
+    QSqlQuery query("SELECT computer_ID, computer_Name, computer_Year, "
+                   "computer_Type, computer_Built, computer_Status FROM computer");
+
+    int idID = query.record().indexOf("computer_ID");
+    int idName = query.record().indexOf("computer_name");
+    int idYear = query.record().indexOf("computer_Year");
+    int idType = query.record().indexOf("computer_Type");
+    int idBuilt = query.record().indexOf("computer_Built");
+    int idStatus = query.record().indexOf("computer_Status");
     while (query.next())
     {
         if (query.value(idStatus) == 0) {
@@ -128,7 +169,7 @@ void data::readComputer(vector<Computer>& comp)
             QString qname = query.value(idName).toString();
             string name = qname.toLocal8Bit().constData();
             QString qyear = query.value(idYear).toString();
-            string year = qyear.toLocal8Bit().constData();
+            int year = qyear.split(" ")[0].toInt();
             QString qtype = query.value(idType).toString();
             string type = qtype.toLocal8Bit().constData();
             QString qbuilt = query.value(idBuilt).toString();
@@ -139,11 +180,11 @@ void data::readComputer(vector<Computer>& comp)
     }
 }
 
-void data::writeComputer(string& name, string& year, string& type, string& built)
+void data::writeComputer(string& name, int& year, string& type, string& built)
 {
     QSqlQuery query;
     QString qname = QString::fromStdString(name);
-    QString qyear = QString::fromStdString(year);
+    QString qyear = QString::number(year);
     QString qtype = QString::fromStdString(type);
     QString qbuilt = QString::fromStdString(built);
     query.prepare("INSERT INTO computer (computer_name, computer_year, computer_type, computer_built)"
@@ -157,20 +198,43 @@ void data::writeComputer(string& name, string& year, string& type, string& built
 
 vector<Computer> data::sortComputer(string& type) {
     vector<Computer> comp;
-    if (type == "name") {
-        QSqlQuery query("SELECT computer_name, computer_year, computer_type,"
-                        "computer_built FROM computer ORDER BY computer_name");
-    } else if (type == "year") {
-        QSqlQuery query("SELECT computer_name, computer_year, computer_type,"
-                        "computer_built FROM computer ORDER BY computer_year");
-    } else if (type == "type") {
-        QSqlQuery query("SELECT computer_name, computer_year, computer_type,"
-                        "computer_built FROM computer ORDER BY computer_type");
-    } else if (type == "built") {
-        QSqlQuery query("SELECT computer_name, computer_year, computer_type,"
-                        "computer_built FROM computer ORDER BY computer_built");
+    QSqlQuery query;
+    if (type == "-name") {
+        query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_name");
+    } else if (type == "-year") {
+        query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_year");
+    } else if (type == "-type") {
+        query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_type");
+    } else if (type == "-built") {
+        query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_built");
     }
-    //readComputer(comp);
+    int idID = query.record().indexOf("computer_ID");
+    int idName = query.record().indexOf("computer_name");
+    int idYear = query.record().indexOf("computer_Year");
+    int idType = query.record().indexOf("computer_Type");
+    int idBuilt = query.record().indexOf("computer_Built");
+    int idStatus = query.record().indexOf("computer_Status");
+    while (query.next())
+    {
+        if (query.value(idStatus) == 0) {
+            QString qid = query.value(idID).toString();
+            string id = qid.toLocal8Bit().constData();
+            QString qname = query.value(idName).toString();
+            string name = qname.toLocal8Bit().constData();
+            QString qyear = query.value(idYear).toString();
+            int year = qyear.split(" ")[0].toInt();
+            QString qtype = query.value(idType).toString();
+            string type = qtype.toLocal8Bit().constData();
+            QString qbuilt = query.value(idBuilt).toString();
+            string built = qbuilt.toLocal8Bit().constData();
+            Computer c(id, name, year, type, built);
+            comp.push_back(c);
+        }
+    }
 
     return comp;
 }

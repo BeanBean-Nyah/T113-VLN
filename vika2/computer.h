@@ -12,17 +12,16 @@ class Computer
 public:
     Computer();
 
-    Computer(string id, string name, string year, string type, string built);
-
-    int getYearint() const
-    {
-        int y = atoi(_year.c_str());
-        return y;
-    }
+    Computer(string id, string name, int year, string type, string built);
 
     string getName() const
     {
         return _name;
+    }
+
+    int getYear() const
+    {
+        return _year;
     }
 
     string getType() const
@@ -40,7 +39,7 @@ public:
         _name = n;
     }
 
-    void setYear(const string& y)
+    void setYear(const int& y)
     {
         _year = y;
     }
@@ -58,7 +57,7 @@ public:
 private:
     string _id;
     string _name;
-    string _year;
+    int _year;
     string _type;
     string _built;
 

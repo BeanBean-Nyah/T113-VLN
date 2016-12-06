@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "person.h"
+#include "computer.h"
 #include <stdlib.h>
 #include <algorithm>
 
@@ -35,13 +36,18 @@ private:
 
 
     int lineEntry(const vector<Person>& p);
+    void printComputer(vector<Computer> comp);
 
-    string getInputType();
+    string getInputType(int& type);
     string getNewFirstname();
     string getNewSex();
     string getNewBirth();
     string getNewDeath();
-    string getNewDate();
+    int getNewDate();
+
+    string getNewType();
+    string getNewBuilt();
+
 };
 
 #endif // TOPLAYER_H

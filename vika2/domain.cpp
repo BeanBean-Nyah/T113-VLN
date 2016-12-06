@@ -20,14 +20,7 @@ vector<Person> domain::list()
 
     return persons;
 }
-vector<Person> domain::list(char& selection)
-{
-    data dat;
-    vector<Person> persons;
-    dat.read(persons);
 
-    return persons;
-}
 void domain::openDatabase() {
     data dat;
     dat.openDatabase();
@@ -39,52 +32,20 @@ void domain::add(string& firstname, string& sex, string& birth, string& death)
     dat.write(firstname, sex, birth, death);
 }
 
-void domain::addComputer(string& name, string& year, string& type, string& built)
+void domain::addComputer(string& name, int& year, string& type, string& built)
 {
     data dat;
     dat.writeComputer(name, year, type, built);
 }
 
-//Foll til ad sortera eftir flokkum
-struct FirstNameComparison {
-  bool operator() (Person i,Person j) { return (i.getFirstname()<j.getFirstname());}
-}firstName;
-
-struct SexSorting {
-  bool operator() (Person i,Person j) { return (i.getSex()<j.getSex());}
-}sex;
-
-struct BirthYearSorting {
-  bool operator() (Person i,Person j) { return (i.getBirthint()<j.getBirthint());}
-}yearBorn;
-
-struct DeathYearSorting {
-  bool operator() (Person i,Person j) { return (i.getDeathint()<j.getDeathint());}
-}yearDeath;
-
 
 vector<Person> domain::sorting(string& input)
 {
     data dat;
-    vector<Person> persons;
-    dat.read(persons);
+    vector<Person> pers;
+    pers = dat.sortPersons(input);
 
-    if (input == "-firstname") {
-        sort(persons.begin(), persons.end(), firstName);
-    }
-    else if (input == "-sex")
-    {
-        sort(persons.begin(), persons.end(), sex);
-    }
-    else if (input == "-birth")
-    {
-        sort(persons.begin(), persons.end(), yearBorn);
-    }
-    else if (input == "-death")
-    {
-        sort(persons.begin(), persons.end(), yearDeath);
-    }
-    return persons;
+    return pers;
 }
 
 vector<Person> domain::search(string& whattype, string& input)
@@ -94,7 +55,7 @@ vector<Person> domain::search(string& whattype, string& input)
     dat.read(persons);
 
     for(unsigned int i = 0; i < persons.size(); i++) {
-        if (whattype == "-firstname")
+        if (whattype == "-name")
         {
             if(persons[i].getFirstname() == input)
             {
@@ -139,4 +100,18 @@ void domain::edit(vector<Person>& pers, int& line, string& type, string& newValu
     data dat;
     dat.edit(ID, newValue, type);
 }
+//Computer functions
 
+vector<Computer> domain::computerList() {
+    vector<Computer> comp;
+    data d;
+    d.readComputer(comp);
+    return comp;
+}
+
+vector<Computer> domain::sortComputer(string& value) {
+    vector<Computer> comp;
+    data d;
+    comp = d.sortComputer(value);
+    return comp;
+}

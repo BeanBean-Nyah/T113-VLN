@@ -104,6 +104,26 @@ void toplayer::printList(vector<Person>& p) {
     }
     cout << "=======================================================" << endl << endl;
 }
+//Prentar ut computer lista
+void toplayer::printComputer(vector<Computer> comp) {
+    cout << left << setw(20) << "Name" << setw(10)
+         << "Year" << setw(10) << "Type" << setw(10) << "Built" << endl << endl;
+    for(unsigned int i = 0; i < comp.size(); i++) {
+        cout.width(20);
+        cout<<left;
+        cout << comp[i].getName();
+        cout.width(10);
+        cout<<left;
+        cout << comp[i].getYear();
+        cout.width(10);
+        cout<<left;
+        cout << comp[i].getType();
+        cout.width(10);
+        cout<<left;
+        cout << comp[i].getBuilt()<<endl;
+    }
+    cout << "==================================================" << endl << endl;
+}
 
 bool toplayer::selection()
 {
@@ -114,29 +134,33 @@ bool toplayer::selection()
         if (!(isListEmpty())) {
             cout << "================ List is empty =================" << endl << endl;
         } else {
-            char selection;
+            vector<Person> pers;
+            vector<Computer> comp;
+            domain d;
+            char selection, human = 'p', com = 'c';
             selection = PersOrComp();
             switch (selection)
             {
                 case 'p':
-                        cout << "NEEDS WORK" << endl;
+                        pers = d.list();
                         break;
-
                 case 'c':
-                        cout << "TODO" << endl;
+                        comp = d.computerList();
                         break;
                 default:
                         cout << "error" << endl;
             }
-            vector<Person> p;
-            domain d;
-            p = d.list(selection);
             cout << "====================== List =======================" << endl;
-            print(p);
+            if (selection == human) {
+                print(pers);
+            } else if (selection == com) {
+                printComputer(comp);
+            }
+
         }
         system("pause");
         clearScreen();
-        //help();
+        help();
     }
     else if (input == "-search")
     {
@@ -168,20 +192,43 @@ bool toplayer::selection()
     }
     else if (input == "-sort")
     {
-        if (!(isListEmpty())) {
-            cout << "================ List is empty =================" << endl << endl;
-        } else {
-            vector<Person> p;
-            cout << "What do you want to sort by?" << endl;
-            cout << "   -firstname" << endl << "   -sex" << endl
-                 << "   -birth" << endl << "   -death" << endl;
-            string input = getInputType();
-            domain d;
-            p = d.sorting(input);
+        string pORc;
+        cout << "Do you want to sort persons or computers? ";
+        cin >> pORc;
+        if (pORc == "persons") {
+            if (!(isListEmpty())) {
+                    cout << "================ List is empty =================" << endl << endl;
+                } else {
+                    vector<Person> p;
+                    int gildi = 0;
+                    cout << "What do you want to sort by?" << endl;
+                    cout << "   -name" << endl << "   -sex" << endl
+                         << "   -birth" << endl << "   -death" << endl;
+                    string input = getInputType(gildi);
+                    domain d;
+                    p = d.sorting(input);
 
-            cout << "=================== Sorted list ===================" << endl;
-            print(p);
+                    cout << "=================== Sorted list ===================" << endl;
+                    print(p);
+                }
+        } else if (pORc == "computers"){
+            //if (!(isListEmpty())) {
+            //        cout << "================ List is empty =================" << endl << endl;
+            //    } else {
+                    vector<Computer> c;
+                    int gildi = 1;
+                    cout << "What do you want to sort by?" << endl;
+                    cout << "   -name" << endl << "   -year" << endl
+                         << "   -type" << endl << "   -built" << endl;
+                    string input = getInputType(gildi);
+                    domain d;
+                    c = d.sortComputer(input);
+
+                    cout << "=================== Sorted list ===================" << endl;
+                    printComputer(c);
+              //  }
         }
+
         system("pause");
         clearScreen();
         help();
@@ -201,13 +248,14 @@ bool toplayer::selection()
             int lineNumber = lineEntry(p);
             clearScreen();
             while (yesno) {
+                int gildi = 0;
                 printLine(p, lineNumber);
-                cout << "Which element do you want to edit? " << endl << "For name type: \t -firstname" <<
+                cout << "Which element do you want to edit? " << endl << "For name type: \t -name" <<
                      endl << "For sex type: \t \t -sex" << endl <<
                      "For birth year type: \t -birth" << endl << "For year of death type:  -death" << endl;
-                input = getInputType();
+                input = getInputType(gildi);
 
-                if (input == "-firstname") {
+                if (input == "-name") {
                     newValue = getNewFirstname();
                 } else if (input == "-sex") {
                     newValue = getNewSex();
@@ -246,7 +294,6 @@ bool toplayer::selection()
             printList(p);
             cout << "Which entry do you want to remove?" << endl;
             int lineNumber = lineEntry(p) - 1;
-            //p.erase (p.begin()+(lineNumber-1));
             d.remove(p, lineNumber);
             cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
         }
@@ -291,13 +338,14 @@ void toplayer::searchPerson()
         cout << "================ List is empty =================" << endl << endl;
     } else {
         vector<Person> p;
+        int gildi = 0;
         domain d;
         string whattype, input;
         cout << "What do you want to search for?" << endl;
-        cout << "-firstname" << endl << "-sex"
+        cout << "-name" << endl << "-sex"
              << endl << "-birth" << endl << "-death" << endl;
         cout << "Enter your choice: ";
-        whattype = getInputType();
+        whattype = getInputType(gildi);
         cout << "What is the word you want to search for? ";
         cin.ignore();
         getline(cin,input);
@@ -313,11 +361,12 @@ void toplayer::searchPerson()
 }
 void toplayer::newComputer()
 {
-    string cName, cYear, cType, cBuilt;
+    string cName, cType, cBuilt;
+    int cYear = 0;
     cName = getNewFirstname();
     cYear = getNewDate();
-    cType = "TODO";
-    cBuilt = "TODO";
+    cType = getNewType();
+    cBuilt = getNewBuilt();
     domain d;
     d.addComputer(cName,cYear,cType,cBuilt);
     cout << "You successfully added a new computer!" << endl << endl;
@@ -389,18 +438,31 @@ int toplayer::lineEntry(const vector<Person>& p) {
     return lineNumber;
 }
 // skilar input-i fra notanda
-string toplayer::getInputType() {
+string toplayer::getInputType(int& type) {
     string input;
-    do {
-        cout << "Enter your choice: ";
-        cin >> input;
-        input = Lower_Ans(input);
-        if (input != "-firstname" && input != "-sex" &&
-            input != "-birth" && input != "-death") {
-            cout << input << " is not valid command! Try again: ";
-        }
-    } while (input != "-firstname" && input != "-sex" &&
-             input != "-birth" && input != "-death");
+    if (type == 0) {
+        do {
+            cout << "Enter your choice: ";
+            cin >> input;
+            input = Lower_Ans(input);
+            if (input != "-name" && input != "-sex" &&
+                input != "-birth" && input != "-death") {
+                cout << input << " is not valid command! Try again: ";
+            }
+        } while (input != "-name" && input != "-sex" &&
+                 input != "-birth" && input != "-death");
+    } else if (type == 1) {
+        do {
+            cout << "Enter your choice: ";
+            cin >> input;
+            input = Lower_Ans(input);
+            if (input != "-name" && input != "-year" &&
+                input != "-type" && input != "-built") {
+                cout << input << " is not valid command! Try again: ";
+            }
+        } while (input != "-name" && input != "-year" &&
+                 input != "-type" && input != "-built");
+    }
     return input;
 }
 //skilar nyju firstname
@@ -455,16 +517,43 @@ string toplayer::getNewDeath() {
     } while (contains_letters(death));
     return death;
 }
-string toplayer::getNewDate() {
-    string date;
+// skilar nyju ari fyrir computer
+int toplayer::getNewDate() {
+    int year;
     cout << "Enter year: ";
+    while (!(cin >> year)) {
+       cin.clear();
+       cin.ignore();
+       cout << "Invalid input, try again: ";
+    };
+    return year;
+}
+// skilar nyju type i fyrir computer
+string toplayer::getNewType() {
+    string type;
+    cout << "Enter type: ";
     do {
-        cin >> date;
-        if (contains_letters(date)){
-            cout << "The year can not contain letters, try again: ";
+        cin >> type;
+        type = capFirstLetter(type);
+        if (type != "Male" && type != "Female"){
+            cout << type << " is not a gender, please choose male or female: ";
         }
-    } while (contains_letters(date));
-    return date;
+    } while (type != "Male" && type != "Female");
+    return type;
+}
+
+// skilar hvort computer var built eda ekki
+string toplayer::getNewBuilt() {
+    string built;
+    cout << "Was the computer built: ";
+    do {
+        cin >> built;
+        built = capFirstLetter(built);
+        if (built != "Yes" && built != "No"){
+            cout << built << " isn't clear enough, please choose Yes or No: ";
+        }
+    } while (built != "Yes" && built != "NO");
+    return built;
 }
 
 char toplayer::PersOrComp()

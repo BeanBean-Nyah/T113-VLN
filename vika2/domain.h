@@ -15,14 +15,15 @@ private:
 public:
     domain();
     vector<Person> list();
-    vector<Person> list(char& selection);
     void add(string& firstname, string& sex, string& birth, string& death);
-    void addComputer(string& name, string& year, string& type, string& built);
+    void addComputer(string& name, int& year, string& type, string& built);
     vector<Person> sorting(string& input);
+    vector<Computer> sortComputer(string& value);
     vector<Person> search(string& whattype, string& input);
     void remove(vector<Person>& pers, int& line);
     void edit(vector<Person>& pers, int& line, string& type, string& newValue);
     void openDatabase();
+    vector<Computer> computerList();
 };
 
 #endif // DOMAIN_H
