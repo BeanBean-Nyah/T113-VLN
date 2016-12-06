@@ -23,7 +23,7 @@ public:
     void read(vector<Person>& pers);
     void write(string& firstname, string& sex, string& birth, string& death);
     void remove(string& name);
-    void edit(string& value, string& type);
+    void edit(string& ID, string& value, string& type);
     QSqlDatabase m_db;
     void openDatabase();
 

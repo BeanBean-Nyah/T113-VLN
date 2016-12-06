@@ -10,7 +10,11 @@ class Person
 {
 public:
     Person();
-    Person(string firstname, string sex, string birth, string death);
+    Person(string ID, string firstname, string sex, string birth, string death);
+
+    string getID() {
+        return _ID;
+    }
 
     // Notad til ad sortera eftir birthyear
     int getBirthint() const
@@ -57,6 +61,7 @@ public:
     }
 
 private:
+    string _ID;
     string _firstname;
     string _sex;
     string _death;

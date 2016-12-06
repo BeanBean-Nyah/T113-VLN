@@ -19,7 +19,7 @@ public:
     vector<Person> sorting(string& input);
     vector<Person> search(string& whattype, string& input);
     void remove(vector<Person>& pers, int& line);
-    void edit(string& type, string& newValue);
+    void edit(vector<Person>& pers, int& line, string& type, string& newValue);
     void openDatabase();
 };
 

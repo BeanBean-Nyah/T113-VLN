@@ -219,7 +219,8 @@ bool toplayer::selection()
                 } else if (input == "-death") {
                     newValue = getNewDeath();
                 }
-                d.edit(input, newValue);
+                lineNumber = lineNumber - 1;
+                d.edit(p, lineNumber, input, newValue);
                 string yesorno;
                 cout << "Do you want to edit another element in this entry? " << endl << endl;
                 cout << "Type -yes if you want to else type anything else: ";
@@ -230,8 +231,7 @@ bool toplayer::selection()
                 } else {
                     yesno = false;
                 }
-            }
-            //d.edit(p);
+            }            
         }
         system("pause");
         clearScreen();
@@ -248,10 +248,10 @@ bool toplayer::selection()
             cout << "========================= List ========================" << endl;
             printList(p);
             cout << "Which entry do you want to remove?" << endl;
-            int lineNumber = lineEntry(p);
+            int lineNumber = lineEntry(p) - 1;
             //p.erase (p.begin()+(lineNumber-1));
             d.remove(p, lineNumber);
-            cout << "You successfully removed a line " << lineNumber << endl << endl;
+            cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
         }
         system("pause");
         clearScreen();

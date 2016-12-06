@@ -84,28 +84,28 @@ vector<Person> domain::search(string& whattype, string& input)
         {
             if(persons[i].getFirstname() == input)
             {
-                Person p(persons[i].getFirstname(),
+                Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
         } else if (whattype == "-sex"){
             if(persons[i].getSex() == input)
             {
-                Person p(persons[i].getFirstname(),
+                Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
         } else if (whattype == "-birthyear"){
             if(persons[i].getBirth() == input)
             {
-                Person p(persons[i].getFirstname(),
+                Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
         } else if (whattype == "-deathyear"){
             if(persons[i].getDeath() == input)
             {
-                Person p(persons[i].getFirstname(),
+                Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
@@ -115,14 +115,14 @@ vector<Person> domain::search(string& whattype, string& input)
 }
 
 void domain::remove(vector<Person>& pers, int& line) {
-    string name = pers[line].getFirstname();
+    string ID = pers[line].getID();
     data dat;
-    dat.remove(name);
+    dat.remove(ID);
 }
 
-void domain::edit(string& type, string& newValue) {
-
+void domain::edit(vector<Person>& pers, int& line, string& type, string& newValue) {
+    string ID = pers[line].getID();
     data dat;
-    dat.edit(newValue, type);
+    dat.edit(ID, newValue, type);
 }
 
