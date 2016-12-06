@@ -11,3 +11,4 @@ SELECT p.name AS NAME, c.computer_name AS NAME FROM persons p
 INNER JOIN computer c ON c.computer_id = pc.computer_id
 INNER JOIN personsandcomputers pc ON pc.computer_ID = c.computer_id
 WHERE pc.computer_ID = c.computer_id AND p.ID = pc.person_id
+//
