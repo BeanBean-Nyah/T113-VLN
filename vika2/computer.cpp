@@ -6,6 +6,7 @@ Computer::Computer()
 }
 
 Computer::Computer(string id, string name, string year, string type, string built)
+
 {
     _id = id;
     _name = name;

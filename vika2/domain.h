@@ -15,6 +15,7 @@ private:
 public:
     domain();
     vector<Person> list();
+    vector<Person> list(char& selection);
     void add(string& firstname, string& sex, string& birth, string& death);
     vector<Person> sorting(string& input);
     vector<Person> search(string& whattype, string& input);
