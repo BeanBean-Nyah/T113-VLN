@@ -41,6 +41,7 @@ private:
     string getNewSex();
     string getNewBirth();
     string getNewDeath();
+    string getNewDate();
 };
 
 #endif // TOPLAYER_H

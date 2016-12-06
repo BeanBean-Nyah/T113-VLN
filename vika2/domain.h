@@ -17,6 +17,7 @@ public:
     vector<Person> list();
     vector<Person> list(char& selection);
     void add(string& firstname, string& sex, string& birth, string& death);
+    void addComputer(string& name, string& year, string& type, string& built);
     vector<Person> sorting(string& input);
     vector<Person> search(string& whattype, string& input);
     void remove(vector<Person>& pers, int& line);

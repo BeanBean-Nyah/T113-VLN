@@ -313,7 +313,17 @@ void toplayer::searchPerson()
 }
 void toplayer::newComputer()
 {
-    cout << "TODO";
+    string cName, cYear, cType, cBuilt;
+    cName = getNewFirstname();
+    cYear = getNewDate();
+    cType = "TODO";
+    cBuilt = "TODO";
+    domain d;
+    d.addComputer(cName,cYear,cType,cBuilt);
+    cout << "You successfully added a new computer!" << endl << endl;
+    system("pause");
+    clearScreen();
+    help();
 }
 void toplayer::searchComputer()
 {
@@ -444,6 +454,17 @@ string toplayer::getNewDeath() {
         }
     } while (contains_letters(death));
     return death;
+}
+string toplayer::getNewDate() {
+    string date;
+    cout << "Enter year: ";
+    do {
+        cin >> date;
+        if (contains_letters(date)){
+            cout << "The year can not contain letters, try again: ";
+        }
+    } while (contains_letters(date));
+    return date;
 }
 
 char toplayer::PersOrComp()

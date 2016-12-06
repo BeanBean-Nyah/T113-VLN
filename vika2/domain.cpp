@@ -39,6 +39,12 @@ void domain::add(string& firstname, string& sex, string& birth, string& death)
     dat.write(firstname, sex, birth, death);
 }
 
+void domain::addComputer(string& name, string& year, string& type, string& built)
+{
+    data dat;
+    dat.writeComputer(name, year, type, built);
+}
+
 //Foll til ad sortera eftir flokkum
 struct FirstNameComparison {
   bool operator() (Person i,Person j) { return (i.getFirstname()<j.getFirstname());}
