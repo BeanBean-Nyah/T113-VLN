@@ -5,11 +5,12 @@ Computer::Computer()
 
 }
 
-Computer::Computer(string name, string year, string type, string built, string creator)
+Computer::Computer(string id, string name, string year, string type, string built)
+
 {
+    _id = id;
     _name = name;
     _year = year;
     _type = type;
     _built = built;
-    _creator = creator;
 }
