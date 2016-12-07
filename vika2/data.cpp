@@ -78,19 +78,19 @@ vector<Person> data::sortPersons(string& type)
     QSqlQuery query;
     if (type == "-name")
     {
-        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Name");
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Name DESC");
     }
     else if (type == "-sex")
     {
-        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Sex");
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Sex DESC");
     }
     else if (type == "-birth")
     {
-        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Birth");
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Birth DESC");
     }
     else if (type == "-death")
     {
-        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Death");
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Death DESC");
     }
 
     int idID = query.record().indexOf("ID");
@@ -215,19 +215,19 @@ vector<Computer> data::sortComputer(string& type)
     if (type == "-name")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
-                        "computer_Built, computer_Status FROM computer ORDER BY computer_name");
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_name DESC");
     } else if (type == "-year")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
-                        "computer_Built, computer_Status FROM computer ORDER BY computer_year");
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_year DESC");
     } else if (type == "-type")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
-                        "computer_Built, computer_Status FROM computer ORDER BY computer_type");
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_type DESC");
     } else if (type == "-built")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
-                        "computer_Built, computer_Status FROM computer ORDER BY computer_built");
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_built DESC");
     }
     int idID = query.record().indexOf("computer_ID");
     int idName = query.record().indexOf("computer_name");
