@@ -3,6 +3,7 @@
 
 #include "person.h"
 #include "computer.h"
+#include "personsandcomputers.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -31,7 +32,7 @@ public:
     vector<Person> sortPersons(string& type);
     vector<Computer> sortComputer(string& type);
 
-    void getPACjoined();
+    void getPACjoined(vector<PersonsAndComputers>& pAc);
     void writePAC(string& pers_id, string& comp_id);
 
 

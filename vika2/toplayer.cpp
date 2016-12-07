@@ -28,12 +28,12 @@ void toplayer::help()
     cout << "*********************************************************" << endl;
     cout << "**     Notable Computer Scientists In History          **" << endl;
     cout << "**                                                     **" << endl;
-    cout << "**     Enter -new to add a new person                  **" << endl;
-    cout << "**     Enter -list for a full list                     **" << endl;
-    cout << "**     Enter -search to search the list                **" << endl;
-    cout << "**     Enter -edit to edit the list                    **" << endl;
-    cout << "**     Enter -remove to remove element from the list   **" << endl;
-    cout << "**     Enter -sort to sort the list                    **" << endl;
+    cout << "**     Enter -new to add a new person or computer      **" << endl;
+    cout << "**     Enter -list for a see the lists                 **" << endl;
+    cout << "**     Enter -search to search list                    **" << endl;
+    cout << "**     Enter -edit to edit list                        **" << endl;
+    cout << "**     Enter -remove to remove element from list       **" << endl;
+    cout << "**     Enter -sort to sort any of the lists            **" << endl;
     cout << "**     Enter -exit to exit the program                 **" << endl;
     cout << "**                                                     **" << endl;
     cout << "*********************************************************" << endl;
@@ -146,8 +146,9 @@ bool toplayer::selection()
         {
             vector<Person> pers;
             vector<Computer> comp;
+            vector<PersonsAndComputers> pAc;
             domain d;
-            char selection, human = 'p', com = 'c';
+            char selection, human = 'p', com = 'c', persandcomp = 'b';
             selection = PersOrComp();
             switch (selection)
             {
@@ -157,6 +158,8 @@ bool toplayer::selection()
                 case 'c':
                         comp = d.computerList();
                         break;
+                case 'b':
+                        pAc = d.persAndCompList();
                 default:
                         cout << "error" << endl;
             }
@@ -168,6 +171,10 @@ bool toplayer::selection()
             else if (selection == com)
             {
                 printComputer(comp);
+            }
+            else if (selection == persandcomp)
+            {
+                printPersAndComp(pAc);
             }
 
        }
@@ -287,8 +294,17 @@ void toplayer::newPerson()
 
     firstname = getNewFirstname();
     sex = getNewSex();
-    birth = getNewBirth();
-    death = getNewDeath();
+    do
+    {
+        birth = getNewBirth();
+        death = getNewDeath();
+        if (birth > death)
+        {
+            cout << "You can not be born after you die, please try again!" << endl;
+        }
+    } while (birth > death);
+
+
 
     domain d;
     d.add(firstname, sex, birth, death);
@@ -664,6 +680,9 @@ string toplayer::getNewDeath()
         }
     }
     while (contains_letters(death));
+    if (death == "-") {
+        death.clear();
+    }
     return death;
 }
 // skilar nyju ari fyrir computer
@@ -689,18 +708,12 @@ string toplayer::getNewType()
         cin >> type;
         type = capFirstLetter(type);
 
-        if (type != "Male" && type != "Female")
+        if (type != "Mechanical" && type != "Electroinic" && type != "Transitive")
         {
-            cout << type << " is not a gender, please choose male or female: ";
-        }
-
-        if (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél")
-        {
-            cout << type << " Type of machine is not \"Mekkanísk\", \"Elektrónísk\" or \"Smáravél\": ";
-
+            cout << type << " Type of machine is not \"Mechanical\", \"Electroinic\" or \"Transitive\": ";
         }
     }
-    while (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél");
+    while (type != "Mechanical" && type != "Electroinic" && type != "Transitive");
     return type;
 }
 
@@ -718,7 +731,8 @@ string toplayer::getNewBuilt()
         {
             cout << built << " isn't clear enough, please choose Yes or No: ";
         }
-    } while (built != "Yes" && built != "NO");
+    }
+    while (built != "Yes" && built != "No");
     return built;
 }
 
@@ -729,8 +743,38 @@ char toplayer::PersOrComp()
     {
         cout << "Enter 'p' for a person. \n" <<
                 "Or enter 'c' for a computer \n" <<
+                "Or enter 'b' for a both \n" <<
                 "input: ";
         cin >> selector;
-    } while (selector !='c' && selector !='p');
+    } while (selector !='c' && selector !='p' && selector != 'b');
     return selector;
+}
+
+void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
+{
+    vector<Person> pers;
+    vector<Computer> comp;
+    domain d;
+    pers = d.list();
+    comp = d.computerList();
+    string id;
+
+    for (unsigned int i = 0; i < comp.size(); i++)
+    {
+        cout << comp[i].getName() << endl;
+        for (unsigned int k = 0; k < pAc.size(); k++)
+        {
+            if (comp[i].getID() == pAc[k].getComp_ID())
+            {
+                id = pAc[k].getPers_ID();
+                for (unsigned int j = 0; j < pers.size(); j++)
+                {
+                    if (pers[j].getID() == id) {
+                        cout << "\t" << pers[j].getFirstname() << endl;
+                    }
+                }
+            }
+        }
+    }
+
 }

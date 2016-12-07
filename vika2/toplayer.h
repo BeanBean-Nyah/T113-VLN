@@ -4,6 +4,7 @@
 #include <string>
 #include "person.h"
 #include "computer.h"
+#include "personsandcomputers.h"
 #include <stdlib.h>
 #include <algorithm>
 
@@ -54,6 +55,7 @@ private:
 
     string getNewType();
     string getNewBuilt();
+    void printPersAndComp(vector<PersonsAndComputers> pAc);
 
 };
 

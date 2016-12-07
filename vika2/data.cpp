@@ -256,8 +256,8 @@ vector<Computer> data::sortComputer(string& type)
     return comp;
 }
 
-void data::getPACjoined() {
-    QSqlQuery query("SELECT ID, computer_ID, persons_ID, pac_status FROM personsandcomputers");
+void data::getPACjoined(vector<PersonsAndComputers>& pAc) {
+    QSqlQuery query("SELECT ID, computer_ID, person_ID, pac_status FROM personsandcomputers");
 
     int idID = query.record().indexOf("ID");
     int idComp_ID = query.record().indexOf("computer_ID");
@@ -267,15 +267,13 @@ void data::getPACjoined() {
     {
         if (query.value(idStatus) == 0) {
             QString qid = query.value(idID).toString();
-            int id = qid.split(" ")[0].toInt();
+            string id = qid.toLocal8Bit().constData();
             QString qcomp_id = query.value(idComp_ID).toString();
-            int comp_id = qcomp_id.split(" ")[0].toInt();
+            string comp_id = qcomp_id.toLocal8Bit().constData();
             QString qpers_id = query.value(idPers_ID).toString();
-            int pers_id = qpers_id.split(" ")[0].toInt();
-            QString qstatus = query.value(idStatus).toString();
-            int status = qstatus.split(" ")[0].toInt();
-            //Computer c(id, name, year, type, built);
-            //comp.push_back(c);
+            string pers_id = qpers_id.toLocal8Bit().constData();
+            PersonsAndComputers pc(id, pers_id, comp_id);
+            pAc.push_back(pc);
         }
     }
 }

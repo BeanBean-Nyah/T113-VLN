@@ -15,11 +15,13 @@ SOURCES += main.cpp \
     domain.cpp \
     toplayer.cpp \
     person.cpp \
-    computer.cpp
+    computer.cpp \
+    personsandcomputers.cpp
 
 HEADERS += \
     data.h \
     domain.h \
     toplayer.h \
     person.h \
-    computer.h
+    computer.h \
+    personsandcomputers.h

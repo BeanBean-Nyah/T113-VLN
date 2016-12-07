@@ -127,6 +127,14 @@ vector<Computer> domain::sortComputer(string& value)
     return comp;
 }
 
+vector<PersonsAndComputers> domain::persAndCompList()
+{
+    vector<PersonsAndComputers> pAc;
+    data d;
+    d.getPACjoined(pAc);
+    return pAc;
+}
+
 void domain::connectPtoC(string& persID, string& compID)
 {
     data d;

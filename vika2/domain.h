@@ -1,6 +1,7 @@
 #ifndef DOMAIN_H
 #define DOMAIN_H
 #include "person.h"
+#include "personsandcomputers.h"
 #include <vector>
 #include <iostream>
 #include "data.h"
@@ -27,7 +28,7 @@ public:
     void connectPtoC(string& persID, string& compID);
 
     void remove(vector<Person>& pers, int& line);
-
+    vector<PersonsAndComputers> persAndCompList();
 
 };
 
