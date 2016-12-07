@@ -14,6 +14,11 @@ public:
 
     Computer(string id, string name, int year, string type, string built);
 
+    string getID() const
+    {
+        return _id;
+    }
+
     string getName() const
     {
         return _name;
@@ -22,6 +27,13 @@ public:
     int getYear() const
     {
         return _year;
+    }
+
+    string getYearString() const
+    {
+        string str;
+        str = to_string(_year);
+        return str;
     }
 
     string getType() const

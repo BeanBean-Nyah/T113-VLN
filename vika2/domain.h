@@ -19,11 +19,16 @@ public:
     vector<Computer> sortComputer(string& value);
     vector<Person> sorting(string& input);
     vector<Person> search(string& whattype, string& input);
+    vector<Computer> searchComputer(string& whattype, string& input);
     void edit(vector<Person>& pers, int& line, string& type, string& newValue);
     vector<Person> list();
     void openDatabase();
     vector<Computer> computerList();
+
+    void connectPtoC(string& persID, string& compID);
+
     void remove(vector<Person>& pers, int& line);
+
 
 };
 
