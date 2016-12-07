@@ -21,7 +21,8 @@ vector<Person> domain::list()
     return persons;
 }
 
-void domain::openDatabase() {
+void domain::openDatabase()
+{
     data dat;
     dat.openDatabase();
 }
@@ -38,7 +39,6 @@ void domain::addComputer(string& name, int& year, string& type, string& built)
     dat.writeComputer(name, year, type, built);
 }
 
-
 vector<Person> domain::sorting(string& input)
 {
     data dat;
@@ -54,7 +54,8 @@ vector<Person> domain::search(string& whattype, string& input)
     vector<Person> persons, res;
     dat.read(persons);
 
-    for(unsigned int i = 0; i < persons.size(); i++) {
+    for(unsigned int i = 0; i < persons.size(); i++)
+    {
         if (whattype == "-name")
         {
             if(persons[i].getFirstname() == input)
@@ -63,21 +64,24 @@ vector<Person> domain::search(string& whattype, string& input)
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
-        } else if (whattype == "-sex"){
+        } else if (whattype == "-sex")
+        {
             if(persons[i].getSex() == input)
             {
                 Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
-        } else if (whattype == "-birthyear"){
+        } else if (whattype == "-birthyear")
+        {
             if(persons[i].getBirth() == input)
             {
                 Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
-        } else if (whattype == "-deathyear"){
+        } else if (whattype == "-deathyear")
+        {
             if(persons[i].getDeath() == input)
             {
                 Person p(persons[i].getID(), persons[i].getFirstname(),
