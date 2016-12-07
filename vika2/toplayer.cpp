@@ -535,10 +535,10 @@ string toplayer::getNewType() {
     do {
         cin >> type;
         type = capFirstLetter(type);
-        if (type != "Male" && type != "Female"){
-            cout << type << " is not a gender, please choose male or female: ";
+        if (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél"){
+            cout << type << " Type of machine is not \"Mekkanísk\", \"Elektrónísk\" or \"Smáravél\": ";
         }
-    } while (type != "Male" && type != "Female");
+    } while (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél");
     return type;
 }
 
