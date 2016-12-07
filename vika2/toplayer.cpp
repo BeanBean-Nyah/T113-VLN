@@ -138,9 +138,11 @@ bool toplayer::selection()
     cin >> input;
     if (input == "-list")
     {
-        if (!(isListEmpty())) {
+        if (!(isListEmpty()))
+        {
             cout << "================ List is empty =================" << endl << endl;
-        } else
+        }
+        else
         {
             vector<Person> pers;
             vector<Computer> comp;
@@ -228,9 +230,9 @@ bool toplayer::selection()
                     cout << "=================== Sorted list ===================" << endl;
                     print(p);
             }
-        }
-        else if (pORc == "computers")
-        {
+    }
+    else if (pORc == "computers")
+    {
             //if (!(isListEmpty())){
             //        cout << "================ List is empty =================" << endl << endl;
             //    } else{
@@ -246,7 +248,7 @@ bool toplayer::selection()
                     cout << "=================== Sorted list ===================" << endl;
                     printComputer(c);
               //}
-        }
+    }
 
 
         system("pause");
