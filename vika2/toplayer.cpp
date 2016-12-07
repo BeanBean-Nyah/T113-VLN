@@ -192,41 +192,20 @@ bool toplayer::selection()
     }
     else if (input == "-sort")
     {
-        string pORc;
-        cout << "Do you want to sort persons or computers? ";
-        cin >> pORc;
-        if (pORc == "persons") {
-            if (!(isListEmpty())) {
-                    cout << "================ List is empty =================" << endl << endl;
-                } else {
-                    vector<Person> p;
-                    int gildi = 0;
-                    cout << "What do you want to sort by?" << endl;
-                    cout << "   -name" << endl << "   -sex" << endl
-                         << "   -birth" << endl << "   -death" << endl;
-                    string input = getInputType(gildi);
-                    domain d;
-                    p = d.sorting(input);
+        if (!(isListEmpty()))
+        {
+            cout << "================ List is empty =================" << endl << endl;
+        } else
+        {
+            switch(PersOrComp())
+            {
+                case 'p': sortPerson();
+                          break;
+                case 'c': sortComputer();
+                          break;
 
-                    cout << "=================== Sorted list ===================" << endl;
-                    print(p);
-                }
-        } else if (pORc == "computers"){
-            //if (!(isListEmpty())) {
-            //        cout << "================ List is empty =================" << endl << endl;
-            //    } else {
-                    vector<Computer> c;
-                    int gildi = 1;
-                    cout << "What do you want to sort by?" << endl;
-                    cout << "   -name" << endl << "   -year" << endl
-                         << "   -type" << endl << "   -built" << endl;
-                    string input = getInputType(gildi);
-                    domain d;
-                    c = d.sortComputer(input);
-
-                    cout << "=================== Sorted list ===================" << endl;
-                    printComputer(c);
-              //  }
+                default : cout << "fatal error have you tried turning it off and on again" << endl;
+            }
         }
 
         system("pause");
@@ -238,45 +217,15 @@ bool toplayer::selection()
         if (!(isListEmpty())) {
             cout << "================ List is empty =================" << endl << endl;
         } else {
-            string input, newElement, newValue;
-            bool yesno = true;
-            vector<Person> p;
-            domain d;
-            p = d.list();
-            printList(p);
-            cout << "Which entry do you want to edit? " << endl;
-            int lineNumber = lineEntry(p);
-            clearScreen();
-            while (yesno) {
-                int gildi = 0;
-                printLine(p, lineNumber);
-                cout << "Which element do you want to edit? " << endl << "For name type: \t -name" <<
-                     endl << "For sex type: \t \t -sex" << endl <<
-                     "For birth year type: \t -birth" << endl << "For year of death type:  -death" << endl;
-                input = getInputType(gildi);
+            switch(PersOrComp()) {
+                case 'p': editPerson();
+                        break;
 
-                if (input == "-name") {
-                    newValue = getNewFirstname();
-                } else if (input == "-sex") {
-                    newValue = getNewSex();
-                } else if (input == "-birth") {
-                    newValue = getNewBirth();
-                } else if (input == "-death") {
-                    newValue = getNewDeath();
-                }
-                lineNumber = lineNumber - 1;
-                d.edit(p, lineNumber, input, newValue);
-                string yesorno;
-                cout << "Do you want to edit another element in this entry? " << endl << endl;
-                cout << "Type -yes if you want to else type anything else: ";
-                cin >> yesorno;
-                if (yesorno == "-yes") {
-                    yesno = true;
-                    clearScreen();
-                } else {
-                    yesno = false;
-                }
-            }            
+                case 'c': editComputer();
+                        break;
+
+                default : cout << "fatal error have you tried turning it off and on again" << endl;
+            }
         }
         system("pause");
         clearScreen();
@@ -287,15 +236,15 @@ bool toplayer::selection()
         if (!(isListEmpty())) {
             cout << "================ List is empty =================" << endl << endl;
         } else {
-            vector<Person> p;
-            domain d;
-            p = d.list();
-            cout << "========================= List ========================" << endl;
-            printList(p);
-            cout << "Which entry do you want to remove?" << endl;
-            int lineNumber = lineEntry(p) - 1;
-            d.remove(p, lineNumber);
-            cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
+            switch(PersOrComp()) {
+                case 'p': removePerson();
+                        break;
+
+                case 'c': removeComputer();
+                        break;
+
+                default : cout << "fatal error have you tried turning it off and on again" << endl;
+            }
         }
         system("pause");
         clearScreen();
@@ -359,6 +308,73 @@ void toplayer::searchPerson()
         }
     }
 }
+void toplayer::sortPerson()
+{
+    vector<Person> p;
+    int gildi = 0;
+    cout << "What do you want to sort by?" << endl;
+    cout << "   -name" << endl << "   -sex" << endl
+         << "   -birth" << endl << "   -death" << endl;
+    string input = getInputType(gildi);
+    domain d;
+    p = d.sorting(input);
+    print(p);
+}
+void toplayer::editPerson()
+{
+    string input, newElement, newValue;
+    bool yesno = true;
+    vector<Person> p;
+    domain d;
+    p = d.list();
+    printList(p);
+    cout << "Which entry do you want to edit? " << endl;
+    int lineNumber = lineEntry(p);
+    clearScreen();
+    while (yesno) {
+        int gildi = 0;
+        printLine(p, lineNumber);
+        cout << "Which element do you want to edit? " << endl << "For name type: \t -name" <<
+             endl << "For sex type: \t \t -sex" << endl <<
+             "For birth year type: \t -birth" << endl << "For year of death type:  -death" << endl;
+        input = getInputType(gildi);
+
+        if (input == "-name") {
+            newValue = getNewFirstname();
+        } else if (input == "-sex") {
+            newValue = getNewSex();
+        } else if (input == "-birth") {
+            newValue = getNewBirth();
+        } else if (input == "-death") {
+            newValue = getNewDeath();
+        }
+        lineNumber = lineNumber - 1;
+        d.edit(p, lineNumber, input, newValue);
+        string yesorno;
+        cout << "Do you want to edit another element in this entry? " << endl << endl;
+        cout << "Type -yes if you want to else type anything else: ";
+        cin >> yesorno;
+        if (yesorno == "-yes") {
+            yesno = true;
+            clearScreen();
+        } else {
+            yesno = false;
+        }
+    }
+}
+void toplayer::removePerson()
+{
+    vector<Person> p;
+    domain d;
+    p = d.list();
+    cout << "========================= List ========================" << endl;
+    printList(p);
+    cout << "Which entry do you want to remove?" << endl;
+    int lineNumber = lineEntry(p) - 1;
+    d.remove(p, lineNumber);
+    cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
+
+}
 void toplayer::newComputer()
 {
     string cName, cType, cBuilt;
@@ -378,15 +394,38 @@ void toplayer::searchComputer()
 {
     cout << "TODO";
 }
-
+void toplayer::sortComputer()
+{
+    vector<Computer> c;
+    int gildi = 1;
+    cout << "What do you want to sort by?" << endl;
+    cout << "   -name" << endl << "   -year" << endl
+         << "   -type" << endl << "   -built" << endl;
+    string input = getInputType(gildi);
+    domain d;
+    c = d.sortComputer(input);
+    printComputer(c);
+}
+void toplayer::editComputer()
+{
+    cout << "TODO" << endl;
+}
+void toplayer::removeComputer()
+{
+    cout << "TODO" << endl;
+}
 //Athugar hvort listinn se tomur
 bool toplayer::isListEmpty() {
     vector<Person> p;
     domain d;
+    vector<Computer> c;
+    c = d.computerList();
     p = d.list();
     if (p.size() > 0) {
         return true;
-    } else {
+    } else if(c.size() > 0){
+        return true;
+    }else {
         return false;
     }
 }
