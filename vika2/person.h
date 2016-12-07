@@ -12,7 +12,8 @@ public:
     Person();
     Person(string ID, string firstname, string sex, string birth, string death);
 
-    string getID() {
+    string getID()
+    {
         return _ID;
     }
 
@@ -28,14 +29,6 @@ public:
         int d = atoi(_death.c_str());
         return d;
     }
-    string getBirth() const
-    {
-        return _birth;
-    }
-    string getDeath() const
-    {
-        return _death;
-    }
     string getFirstname() const
     {
         return _firstname;
@@ -43,6 +36,14 @@ public:
     string getSex() const
     {
         return _sex;
+    }
+    string getBirth() const
+    {
+        return _birth;
+    }
+    string getDeath() const
+    {
+        return _death;
     }
     void setFirstname(const string& fn)
     {
@@ -64,8 +65,8 @@ private:
     string _ID;
     string _firstname;
     string _sex;
-    string _death;
     string _birth;
+    string _death;
 };
 
 #endif // PERSON_H
