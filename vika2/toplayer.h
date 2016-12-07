@@ -38,6 +38,8 @@ private:
     int lineEntry(const vector<Person>& p);
     void printComputer(vector<Computer> comp);
 
+    void connectToPerson(string& compID);
+
     string getInputType(int& type);
     string getNewFirstname();
     string getNewSex();

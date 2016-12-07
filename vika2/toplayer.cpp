@@ -361,19 +361,76 @@ void toplayer::searchPerson()
 }
 void toplayer::newComputer()
 {
-    string cName, cType, cBuilt;
+    vector<Computer> comp;
+    domain d;
+    string cName, cType, cBuilt, compID, tempCompName;
     int cYear = 0;
     cName = getNewFirstname();
     cYear = getNewDate();
     cType = getNewType();
     cBuilt = getNewBuilt();
-    domain d;
+
     d.addComputer(cName,cYear,cType,cBuilt);
+    comp = d.computerList();
+    for (unsigned int i = 0; i < comp.size(); i++) {
+        tempCompName = comp[i].getName();
+        if (tempCompName == cName) {
+            compID = comp[i].getID();
+        }
+    }
+    connectToPerson(compID);
     cout << "You successfully added a new computer!" << endl << endl;
     system("pause");
     clearScreen();
     help();
 }
+
+void toplayer::connectToPerson(string& compID)
+{
+    string yesorno, choice;
+    cout << "Do you want to connect a person to this computer? " << endl;
+    cout << "Type yes if you want to, else anything else: ";
+    cin >> yesorno;
+    if (yesorno == "yes")
+    {
+        cout << "Do you want to connect a existing person or create new one?" << endl;
+        cout << "Type 'old' for existing one or 'new' for new one ";
+        do
+        {
+            cin >> choice;
+            choice = Lower_Ans(choice);
+            if (choice != "new" && choice != "old")
+            {
+                cout << choice << " is not valid command! Try again: ";
+            }
+        }
+        while (choice != "new" && choice != "old");
+        vector<Person> pers;
+        vector<Computer> comp;
+        domain d;
+        string persID;
+        if (choice == "old")
+        {
+            pers = d.list();
+            printList(pers);
+            cout << "Which person do you want to connect to this computer?" << endl;
+            int lineNumber = lineEntry(pers) - 1;
+            persID = pers[lineNumber].getID();
+            d.connectPtoC(persID, compID);
+        }
+        else if (choice == "new")
+        {
+            newPerson();
+            pers = d.list();
+            int latest = pers.size() - 1;
+            persID = pers[latest].getID();
+            d.connectPtoC(persID, compID);
+        }
+
+    }
+
+}
+
 void toplayer::searchComputer()
 {
     cout << "TODO";

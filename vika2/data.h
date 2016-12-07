@@ -30,6 +30,8 @@ public:
     void openDatabase();
     vector<Person> sortPersons(string& type);
     vector<Computer> sortComputer(string& type);
+    void getPACjoined();
+    void writePAC(string& pers_id, string& comp_id);
 
 };
 

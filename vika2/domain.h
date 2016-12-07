@@ -24,6 +24,7 @@ public:
     void edit(vector<Person>& pers, int& line, string& type, string& newValue);
     void openDatabase();
     vector<Computer> computerList();
+    void connectPtoC(string& persID, string& compID);
 };
 
 #endif // DOMAIN_H

@@ -115,3 +115,9 @@ vector<Computer> domain::sortComputer(string& value) {
     comp = d.sortComputer(value);
     return comp;
 }
+
+void domain::connectPtoC(string& persID, string& compID)
+{
+    data d;
+    d.writePAC(persID, compID);
+}

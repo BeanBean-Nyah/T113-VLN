@@ -6,6 +6,12 @@ CREATE  TABLE "main"."computer" ("computer_ID" INTEGER PRIMARY KEY  AUTOINCREMEN
 "computer_name" VARCHAR NOT NULL , "computer_year" INTEGER, "computer_type" VARCHAR, "computer_built" VARCHAR, 
 "computer_status" BOOL NOT NULL  DEFAULT 0)
 
+
+CREATE TABLE "personsAndComputers" ("ID" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , "computer_id" INTEGER, 
+"person_id" INTEGER, "pac_status" INTEGER NOT NULL  DEFAULT 0, FOREIGN KEY(computer_id) REFERENCES computer(computer_ID), 
+FOREIGN KEY(person_id) REFERENCES persons(ID))
+
+
 // velja baedi
 SELECT p.name AS NAME, c.computer_name AS NAME FROM persons p
 INNER JOIN computer c ON c.computer_id = pc.computer_id
