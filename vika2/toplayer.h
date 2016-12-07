@@ -14,26 +14,31 @@ public:
     void run();
 
 private:
-    void help();
-    void newPerson();
-    void searchPerson();
-    void newComputer();
-    void searchComputer();
-    void printList(vector<Person>& p);
-    void printLine(vector<Person>& pers, const int& i);
     void clearScreen();
+    void help();
+    void editComputer();
+    void editPerson();
+    void newComputer();
+    void newPerson();
+    void removeComputer();
+    void removePerson();
+    void searchComputer();
+    void searchPerson();
+    void sortComputer();
+    void sortPerson();
     void print(vector<Person>& pers);
+    void printLine(vector<Person>& pers, const int& i);
+    void printList(vector<Person>& p);
 
     char PersOrComp();
 
-    bool selection();
     bool contains_number(const string &c);
     bool contains_letters(const string &c);
     bool isListEmpty();
+    bool selection();
 
-    string Lower_Ans(string word);
     string capFirstLetter(string& str);
-
+    string Lower_Ans(string word);
 
     int lineEntry(const vector<Person>& p);
     void printComputer(vector<Computer> comp);

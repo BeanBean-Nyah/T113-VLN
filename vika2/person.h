@@ -12,29 +12,22 @@ public:
     Person();
     Person(string ID, string firstname, string sex, string birth, string death);
 
-    string getID() {
+    string getID()
+    {
         return _ID;
     }
 
-    // Notad til ad sortera eftir birthyear
+    // Notad til ad sortera eftir Fæðingarári
     int getBirthint() const
     {
         int b = atoi(_birth.c_str());
         return b;
     }
-    // Notad til ad sortera eftir deathyear
+    // Notad til ad sortera eftir dánarári
     int getDeathint() const
     {
         int d = atoi(_death.c_str());
         return d;
-    }
-    string getBirth() const
-    {
-        return _birth;
-    }
-    string getDeath() const
-    {
-        return _death;
     }
     string getFirstname() const
     {
@@ -43,6 +36,14 @@ public:
     string getSex() const
     {
         return _sex;
+    }
+    string getBirth() const
+    {
+        return _birth;
+    }
+    string getDeath() const
+    {
+        return _death;
     }
     void setFirstname(const string& fn)
     {
@@ -56,7 +57,8 @@ public:
     {
         _birth = b;
     }
-    void setDeath(const string& d) {
+    void setDeath(const string& d)
+    {
         _death = d;
     }
 
@@ -64,8 +66,8 @@ private:
     string _ID;
     string _firstname;
     string _sex;
-    string _death;
     string _birth;
+    string _death;
 };
 
 #endif // PERSON_H
