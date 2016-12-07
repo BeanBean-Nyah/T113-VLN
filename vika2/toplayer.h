@@ -16,10 +16,16 @@ public:
 private:
     void clearScreen();
     void help();
+    void editComputer();
+    void editPerson();
     void newComputer();
     void newPerson();
+    void removeComputer();
+    void removePerson();
     void searchComputer();
     void searchPerson();
+    void sortComputer();
+    void sortPerson();
     void print(vector<Person>& pers);
     void printLine(vector<Person>& pers, const int& i);
     void printList(vector<Person>& p);
