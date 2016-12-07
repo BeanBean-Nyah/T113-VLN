@@ -127,7 +127,6 @@ vector<Computer> domain::sortComputer(string& value)
     return comp;
 }
 
-
 vector<Computer> domain::searchComputer(string& whattype, string& input)
 {
     data dat;
@@ -174,6 +173,13 @@ vector<Computer> domain::searchComputer(string& whattype, string& input)
         }
     }
     return res;
+}
+
+void domain::editComputer(vector<Computer>& comp, int& line, string& type, string& newValue)
+{
+    string ID = comp[line].getID();
+    data dat;
+    dat.editComp(ID, newValue, type);
 }
 
 void domain::connectPtoC(string& persID, string& compID)

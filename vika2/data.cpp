@@ -208,6 +208,38 @@ void data::writeComputer(string& name, int& year, string& type, string& built)
         query.exec();
 }
 
+void data::editComp(string& ID, string& value, string& type)
+{
+    QSqlQuery query;
+    QString qID = QString::fromStdString(ID);
+    QString qvalue = QString::fromStdString(value);
+    if (type == "-name")
+    {
+        query.prepare("Update computer SET computer_name = :value WHERE computer_ID = :id");
+        query.bindValue(":id", qID);
+        query.bindValue(":value", qvalue);
+    }
+    else if (type == "-year")
+    {
+        query.prepare("Update computer SET computer_year = :value WHERE computer_ID = :id");
+        query.bindValue(":id", qID);
+        query.bindValue(":value", qvalue);
+    }
+    else if (type == "-type")
+    {
+        query.prepare("Update computer SET computer_type = :value WHERE computer_ID = :id");
+        query.bindValue(":id", qID);
+        query.bindValue(":value", qvalue);
+    }
+    else if (type == "-built")
+    {
+        query.prepare("Update computer SET computer_built = :value WHERE computer_ID = :id");
+        query.bindValue(":id", qID);
+        query.bindValue(":value", qvalue);
+    }
+    query.exec();
+}
+
 vector<Computer> data::sortComputer(string& type)
 {
     vector<Computer> comp;

@@ -26,6 +26,7 @@ public:
     void writeComputer(string& name, int& year, string& type, string& built);
     void remove(string& name);
     void edit(string& ID, string& value, string& type);
+    void editComp(string& ID, string& value, string& type);
     QSqlDatabase m_db;
     void openDatabase();
     vector<Person> sortPersons(string& type);
