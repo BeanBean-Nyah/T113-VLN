@@ -135,7 +135,7 @@ void toplayer::printList(vector<Person>& p)
 void toplayer::printComputer(vector<Computer> comp)
 {
     cout << left << setw(20) << "Name" << setw(10)
-         << "Year" << setw(10) << "Type" << setw(10) << "Built" << endl << endl;
+         << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
     for(unsigned int i = 0; i < comp.size(); i++)
     {
         cout.width(20);
@@ -144,7 +144,7 @@ void toplayer::printComputer(vector<Computer> comp)
         cout.width(10);
         cout<<left;
         cout << comp[i].getYear();
-        cout.width(10);
+        cout.width(15);
         cout<<left;
         cout << comp[i].getType();
         cout.width(10);
@@ -156,7 +156,7 @@ void toplayer::printComputer(vector<Computer> comp)
 void toplayer::printListComputer(vector<Computer>& p)
 {
     cout << left << setw(5) << "Nr." << setw(25) << "Name" << setw(10)
-         << "Year" << setw(10) << "Type" << setw(10) << "Built" << endl << endl;
+         << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
     for(unsigned int i = 0; i < p.size(); i++)
     {
         cout.width(5);
@@ -168,7 +168,7 @@ void toplayer::printListComputer(vector<Computer>& p)
         cout.width(10);
         cout << left;
         cout << p[i].getYear();
-        cout.width(10);
+        cout.width(15);
         cout << left;
         cout << p[i].getType();
         cout.width(10);
@@ -353,8 +353,15 @@ void toplayer::newPerson()
 
 
     domain d;
-    d.add(firstname, sex, birth, death);
-    cout << "You successfully added a new person!" << endl << endl;
+    if (d.add(firstname, sex, birth, death))
+    {
+        cout << "You successfully added a new person!" << endl << endl;
+    }
+    else
+    {
+        cout << "This exact person already exists, so it wasn't added!" << endl << endl;
+    }
+
     system("pause");
     clearScreen();
     help();
@@ -379,7 +386,6 @@ void toplayer::searchPerson()
         cout << "What is the word you want to search for? ";
         cin.ignore();
         getline(cin,input);
-        input = capFirstLetter(input);
         p = d.search(whattype, input);
         if (p.size() == 0)
         {
@@ -397,9 +403,11 @@ void toplayer::sortPerson()
     vector<Person> p;
     int gildi = 0;
     cout << "What do you want to sort by?" << endl;
-    cout << "   -name" << endl << "   -sex" << endl
-         << "   -birth" << endl << "   -death" << endl;
-    string input = getInputType(gildi);
+    cout << "   -nameasc" << endl << "   -namedesc" << endl
+         << "   -sexasc" << endl << "   -sexdesc" << endl
+         << "   -birthasc" << endl << "   -birthdesc" << endl
+         << "   -deathasc" << endl << "   -deathdesc" << endl;
+    string input = getInputSortType(gildi);
     domain d;
     p = d.sorting(input);
     print(p);
@@ -470,16 +478,22 @@ void toplayer::newComputer()
     cType = getNewType();
     cBuilt = getNewBuilt();
 
-    d.addComputer(cName,cYear,cType,cBuilt);
-    comp = d.computerList();
-    for (unsigned int i = 0; i < comp.size(); i++) {
-        tempCompName = comp[i].getName();
-        if (tempCompName == cName) {
-            compID = comp[i].getID();
+    if (d.addComputer(cName,cYear,cType,cBuilt))
+    {
+        cout << "You successfully added a new computer!" << endl << endl;
+        comp = d.computerList();
+        for (unsigned int i = 0; i < comp.size(); i++) {
+            tempCompName = comp[i].getName();
+            if (tempCompName == cName) {
+                compID = comp[i].getID();
+            }
         }
+        connectToPerson(compID);
     }
-    connectToPerson(compID);
-    cout << "You successfully added a new computer!" << endl << endl;
+    else
+    {
+        cout << "This exact computer already exists, so it wasn't added!" << endl << endl;
+    }
     system("pause");
     clearScreen();
     help();
@@ -487,47 +501,63 @@ void toplayer::newComputer()
 
 void toplayer::connectToPerson(string& compID)
 {
-    string yesorno, choice;
+    string yesorno, choice, inneryesorno;
+    bool YN = true;
     cout << "Do you want to connect a person to this computer? " << endl;
     cout << "Type yes if you want to, else anything else: ";
     cin >> yesorno;
     if (yesorno == "yes")
     {
-        cout << "Do you want to connect a existing person or create new one?" << endl;
-        cout << "Type 'old' for existing one or 'new' for new one ";
         do
         {
-            cin >> choice;
-            choice = Lower_Ans(choice);
-            if (choice != "new" && choice != "old")
+            cout << "Do you want to connect a existing person or create new one?" << endl;
+            cout << "Type 'old' for existing one or 'new' for new one ";
+            do
             {
-                cout << choice << " is not valid command! Try again: ";
+                cin >> choice;
+                choice = Lower_Ans(choice);
+                if (choice != "new" && choice != "old")
+                {
+                    cout << choice << " is not valid command! Try again: ";
+                }
             }
-        }
-        while (choice != "new" && choice != "old");
-        vector<Person> pers;
-        vector<Computer> comp;
-        domain d;
-        string persID;
-        if (choice == "old")
-        {
-            pers = d.list();
-            printList(pers);
-            cout << "Which person do you want to connect to this computer?" << endl;
-            int lineNumber = lineEntry(pers) - 1;
-            persID = pers[lineNumber].getID();
-            d.connectPtoC(persID, compID);
-        }
-        else if (choice == "new")
-        {
-            newPerson();
-            pers = d.list();
-            int latest = pers.size() - 1;
-            persID = pers[latest].getID();
-            d.connectPtoC(persID, compID);
-        }
+            while (choice != "new" && choice != "old");
+            vector<Person> pers;
+            vector<Computer> comp;
+            domain d;
+            string persID;
+            if (choice == "old")
+            {
+                pers = d.list();
+                printList(pers);
+                cout << "Which person do you want to connect to this computer?" << endl;
+                int lineNumber = lineEntry(pers) - 1;
+                persID = pers[lineNumber].getID();
+                d.connectPtoC(persID, compID);
+            }
+            else if (choice == "new")
+            {
+                newPerson();
+                pers = d.list();
+                int latest = pers.size() - 1;
+                persID = pers[latest].getID();
+                d.connectPtoC(persID, compID);
+            }
+            cout << "Do you want to connect another person to this computer? " << endl;
+            cout << "Type yes if you want to, else anything else: ";
+            cin >> inneryesorno;
+            inneryesorno = Lower_Ans(inneryesorno);
+            if (inneryesorno == "yes")
+            {
+                YN = true;
+            } else
+            {
+                YN = false;
+            }
+        } while(YN);
 
     }
+
 
 }
 
@@ -551,7 +581,6 @@ void toplayer::searchComputer()
         cout << "What is the word you want to search for? ";
         cin.ignore();
         getline(cin,input);
-        input = capFirstLetter(input);
         p = d.searchComputer(whattype, input);
         if (p.size() == 0)
         {
@@ -569,9 +598,11 @@ void toplayer::sortComputer()
     vector<Computer> c;
     int gildi = 1;
     cout << "What do you want to sort by?" << endl;
-    cout << "   -name" << endl << "   -year" << endl
-         << "   -type" << endl << "   -built" << endl;
-    string input = getInputType(gildi);
+    cout << "   -nameasc" << endl << "   -namedesc" << endl
+         << "   -yearasc" << endl << "   -yeardesc" << endl
+         << "   -typeasc" << endl << "   -typedesc" << endl
+         << "   -builtasc" << endl << "   -builtdesc" << endl;
+    string input = getInputSortType(gildi);
     domain d;
     c = d.sortComputer(input);
     printComputer(c);
@@ -662,7 +693,11 @@ string toplayer::Lower_Ans(string word)
 string toplayer::capFirstLetter(string& str)
 {
     string output = Lower_Ans(str);
+    size_t f = output.find(" ");
     output[0] = toupper(output[0]);
+    output[f+1] = toupper(output[f+1]);
+    f = output.find(" ",f+1);
+    output[f+1] = toupper(output[f+1]);
     return output;
 }
 
@@ -752,6 +787,52 @@ string toplayer::getInputType(int& type)
     }
     return input;
 }
+
+string toplayer::getInputSortType(int& type)
+{
+    string input;
+    if (type == 0)
+    {
+        do
+        {
+            cout << "Enter your choice: ";
+            cin >> input;
+            input = Lower_Ans(input);
+            if (input != "-nameasc" && input != "-sexasc" &&
+                input != "-birthasc" && input != "-deathasc" &&
+                input != "-namedesc" && input != "-sexdesc" &&
+                input != "-birthdesc" && input != "-deathdesc")
+            {
+                cout << input << " is not valid command! Try again: ";
+            }
+        }
+        while (input != "-nameasc" && input != "-sexasc" &&
+               input != "-birthasc" && input != "-deathasc" &&
+               input != "-namedesc" && input != "-sexdesc" &&
+               input != "-birthdesc" && input != "-deathdesc");
+    }
+        else if (type == 1)
+    {
+        cout << "Enter your choice: ";
+        do
+        {
+            cin >> input;
+            input = Lower_Ans(input);
+            if (input != "-nameasc" && input != "-yearasc" &&
+                input != "-typeasc" && input != "-builtasc" &&
+                input != "-namedesc" && input != "-yeardesc" &&
+                input != "-typedesc" && input != "-builtdesc")
+            {
+                cout << input << " is not valid command! Try again: ";
+            }
+        }
+        while (input != "-nameasc" && input != "-yearasc" &&
+               input != "-typeasc" && input != "-builtasc" &&
+               input != "-namedesc" && input != "-yeardesc" &&
+               input != "-typedesc" && input != "-builtdesc");
+    }
+    return input;
+}
 //skilar nyju firstname
 string toplayer::getNewFirstname()
 {
@@ -837,7 +918,7 @@ int toplayer::getNewDate()
 string toplayer::getNewType()
 {
     string type;
-    cout << "Enter type: ";
+    cout << "Enter type, you can choose 'Mechanical', 'Electroinic' or 'Transitive': ";
     do
     {
         cin >> type;
@@ -905,7 +986,7 @@ void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                 for (unsigned int j = 0; j < pers.size(); j++)
                 {
                     if (pers[j].getID() == id) {
-                        cout << "\t" << pers[j].getFirstname() << endl;
+                        cout << "\t\t" << pers[j].getFirstname() << endl;
                     }
                 }
             }

@@ -25,16 +25,60 @@ void domain::openDatabase()
     dat.openDatabase();
 }
 
-void domain::add(string& firstname, string& sex, string& birth, string& death)
+bool domain::add(string& firstname, string& sex, string& birth, string& death)
 {
     data dat;
-    dat.write(firstname, sex, birth, death);
+    bool check = true;
+    vector<Person> persons;
+    dat.read(persons);
+    for (unsigned int i = 0; i < persons.size(); i++)
+    {
+        if (firstname == persons[i].getFirstname() && sex == persons[i].getSex() &&
+                birth == persons[i].getBirth() && death == persons[i].getDeath())
+        {
+            check = false;
+        } else {
+            check = true;
+        }
+    }
+    if (check)
+    {
+        dat.write(firstname, sex, birth, death);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
 }
 
-void domain::addComputer(string& name, int& year, string& type, string& built)
+bool domain::addComputer(string& name, int& year, string& type, string& built)
 {
     data dat;
-    dat.writeComputer(name, year, type, built);
+    bool check = true;
+    vector<Computer> comp;
+    dat.readComputer(comp);
+    for (unsigned int i = 0; i < comp.size(); i++)
+    {
+        if (name == comp[i].getName() && year == comp[i].getYear() &&
+                type == comp[i].getType() && built == comp[i].getBuilt())
+        {
+            check = false;
+        } else {
+            check = true;
+        }
+    }
+    if (check)
+    {
+        dat.writeComputer(name, year, type, built);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
 }
 
 vector<Person> domain::sorting(string& input)
@@ -54,10 +98,14 @@ vector<Person> domain::search(string& whattype, string& input)
 
     for(unsigned int i = 0; i < persons.size(); i++)
     {
+
+
         if (whattype == "-name")
         {
-            if(persons[i].getFirstname() == input)
-            {
+            string name = Lower_Ans(persons[i].getFirstname());
+            string innerinput = Lower_Ans(input);
+            size_t found = name.find(innerinput);
+            if (found!=string::npos){
                 Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
@@ -144,7 +192,10 @@ vector<Computer> domain::searchComputer(string& whattype, string& input)
     {
         if (whattype == "-name")
         {
-            if(computers[i].getName() == input)
+            string name = Lower_Ans(computers[i].getName());
+            string innerinput = Lower_Ans(input);
+            size_t found = name.find(innerinput);
+            if (found!=string::npos)
             {
                 Computer c(computers[i].getID(), computers[i].getName(),
                        computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
@@ -194,4 +245,10 @@ void domain::connectPtoC(string& persID, string& compID)
 {
     data d;
     d.writePAC(persID, compID);
+}
+
+string domain::Lower_Ans(string word)
+{
+    transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator
+    return word;
 }

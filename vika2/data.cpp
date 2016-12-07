@@ -76,19 +76,35 @@ vector<Person> data::sortPersons(string& type)
 {
     vector<Person> pers;
     QSqlQuery query;
-    if (type == "-name")
+    if (type == "-nameasc")
+    {
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Name ASC");
+    }
+    else if (type == "-sexasc")
+    {
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Sex ASC");
+    }
+    else if (type == "-birthasc")
+    {
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Birth ASC");
+    }
+    else if (type == "-deathasc")
+    {
+        query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Death ASC");
+    }
+    else if (type == "-namedesc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Name DESC");
     }
-    else if (type == "-sex")
+    else if (type == "-sexdesc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Sex DESC");
     }
-    else if (type == "-birth")
+    else if (type == "-birthdesc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Birth DESC");
     }
-    else if (type == "-death")
+    else if (type == "-deathdesc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Death DESC");
     }
@@ -134,7 +150,7 @@ void data::edit(string& ID, string& value, string& type)
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
     QString qvalue = QString::fromStdString(value);
-    if (type == "-firstname")
+    if (type == "-name")
     {
         query.prepare("Update persons SET name = :value WHERE ID = :id");
         query.bindValue(":id", qID);
@@ -244,19 +260,42 @@ vector<Computer> data::sortComputer(string& type)
 {
     vector<Computer> comp;
     QSqlQuery query;
-    if (type == "-name")
+    if (type == "-nameasc")
+    {
+        query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_name ASC");
+    }
+    else if (type == "-yearasc")
+    {
+        query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_year ASC");
+    }
+    else if (type == "-typeasc")
+    {
+        query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_type ASC");
+    }
+    else if (type == "-builtasc")
+    {
+        query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
+                        "computer_Built, computer_Status FROM computer ORDER BY computer_built ASC");
+    }
+    else if (type == "-namedesc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_name DESC");
-    } else if (type == "-year")
+    }
+    else if (type == "-yeardesc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_year DESC");
-    } else if (type == "-type")
+    }
+    else if (type == "-typedesc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_type DESC");
-    } else if (type == "-built")
+    }
+    else if (type == "-builtdesc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_built DESC");

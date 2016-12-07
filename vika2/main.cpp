@@ -11,7 +11,6 @@ int main()
 {
     toplayer ui;
     ui.run();
-
     return 0;
 }
 

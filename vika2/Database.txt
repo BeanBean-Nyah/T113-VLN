@@ -1,6 +1,5 @@
-CREATE  TABLE "main"."persons" ("ID" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , 
-"Name" VARCHAR NOT NULL  DEFAULT JohnDoe, "Sex" VARCHAR, "Birth" VARCHAR NOT NULL , 
-"Death" VARCHAR DEFAULT Alive, "Status" BOOL NOT NULL  DEFAULT 0)
+CREATE TABLE "main"."persons" ("ID" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , "Name" VARCHAR NOT NULL  DEFAULT JohnDoe, 
+"Sex" VARCHAR, "Birth" INT NOT NULL , "Death" INT DEFAULT Alive, "Status" BOOL NOT NULL  DEFAULT 0)
 
 CREATE  TABLE "main"."computer" ("computer_ID" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , 
 "computer_name" VARCHAR NOT NULL , "computer_year" INTEGER, "computer_type" VARCHAR, "computer_built" VARCHAR, 

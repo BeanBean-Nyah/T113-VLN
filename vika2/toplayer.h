@@ -50,6 +50,7 @@ private:
     void connectToPerson(string& compID);
 
     string getInputType(int& type);
+    string getInputSortType(int& type);
     string getNewFirstname();
     string getNewSex();
     string getNewBirth();
