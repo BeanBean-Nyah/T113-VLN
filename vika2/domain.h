@@ -24,7 +24,11 @@ public:
     vector<Person> list();
     void openDatabase();
     vector<Computer> computerList();
+
+    void connectPtoC(string& persID, string& compID);
+
     void remove(vector<Person>& pers, int& line);
+
 
 };
 

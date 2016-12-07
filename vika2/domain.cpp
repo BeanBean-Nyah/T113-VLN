@@ -127,6 +127,7 @@ vector<Computer> domain::sortComputer(string& value)
     return comp;
 }
 
+
 vector<Computer> domain::searchComputer(string& whattype, string& input)
 {
     data dat;
@@ -173,4 +174,10 @@ vector<Computer> domain::searchComputer(string& whattype, string& input)
         }
     }
     return res;
+}
+
+void domain::connectPtoC(string& persID, string& compID)
+{
+    data d;
+    d.writePAC(persID, compID);
 }

@@ -17,13 +17,13 @@ public:
         return _ID;
     }
 
-    // Notad til ad sortera eftir birthyear
+    // Notad til ad sortera eftir Fæðingarári
     int getBirthint() const
     {
         int b = atoi(_birth.c_str());
         return b;
     }
-    // Notad til ad sortera eftir deathyear
+    // Notad til ad sortera eftir dánarári
     int getDeathint() const
     {
         int d = atoi(_death.c_str());

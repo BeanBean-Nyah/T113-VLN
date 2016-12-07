@@ -12,6 +12,7 @@ void data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     m_db.setDatabaseName("vika2.sqlite");
+    //m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
 
     if (!m_db.open())
     {
@@ -252,6 +253,40 @@ vector<Computer> data::sortComputer(string& type)
             comp.push_back(c);
         }
     }
-
     return comp;
+}
+
+void data::getPACjoined() {
+    QSqlQuery query("SELECT ID, computer_ID, persons_ID, pac_status FROM personsandcomputers");
+
+    int idID = query.record().indexOf("ID");
+    int idComp_ID = query.record().indexOf("computer_ID");
+    int idPers_ID = query.record().indexOf("person_ID");
+    int idStatus = query.record().indexOf("pac_status");
+    while (query.next())
+    {
+        if (query.value(idStatus) == 0) {
+            QString qid = query.value(idID).toString();
+            int id = qid.split(" ")[0].toInt();
+            QString qcomp_id = query.value(idComp_ID).toString();
+            int comp_id = qcomp_id.split(" ")[0].toInt();
+            QString qpers_id = query.value(idPers_ID).toString();
+            int pers_id = qpers_id.split(" ")[0].toInt();
+            QString qstatus = query.value(idStatus).toString();
+            int status = qstatus.split(" ")[0].toInt();
+            //Computer c(id, name, year, type, built);
+            //comp.push_back(c);
+        }
+    }
+}
+
+void data::writePAC(string& pers_id, string& comp_id)
+{
+    QSqlQuery query;
+    QString qpers_id = QString::fromStdString(pers_id);
+    QString qcomp_id = QString::fromStdString(comp_id);
+    query.prepare("INSERT INTO personsandcomputers (person_id, computer_id) VALUES (:pers_id, :comp_id)");
+        query.bindValue(":pers_id", qpers_id);
+        query.bindValue(":comp_id", qcomp_id);
+        query.exec();
 }
