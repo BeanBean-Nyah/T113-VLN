@@ -110,7 +110,8 @@ void toplayer::printList(vector<Person>& p)
     cout << "=======================================================" << endl << endl;
 }
 //Prentar ut computer lista
-void toplayer::printComputer(vector<Computer> comp) {
+void toplayer::printComputer(vector<Computer> comp)
+{
     cout << left << setw(20) << "Name" << setw(10)
          << "Year" << setw(10) << "Type" << setw(10) << "Built" << endl << endl;
     for(unsigned int i = 0; i < comp.size(); i++)
@@ -611,13 +612,22 @@ string toplayer::getNewType()
     {
         cin >> type;
         type = capFirstLetter(type);
+
         if (type != "Male" && type != "Female")
         {
             cout << type << " is not a gender, please choose male or female: ";
         }
-    } while (type != "Male" && type != "Female");
+
+        if (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél")
+        {
+            cout << type << " Type of machine is not \"Mekkanísk\", \"Elektrónísk\" or \"Smáravél\": ";
+
+        }
+    }
+    while (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél");
     return type;
 }
+
 
 // skilar hvort computer var built eda ekki
 string toplayer::getNewBuilt()
@@ -632,8 +642,7 @@ string toplayer::getNewBuilt()
         {
             cout << built << " isn't clear enough, please choose Yes or No: ";
         }
-    }
-    while (built != "Yes" && built != "NO");
+    } while (built != "Yes" && built != "NO");
     return built;
 }
 
