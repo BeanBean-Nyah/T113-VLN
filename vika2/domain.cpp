@@ -64,7 +64,8 @@ vector<Person> domain::search(string& whattype, string& input)
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
-        } else if (whattype == "-sex")
+        }
+        else if (whattype == "-sex")
         {
             if(persons[i].getSex() == input)
             {
@@ -72,7 +73,8 @@ vector<Person> domain::search(string& whattype, string& input)
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
-        } else if (whattype == "-birthyear")
+        }
+        else if (whattype == "-birthyear")
         {
             if(persons[i].getBirth() == input)
             {
@@ -80,7 +82,8 @@ vector<Person> domain::search(string& whattype, string& input)
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
             }
-        } else if (whattype == "-deathyear")
+        }
+        else if (whattype == "-deathyear")
         {
             if(persons[i].getDeath() == input)
             {

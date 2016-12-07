@@ -39,11 +39,13 @@ void toplayer::help()
     cout << "*********************************************************" << endl;
 }
 
-//Prentar ut lista med ollum personunum ur vector
-void toplayer::print(vector<Person>& pers) {
+//Prentar ut lista med ollum personum ur vector
+void toplayer::print(vector<Person>& pers)
+{
     cout << left << setw(25) << "Name" << setw(10)
          << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
-    for(unsigned int i = 0; i < pers.size(); i++) {
+    for(unsigned int i = 0; i < pers.size(); i++)
+    {
         cout.width(25);
         cout<<left;
         cout << pers[i].getFirstname();
@@ -61,7 +63,8 @@ void toplayer::print(vector<Person>& pers) {
 }
 
 //Prentar ut eina linu ur vector
-void toplayer::printLine(vector<Person>& pers, const int& i) {
+void toplayer::printLine(vector<Person>& pers, const int& i)
+{
     int k = i - 1;
     cout << endl << "================ Line to edit =====================" << endl;
     cout << left << setw(25) << "Name" << setw(10)
@@ -82,10 +85,12 @@ void toplayer::printLine(vector<Person>& pers, const int& i) {
 }
 
 //Prentar ut lista med numerum fyrir framan hvern einstakling
-void toplayer::printList(vector<Person>& p) {
+void toplayer::printList(vector<Person>& p)
+{
     cout << left << setw(5) << "Nr." << setw(25) << "Name" << setw(10)
          << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
-    for(unsigned int i = 0; i < p.size(); i++){
+    for(unsigned int i = 0; i < p.size(); i++)
+    {
         cout.width(5);
         cout << left;
         cout << i+1;
@@ -105,10 +110,12 @@ void toplayer::printList(vector<Person>& p) {
     cout << "=======================================================" << endl << endl;
 }
 //Prentar ut computer lista
-void toplayer::printComputer(vector<Computer> comp) {
+void toplayer::printComputer(vector<Computer> comp)
+{
     cout << left << setw(20) << "Name" << setw(10)
          << "Year" << setw(10) << "Type" << setw(10) << "Built" << endl << endl;
-    for(unsigned int i = 0; i < comp.size(); i++) {
+    for(unsigned int i = 0; i < comp.size(); i++)
+    {
         cout.width(20);
         cout<<left;
         cout << comp[i].getName();
@@ -131,9 +138,12 @@ bool toplayer::selection()
     cin >> input;
     if (input == "-list")
     {
-        if (!(isListEmpty())) {
+        if (!(isListEmpty()))
+        {
             cout << "================ List is empty =================" << endl << endl;
-        } else {
+        }
+        else
+        {
             vector<Person> pers;
             vector<Computer> comp;
             domain d;
@@ -151,20 +161,24 @@ bool toplayer::selection()
                         cout << "error" << endl;
             }
             cout << "====================== List =======================" << endl;
-            if (selection == human) {
+            if (selection == human)
+            {
                 print(pers);
-            } else if (selection == com) {
+            }
+            else if (selection == com)
+            {
                 printComputer(comp);
             }
 
-        }
+       }
         system("pause");
         clearScreen();
         help();
     }
     else if (input == "-search")
     {
-        switch(PersOrComp()) {
+        switch(PersOrComp())
+        {
             case 'p': searchPerson();
                     break;
 
@@ -180,7 +194,8 @@ bool toplayer::selection()
     }
     else if (input == "-new")
     {
-        switch(PersOrComp()) {
+        switch(PersOrComp())
+        {
             case 'p': newPerson();
                     break;
 
@@ -207,14 +222,14 @@ bool toplayer::selection()
                 default : cout << "fatal error have you tried turning it off and on again" << endl;
             }
         }
-
         system("pause");
         clearScreen();
         help();
     }
     else if (input == "-edit")
     {
-        if (!(isListEmpty())) {
+        if (!(isListEmpty()))
+        {
             cout << "================ List is empty =================" << endl << endl;
         } else {
             switch(PersOrComp()) {
@@ -233,7 +248,8 @@ bool toplayer::selection()
     }
     else if (input == "-remove")
     {
-        if (!(isListEmpty())) {
+        if (!(isListEmpty()))
+        {
             cout << "================ List is empty =================" << endl << endl;
         } else {
             switch(PersOrComp()) {
@@ -283,9 +299,12 @@ void toplayer::newPerson()
 }
 void toplayer::searchPerson()
 {
-    if (!(isListEmpty())) {
+    if (!(isListEmpty()))
+    {
         cout << "================ List is empty =================" << endl << endl;
-    } else {
+    }
+    else
+        {
         vector<Person> p;
         int gildi = 0;
         domain d;
@@ -300,13 +319,16 @@ void toplayer::searchPerson()
         getline(cin,input);
         input = capFirstLetter(input);
         p = d.search(whattype, input);
-        if (p.size() == 0){
+        if (p.size() == 0)
+        {
             cout << "Sorry, no results!" << endl;
-        } else {
+        }
+        else
+        {
             cout << "================ Search results ==================" << endl;
             print(p);
         }
-    }
+        }
 }
 void toplayer::sortPerson()
 {
@@ -415,13 +437,15 @@ void toplayer::removeComputer()
     cout << "TODO" << endl;
 }
 //Athugar hvort listinn se tomur
-bool toplayer::isListEmpty() {
+bool toplayer::isListEmpty()
+{
     vector<Person> p;
     domain d;
     vector<Computer> c;
     c = d.computerList();
     p = d.list();
-    if (p.size() > 0) {
+    if (p.size() > 0)
+    {
         return true;
     } else if(c.size() > 0){
         return true;
@@ -448,7 +472,8 @@ string toplayer::Lower_Ans(string word)
 }
 
 //fixar input thannig ad fyrsti stafur er alltaf stor og rest litlir
-string toplayer::capFirstLetter(string& str) {
+string toplayer::capFirstLetter(string& str)
+{
     string output = Lower_Ans(str);
     output[0] = toupper(output[0]);
     return output;
@@ -460,59 +485,77 @@ void toplayer::clearScreen()
     system("cls");
 }
 //skila valinni linu ur lista
-int toplayer::lineEntry(const vector<Person>& p) {
+int toplayer::lineEntry(const vector<Person>& p)
+{
     unsigned int lineNumber = 1;
     cout << "Type the line number: ";
-    do {
-        if (lineNumber <= 0 || lineNumber > p.size()) {
+    do
+    {
+        if (lineNumber <= 0 || lineNumber > p.size())
+        {
             cout << "Sorry this isn't a valid line, try again: ";
         }
-        while (!(cin >> lineNumber)) {
+        while (!(cin >> lineNumber))
+        {
            cin.clear();
            cin.ignore();
            cout << "Invalid input, try again: ";
         }
-    } while (lineNumber <= 0 || lineNumber > p.size());
+    }
+    while (lineNumber <= 0 || lineNumber > p.size());
     cout << endl;
     return lineNumber;
 }
 // skilar input-i fra notanda
-string toplayer::getInputType(int& type) {
+string toplayer::getInputType(int& type)
+{
     string input;
-    if (type == 0) {
-        do {
+    if (type == 0)
+    {
+        do
+        {
             cout << "Enter your choice: ";
             cin >> input;
             input = Lower_Ans(input);
             if (input != "-name" && input != "-sex" &&
-                input != "-birth" && input != "-death") {
+                input != "-birth" && input != "-death")
+            {
                 cout << input << " is not valid command! Try again: ";
             }
-        } while (input != "-name" && input != "-sex" &&
+        }
+        while (input != "-name" && input != "-sex" &&
                  input != "-birth" && input != "-death");
-    } else if (type == 1) {
-        do {
+    }
+        else if (type == 1)
+    {
+        do
+        {
             cout << "Enter your choice: ";
             cin >> input;
             input = Lower_Ans(input);
             if (input != "-name" && input != "-year" &&
-                input != "-type" && input != "-built") {
+                input != "-type" && input != "-built")
+            {
                 cout << input << " is not valid command! Try again: ";
             }
-        } while (input != "-name" && input != "-year" &&
+        }
+        while (input != "-name" && input != "-year" &&
                  input != "-type" && input != "-built");
     }
     return input;
 }
 //skilar nyju firstname
-string toplayer::getNewFirstname() {
+string toplayer::getNewFirstname()
+{
     string firstname;
     cout << "Enter name: ";
-    do {
+    do
+    {
         cin.ignore();
         getline (cin, firstname);
         firstname = capFirstLetter(firstname);
-        if (contains_number(firstname)) {
+        if (contains_number(firstname))
+        {
             cout << "First name can not contain numbers try again: ";
         }
     } while (contains_number(firstname));
@@ -520,47 +563,59 @@ string toplayer::getNewFirstname() {
 }
 
 //skilar nyju sex
-string toplayer::getNewSex() {
+string toplayer::getNewSex()
+{
     string sex;
     cout << "Enter sex: ";
-    do {
+    do
+    {
         cin >> sex;
         sex = capFirstLetter(sex);
-        if (sex != "Male" && sex != "Female"){
+        if (sex != "Male" && sex != "Female")
+        {
             cout << sex << " is not a gender, please choose male or female: ";
         }
     } while (sex != "Male" && sex != "Female");
     return sex;
 }
 // skilar nyju birth
-string toplayer::getNewBirth() {
+string toplayer::getNewBirth()
+{
     string birth;
     cout << "Enter year of birth: ";
-    do {
+    do
+    {
         cin >> birth;
-        if (contains_letters(birth)){
+        if (contains_letters(birth))
+        {
             cout << "Year of death can not contain letters, try again: ";
         }
     } while (contains_letters(birth));
     return birth;
 }
 // skilar nyju death
-string toplayer::getNewDeath() {
+string toplayer::getNewDeath()
+{
     string death;
     cout << "Enter year of death, if the person has not died please type \"-\": ";
-    do {
+    do
+    {
         cin >> death;
-        if (contains_letters(death)){
+        if (contains_letters(death))
+        {
             cout << "Year of death can not contain letters, try again: ";
         }
-    } while (contains_letters(death));
+    }
+    while (contains_letters(death));
     return death;
 }
 // skilar nyju ari fyrir computer
-int toplayer::getNewDate() {
+int toplayer::getNewDate()
+{
     int year;
     cout << "Enter year: ";
-    while (!(cin >> year)) {
+    while (!(cin >> year))
+    {
        cin.clear();
        cin.ignore();
        cout << "Invalid input, try again: ";
@@ -568,27 +623,42 @@ int toplayer::getNewDate() {
     return year;
 }
 // skilar nyju type i fyrir computer
-string toplayer::getNewType() {
+string toplayer::getNewType()
+{
     string type;
     cout << "Enter type: ";
-    do {
+    do
+    {
         cin >> type;
         type = capFirstLetter(type);
-        if (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél"){
-            cout << type << " Type of machine is not \"Mekkanísk\", \"Elektrónísk\" or \"Smáravél\": ";
+
+        if (type != "Male" && type != "Female")
+        {
+            cout << type << " is not a gender, please choose male or female: ";
         }
-    } while (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél");
+
+        if (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél")
+        {
+            cout << type << " Type of machine is not \"Mekkanísk\", \"Elektrónísk\" or \"Smáravél\": ";
+
+        }
+    }
+    while (type != "Mekkanísk" && type != "Elektrónísk" && type != "Smáravél");
     return type;
 }
 
+
 // skilar hvort computer var built eda ekki
-string toplayer::getNewBuilt() {
+string toplayer::getNewBuilt()
+{
     string built;
     cout << "Was the computer built: ";
-    do {
+    do
+    {
         cin >> built;
         built = capFirstLetter(built);
-        if (built != "Yes" && built != "No"){
+        if (built != "Yes" && built != "No")
+        {
             cout << built << " isn't clear enough, please choose Yes or No: ";
         }
     } while (built != "Yes" && built != "NO");
