@@ -30,7 +30,6 @@ public:
     void openDatabase();
     vector<Person> sortPersons(string& type);
     vector<Computer> sortComputer(string& type);
-
 };
 
 #endif // DATA_H

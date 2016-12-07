@@ -89,27 +89,31 @@ vector<Person> domain::search(string& whattype, string& input)
     return res;
 }
 
-void domain::remove(vector<Person>& pers, int& line) {
+void domain::remove(vector<Person>& pers, int& line)
+{
     string ID = pers[line].getID();
     data dat;
     dat.remove(ID);
 }
 
-void domain::edit(vector<Person>& pers, int& line, string& type, string& newValue) {
+void domain::edit(vector<Person>& pers, int& line, string& type, string& newValue)
+{
     string ID = pers[line].getID();
     data dat;
     dat.edit(ID, newValue, type);
 }
 //Computer functions
 
-vector<Computer> domain::computerList() {
+vector<Computer> domain::computerList()
+{
     vector<Computer> comp;
     data d;
     d.readComputer(comp);
     return comp;
 }
 
-vector<Computer> domain::sortComputer(string& value) {
+vector<Computer> domain::sortComputer(string& value)
+{
     vector<Computer> comp;
     data d;
     comp = d.sortComputer(value);
