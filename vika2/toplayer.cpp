@@ -10,7 +10,6 @@ using namespace std;
 
 toplayer::toplayer()
 {
-
 }
 void toplayer::run()
 {
@@ -26,7 +25,9 @@ void toplayer::run()
 void toplayer::help()
 {
     cout << "*********************************************************" << endl;
-    cout << "**     Notable Computer Scientists In History          **" << endl;
+    cout << "**                                                     **" << endl;
+    cout << "**                Notable Computers and                **" << endl;
+    cout << "**           Computer Scientists In History            **" << endl;
     cout << "**                                                     **" << endl;
     cout << "**     Enter -new to add a new person                  **" << endl;
     cout << "**     Enter -list for a full list                     **" << endl;
