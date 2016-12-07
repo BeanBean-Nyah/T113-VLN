@@ -10,7 +10,6 @@ using namespace std;
 
 toplayer::toplayer()
 {
-
 }
 void toplayer::run()
 {
@@ -26,7 +25,9 @@ void toplayer::run()
 void toplayer::help()
 {
     cout << "*********************************************************" << endl;
-    cout << "**     Notable Computer Scientists In History          **" << endl;
+    cout << "**                                                     **" << endl;
+    cout << "**                Notable Computers and                **" << endl;
+    cout << "**           Computer Scientists In History            **" << endl;
     cout << "**                                                     **" << endl;
     cout << "**     Enter -new to add a new person or computer      **" << endl;
     cout << "**     Enter -list for a see the lists                 **" << endl;
@@ -83,6 +84,27 @@ void toplayer::printLine(vector<Person>& pers, const int& i)
     cout << pers[k].getDeath()<<endl;
     cout << "===================================================" << endl << endl;
 }
+void toplayer::printLineComputer(vector<Computer>& comp, const int& i)
+{
+    int k = i - 1;
+    cout << endl << "================ Line to edit =====================" << endl;
+    cout << left << setw(25) << "Name" << setw(10)
+         << "Year" << setw(10) << "Type" << setw(10) << "Built" << endl << endl;
+    cout.width(12);
+    cout<<left;
+    cout << comp[k].getName();
+    cout.width(10);
+    cout<<left;
+    cout << comp[k].getYear();
+    cout.width(10);
+    cout<<left;
+    cout << comp[k].getType();
+    cout.width(10);
+    cout<<left;
+    cout << comp[k].getBuilt()<<endl;
+    cout << "===================================================" << endl << endl;
+}
+
 
 //Prentar ut lista med numerum fyrir framan hvern einstakling
 void toplayer::printList(vector<Person>& p)
@@ -130,6 +152,30 @@ void toplayer::printComputer(vector<Computer> comp)
         cout << comp[i].getBuilt()<<endl;
     }
     cout << "==================================================" << endl << endl;
+}
+void toplayer::printListComputer(vector<Computer>& p)
+{
+    cout << left << setw(5) << "Nr." << setw(25) << "Name" << setw(10)
+         << "Year" << setw(10) << "Type" << setw(10) << "Built" << endl << endl;
+    for(unsigned int i = 0; i < p.size(); i++)
+    {
+        cout.width(5);
+        cout << left;
+        cout << i+1;
+        cout.width(25);
+        cout << left;
+        cout << p[i].getName();
+        cout.width(10);
+        cout << left;
+        cout << p[i].getYear();
+        cout.width(10);
+        cout << left;
+        cout << p[i].getType();
+        cout.width(10);
+        cout << left;
+        cout << p[i].getBuilt() << endl;
+    }
+    cout << "=======================================================" << endl << endl;
 }
 
 bool toplayer::selection()
@@ -487,7 +533,36 @@ void toplayer::connectToPerson(string& compID)
 
 void toplayer::searchComputer()
 {
-    cout << "TODO";
+    if (!(isListEmpty()))
+    {
+        cout << "================ List is empty =================" << endl << endl;
+    }
+    else
+        {
+        vector<Computer> p;
+        int gildi = 1;
+        domain d;
+        string whattype, input;
+        cout << "What do you want to search for?" << endl;
+        cout << "-name" << endl << "-year"
+             << endl << "-type" << endl << "-built" << endl;
+        cout << "Enter your choice: ";
+        whattype = getInputType(gildi);
+        cout << "What is the word you want to search for? ";
+        cin.ignore();
+        getline(cin,input);
+        input = capFirstLetter(input);
+        p = d.searchComputer(whattype, input);
+        if (p.size() == 0)
+        {
+            cout << "Sorry, no results!" << endl;
+        }
+        else
+        {
+            cout << "================ Search results ==================" << endl;
+            printComputer(p);
+        }
+        }
 }
 void toplayer::sortComputer()
 {
@@ -503,7 +578,46 @@ void toplayer::sortComputer()
 }
 void toplayer::editComputer()
 {
-    cout << "TODO" << endl;
+    string input, newElement, newValue;
+    bool yesno = true;
+    vector<Computer> c;
+    domain d;
+    c = d.computerList();
+    printListComputer(c);
+    cout << "Which entry do you want to edit? " << endl;
+    int lineNumber = lineEntryComputer(c);
+    clearScreen();
+    while (yesno) {
+        int gildi = 1;
+        printLineComputer(c, lineNumber);
+        cout << "Which element do you want to edit? " << endl << "For name type: \t -name" <<
+             endl << "For year type: \t \t -year" << endl <<
+             "For type type: \t -type" << endl << "For built type:  -built" << endl;
+        input = getInputType(gildi);
+
+        if (input == "-name") {
+            newValue = getNewFirstname();
+        } else if (input == "-year") {
+            newValue = getNewDate();
+        } else if (input == "-type") {
+            newValue = getNewType();
+        } else if (input == "-built") {
+            newValue = getNewBuilt();
+        }
+        lineNumber = lineNumber - 1;
+        d.editComputer(c, lineNumber, input, newValue);
+        string yesorno;
+        cout << "Do you want to edit another element in this entry? " << endl << endl;
+        cout << "Type -yes if you want to else type anything else: ";
+        cin >> yesorno;
+        if (yesorno == "-yes") {
+            yesno = true;
+            clearScreen();
+        } else {
+            yesno = false;
+        }
+    }
+
 }
 void toplayer::removeComputer()
 {
@@ -559,6 +673,27 @@ void toplayer::clearScreen()
 }
 //skila valinni linu ur lista
 int toplayer::lineEntry(const vector<Person>& p)
+{
+    unsigned int lineNumber = 1;
+    cout << "Type the line number: ";
+    do
+    {
+        if (lineNumber <= 0 || lineNumber > p.size())
+        {
+            cout << "Sorry this isn't a valid line, try again: ";
+        }
+        while (!(cin >> lineNumber))
+        {
+           cin.clear();
+           cin.ignore();
+           cout << "Invalid input, try again: ";
+        }
+    }
+    while (lineNumber <= 0 || lineNumber > p.size());
+    cout << endl;
+    return lineNumber;
+}
+int toplayer::lineEntryComputer(const vector<Computer>& p)
 {
     unsigned int lineNumber = 1;
     cout << "Type the line number: ";

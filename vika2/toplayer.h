@@ -29,7 +29,9 @@ private:
     void sortPerson();
     void print(vector<Person>& pers);
     void printLine(vector<Person>& pers, const int& i);
+    void printLineComputer(vector<Computer>& comp, const int& i);
     void printList(vector<Person>& p);
+    void printListComputer(vector<Computer>& p);
 
     char PersOrComp();
 
@@ -42,6 +44,7 @@ private:
     string Lower_Ans(string word);
 
     int lineEntry(const vector<Person>& p);
+    int lineEntryComputer(const vector<Computer>& p);
     void printComputer(vector<Computer> comp);
 
     void connectToPerson(string& compID);

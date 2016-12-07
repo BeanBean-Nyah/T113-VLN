@@ -4,8 +4,6 @@
 #include <iostream>
 #include <algorithm>
 
-//prufu komment
-
 using namespace std;
 domain::domain()
 {
@@ -127,12 +125,69 @@ vector<Computer> domain::sortComputer(string& value)
     return comp;
 }
 
+
 vector<PersonsAndComputers> domain::persAndCompList()
 {
     vector<PersonsAndComputers> pAc;
     data d;
     d.getPACjoined(pAc);
     return pAc;
+}
+
+vector<Computer> domain::searchComputer(string& whattype, string& input)
+{
+    data dat;
+    vector<Computer> computers, res;
+    dat.readComputer(computers);
+
+    for(unsigned int i = 0; i < computers.size(); i++)
+    {
+        if (whattype == "-name")
+        {
+            if(computers[i].getName() == input)
+            {
+                Computer c(computers[i].getID(), computers[i].getName(),
+                       computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
+                res.push_back(c);
+            }
+        }
+        else if (whattype == "-year")
+        {
+            if (computers[i].getYearString() == input)
+            {
+                Computer c(computers[i].getID(), computers[i].getName(),
+                       computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
+                res.push_back(c);
+            }
+        }
+        else if (whattype == "-type")
+        {
+            if(computers[i].getType() == input)
+            {
+                Computer c(computers[i].getID(), computers[i].getName(),
+                       computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
+                res.push_back(c);
+            }
+        }
+        else if (whattype == "-built")
+        {
+            if(computers[i].getBuilt() == input)
+            {
+                Computer c(computers[i].getID(), computers[i].getName(),
+                       computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
+                res.push_back(c);
+            }
+        }
+    }
+    return res;
+}
+
+void domain::editComputer(vector<Computer>& comp, int& line, string& type, string& newValue)
+{
+    string ID = comp[line].getID();
+    data dat;
+    dat.editComp(ID, newValue, type);
+
 }
 
 void domain::connectPtoC(string& persID, string& compID)
