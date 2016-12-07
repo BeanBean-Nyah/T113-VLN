@@ -414,7 +414,36 @@ void toplayer::newComputer()
 }
 void toplayer::searchComputer()
 {
-    cout << "TODO";
+    if (!(isListEmpty()))
+    {
+        cout << "================ List is empty =================" << endl << endl;
+    }
+    else
+        {
+        vector<Computer> p;
+        int gildi = 1;
+        domain d;
+        string whattype, input;
+        cout << "What do you want to search for?" << endl;
+        cout << "-name" << endl << "-year"
+             << endl << "-type" << endl << "-built" << endl;
+        cout << "Enter your choice: ";
+        whattype = getInputType(gildi);
+        cout << "What is the word you want to search for? ";
+        cin.ignore();
+        getline(cin,input);
+        input = capFirstLetter(input);
+        p = d.searchComputer(whattype, input);
+        if (p.size() == 0)
+        {
+            cout << "Sorry, no results!" << endl;
+        }
+        else
+        {
+            cout << "================ Search results ==================" << endl;
+            printComputer(p);
+        }
+        }
 }
 void toplayer::sortComputer()
 {

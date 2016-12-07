@@ -126,3 +126,51 @@ vector<Computer> domain::sortComputer(string& value)
     comp = d.sortComputer(value);
     return comp;
 }
+
+vector<Computer> domain::searchComputer(string& whattype, string& input)
+{
+    data dat;
+    vector<Computer> computers, res;
+    dat.readComputer(computers);
+
+    for(unsigned int i = 0; i < computers.size(); i++)
+    {
+        if (whattype == "-name")
+        {
+            if(computers[i].getName() == input)
+            {
+                Computer c(computers[i].getID(), computers[i].getName(),
+                       computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
+                res.push_back(c);
+            }
+        }
+        else if (whattype == "-year")
+        {
+            if (computers[i].getYearString() == input)
+            {
+                Computer c(computers[i].getID(), computers[i].getName(),
+                       computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
+                res.push_back(c);
+            }
+        }
+        else if (whattype == "-type")
+        {
+            if(computers[i].getType() == input)
+            {
+                Computer c(computers[i].getID(), computers[i].getName(),
+                       computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
+                res.push_back(c);
+            }
+        }
+        else if (whattype == "-built")
+        {
+            if(computers[i].getBuilt() == input)
+            {
+                Computer c(computers[i].getID(), computers[i].getName(),
+                       computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
+                res.push_back(c);
+            }
+        }
+    }
+    return res;
+}
