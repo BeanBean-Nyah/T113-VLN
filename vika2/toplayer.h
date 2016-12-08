@@ -56,9 +56,9 @@ private:
     string getNewBirth();
     string getNewDeath();
     string getNewDate();
-
     string getNewType();
     string getNewBuilt();
+
     void printPersAndComp(vector<PersonsAndComputers> pAc);
 
 };
