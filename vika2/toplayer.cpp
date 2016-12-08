@@ -1106,10 +1106,14 @@ void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
     pers = d.list();
     comp = d.computerList();
     string id;
-    cout << left << setw(20) << "Computer" << setw(20)
-         << "Creator" << setw(10) << "Year" << setw(10) << "Built" << endl << endl;
+    cout << left << setw(25) << "Computer" << setw(20)
+         << "Creators" << setw(10) << "Year" << setw(10) << "Built" << endl << endl;
     for (unsigned int i = 0; i < comp.size(); i++)
     {
+        cout.width(25);
+        cout<<left;
+        cout << comp[i].getName();
+        int t = 0;
         for (unsigned int k = 0; k < pAc.size(); k++)
         {
             if (comp[i].getID() == pAc[k].getComp_ID())
@@ -1118,20 +1122,28 @@ void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                 for (unsigned int j = 0; j < pers.size(); j++)
                 {
                     if (pers[j].getID() == id) {
-                            cout.width(20);
+                        if (t > 0) {
+                            cout.width(25);
                             cout<<left;
-                            cout << comp[i].getName();
-                            cout.width(20);
-                            cout<<left;
-                            cout << pers[j].getFirstname();
-                            cout.width(10);
-                            cout<<left;
-                            cout << comp[i].getYear();
-                            cout.width(10);
-                            cout<<left;
-                            cout << comp[i].getBuilt()<<endl;
+                            cout << "";
+                        }
+                        cout.width(20);
+                        cout<<left;
+                        cout << pers[j].getFirstname();
+                        if (t > 0) {
+                            cout << endl;
+                        }
+                        if (t == 0) {
+                        cout.width(10);
+                        cout<<left;
+                        cout << comp[i].getYear();
+                        cout.width(10);
+                        cout<<left;
+                        cout << comp[i].getBuilt()<<endl;
+                        }
                     }
                 }
+                t++;
             }
         }
     } cout << "=========================================================" << endl << endl;
