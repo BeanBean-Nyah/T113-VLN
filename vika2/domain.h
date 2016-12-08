@@ -16,7 +16,7 @@ private:
 public:
     domain();
 
-    void openDatabase();
+    bool openDatabase();
 
     bool add(string& firstname, string& sex, string& birth, string& death);
     bool addComputer(string& name, int& year, string& type, string& built);

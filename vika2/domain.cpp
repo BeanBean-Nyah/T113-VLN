@@ -19,10 +19,15 @@ vector<Person> domain::list()
     return persons;
 }
 
-void domain::openDatabase()
+bool domain::openDatabase()
 {
     data dat;
-    dat.openDatabase();
+    if (dat.openDatabase())
+    {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool domain::add(string& firstname, string& sex, string& birth, string& death)

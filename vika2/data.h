@@ -29,7 +29,7 @@ public:
     void edit(string& ID, string& value, string& type);
     void editComp(string& ID, string& value, string& type);
     QSqlDatabase m_db;
-    void openDatabase();
+    bool openDatabase();
     vector<Person> sortPersons(string& type);
     vector<Computer> sortComputer(string& type);
 

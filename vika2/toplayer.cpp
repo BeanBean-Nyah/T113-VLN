@@ -14,7 +14,12 @@ toplayer::toplayer()
 void toplayer::run()
 {
     domain d;
-    d.openDatabase();
+    if (d.openDatabase())
+    {
+        cout << "Database: connection ok" << endl;
+    } else {
+        cout << "Error: connection with database fail" << endl;
+    }
     help();
     cout << "\n Enter -help to display the command list again " << endl;
     while(selection())

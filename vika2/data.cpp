@@ -8,7 +8,7 @@ data::data()
 {
 }
 
-void data::openDatabase()
+bool data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     //m_db.setDatabaseName("vika2.sqlite");
@@ -16,11 +16,11 @@ void data::openDatabase()
 
     if (!m_db.open())
     {
-       cout << "Error: connection with database fail" << endl;
+       return false;
     }
     else
     {
-       cout << "Database: connection ok" << endl;
+       return true;
     }
 }
 
