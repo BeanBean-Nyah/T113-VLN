@@ -41,6 +41,7 @@ void toplayer::help()
     cout << "**     Enter -edit to edit list                        **" << endl;
     cout << "**     Enter -funfact to get fun fact                  **" << endl;
     cout << "**     Enter -remove to remove element from list       **" << endl;
+    cout << "**     Enter -clear to clear from database             **" << endl;
     cout << "**     Enter -exit to exit the program                 **" << endl;
     cout << "**                                                     **" << endl;
     cout << "*********************************************************" << endl;
@@ -332,6 +333,33 @@ bool toplayer::selection()
         domain d;
         string fact = d.funFact();
         cout << endl << fact << endl << endl;
+        system("pause");
+        clearScreen();
+        help();
+    }
+    else if (input == "-clear")
+    {
+        domain d;
+        string input;
+        cout << "Type 'persons' if you want to clear all persons from the database" << endl;
+        cout << "Type 'computers' if you want to clear all computers from the database" << endl;
+        cout << "Type 'connections' if you want to clear all connections between persons and computers" << endl;
+        cout << "Type 'everything' if you want to clear everything from the database" << endl;
+        cout << "Type 'back' if you want to go back" << endl;
+        do {
+            cin >> input;
+            Lower_Ans(input);
+            if (input != "persons" && input != "computers" && input != "connections" &&
+                    input != "everything" && input != "back")
+            {
+                cout << "Invalid input, try again: ";
+            }
+        } while (input != "persons" && input != "computers" && input != "connections" &&
+                 input != "everything" && input != "back");
+        if (d.clear(input))
+            cout << "You successfully cleared everything from " << input << endl;
+        else
+            cout << "Something went wrong" << endl;
         system("pause");
         clearScreen();
         help();
