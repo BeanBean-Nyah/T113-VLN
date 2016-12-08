@@ -25,7 +25,8 @@ bool domain::openDatabase()
     if (dat.openDatabase())
     {
         return true;
-    } else {
+    } else
+    {
         return false;
     }
 }
@@ -70,7 +71,9 @@ bool domain::addComputer(string& name, string& year, string& type, string& built
                 type == comp[i].getType() && built == comp[i].getBuilt())
         {
             check = false;
-        } else {
+        }
+        else
+        {
             check = true;
         }
     }
@@ -110,7 +113,8 @@ vector<Person> domain::search(string& whattype, string& input)
             string name = Lower_Ans(persons[i].getFirstname());
             string innerinput = Lower_Ans(input);
             size_t found = name.find(innerinput);
-            if (found!=string::npos){
+            if (found!=string::npos)
+            {
                 Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
                 res.push_back(p);
