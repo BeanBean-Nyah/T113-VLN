@@ -254,10 +254,32 @@ void domain::editComputer(vector<Computer>& comp, int& line, string& type, strin
 
 }
 
-void domain::connectPtoC(string& persID, string& compID)
+bool domain::connectPtoC(string& persID, string& compID)
 {
     data d;
-    d.writePAC(persID, compID);
+    bool check = true;
+    vector<PersonsAndComputers> pAc;
+    d.getPACjoined(pAc);
+    for (unsigned int i = 0; i < pAc.size(); i++)
+    {
+        if (persID == pAc[i].getPers_ID() && compID == pAc[i].getComp_ID())
+        {
+            check = false;
+        } else {
+            check = true;
+        }
+    }
+    if (check)
+    {
+        d.writePAC(persID, compID);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
+
 }
 
 string domain::Lower_Ans(string word)

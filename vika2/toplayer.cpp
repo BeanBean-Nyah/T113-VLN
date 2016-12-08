@@ -345,17 +345,23 @@ void toplayer::newPerson()
 
     firstname = getNewFirstname();
     sex = getNewSex();
+    int birthint;
+    int deathint;
     do
     {
         birth = getNewBirth();
         death = getNewDeath();
-        if (birth > death)
+        birthint = atoi(birth.c_str());
+        deathint = atoi(death.c_str());
+        if (birthint > deathint)
         {
             cout << "You can not be born after you die, please try again!" << endl;
         }
-    } while (birth > death);
-
-
+    } while (birthint > deathint);
+    if (death == "99999999")
+    {
+        death.clear();
+    }
 
     domain d;
     if (d.add(firstname, sex, birth, death))
@@ -441,9 +447,27 @@ void toplayer::editPerson()
         } else if (input == "-sex") {
             newValue = getNewSex();
         } else if (input == "-birth") {
-            newValue = getNewBirth();
+            do {
+                newValue = getNewBirth();
+                cout << (atoi(newValue.c_str())) << endl;
+                cout << (atoi(p[lineNumber-1].getDeath().c_str())) << endl;
+                if ((atoi(newValue.c_str())) > (atoi(p[lineNumber-1].getDeath().c_str())))
+                {
+                    cout << "You can not be born after you die, please try again!" << endl;
+                }
+            } while ((atoi(newValue.c_str())) > (atoi(p[lineNumber-1].getDeath().c_str())));
         } else if (input == "-death") {
-            newValue = getNewDeath();
+            do {
+                newValue = getNewDeath();
+                if ((atoi(p[lineNumber-1].getBirth().c_str())) > (atoi(newValue.c_str())))
+                {
+                    cout << "You can not die before you are born, please try again!" << endl;
+                }
+            } while ((atoi(p[lineNumber-1].getBirth().c_str())) > (atoi(newValue.c_str())));
+            if (newValue == "99999999")
+            {
+                newValue.clear();
+            }
         }
         lineNumber = lineNumber - 1;
         d.edit(p, lineNumber, input, newValue);
@@ -537,7 +561,14 @@ void toplayer::connectToPerson(string& compID)
                 cout << "Which person do you want to connect to this computer?" << endl;
                 int lineNumber = lineEntry(pers) - 1;
                 persID = pers[lineNumber].getID();
-                d.connectPtoC(persID, compID);
+                if (d.connectPtoC(persID, compID))
+                {
+                    cout << "You successfully connected a person to this computer!" << endl;
+                }
+                else
+                {
+                    cout << "This exact person is already connected to this computer!" << endl;
+                }
             }
             else if (choice == "new")
             {
@@ -545,7 +576,14 @@ void toplayer::connectToPerson(string& compID)
                 pers = d.list();
                 int latest = pers.size() - 1;
                 persID = pers[latest].getID();
-                d.connectPtoC(persID, compID);
+                if (d.connectPtoC(persID, compID))
+                {
+                    cout << "You successfully connected a person to this computer!" << endl;
+                }
+                else
+                {
+                    cout << "This exact person is already connected to this computer!" << endl;
+                }
             }
             cout << "Do you want to connect another person to this computer? " << endl;
             cout << "Type yes if you want to, else anything else: ";
@@ -909,7 +947,7 @@ string toplayer::getNewDeath()
     }
     while (contains_letters(death));
     if (death == "-") {
-        death.clear();
+        death = "99999999";
     }
     return death;
 }
