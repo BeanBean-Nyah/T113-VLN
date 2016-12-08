@@ -331,7 +331,7 @@ bool toplayer::selection()
     {
         domain d;
         string fact = d.funFact();
-        cout << fact << endl;
+        cout << endl << fact << endl << endl;
         system("pause");
         clearScreen();
         help();
@@ -550,7 +550,7 @@ void toplayer::newComputer()
                 compID = comp[i].getID();
             }
         }
-        int type = 0;
+        int type = 1;
         connectToPerson(compID, type);
     }
     else
@@ -590,7 +590,7 @@ void toplayer::connectToPerson(string& ID, int& type)
             vector<Computer> comp;
             domain d;
             string persID, compID;
-            if (type == 0)
+            if (type == 1)
             {
                 if (choice == "old")
                 {
@@ -624,7 +624,7 @@ void toplayer::connectToPerson(string& ID, int& type)
                     }
                 }
             }
-            else if (type == 1)
+            else if (type == 0)
             {
                 if (choice == "old")
                 {
@@ -644,10 +644,10 @@ void toplayer::connectToPerson(string& ID, int& type)
                 }
                 else if (choice == "new")
                 {
-                    newPerson();
-                    pers = d.list();
+                    newComputer();
+                    comp = d.computerList();
                     int latest = comp.size() - 1;
-                    compID = pers[latest].getID();
+                    compID = comp[latest].getID();
                     if (d.connectPtoC(ID, compID))
                     {
                         cout << "You successfully connected a computer to this person!" << endl;
