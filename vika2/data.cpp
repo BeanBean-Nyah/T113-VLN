@@ -137,7 +137,8 @@ vector<Person> data::sortPersons(string& type)
     return pers;
 }
 
-void data::remove(string& ID, int& type) {
+void data::remove(string& ID, int& type)
+{
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
     if (type == 0)
@@ -337,7 +338,8 @@ vector<Computer> data::sortComputer(string& type)
     return comp;
 }
 
-void data::getPACjoined(vector<PersonsAndComputers>& pAc) {
+void data::getPACjoined(vector<PersonsAndComputers>& pAc)
+{
     QSqlQuery query("SELECT ID, computer_ID, person_ID, pac_status FROM personsandcomputers");
 
     int idID = query.record().indexOf("ID");
