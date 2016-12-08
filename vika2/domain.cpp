@@ -58,7 +58,7 @@ bool domain::add(string& firstname, string& sex, string& birth, string& death)
     return true;
 }
 
-bool domain::addComputer(string& name, int& year, string& type, string& built)
+bool domain::addComputer(string& name, string& year, string& type, string& built)
 {
     data dat;
     bool check = true;
@@ -149,9 +149,10 @@ vector<Person> domain::search(string& whattype, string& input)
 
 void domain::remove(vector<Person>& pers, int& line)
 {
+    int type = 0;
     string ID = pers[line].getID();
     data dat;
-    dat.remove(ID);
+    dat.remove(ID, type);
 }
 
 void domain::edit(vector<Person>& pers, int& line, string& type, string& newValue)
@@ -178,6 +179,13 @@ vector<Computer> domain::sortComputer(string& value)
     return comp;
 }
 
+void domain::removeComputer(vector<Computer>& comp, int& line)
+{
+    int type = 1;
+    string ID = comp[line].getID();
+    data dat;
+    dat.remove(ID, type);
+}
 
 vector<PersonsAndComputers> domain::persAndCompList()
 {
@@ -209,7 +217,7 @@ vector<Computer> domain::searchComputer(string& whattype, string& input)
         }
         else if (whattype == "-year")
         {
-            if (computers[i].getYearString() == input)
+            if (computers[i].getYear() == input)
             {
                 Computer c(computers[i].getID(), computers[i].getName(),
                        computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());

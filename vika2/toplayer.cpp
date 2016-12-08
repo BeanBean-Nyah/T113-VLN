@@ -476,8 +476,7 @@ void toplayer::newComputer()
 {
     vector<Computer> comp;
     domain d;
-    string cName, cType, cBuilt, compID, tempCompName;
-    int cYear = 0;
+    string cName, cYear, cType, cBuilt, compID, tempCompName;
     cName = getNewFirstname();
     cYear = getNewDate();
     cType = getNewType();
@@ -657,7 +656,15 @@ void toplayer::editComputer()
 }
 void toplayer::removeComputer()
 {
-    cout << "TODO" << endl;
+    vector<Computer> comp;
+    domain d;
+    comp = d.computerList();
+    cout << "========================= List ========================" << endl;
+    printListComputer(comp);
+    cout << "Which entry do you want to remove?" << endl;
+    int lineNumber = lineEntryComputer(comp) - 1;
+    d.removeComputer(comp, lineNumber);
+    cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
 }
 //Athugar hvort listinn se tomur
 bool toplayer::isListEmpty()
@@ -907,16 +914,20 @@ string toplayer::getNewDeath()
     return death;
 }
 // skilar nyju ari fyrir computer
-int toplayer::getNewDate()
+string toplayer::getNewDate()
 {
-    int year;
+    string year;
     cout << "Enter year: ";
-    while (!(cin >> year))
+    do
     {
-       cin.clear();
-       cin.ignore();
-       cout << "Invalid input, try again: ";
-    };
+        cin >> year;
+        if (contains_letters(year))
+        {
+            cout << "Year can not contain letters, try again: ";
+        }
+    }
+    while (contains_letters(year));
+
     return year;
 }
 // skilar nyju type i fyrir computer

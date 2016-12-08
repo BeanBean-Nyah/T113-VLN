@@ -19,7 +19,7 @@ public:
     bool openDatabase();
 
     bool add(string& firstname, string& sex, string& birth, string& death);
-    bool addComputer(string& name, int& year, string& type, string& built);
+    bool addComputer(string& name, string& year, string& type, string& built);
 
     vector<Computer> sortComputer(string& value);
     vector<Person> sorting(string& input);
@@ -36,6 +36,8 @@ public:
     void connectPtoC(string& persID, string& compID);
 
     void remove(vector<Person>& pers, int& line);
+    void removeComputer(vector<Computer>& comp, int& line);
+
     vector<PersonsAndComputers> persAndCompList();
     string Lower_Ans(string word);
 

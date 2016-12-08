@@ -137,11 +137,20 @@ vector<Person> data::sortPersons(string& type)
     return pers;
 }
 
-void data::remove(string& ID) {
+void data::remove(string& ID, int& type) {
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
-    query.prepare("UPDATE persons SET status = 1 WHERE ID = :id");
-    query.bindValue(":id", qID);
+    if (type == 0)
+    {
+        query.prepare("UPDATE persons SET status = 1 WHERE ID = :id");
+        query.bindValue(":id", qID);
+    }
+    else if (type == 1)
+    {
+        query.prepare("UPDATE computer SET computer_status = 1 WHERE computer_ID = :id");
+        query.bindValue(":id", qID);
+    }
+
     query.exec();
 }
 
@@ -197,7 +206,7 @@ void data::readComputer(vector<Computer>& comp)
             QString qname = query.value(idName).toString();
             string name = qname.toLocal8Bit().constData();
             QString qyear = query.value(idYear).toString();
-            int year = qyear.split(" ")[0].toInt();
+            string year = qyear.toLocal8Bit().constData();
             QString qtype = query.value(idType).toString();
             string type = qtype.toLocal8Bit().constData();
             QString qbuilt = query.value(idBuilt).toString();
@@ -208,11 +217,11 @@ void data::readComputer(vector<Computer>& comp)
     }
 }
 
-void data::writeComputer(string& name, int& year, string& type, string& built)
+void data::writeComputer(string& name, string& year, string& type, string& built)
 {
     QSqlQuery query;
     QString qname = QString::fromStdString(name);
-    QString qyear = QString::number(year);
+    QString qyear = QString::fromStdString(year);
     QString qtype = QString::fromStdString(type);
     QString qbuilt = QString::fromStdString(built);
     query.prepare("INSERT INTO computer (computer_name, computer_year, computer_type, computer_built)"
@@ -255,6 +264,7 @@ void data::editComp(string& ID, string& value, string& type)
     }
     query.exec();
 }
+
 
 vector<Computer> data::sortComputer(string& type)
 {
@@ -315,7 +325,7 @@ vector<Computer> data::sortComputer(string& type)
             QString qname = query.value(idName).toString();
             string name = qname.toLocal8Bit().constData();
             QString qyear = query.value(idYear).toString();
-            int year = qyear.split(" ")[0].toInt();
+            string year = qyear.toLocal8Bit().constData();
             QString qtype = query.value(idType).toString();
             string type = qtype.toLocal8Bit().constData();
             QString qbuilt = query.value(idBuilt).toString();

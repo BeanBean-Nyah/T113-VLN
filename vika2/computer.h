@@ -12,7 +12,7 @@ class Computer
 public:
     Computer();
 
-    Computer(string id, string name, int year, string type, string built);
+    Computer(string id, string name, string year, string type, string built);
 
     string getID() const
     {
@@ -24,16 +24,9 @@ public:
         return _name;
     }
 
-    int getYear() const
+    string getYear() const
     {
         return _year;
-    }
-
-    string getYearString() const
-    {
-        string str;
-        str = to_string(_year);
-        return str;
     }
 
     string getType() const
@@ -69,7 +62,7 @@ public:
 private:
     string _id;
     string _name;
-    int _year;
+    string _year;
     string _type;
     string _built;
 

@@ -55,7 +55,7 @@ private:
     string getNewSex();
     string getNewBirth();
     string getNewDeath();
-    int getNewDate();
+    string getNewDate();
 
     string getNewType();
     string getNewBuilt();

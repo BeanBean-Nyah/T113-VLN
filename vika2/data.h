@@ -24,8 +24,8 @@ public:
     void read(vector<Person>& pers);
     void readComputer(vector<Computer>& comp);
     void write(string& firstname, string& sex, string& birth, string& death);
-    void writeComputer(string& name, int& year, string& type, string& built);
-    void remove(string& name);
+    void writeComputer(string& name, string& year, string& type, string& built);
+    void remove(string& name, int& type);
     void edit(string& ID, string& value, string& type);
     void editComp(string& ID, string& value, string& type);
     QSqlDatabase m_db;
