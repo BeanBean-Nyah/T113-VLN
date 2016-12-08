@@ -11,8 +11,8 @@ data::data()
 bool data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName("verkefni2");
-    //m_db.setDatabaseName("..\\..\\verkefni2.sqlite");
+    //m_db.setDatabaseName("verkefni2");
+    m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
 
     if (!m_db.open())
     {
@@ -337,6 +337,10 @@ vector<Computer> data::sortComputer(string& type)
     }
     return comp;
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 97a7198fb0966d5093b4ffccad13cebc66ebdf63
 void data::getPACjoined(vector<PersonsAndComputers>& pAc)
 {
     QSqlQuery query("SELECT ID, computer_ID, person_ID, pac_status FROM personsandcomputers");

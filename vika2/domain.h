@@ -33,7 +33,7 @@ public:
     vector<Person> list();
     vector<Computer> computerList();
 
-    void connectPtoC(string& persID, string& compID);
+    bool connectPtoC(string& persID, string& compID);
 
     void remove(vector<Person>& pers, int& line);
     void removeComputer(vector<Computer>& comp, int& line);
