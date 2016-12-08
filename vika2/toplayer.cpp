@@ -362,15 +362,12 @@ void toplayer::newPerson()
         {
             cout << "You can not be born after you die, please try again!" << endl;
         }
-<<<<<<< HEAD
-    } while (birth > death);
-=======
     } while (birthint > deathint);
+
     if (death == "99999999")
     {
         death.clear();
     }
->>>>>>> ba88769790fc0bdd16d6e37e7ba1cac63319fa27
 
     domain d;
     if (d.add(firstname, sex, birth, death))
