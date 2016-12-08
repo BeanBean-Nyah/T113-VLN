@@ -19,7 +19,7 @@ void toplayer::run()
     {
         cout << "Database: connection ok" << endl;
     } else {
-        cout << "Error: connection with database fail" << endl;
+        cout << "Error: connection with database failed" << endl;
     }
     help();
     cout << "\n Enter -help to display the command list again " << endl;
@@ -32,7 +32,7 @@ void toplayer::help()
 {
     cout << "*********************************************************" << endl;
     cout << "**                                                     **" << endl;
-    cout << "**                Notable Computers and                **" << endl;
+    cout << "**                Notable Computers And                **" << endl;
     cout << "**           Computer Scientists In History            **" << endl;
     cout << "**                                                     **" << endl;
     cout << "**     Enter -new to add a new person or computer      **" << endl;
@@ -111,7 +111,6 @@ void toplayer::printLineComputer(vector<Computer>& comp, const int& i)
     cout << "===================================================" << endl << endl;
 }
 
-
 //Prentar ut lista med numerum fyrir framan hvern einstakling
 void toplayer::printList(vector<Person>& p)
 {
@@ -137,7 +136,7 @@ void toplayer::printList(vector<Person>& p)
     }
     cout << "=======================================================" << endl << endl;
 }
-//Prentar ut computer lista
+//Prentar ut lista yfir tolvur
 void toplayer::printComputer(vector<Computer> comp)
 {
     cout << left << setw(20) << "Name" << setw(10)
@@ -243,7 +242,7 @@ bool toplayer::selection()
             case 'c': searchComputer();
                     break;
 
-            default : cout << "fatal error have you tried turning it off and on again" << endl;
+            default : cout << "Fatal error have you tried turning it off and on again" << endl;
         }
 
         system("pause");
@@ -260,7 +259,7 @@ bool toplayer::selection()
             case 'c': newComputer();
                     break;
 
-            default : cout << "fatal error have you tried turning it off and on again" << endl;
+            default : cout << "Fatal error have you tried turning it off and on again" << endl;
         }
     }
     else if (input == "-sort")
@@ -278,7 +277,7 @@ bool toplayer::selection()
                 case 'c': sortComputer();
                           break;
 
-                default : cout << "fatal error have you tried turning it off and on again" << endl;
+                default : cout << "Fatal error have you tried turning it off and on again" << endl;
             }
         }
         system("pause");
@@ -300,7 +299,7 @@ bool toplayer::selection()
                 case 'c': editComputer();
                         break;
 
-                default : cout << "fatal error have you tried turning it off and on again" << endl;
+                default : cout << "Fatal error have you tried turning it off and on again" << endl;
             }
         }
         system("pause");
@@ -323,7 +322,7 @@ bool toplayer::selection()
                 case 'c': removeComputer();
                         break;
 
-                default : cout << "fatal error have you tried turning it off and on again" << endl;
+                default : cout << "Fatal error have you tried turning it off and on again" << endl;
             }
         }
         system("pause");
@@ -341,7 +340,7 @@ bool toplayer::selection()
     }
     else
     {
-        cout << input << " is not a valid command! Try again: ";
+        cout << input << " Is not a valid command! Try again: ";
     }
     return true;
 }
@@ -363,11 +362,15 @@ void toplayer::newPerson()
         {
             cout << "You can not be born after you die, please try again!" << endl;
         }
+<<<<<<< HEAD
+    } while (birth > death);
+=======
     } while (birthint > deathint);
     if (death == "99999999")
     {
         death.clear();
     }
+>>>>>>> ba88769790fc0bdd16d6e37e7ba1cac63319fa27
 
     domain d;
     if (d.add(firstname, sex, birth, death))
@@ -376,7 +379,7 @@ void toplayer::newPerson()
     }
     else
     {
-        cout << "This exact person already exists, so it wasn't added!" << endl << endl;
+        cout << "This exact person already exists in the database, so it wasn't added!" << endl << endl;
     }
 
     system("pause");
@@ -534,7 +537,7 @@ void toplayer::newComputer()
     }
     else
     {
-        cout << "This exact computer already exists, so it wasn't added!" << endl << endl;
+        cout << "This exact computer already exists in the database, so it wasn't added!" << endl << endl;
     }
     system("pause");
     clearScreen();
@@ -552,7 +555,7 @@ void toplayer::connectToPerson(string& compID)
     {
         do
         {
-            cout << "Do you want to connect a existing person or create new one?" << endl;
+            cout << "Do you want to connect an existing person or create a new one?" << endl;
             cout << "Type 'old' for existing one or 'new' for new one ";
             do
             {
@@ -560,7 +563,7 @@ void toplayer::connectToPerson(string& compID)
                 choice = Lower_Ans(choice);
                 if (choice != "new" && choice != "old")
                 {
-                    cout << choice << " is not valid command! Try again: ";
+                    cout << choice << " Is not a valid command! Try again: ";
                 }
             }
             while (choice != "new" && choice != "old");
@@ -652,9 +655,9 @@ void toplayer::sortComputer()
     vector<Computer> c;
     int gildi = 1;
     cout << "What do you want to sort by?" << endl;
-    cout << "   -nameasc" << endl << "   -namedesc" << endl
-         << "   -yearasc" << endl << "   -yeardesc" << endl
-         << "   -typeasc" << endl << "   -typedesc" << endl
+    cout << "   -nameasc"  << endl << "   -namedesc"  << endl
+         << "   -yearasc"  << endl << "   -yeardesc"  << endl
+         << "   -typeasc"  << endl << "   -typedesc"  << endl
          << "   -builtasc" << endl << "   -builtdesc" << endl;
     string input = getInputSortType(gildi);
     domain d;
@@ -758,14 +761,14 @@ bool toplayer::contains_letters(const string &c)
 {
     return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM") != string::npos);
 }
-// gerir alla stafi i streng lower case
+// Gerir alla stafi i streng lower case
 string toplayer::Lower_Ans(string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator
     return word;
 }
 
-//fixar input thannig ad fyrsti stafur er alltaf stor og rest litlir
+// Fixar input thannig ad fyrsti stafur er alltaf stor og rest litlir
 string toplayer::capFirstLetter(string& str)
 {
     string output = Lower_Ans(str);
@@ -777,12 +780,12 @@ string toplayer::capFirstLetter(string& str)
     return output;
 }
 
-// clear -ar console
+// Clear -ar console
 void toplayer::clearScreen()
 {
     system("cls");
 }
-//skila valinni linu ur lista
+//Skilar valinni linu ur lista
 int toplayer::lineEntry(const vector<Person>& p)
 {
     unsigned int lineNumber = 1;
@@ -825,7 +828,7 @@ int toplayer::lineEntryComputer(const vector<Computer>& p)
     cout << endl;
     return lineNumber;
 }
-// skilar input-i fra notanda
+// Skilar input-i fra notanda
 string toplayer::getInputType(int& type)
 {
     string input;
@@ -839,7 +842,7 @@ string toplayer::getInputType(int& type)
             if (input != "-name" && input != "-sex" &&
                 input != "-birth" && input != "-death")
             {
-                cout << input << " is not valid command! Try again: ";
+                cout << input << " Is not valid command! Try again: ";
             }
         }
         while (input != "-name" && input != "-sex" &&
@@ -855,7 +858,7 @@ string toplayer::getInputType(int& type)
             if (input != "-name" && input != "-year" &&
                 input != "-type" && input != "-built")
             {
-                cout << input << " is not valid command! Try again: ";
+                cout << input << " Is not valid command! Try again: ";
             }
         }
         while (input != "-name" && input != "-year" &&
@@ -879,7 +882,7 @@ string toplayer::getInputSortType(int& type)
                 input != "-namedesc" && input != "-sexdesc" &&
                 input != "-birthdesc" && input != "-deathdesc")
             {
-                cout << input << " is not valid command! Try again: ";
+                cout << input << " Is not valid command! Try again: ";
             }
         }
         while (input != "-nameasc" && input != "-sexasc" &&
@@ -899,7 +902,7 @@ string toplayer::getInputSortType(int& type)
                 input != "-namedesc" && input != "-yeardesc" &&
                 input != "-typedesc" && input != "-builtdesc")
             {
-                cout << input << " is not valid command! Try again: ";
+                cout << input << " Is not valid command! Try again: ";
             }
         }
         while (input != "-nameasc" && input != "-yearasc" &&
@@ -909,7 +912,7 @@ string toplayer::getInputSortType(int& type)
     }
     return input;
 }
-//skilar nyju firstname
+// Skilar nyju firstname
 string toplayer::getNewFirstname()
 {
     string firstname;
@@ -921,14 +924,14 @@ string toplayer::getNewFirstname()
         firstname = capFirstLetter(firstname);
         if (contains_number(firstname))
         {
-            cout << "First name can not contain numbers try again: ";
+            cout << "First name can not contain numbers, try again: ";
         }
     }
     while (contains_number(firstname));
     return firstname;
 }
 
-//skilar nyju sex
+// Skilar nyju sex
 string toplayer::getNewSex()
 {
     string sex;
@@ -939,12 +942,12 @@ string toplayer::getNewSex()
         sex = capFirstLetter(sex);
         if (sex != "Male" && sex != "Female")
         {
-            cout << sex << " is not a gender, please choose male or female: ";
+            cout << sex << " Is not a gender, please choose male or female: ";
         }
     } while (sex != "Male" && sex != "Female");
     return sex;
 }
-// skilar nyju birth
+// Skilar nyju birth
 string toplayer::getNewBirth()
 {
     string birth;
@@ -960,7 +963,7 @@ string toplayer::getNewBirth()
     while (contains_letters(birth));
     return birth;
 }
-// skilar nyju death
+// Skilar nyju death
 string toplayer::getNewDeath()
 {
     string death;
@@ -979,7 +982,7 @@ string toplayer::getNewDeath()
     }
     return death;
 }
-// skilar nyju ari fyrir computer
+// Skilar nyju ari fyrir computer
 string toplayer::getNewDate()
 {
     string year;
@@ -996,27 +999,27 @@ string toplayer::getNewDate()
 
     return year;
 }
-// skilar nyju type i fyrir computer
+// Skilar nyju type-i fyrir computer
 string toplayer::getNewType()
 {
     string type;
-    cout << "Enter type, you can choose 'Mechanical', 'Electronic' or 'Transitive': ";
+    cout << "Enter type, you can choose 'Mechanical', 'Electronic' or 'Transistor': ";
     do
     {
         cin >> type;
         type = capFirstLetter(type);
 
-        if (type != "Mechanical" && type != "Electronic" && type != "Transitive")
+        if (type != "Mechanical" && type != "Electronic" && type != "Transistor")
         {
-            cout << type << " Type of machine is not \"Mechanical\", \"Electronic\" or \"Transitive\": ";
+            cout << type << " Type of machine is not \"Mechanical\", \"Electronic\" or \"Transistor\": ";
         }
     }
-    while (type != "Mechanical" && type != "Electronic" && type != "Transitive");
+    while (type != "Mechanical" && type != "Electronic" && type != "Transistor");
     return type;
 }
 
 
-// skilar hvort computer var built eda ekki
+// Skilar hvort computer var built eda ekki
 string toplayer::getNewBuilt()
 {
     string built;
@@ -1027,7 +1030,7 @@ string toplayer::getNewBuilt()
         built = capFirstLetter(built);
         if (built != "Yes" && built != "No")
         {
-            cout << built << " isn't clear enough, please choose Yes or No: ";
+            cout << built << " Isn't clear enough, please choose Yes or No: ";
         }
     }
     while (built != "Yes" && built != "No");
