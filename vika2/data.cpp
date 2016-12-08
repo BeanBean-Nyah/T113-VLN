@@ -337,10 +337,7 @@ vector<Computer> data::sortComputer(string& type)
     }
     return comp;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 97a7198fb0966d5093b4ffccad13cebc66ebdf63
 void data::getPACjoined(vector<PersonsAndComputers>& pAc)
 {
     QSqlQuery query("SELECT ID, computer_ID, person_ID, pac_status FROM personsandcomputers");

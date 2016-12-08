@@ -47,7 +47,7 @@ private:
     int lineEntryComputer(const vector<Computer>& p);
     void printComputer(vector<Computer> comp);
 
-    void connectToPerson(string& compID);
+    void connectToPerson(string& compID, int& type);
 
     string getInputType(int& type);
     string getInputSortType(int& type);
