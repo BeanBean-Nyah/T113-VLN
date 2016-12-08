@@ -372,3 +372,20 @@ void data::writePAC(string& pers_id, string& comp_id)
         query.bindValue(":comp_id", qcomp_id);
         query.exec();
 }
+
+void data::getFact(vector<Facts>& fac)
+{
+    QSqlQuery query("SELECT ID, fact FROM funfacts");
+
+    int idID = query.record().indexOf("ID");
+    int idFact = query.record().indexOf("fact");
+    while (query.next())
+    {
+        QString qid = query.value(idID).toString();
+        int id = qid.split(" ")[0].toInt();
+        QString qfact = query.value(idFact).toString();
+        string fact = qfact.toLocal8Bit().constData();
+        Facts f(id, fact);
+        fac.push_back(f);
+    }
+}

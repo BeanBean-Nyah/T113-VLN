@@ -10,6 +10,17 @@ domain::domain()
 
 }
 
+string domain::funFact()
+{
+    string output;
+    data dat;
+    vector<Facts> fact;
+    dat.getFact(fact);
+    int randomIndex = rand() % fact.size();
+    output = fact[randomIndex].getFact();
+    return output;
+}
+
 vector<Person> domain::list()
 {
     data dat;

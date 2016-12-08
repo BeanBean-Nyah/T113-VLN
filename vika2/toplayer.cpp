@@ -39,6 +39,7 @@ void toplayer::help()
     cout << "**     Enter -list for a see the lists                 **" << endl;
     cout << "**     Enter -search to search list                    **" << endl;
     cout << "**     Enter -edit to edit list                        **" << endl;
+    cout << "**     Enter -funfact to get fun fact                  **" << endl;
     cout << "**     Enter -remove to remove element from list       **" << endl;
     cout << "**     Enter -exit to exit the program                 **" << endl;
     cout << "**                                                     **" << endl;
@@ -322,6 +323,15 @@ bool toplayer::selection()
                 default : cout << "Fatal error have you tried turning it off and on again" << endl;
             }
         }
+        system("pause");
+        clearScreen();
+        help();
+    }
+    else if (input == "-funfact")
+    {
+        domain d;
+        string fact = d.funFact();
+        cout << fact << endl;
         system("pause");
         clearScreen();
         help();
