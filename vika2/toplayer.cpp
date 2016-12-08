@@ -923,18 +923,18 @@ int toplayer::getNewDate()
 string toplayer::getNewType()
 {
     string type;
-    cout << "Enter type, you can choose 'Mechanical', 'Electroinic' or 'Transitive': ";
+    cout << "Enter type, you can choose 'Mechanical', 'Electronic' or 'Transitive': ";
     do
     {
         cin >> type;
         type = capFirstLetter(type);
 
-        if (type != "Mechanical" && type != "Electroinic" && type != "Transitive")
+        if (type != "Mechanical" && type != "Electronic" && type != "Transitive")
         {
-            cout << type << " Type of machine is not \"Mechanical\", \"Electroinic\" or \"Transitive\": ";
+            cout << type << " Type of machine is not \"Mechanical\", \"Electronic\" or \"Transitive\": ";
         }
     }
-    while (type != "Mechanical" && type != "Electroinic" && type != "Transitive");
+    while (type != "Mechanical" && type != "Electronic" && type != "Transitive");
     return type;
 }
 
