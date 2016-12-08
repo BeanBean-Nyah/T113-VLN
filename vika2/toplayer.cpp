@@ -10,6 +10,7 @@ using namespace std;
 
 toplayer::toplayer()
 {
+
 }
 void toplayer::run()
 {
@@ -199,35 +200,34 @@ bool toplayer::selection()
             vector<Computer> comp;
             vector<PersonsAndComputers> pAc;
             domain d;
-            char selection, human = 'p', com = 'c', persandcomp = 'b';
-            selection = PersOrComp();
-            switch (selection)
+            char selector;
+            do
+            {
+                cout << "Enter 'p' for person. \n" <<
+                        "Enter 'c' for computer \n" <<
+                        "Enter 'b' for computer and person associated \n" <<
+                        "input: ";
+                cin >> selector;
+            } while (selector !='c' && selector !='p' && selector != 'b');
+            switch (selector)
             {
                 case 'p':
                         pers = d.list();
+                        cout << "====================== List =======================" << endl;
+                        print(pers);
                         break;
                 case 'c':
                         comp = d.computerList();
+                        cout << "====================== List =======================" << endl;
+                        printComputer(comp);
                         break;
                 case 'b':
                         pAc = d.persAndCompList();
+                        cout << "====================== List =======================" << endl;
+                        printPersAndComp(pAc);
                 default:
                         cout << "error" << endl;
             }
-            cout << "====================== List =======================" << endl;
-            if (selection == human)
-            {
-                print(pers);
-            }
-            else if (selection == com)
-            {
-                printComputer(comp);
-            }
-            else if (selection == persandcomp)
-            {
-                printPersAndComp(pAc);
-            }
-
        }
         system("pause");
         clearScreen();
@@ -268,7 +268,8 @@ bool toplayer::selection()
         if (!(isListEmpty()))
         {
             cout << "================ List is empty =================" << endl << endl;
-        } else
+        }
+        else
         {
             switch(PersOrComp())
             {
@@ -289,7 +290,9 @@ bool toplayer::selection()
         if (!(isListEmpty()))
         {
             cout << "================ List is empty =================" << endl << endl;
-        } else {
+        }
+        else
+        {
             switch(PersOrComp()) {
                 case 'p': editPerson();
                         break;
@@ -309,8 +312,11 @@ bool toplayer::selection()
         if (!(isListEmpty()))
         {
             cout << "================ List is empty =================" << endl << endl;
-        } else {
-            switch(PersOrComp()) {
+        }
+        else
+        {
+            switch(PersOrComp())
+            {
                 case 'p': removePerson();
                         break;
 
@@ -384,7 +390,7 @@ void toplayer::searchPerson()
         cout << "================ List is empty =================" << endl << endl;
     }
     else
-        {
+    {
         vector<Person> p;
         int gildi = 0;
         domain d;
@@ -398,16 +404,17 @@ void toplayer::searchPerson()
         cin.ignore();
         getline(cin,input);
         p = d.search(whattype, input);
+
         if (p.size() == 0)
-        {
-            cout << "Sorry, no results!" << endl;
-        }
-        else
-        {
-            cout << "================ Search results ==================" << endl;
-            print(p);
-        }
-        }
+         {
+             cout << "Sorry, no results!" << endl;
+         }
+         else
+         {
+             cout << "================ Search results ==================" << endl;
+             print(p);
+         }
+     }
 }
 void toplayer::sortPerson()
 {
@@ -442,9 +449,12 @@ void toplayer::editPerson()
              "For birth year type: \t -birth" << endl << "For year of death type:  -death" << endl;
         input = getInputType(gildi);
 
-        if (input == "-name") {
+        if (input == "-name")
+        {
             newValue = getNewFirstname();
-        } else if (input == "-sex") {
+        }
+        else if (input == "-sex")
+        {
             newValue = getNewSex();
         } else if (input == "-birth") {
             do {
@@ -475,10 +485,13 @@ void toplayer::editPerson()
         cout << "Do you want to edit another element in this entry? " << endl << endl;
         cout << "Type -yes if you want to else type anything else: ";
         cin >> yesorno;
-        if (yesorno == "-yes") {
+        if (yesorno == "-yes")
+        {
             yesno = true;
             clearScreen();
-        } else {
+        }
+        else
+        {
             yesno = false;
         }
     }
@@ -512,7 +525,8 @@ void toplayer::newComputer()
         comp = d.computerList();
         for (unsigned int i = 0; i < comp.size(); i++) {
             tempCompName = comp[i].getName();
-            if (tempCompName == cName) {
+            if (tempCompName == cName)
+            {
                 compID = comp[i].getID();
             }
         }
@@ -592,15 +606,13 @@ void toplayer::connectToPerson(string& compID)
             if (inneryesorno == "yes")
             {
                 YN = true;
-            } else
+            }
+            else
             {
                 YN = false;
             }
         } while(YN);
-
     }
-
-
 }
 
 void toplayer::searchComputer()
@@ -610,7 +622,7 @@ void toplayer::searchComputer()
         cout << "================ List is empty =================" << endl << endl;
     }
     else
-        {
+    {
         vector<Computer> p;
         int gildi = 1;
         domain d;
@@ -633,7 +645,7 @@ void toplayer::searchComputer()
             cout << "================ Search results ==================" << endl;
             printComputer(p);
         }
-        }
+    }
 }
 void toplayer::sortComputer()
 {
@@ -660,7 +672,8 @@ void toplayer::editComputer()
     cout << "Which entry do you want to edit? " << endl;
     int lineNumber = lineEntryComputer(c);
     clearScreen();
-    while (yesno) {
+    while (yesno)
+    {
         int gildi = 1;
         printLineComputer(c, lineNumber);
         cout << "Which element do you want to edit? " << endl << "For name type: \t -name" <<
@@ -668,13 +681,20 @@ void toplayer::editComputer()
              "For type type: \t -type" << endl << "For built type:  -built" << endl;
         input = getInputType(gildi);
 
-        if (input == "-name") {
+        if (input == "-name")
+        {
             newValue = getNewFirstname();
-        } else if (input == "-year") {
+        }
+        else if (input == "-year")
+        {
             newValue = getNewDate();
-        } else if (input == "-type") {
+        }
+        else if (input == "-type")
+        {
             newValue = getNewType();
-        } else if (input == "-built") {
+        }
+        else if (input == "-built")
+        {
             newValue = getNewBuilt();
         }
         lineNumber = lineNumber - 1;
@@ -683,14 +703,16 @@ void toplayer::editComputer()
         cout << "Do you want to edit another element in this entry? " << endl << endl;
         cout << "Type -yes if you want to else type anything else: ";
         cin >> yesorno;
-        if (yesorno == "-yes") {
+        if (yesorno == "-yes")
+        {
             yesno = true;
             clearScreen();
-        } else {
+        }
+        else
+        {
             yesno = false;
         }
     }
-
 }
 void toplayer::removeComputer()
 {
@@ -715,9 +737,13 @@ bool toplayer::isListEmpty()
     if (p.size() > 0)
     {
         return true;
-    } else if(c.size() > 0){
+    }
+    else if(c.size() > 0)
+    {
         return true;
-    }else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -819,7 +845,7 @@ string toplayer::getInputType(int& type)
         while (input != "-name" && input != "-sex" &&
                  input != "-birth" && input != "-death");
     }
-        else if (type == 1)
+    else if (type == 1)
     {
         do
         {
@@ -861,7 +887,7 @@ string toplayer::getInputSortType(int& type)
                input != "-namedesc" && input != "-sexdesc" &&
                input != "-birthdesc" && input != "-deathdesc");
     }
-        else if (type == 1)
+    else if (type == 1)
     {
         cout << "Enter your choice: ";
         do
@@ -897,7 +923,8 @@ string toplayer::getNewFirstname()
         {
             cout << "First name can not contain numbers try again: ";
         }
-    } while (contains_number(firstname));
+    }
+    while (contains_number(firstname));
     return firstname;
 }
 
@@ -929,7 +956,8 @@ string toplayer::getNewBirth()
         {
             cout << "Year of death can not contain letters, try again: ";
         }
-    } while (contains_letters(birth));
+    }
+    while (contains_letters(birth));
     return birth;
 }
 // skilar nyju death
@@ -1013,10 +1041,9 @@ char toplayer::PersOrComp()
     {
         cout << "Enter 'p' for a person. \n" <<
                 "Or enter 'c' for a computer \n" <<
-                "Or enter 'b' for a both \n" <<
                 "input: ";
         cin >> selector;
-    } while (selector !='c' && selector !='p' && selector != 'b');
+    } while (selector !='c' && selector !='p');
     return selector;
 }
 
@@ -1039,12 +1066,12 @@ void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                 id = pAc[k].getPers_ID();
                 for (unsigned int j = 0; j < pers.size(); j++)
                 {
-                    if (pers[j].getID() == id) {
+                    if (pers[j].getID() == id)
+                    {
                         cout << "\t\t" << pers[j].getFirstname() << endl;
                     }
                 }
             }
         }
     }
-
 }

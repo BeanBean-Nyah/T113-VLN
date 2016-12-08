@@ -11,7 +11,7 @@ data::data()
 bool data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    //m_db.setDatabaseName("vika2.sqlite");
+    //m_db.setDatabaseName("verkefni2");
     m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
 
     if (!m_db.open())
@@ -137,7 +137,8 @@ vector<Person> data::sortPersons(string& type)
     return pers;
 }
 
-void data::remove(string& ID, int& type) {
+void data::remove(string& ID, int& type)
+{
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
     if (type == 0)
@@ -336,8 +337,8 @@ vector<Computer> data::sortComputer(string& type)
     }
     return comp;
 }
-
-void data::getPACjoined(vector<PersonsAndComputers>& pAc) {
+void data::getPACjoined(vector<PersonsAndComputers>& pAc)
+{
     QSqlQuery query("SELECT ID, computer_ID, person_ID, pac_status FROM personsandcomputers");
 
     int idID = query.record().indexOf("ID");
@@ -346,7 +347,8 @@ void data::getPACjoined(vector<PersonsAndComputers>& pAc) {
     int idStatus = query.record().indexOf("pac_status");
     while (query.next())
     {
-        if (query.value(idStatus) == 0) {
+        if (query.value(idStatus) == 0)
+        {
             QString qid = query.value(idID).toString();
             string id = qid.toLocal8Bit().constData();
             QString qcomp_id = query.value(idComp_ID).toString();
