@@ -199,35 +199,34 @@ bool toplayer::selection()
             vector<Computer> comp;
             vector<PersonsAndComputers> pAc;
             domain d;
-            char selection, human = 'p', com = 'c', persandcomp = 'b';
-            selection = PersOrComp();
-            switch (selection)
+            char selector;
+            do
+            {
+                cout << "Enter 'p' for person. \n" <<
+                        "Enter 'c' for computer \n" <<
+                        "Enter 'b' for computer and person associated \n" <<
+                        "input: ";
+                cin >> selector;
+            } while (selector !='c' && selector !='p' && selector != 'b');
+            switch (selector)
             {
                 case 'p':
                         pers = d.list();
+                        cout << "====================== List =======================" << endl;
+                        print(pers);
                         break;
                 case 'c':
                         comp = d.computerList();
+                        cout << "====================== List =======================" << endl;
+                        printComputer(comp);
                         break;
                 case 'b':
                         pAc = d.persAndCompList();
+                        cout << "====================== List =======================" << endl;
+                        printPersAndComp(pAc);
                 default:
                         cout << "error" << endl;
             }
-            cout << "====================== List =======================" << endl;
-            if (selection == human)
-            {
-                print(pers);
-            }
-            else if (selection == com)
-            {
-                printComputer(comp);
-            }
-            else if (selection == persandcomp)
-            {
-                printPersAndComp(pAc);
-            }
-
        }
         system("pause");
         clearScreen();
@@ -975,10 +974,9 @@ char toplayer::PersOrComp()
     {
         cout << "Enter 'p' for a person. \n" <<
                 "Or enter 'c' for a computer \n" <<
-                "Or enter 'b' for a both \n" <<
                 "input: ";
         cin >> selector;
-    } while (selector !='c' && selector !='p' && selector != 'b');
+    } while (selector !='c' && selector !='p');
     return selector;
 }
 
