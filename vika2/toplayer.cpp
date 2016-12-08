@@ -40,7 +40,6 @@ void toplayer::help()
     cout << "**     Enter -search to search list                    **" << endl;
     cout << "**     Enter -edit to edit list                        **" << endl;
     cout << "**     Enter -remove to remove element from list       **" << endl;
-    cout << "**     Enter -sort to sort any of the lists            **" << endl;
     cout << "**     Enter -exit to exit the program                 **" << endl;
     cout << "**                                                     **" << endl;
     cout << "*********************************************************" << endl;
@@ -212,13 +211,11 @@ bool toplayer::selection()
             {
                 case 'p':
                         pers = d.list();
-                        cout << "========================= List =======================" << endl;
-                       print(pers);
+                        sortPerson();
                         break;
                 case 'c':
                         comp = d.computerList();
-                        cout << "========================= List ==========================" << endl;
-                        printComputer(comp);
+                        sortComputer();
                         break;
                 case 'b':
                         pAc = d.persAndCompList();
@@ -428,6 +425,7 @@ void toplayer::sortPerson()
     string input = getInputSortType(gildi);
     domain d;
     p = d.sorting(input);
+    cout << "========================= List =======================" << endl;
     print(p);
 }
 void toplayer::editPerson()
@@ -659,6 +657,7 @@ void toplayer::sortComputer()
     string input = getInputSortType(gildi);
     domain d;
     c = d.sortComputer(input);
+    cout << "========================= List =======================" << endl;
     printComputer(c);
 }
 void toplayer::editComputer()
