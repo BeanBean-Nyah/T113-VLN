@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     toplayer.cpp \
     person.cpp \
     computer.cpp \
-    personsandcomputers.cpp
+    personsandcomputers.cpp \
+    facts.cpp
 
 HEADERS += \
     data.h \
@@ -24,4 +25,5 @@ HEADERS += \
     toplayer.h \
     person.h \
     computer.h \
-    personsandcomputers.h
+    personsandcomputers.h \
+    facts.h

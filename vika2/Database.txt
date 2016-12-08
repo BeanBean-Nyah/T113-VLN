@@ -11,6 +11,8 @@ CREATE TABLE "personsAndComputers" ("ID" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT
 FOREIGN KEY(person_id) REFERENCES persons(ID))
 
 
+CREATE TABLE "funfacts" ("ID" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , "fact" VARCHAR NOT NULL )
+
 // velja baedi
 SELECT p.name AS NAME, c.computer_name AS NAME FROM persons p
 INNER JOIN computer c ON c.computer_id = pc.computer_id
