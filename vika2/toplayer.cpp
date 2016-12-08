@@ -343,12 +343,13 @@ bool toplayer::selection()
 }
 void toplayer::newPerson()
 {
-    string firstname, sex, birth, death;
-
+    string firstname, sex, birth, death, tempPersName, persID;
+    vector<Person> pers;
     firstname = getNewFirstname();
     sex = getNewSex();
     int birthint;
     int deathint;
+
     do
     {
         birth = getNewBirth();
@@ -359,6 +360,7 @@ void toplayer::newPerson()
         {
             cout << "You can not be born after you die, please try again!" << endl;
         }
+
     } while (birthint > deathint);
 
     if (death == "99999999")
@@ -370,6 +372,16 @@ void toplayer::newPerson()
     if (d.add(firstname, sex, birth, death))
     {
         cout << "You successfully added a new person!" << endl << endl;
+        pers = d.list();
+        for (unsigned int i = 0; i < pers.size(); i++) {
+            tempPersName = pers[i].getFirstname();
+            if (tempPersName == firstname)
+            {
+                persID = pers[i].getID();
+            }
+        }
+        int type = 0;
+        connectToPerson(persID, type);
     }
     else
     {
@@ -528,7 +540,8 @@ void toplayer::newComputer()
                 compID = comp[i].getID();
             }
         }
-        connectToPerson(compID);
+        int type = 0;
+        connectToPerson(compID, type);
     }
     else
     {
@@ -539,13 +552,14 @@ void toplayer::newComputer()
     help();
 }
 
-void toplayer::connectToPerson(string& compID)
+void toplayer::connectToPerson(string& ID, int& type)
 {
     string yesorno, choice, inneryesorno;
     bool YN = true;
-    cout << "Do you want to connect a person to this computer? " << endl;
+    cout << "Do you want to connect a person and computer together? " << endl;
     cout << "Type yes if you want to, else anything else: ";
     cin >> yesorno;
+
     if (yesorno == "yes")
     {
         do
@@ -565,39 +579,77 @@ void toplayer::connectToPerson(string& compID)
             vector<Person> pers;
             vector<Computer> comp;
             domain d;
-            string persID;
-            if (choice == "old")
+            string persID, compID;
+            if (type == 0)
             {
-                pers = d.list();
-                printList(pers);
-                cout << "Which person do you want to connect to this computer?" << endl;
-                int lineNumber = lineEntry(pers) - 1;
-                persID = pers[lineNumber].getID();
-                if (d.connectPtoC(persID, compID))
+                if (choice == "old")
                 {
-                    cout << "You successfully connected a person to this computer!" << endl;
+                    pers = d.list();
+                    printList(pers);
+                    cout << "Which person do you want to connect to this computer?" << endl;
+                    int lineNumber = lineEntry(pers) - 1;
+                    persID = pers[lineNumber].getID();
+                    if (d.connectPtoC(persID, ID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact person is already connected to this computer!" << endl;
+                    }
                 }
-                else
+                else if (choice == "new")
                 {
-                    cout << "This exact person is already connected to this computer!" << endl;
+                    newPerson();
+                    pers = d.list();
+                    int latest = pers.size() - 1;
+                    persID = pers[latest].getID();
+                    if (d.connectPtoC(persID, ID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact person is already connected to this computer!" << endl;
+                    }
                 }
             }
-            else if (choice == "new")
+            else if (type == 1)
             {
-                newPerson();
-                pers = d.list();
-                int latest = pers.size() - 1;
-                persID = pers[latest].getID();
-                if (d.connectPtoC(persID, compID))
+                if (choice == "old")
                 {
-                    cout << "You successfully connected a person to this computer!" << endl;
+                    comp = d.computerList();
+                    printListComputer(comp);
+                    cout << "Which computer do you want to connect to this person?" << endl;
+                    int lineNumber = lineEntryComputer(comp) - 1;
+                    compID = comp[lineNumber].getID();
+                    if (d.connectPtoC(ID, compID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact computer is already connected to this person!" << endl;
+                    }
                 }
-                else
+                else if (choice == "new")
                 {
-                    cout << "This exact person is already connected to this computer!" << endl;
+                    newPerson();
+                    pers = d.list();
+                    int latest = comp.size() - 1;
+                    compID = pers[latest].getID();
+                    if (d.connectPtoC(ID, compID))
+                    {
+                        cout << "You successfully connected a computer to this person!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact computer is already connected to this person!" << endl;
+                    }
                 }
             }
-            cout << "Do you want to connect another person to this computer? " << endl;
+
+            cout << "Do you want to connect another person and computer together? " << endl;
             cout << "Type yes if you want to, else anything else: ";
             cin >> inneryesorno;
             inneryesorno = Lower_Ans(inneryesorno);
