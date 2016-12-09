@@ -299,11 +299,9 @@ bool TopLayer::selection()
         }
         else
         {
-<<<<<<< HEAD
             switch(PersOrComp())
             {
                 case 'p': editPerson();
-=======
             switch(PersOrComp()) {
                 case 'p':
                     {
@@ -311,7 +309,6 @@ bool TopLayer::selection()
                         {
                             editPerson();
                         }
->>>>>>> 71406c5b06d72da5c2b681d19682ae366432fafe
                         break;
                     }
 
@@ -330,6 +327,7 @@ bool TopLayer::selection()
         system("pause");
         clearScreen();
         help();
+        }
     }
     else if (input == "-remove")
     {
