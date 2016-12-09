@@ -140,11 +140,11 @@ void toplayer::printList(vector<Person>& p)
 //Prentar ut lista yfir tolvur
 void toplayer::printComputer(vector<Computer> comp)
 {
-    cout << left << setw(20) << "Name" << setw(10)
+    cout << left << setw(25) << "Name" << setw(10)
          << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
     for(unsigned int i = 0; i < comp.size(); i++)
     {
-        cout.width(20);
+        cout.width(25);
         cout<<left;
         cout << comp[i].getName();
         cout.width(10);
