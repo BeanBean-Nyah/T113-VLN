@@ -254,16 +254,30 @@ bool toplayer::selection()
     }
     else if (input == "-new")
     {
+        int type;
+        domain d;
         switch(PersOrComp())
         {
-            case 'p': newPerson();
+            case 'p':
+                {
+                    string persID = newPerson();
+                    type = 0;
+                    connectToPerson(persID, type);
                     break;
-
-            case 'c': newComputer();
+                }
+            case 'c':
+                {
+                    string compID = newComputer();
+                    type = 1;
+                    connectToPerson(compID, type);
                     break;
+                }
 
             default : cout << "Fatal error have you tried turning it off and on again" << endl;
         }
+        system("pause");
+        clearScreen();
+        help();
     }
     else if (input == "-sort")
     {
@@ -383,7 +397,7 @@ bool toplayer::selection()
     }
     return true;
 }
-void toplayer::newPerson()
+string toplayer::newPerson()
 {
     string firstname, sex, birth, death, tempPersName, persID;
     vector<Person> pers;
@@ -422,17 +436,18 @@ void toplayer::newPerson()
                 persID = pers[i].getID();
             }
         }
-        int type = 0;
-        connectToPerson(persID, type);
+        //int type = 0;
+        //connectToPerson(persID, type);
     }
     else
     {
         cout << "This exact person already exists in the database, so it wasn't added!" << endl << endl;
     }
 
-    system("pause");
-    clearScreen();
-    help();
+    //system("pause");
+    //clearScreen();
+    //help();
+    return persID;
 }
 void toplayer::searchPerson()
 {
@@ -561,7 +576,7 @@ void toplayer::removePerson()
     cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
 
 }
-void toplayer::newComputer()
+string toplayer::newComputer()
 {
     vector<Computer> comp;
     domain d;
@@ -582,16 +597,17 @@ void toplayer::newComputer()
                 compID = comp[i].getID();
             }
         }
-        int type = 1;
-        connectToPerson(compID, type);
+        //int type = 1;
+        //connectToPerson(compID, type);
     }
     else
     {
         cout << "This exact computer already exists in the database, so it wasn't added!" << endl << endl;
     }
-    system("pause");
-    clearScreen();
-    help();
+    return compID;
+    //system("pause");
+    //clearScreen();
+    //help();
 }
 
 void toplayer::searchComputer()
@@ -719,10 +735,11 @@ void toplayer::connectToPerson(string& ID, int& type)
     {
         do
         {
-            cout << "Do you want to connect an existing person or create a new one?" << endl;
+            cout << "Do you want to connect an existing person or computer or create a new one?" << endl;
             cout << "Type 'old' for existing one or 'new' for new one ";
             do
             {
+                choice = "";
                 cin >> choice;
                 choice = Lower_Ans(choice);
                 if (choice != "new" && choice != "old")
@@ -755,10 +772,8 @@ void toplayer::connectToPerson(string& ID, int& type)
                 }
                 else if (choice == "new")
                 {
-                    newPerson();
+                    persID = newPerson();
                     pers = d.list();
-                    int latest = pers.size() - 1;
-                    persID = pers[latest].getID();
                     if (d.connectPtoC(persID, ID))
                     {
                         cout << "You successfully connected a person to this computer!" << endl;
@@ -780,7 +795,7 @@ void toplayer::connectToPerson(string& ID, int& type)
                     compID = comp[lineNumber].getID();
                     if (d.connectPtoC(ID, compID))
                     {
-                        cout << "You successfully connected a person to this computer!" << endl;
+                        cout << "You successfully connected a computer to this person!" << endl;
                     }
                     else
                     {
@@ -789,10 +804,8 @@ void toplayer::connectToPerson(string& ID, int& type)
                 }
                 else if (choice == "new")
                 {
-                    newComputer();
+                    compID = newComputer();
                     comp = d.computerList();
-                    int latest = comp.size() - 1;
-                    compID = comp[latest].getID();
                     if (d.connectPtoC(ID, compID))
                     {
                         cout << "You successfully connected a computer to this person!" << endl;
@@ -819,118 +832,7 @@ void toplayer::connectToPerson(string& ID, int& type)
         } while(YN);
     }
 }
-/*void toplayer::connectToComputer(string& ID, int& type)
-{
-    string yesorno, choice, inneryesorno;
-    bool YN = true;
-    cout << "Do you want to connect a person and computer together? " << endl;
-    cout << "Type yes if you want to, else anything else: ";
-    cin >> yesorno;
 
-    if (yesorno == "yes")
-    {
-        do
-        {
-            cout << "Do you want to connect an existing computer or create a new one?" << endl;
-            cout << "Type 'old' for existing one or 'new' for new one ";
-            do
-            {
-                cin >> choice;
-                choice = Lower_Ans(choice);
-                if (choice != "new" && choice != "old")
-                {
-                    cout << choice << " Is not a valid command! Try again: ";
-                }
-            }
-            while (choice != "new" && choice != "old");
-            vector<Person> pers;
-            vector<Computer> comp;
-            domain d;
-            string persID, compID;
-            if (type == 1)
-            {
-                if (choice == "old")
-                {
-                    pers = d.list();
-                    printList(pers);
-                    cout << "Which person do you want to connect to this computer?" << endl;
-                    int lineNumber = lineEntry(pers) - 1;
-                    persID = pers[lineNumber].getID();
-                    if (d.connectPtoC(persID, ID))
-                    {
-                        cout << "You successfully connected a person to this computer!" << endl;
-                    }
-                    else
-                    {
-                        cout << "This exact person is already connected to this computer!" << endl;
-                    }
-                }
-                else if (choice == "new")
-                {
-                    newPerson();
-                    pers = d.list();
-                    int latest = pers.size() - 1;
-                    persID = pers[latest].getID();
-                    if (d.connectPtoC(persID, ID))
-                    {
-                        cout << "You successfully connected a person to this computer!" << endl;
-                    }
-                    else
-                    {
-                        cout << "This exact person is already connected to this computer!" << endl;
-                    }
-                }
-            }
-            else if (type == 0)
-            {
-                if (choice == "old")
-                {
-                    comp = d.computerList();
-                    printListComputer(comp);
-                    cout << "Which computer do you want to connect to this person?" << endl;
-                    int lineNumber = lineEntryComputer(comp) - 1;
-                    compID = comp[lineNumber].getID();
-                    if (d.connectPtoC(ID, compID))
-                    {
-                        cout << "You successfully connected a person to this computer!" << endl;
-                    }
-                    else
-                    {
-                        cout << "This exact computer is already connected to this person!" << endl;
-                    }
-                }
-                else if (choice == "new")
-                {
-                    newComputer();
-                    comp = d.computerList();
-                    int latest = comp.size() - 1;
-                    compID = comp[latest].getID();
-                    if (d.connectPtoC(ID, compID))
-                    {
-                        cout << "You successfully connected a computer to this person!" << endl;
-                    }
-                    else
-                    {
-                        cout << "This exact computer is already connected to this person!" << endl;
-                    }
-                }
-            }
-
-            cout << "Do you want to connect another person and computer together? " << endl;
-            cout << "Type yes if you want to, else anything else: ";
-            cin >> inneryesorno;
-            inneryesorno = Lower_Ans(inneryesorno);
-            if (inneryesorno == "yes")
-            {
-                YN = true;
-            }
-            else
-            {
-                YN = false;
-            }
-        } while(YN);
-    }
-}*/
 
 //Athugar hvort listinn se tomur
 bool toplayer::isListEmpty()
@@ -1309,5 +1211,5 @@ void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                 t++;
             }
         }
-    } cout << "=========================================================" << endl << endl;
+    } cout << endl << "=========================================================" << endl << endl;
 }
