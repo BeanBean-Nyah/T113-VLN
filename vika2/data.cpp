@@ -11,12 +11,17 @@ data::data()
 bool data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
+<<<<<<< HEAD
 
     m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\Verkefni.sqlite");
 
     //m_db.setDatabaseName("vika2.sqlite");
 
+=======
+    m_db.setDatabaseName("vika2.sqlite");
+    //m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
+>>>>>>> 829f11b32472cceab91dd8f06b75859b51d77fe1
 
     if (!m_db.open())
     {
@@ -375,6 +380,33 @@ void data::writePAC(string& pers_id, string& comp_id)
         query.bindValue(":pers_id", qpers_id);
         query.bindValue(":comp_id", qcomp_id);
         query.exec();
+}
+
+bool data::clear(int& type)
+{
+    QSqlQuery query;
+    if (type == 1){
+        if(query.exec("DELETE FROM persons"))
+            return true;
+    }
+    else if (type == 2)
+    {
+        if(query.exec("DELETE FROM computer"))
+            return true;
+    }
+    else if (type == 3)
+    {
+        if (query.exec("DELETE FROM personsandcomputers"))
+            return true;
+    }
+    else if (type == 4)
+    {
+        query.exec("DELETE FROM persons");
+        query.exec("DELETE FROM computer");
+        query.exec("DELETE FROM personsandcomputers");
+        return true;
+    }
+    return false;
 }
 
 void data::getFact(vector<Facts>& fac)

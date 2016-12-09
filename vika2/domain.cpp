@@ -297,6 +297,31 @@ bool domain::connectPtoC(string& persID, string& compID)
 
 }
 
+bool domain::clear(string& type)
+{
+    int ttype = 0;
+    if (type == "persons")
+    {
+        ttype = 1;
+    }
+    else if (type == "computers")
+    {
+        ttype = 2;
+    }
+    else if (type == "connections")
+    {
+        ttype = 3;
+    }
+    else if (type == "everything")
+    {
+        ttype = 4;
+    }
+    data d;
+    if(d.clear(ttype))
+        return true;
+    return false;
+}
+
 string domain::Lower_Ans(string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator

@@ -48,10 +48,12 @@ private:
     void printComputer(vector<Computer> comp);
 
     void connectToPerson(string& compID, int& type);
+    void connectToComputer(string& ID, int& type);
 
     string getInputType(int& type);
     string getInputSortType(int& type);
     string getNewFirstname();
+    string getNewCompname();
     string getNewSex();
     string getNewBirth();
     string getNewDeath();

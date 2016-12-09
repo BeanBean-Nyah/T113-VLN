@@ -41,6 +41,7 @@ public:
     vector<PersonsAndComputers> persAndCompList();
     string Lower_Ans(string word);
 
+    bool clear(string& type);
     string funFact();
 };
 

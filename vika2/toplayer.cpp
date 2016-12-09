@@ -41,6 +41,7 @@ void toplayer::help()
     cout << "**     Enter -edit to edit list                        **" << endl;
     cout << "**     Enter -funfact to get fun fact                  **" << endl;
     cout << "**     Enter -remove to remove element from list       **" << endl;
+    cout << "**     Enter -clear to clear from database             **" << endl;
     cout << "**     Enter -exit to exit the program                 **" << endl;
     cout << "**                                                     **" << endl;
     cout << "*********************************************************" << endl;
@@ -204,9 +205,13 @@ bool toplayer::selection()
             {
                 cout << "Enter 'p' for person. \n" <<
                         "Enter 'c' for computer \n" <<
-                        "Enter 'b' for computer and person associated \n" <<
+                        "Enter 'b' for computer and associated person  \n" <<
                         "input: ";
                 cin >> selector;
+                if (selector != 'p' && selector != 'c' && selector != 'b')
+                {
+                    cout << "\"" << selector << "\"" << " Is not a valid command! Try again: ";
+                }
             } while (selector !='c' && selector !='p' && selector != 'b');
             switch (selector)
             {
@@ -331,7 +336,34 @@ bool toplayer::selection()
     {
         domain d;
         string fact = d.funFact();
-        cout << fact << endl;
+        cout << endl << fact << endl << endl;
+        system("pause");
+        clearScreen();
+        help();
+    }
+    else if (input == "-clear")
+    {
+        domain d;
+        string input;
+        cout << "Type 'persons' if you want to clear all persons from the database" << endl;
+        cout << "Type 'computers' if you want to clear all computers from the database" << endl;
+        cout << "Type 'connections' if you want to clear all connections between persons and computers" << endl;
+        cout << "Type 'everything' if you want to clear everything from the database" << endl;
+        cout << "Type 'back' if you want to go back" << endl;
+        do {
+            cin >> input;
+            Lower_Ans(input);
+            if (input != "persons" && input != "computers" && input != "connections" &&
+                    input != "everything" && input != "back")
+            {
+                cout << "Invalid input, try again: ";
+            }
+        } while (input != "persons" && input != "computers" && input != "connections" &&
+                 input != "everything" && input != "back");
+        if (d.clear(input))
+            cout << "You successfully cleared everything from " << input << endl;
+        else
+            cout << "Something went wrong" << endl;
         system("pause");
         clearScreen();
         help();
@@ -534,7 +566,7 @@ void toplayer::newComputer()
     vector<Computer> comp;
     domain d;
     string cName, cYear, cType, cBuilt, compID, tempCompName;
-    cName = getNewFirstname();
+    cName = getNewCompname();
     cYear = getNewDate();
     cType = getNewType();
     cBuilt = getNewBuilt();
@@ -550,7 +582,7 @@ void toplayer::newComputer()
                 compID = comp[i].getID();
             }
         }
-        int type = 0;
+        int type = 1;
         connectToPerson(compID, type);
     }
     else
@@ -560,119 +592,6 @@ void toplayer::newComputer()
     system("pause");
     clearScreen();
     help();
-}
-
-void toplayer::connectToPerson(string& ID, int& type)
-{
-    string yesorno, choice, inneryesorno;
-    bool YN = true;
-    cout << "Do you want to connect a person and computer together? " << endl;
-    cout << "Type yes if you want to, else anything else: ";
-    cin >> yesorno;
-
-    if (yesorno == "yes")
-    {
-        do
-        {
-            cout << "Do you want to connect an existing person or create a new one?" << endl;
-            cout << "Type 'old' for existing one or 'new' for new one ";
-            do
-            {
-                cin >> choice;
-                choice = Lower_Ans(choice);
-                if (choice != "new" && choice != "old")
-                {
-                    cout << choice << " Is not a valid command! Try again: ";
-                }
-            }
-            while (choice != "new" && choice != "old");
-            vector<Person> pers;
-            vector<Computer> comp;
-            domain d;
-            string persID, compID;
-            if (type == 0)
-            {
-                if (choice == "old")
-                {
-                    pers = d.list();
-                    printList(pers);
-                    cout << "Which person do you want to connect to this computer?" << endl;
-                    int lineNumber = lineEntry(pers) - 1;
-                    persID = pers[lineNumber].getID();
-                    if (d.connectPtoC(persID, ID))
-                    {
-                        cout << "You successfully connected a person to this computer!" << endl;
-                    }
-                    else
-                    {
-                        cout << "This exact person is already connected to this computer!" << endl;
-                    }
-                }
-                else if (choice == "new")
-                {
-                    newPerson();
-                    pers = d.list();
-                    int latest = pers.size() - 1;
-                    persID = pers[latest].getID();
-                    if (d.connectPtoC(persID, ID))
-                    {
-                        cout << "You successfully connected a person to this computer!" << endl;
-                    }
-                    else
-                    {
-                        cout << "This exact person is already connected to this computer!" << endl;
-                    }
-                }
-            }
-            else if (type == 1)
-            {
-                if (choice == "old")
-                {
-                    comp = d.computerList();
-                    printListComputer(comp);
-                    cout << "Which computer do you want to connect to this person?" << endl;
-                    int lineNumber = lineEntryComputer(comp) - 1;
-                    compID = comp[lineNumber].getID();
-                    if (d.connectPtoC(ID, compID))
-                    {
-                        cout << "You successfully connected a person to this computer!" << endl;
-                    }
-                    else
-                    {
-                        cout << "This exact computer is already connected to this person!" << endl;
-                    }
-                }
-                else if (choice == "new")
-                {
-                    newPerson();
-                    pers = d.list();
-                    int latest = comp.size() - 1;
-                    compID = pers[latest].getID();
-                    if (d.connectPtoC(ID, compID))
-                    {
-                        cout << "You successfully connected a computer to this person!" << endl;
-                    }
-                    else
-                    {
-                        cout << "This exact computer is already connected to this person!" << endl;
-                    }
-                }
-            }
-
-            cout << "Do you want to connect another person and computer together? " << endl;
-            cout << "Type yes if you want to, else anything else: ";
-            cin >> inneryesorno;
-            inneryesorno = Lower_Ans(inneryesorno);
-            if (inneryesorno == "yes")
-            {
-                YN = true;
-            }
-            else
-            {
-                YN = false;
-            }
-        } while(YN);
-    }
 }
 
 void toplayer::searchComputer()
@@ -787,6 +706,232 @@ void toplayer::removeComputer()
     d.removeComputer(comp, lineNumber);
     cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
 }
+
+void toplayer::connectToPerson(string& ID, int& type)
+{
+    string yesorno, choice, inneryesorno;
+    bool YN = true;
+    cout << "Do you want to connect a person and computer together? " << endl;
+    cout << "Type yes if you want to, else anything else: ";
+    cin >> yesorno;
+
+    if (yesorno == "yes")
+    {
+        do
+        {
+            cout << "Do you want to connect an existing person or create a new one?" << endl;
+            cout << "Type 'old' for existing one or 'new' for new one ";
+            do
+            {
+                cin >> choice;
+                choice = Lower_Ans(choice);
+                if (choice != "new" && choice != "old")
+                {
+                    cout << choice << " Is not a valid command! Try again: ";
+                }
+            }
+            while (choice != "new" && choice != "old");
+            vector<Person> pers;
+            vector<Computer> comp;
+            domain d;
+            string persID, compID;
+            if (type == 1)
+            {
+                if (choice == "old")
+                {
+                    pers = d.list();
+                    printList(pers);
+                    cout << "Which person do you want to connect to this computer?" << endl;
+                    int lineNumber = lineEntry(pers) - 1;
+                    persID = pers[lineNumber].getID();
+                    if (d.connectPtoC(persID, ID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact person is already connected to this computer!" << endl;
+                    }
+                }
+                else if (choice == "new")
+                {
+                    newPerson();
+                    pers = d.list();
+                    int latest = pers.size() - 1;
+                    persID = pers[latest].getID();
+                    if (d.connectPtoC(persID, ID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact person is already connected to this computer!" << endl;
+                    }
+                }
+            }
+            else if (type == 0)
+            {
+                if (choice == "old")
+                {
+                    comp = d.computerList();
+                    printListComputer(comp);
+                    cout << "Which computer do you want to connect to this person?" << endl;
+                    int lineNumber = lineEntryComputer(comp) - 1;
+                    compID = comp[lineNumber].getID();
+                    if (d.connectPtoC(ID, compID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact computer is already connected to this person!" << endl;
+                    }
+                }
+                else if (choice == "new")
+                {
+                    newComputer();
+                    comp = d.computerList();
+                    int latest = comp.size() - 1;
+                    compID = comp[latest].getID();
+                    if (d.connectPtoC(ID, compID))
+                    {
+                        cout << "You successfully connected a computer to this person!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact computer is already connected to this person!" << endl;
+                    }
+                }
+            }
+
+            cout << "Do you want to connect another person and computer together? " << endl;
+            cout << "Type yes if you want to, else anything else: ";
+            cin >> inneryesorno;
+            inneryesorno = Lower_Ans(inneryesorno);
+            if (inneryesorno == "yes")
+            {
+                YN = true;
+            }
+            else
+            {
+                YN = false;
+            }
+        } while(YN);
+    }
+}
+/*void toplayer::connectToComputer(string& ID, int& type)
+{
+    string yesorno, choice, inneryesorno;
+    bool YN = true;
+    cout << "Do you want to connect a person and computer together? " << endl;
+    cout << "Type yes if you want to, else anything else: ";
+    cin >> yesorno;
+
+    if (yesorno == "yes")
+    {
+        do
+        {
+            cout << "Do you want to connect an existing computer or create a new one?" << endl;
+            cout << "Type 'old' for existing one or 'new' for new one ";
+            do
+            {
+                cin >> choice;
+                choice = Lower_Ans(choice);
+                if (choice != "new" && choice != "old")
+                {
+                    cout << choice << " Is not a valid command! Try again: ";
+                }
+            }
+            while (choice != "new" && choice != "old");
+            vector<Person> pers;
+            vector<Computer> comp;
+            domain d;
+            string persID, compID;
+            if (type == 1)
+            {
+                if (choice == "old")
+                {
+                    pers = d.list();
+                    printList(pers);
+                    cout << "Which person do you want to connect to this computer?" << endl;
+                    int lineNumber = lineEntry(pers) - 1;
+                    persID = pers[lineNumber].getID();
+                    if (d.connectPtoC(persID, ID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact person is already connected to this computer!" << endl;
+                    }
+                }
+                else if (choice == "new")
+                {
+                    newPerson();
+                    pers = d.list();
+                    int latest = pers.size() - 1;
+                    persID = pers[latest].getID();
+                    if (d.connectPtoC(persID, ID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact person is already connected to this computer!" << endl;
+                    }
+                }
+            }
+            else if (type == 0)
+            {
+                if (choice == "old")
+                {
+                    comp = d.computerList();
+                    printListComputer(comp);
+                    cout << "Which computer do you want to connect to this person?" << endl;
+                    int lineNumber = lineEntryComputer(comp) - 1;
+                    compID = comp[lineNumber].getID();
+                    if (d.connectPtoC(ID, compID))
+                    {
+                        cout << "You successfully connected a person to this computer!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact computer is already connected to this person!" << endl;
+                    }
+                }
+                else if (choice == "new")
+                {
+                    newComputer();
+                    comp = d.computerList();
+                    int latest = comp.size() - 1;
+                    compID = comp[latest].getID();
+                    if (d.connectPtoC(ID, compID))
+                    {
+                        cout << "You successfully connected a computer to this person!" << endl;
+                    }
+                    else
+                    {
+                        cout << "This exact computer is already connected to this person!" << endl;
+                    }
+                }
+            }
+
+            cout << "Do you want to connect another person and computer together? " << endl;
+            cout << "Type yes if you want to, else anything else: ";
+            cin >> inneryesorno;
+            inneryesorno = Lower_Ans(inneryesorno);
+            if (inneryesorno == "yes")
+            {
+                YN = true;
+            }
+            else
+            {
+                YN = false;
+            }
+        } while(YN);
+    }
+}*/
+
 //Athugar hvort listinn se tomur
 bool toplayer::isListEmpty()
 {
@@ -988,7 +1133,15 @@ string toplayer::getNewFirstname()
     while (contains_number(firstname));
     return firstname;
 }
-
+string toplayer::getNewCompname()
+{
+    string firstname;
+    cout << "Enter computer name: ";
+        cin.ignore();
+        getline (cin, firstname);
+        firstname = capFirstLetter(firstname);
+return firstname;
+}
 // Skilar nyju sex
 string toplayer::getNewSex()
 {
