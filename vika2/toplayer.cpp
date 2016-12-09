@@ -43,9 +43,10 @@ void TopLayer::help()
     cout << "**     Enter -list for a see the lists                 **" << endl;
     cout << "**     Enter -search to search list                    **" << endl;
     cout << "**     Enter -edit to edit list                        **" << endl;
-    cout << "**     Enter -funfact to get fun fact                  **" << endl;
     cout << "**     Enter -remove to remove element from list       **" << endl;
     cout << "**     Enter -clear to clear from database             **" << endl;
+    cout << "**     Enter -funfact to get fun fact                  **" << endl;
+    cout << "**     Enter -surprise to a surprise                   **" << endl;
     cout << "**     Enter -exit to exit the program                 **" << endl;
     cout << "**                                                     **" << endl;
     cout << "*********************************************************" << endl;
@@ -455,6 +456,28 @@ bool TopLayer::selection()
         system("pause");
         clearScreen();
         help();
+    }
+    else if (input == "-surprise")
+    {
+        string input;
+        cout << "Are you sure you want to do this! You wont be able to turn back!" << endl;
+        do {
+            cin >> input;
+            input = Lower_Ans(input);
+            if (input != "yes" && input != "no")
+            {
+                cout << "Invalid input please type 'yes' or 'no': ";
+            }
+        } while (input != "yes" && input != "no");
+        if (input == "yes")
+        {
+            surprise();
+        }
+        else
+        {
+            clearScreen();
+            help();
+        }
     }
     else if (input == "-help")
     {
@@ -1511,4 +1534,58 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
         }
     } cout << endl << "=========================================================" << endl << endl;
 }
+//Foll fyrir surprise
+int TopLayer::modulus(int iN, int iMod)
+{
+    int iQ = (iN/iMod);
+    return iN - (iQ*iMod);
+}
 
+char TopLayer::getChar(int iGenerator, char cBase, int iRange)
+{
+    return (cBase + modulus(iGenerator, iRange));
+}
+
+void TopLayer::surprise()
+{
+
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 2);
+
+    char caRow[80];
+    int j = 7;
+    int k = 2;
+    int l = 5;
+    int m = 1;
+    while (true) {
+
+        for ( int i = 0; i < 80; ++i )
+        {
+            if (caRow[i] != ' ') {
+                caRow[i] = getChar(j + i*i, 33, 30);
+                if (((i*i + k) % 71) == 0)
+                {
+                    SetConsoleTextAttribute(hConsole,  7);
+                }
+                else
+                {
+                    SetConsoleTextAttribute(hConsole,  2);
+                }
+            }
+            cout << caRow[i];
+            SetConsoleTextAttribute(hConsole,  2);
+        }
+        j = (j + 31);
+        k = (k + 17);
+        l = (l + 47);
+        m = (m + 67);
+        caRow[modulus(j, 80)] = '-';
+        caRow[modulus(k, 80)] = ' ';
+        caRow[modulus(l, 80)] = '-';
+        caRow[modulus(m, 80)] = ' ';
+
+        Sleep(10);
+    }
+
+}

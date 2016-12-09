@@ -5,6 +5,7 @@
 #include "Person.h"
 #include "Computer.h"
 #include "PersonsAndComputers.h"
+#include <windows.h>
 #include <stdlib.h>
 #include <algorithm>
 
@@ -68,6 +69,10 @@ private:
     string getNewDate();
     string getNewType();
     string getNewBuilt();
+
+    int modulus(int iN, int iMod);
+    char getChar(int iGenerator, char cBase, int iRange);
+    void surprise();
 };
 
 #endif // TopLayer_H
