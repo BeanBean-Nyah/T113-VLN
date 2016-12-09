@@ -10,6 +10,7 @@ Domain::Domain()
 
 }
 
+//Skilar skemmitlegri stadreynd
 string Domain::funFact()
 {
     string output;
@@ -21,6 +22,7 @@ string Domain::funFact()
     return output;
 }
 
+//Skilar vector sem inni heldur allar persons
 vector<Person> Domain::list()
 {
     Data dat;
@@ -30,18 +32,21 @@ vector<Person> Domain::list()
     return persons;
 }
 
+//Segir til um hvort tokst ad opna tengingu vid database
 bool Domain::openDatabase()
 {
     Data dat;
     if (dat.openDatabase())
     {
         return true;
-    } else
+    }
+    else
     {
         return false;
     }
 }
 
+//Skilar hvort thad tokst ad skrifa nyja personu i database
 bool Domain::add(string& firstname, string& sex, string& birth, string& death)
 {
     Data dat;
@@ -53,8 +58,10 @@ bool Domain::add(string& firstname, string& sex, string& birth, string& death)
         if (firstname == persons[i].getFirstname() && sex == persons[i].getSex() &&
                 birth == persons[i].getBirth() && death == persons[i].getDeath())
         {
-            check = false;
-        } else {
+          check = false;
+        }
+        else
+        {
             check = true;
         }
     }
@@ -70,6 +77,7 @@ bool Domain::add(string& firstname, string& sex, string& birth, string& death)
     return true;
 }
 
+//Skilar hvort thad tokst ad skrifa nyja computer i database
 bool Domain::addComputer(string& name, string& year, string& type, string& built)
 {
     Data dat;
@@ -100,6 +108,7 @@ bool Domain::addComputer(string& name, string& year, string& type, string& built
     return true;
 }
 
+//Skilar sorterudum vector af persons
 vector<Person> Domain::sorting(string& input)
 {
     Data dat;
@@ -109,6 +118,7 @@ vector<Person> Domain::sorting(string& input)
     return pers;
 }
 
+//skilar vector af nidurstodum ur leit
 vector<Person> Domain::search(string& whattype, string& input)
 {
     Data dat;
@@ -171,6 +181,7 @@ vector<Person> Domain::search(string& whattype, string& input)
     return res;
 }
 
+//kallar i fall sem merkir personu eydda i database
 void Domain::remove(vector<Person>& pers, int& line)
 {
     int type = 0;
@@ -179,14 +190,17 @@ void Domain::remove(vector<Person>& pers, int& line)
     dat.remove(ID, type);
 }
 
+//kallar i fall sem breytir upplysingum i database
 void Domain::edit(vector<Person>& pers, int& line, string& type, string& newValue)
 {
     string ID = pers[line].getID();
     Data dat;
     dat.edit(ID, newValue, type);
 }
+
 //Computer functions
 
+//Skilar vector sem inniheldur allar computers ur database
 vector<Computer> Domain::computerList()
 {
     vector<Computer> comp;
@@ -195,6 +209,7 @@ vector<Computer> Domain::computerList()
     return comp;
 }
 
+//skilar sorterudum vectour af computers ur database
 vector<Computer> Domain::sortComputer(string& value)
 {
     vector<Computer> comp;
@@ -203,6 +218,7 @@ vector<Computer> Domain::sortComputer(string& value)
     return comp;
 }
 
+//kallar i fall sem fjarlaegir computer ur database
 void Domain::removeComputer(vector<Computer>& comp, int& line)
 {
     int type = 1;
@@ -211,6 +227,7 @@ void Domain::removeComputer(vector<Computer>& comp, int& line)
     dat.remove(ID, type);
 }
 
+//Skilar vector af venslum yfir computers og persons
 vector<PersonsAndComputers> Domain::persAndCompList()
 {
     vector<PersonsAndComputers> pAc;
@@ -219,6 +236,7 @@ vector<PersonsAndComputers> Domain::persAndCompList()
     return pAc;
 }
 
+//skilar vector af nidurstodum ur leit
 vector<Computer> Domain::searchComputer(string& whattype, string& input)
 {
     Data dat;
@@ -270,6 +288,7 @@ vector<Computer> Domain::searchComputer(string& whattype, string& input)
     return res;
 }
 
+//kallar i fall sem breytir um upplysingum computer i database
 void Domain::editComputer(vector<Computer>& comp, int& line, string& type, string& newValue)
 {
     string ID = comp[line].getID();
@@ -278,6 +297,7 @@ void Domain::editComputer(vector<Computer>& comp, int& line, string& type, strin
 
 }
 
+//skilar tvi hvort thad tokst ad tengja person og computer saman
 bool Domain::connectPtoC(string& persID, string& compID)
 {
     Data d;
@@ -289,7 +309,8 @@ bool Domain::connectPtoC(string& persID, string& compID)
         if (persID == pAc[i].getPers_ID() && compID == pAc[i].getComp_ID())
         {
             check = false;
-        } else {
+        } else
+        {
             check = true;
         }
     }
@@ -306,6 +327,7 @@ bool Domain::connectPtoC(string& persID, string& compID)
 
 }
 
+//skilar tvi hvort tekist hafi ad hreinsa toflu i database
 bool Domain::clear(string& type)
 {
     int ttype = 0;
@@ -331,6 +353,7 @@ bool Domain::clear(string& type)
     return false;
 }
 
+//breytir ollum stofum i streng i lagstafi
 string Domain::Lower_Ans(string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator

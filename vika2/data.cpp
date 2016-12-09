@@ -6,16 +6,19 @@
 using namespace std;
 Data::Data()
 {
+
 }
 
+//opnar a tengingu vid database og skilar tvi hvort tenging hafi tekist
 bool Data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
 
     //m_db.setDatabaseName("vika2.sqlite");
-    //m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
+    m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
     //m_db.setDatabaseName("..\\..\\verkefni2.sqlite");
-    m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
+    //m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
+
 
     if (!m_db.open())
     {
@@ -27,6 +30,7 @@ bool Data::openDatabase()
     }
 }
 
+//les inn upplysingar ur tofluni persons i vector
 void Data::read(vector<Person>& pers)
 {
     QSqlQuery query("SELECT ID, Name, Sex, Birth, Death, Status FROM persons");
@@ -56,6 +60,7 @@ void Data::read(vector<Person>& pers)
     }
 }
 
+//Skrifar ut nyjar upplysingar i tofluna persons
 void Data::write(string& firstname, string& sex, string& birth, string& death)
 {
     QSqlQuery query;
@@ -75,6 +80,7 @@ void Data::write(string& firstname, string& sex, string& birth, string& death)
     query.exec();
 }
 
+//skilar upplysingar ur toflunni persons sorterudum eftir vali i vector
 vector<Person> Data::sortPersons(string& type)
 {
     vector<Person> pers;
@@ -140,6 +146,7 @@ vector<Person> Data::sortPersons(string& type)
     return pers;
 }
 
+//Merkir personu eydda i toflunni sem vid a
 void Data::remove(string& ID, int& type)
 {
     QSqlQuery query;
@@ -158,6 +165,7 @@ void Data::remove(string& ID, int& type)
     query.exec();
 }
 
+//breytir voldum upplysingum i toflunni persons
 void Data::edit(string& ID, string& value, string& type)
 {
     QSqlQuery query;
@@ -190,6 +198,7 @@ void Data::edit(string& ID, string& value, string& type)
     query.exec();
 }
 
+//les inn i vector allar upplysingar ur toflunni computer
 void Data::readComputer(vector<Computer>& comp)
 {
     QSqlQuery query("SELECT computer_ID, computer_Name, computer_Year, "
@@ -221,6 +230,7 @@ void Data::readComputer(vector<Computer>& comp)
     }
 }
 
+//skrifar ut nyjar upplysingar ut i tofluna computer
 void Data::writeComputer(string& name, string& year, string& type, string& built)
 {
     QSqlQuery query;
@@ -237,6 +247,7 @@ void Data::writeComputer(string& name, string& year, string& type, string& built
         query.exec();
 }
 
+//breytir voldum upplysingum i toflunni computer
 void Data::editComp(string& ID, string& value, string& type)
 {
     QSqlQuery query;
@@ -269,7 +280,7 @@ void Data::editComp(string& ID, string& value, string& type)
     query.exec();
 }
 
-
+//skilar upplysingar ur toflunni computer sorterudum eftir vali i vector
 vector<Computer> Data::sortComputer(string& type)
 {
     vector<Computer> comp;
@@ -341,6 +352,7 @@ vector<Computer> Data::sortComputer(string& type)
     return comp;
 }
 
+//skrifar upplysingar ur toflunni personsandcomputers i vector
 void Data::getPACjoined(vector<PersonsAndComputers>& pAc)
 {
     QSqlQuery query("SELECT ID, computer_ID, person_ID, pac_status FROM personsandcomputers");
@@ -365,6 +377,7 @@ void Data::getPACjoined(vector<PersonsAndComputers>& pAc)
     }
 }
 
+//Skrifar tengls person og computer ut i tolfuna personsandcomputers
 void Data::writePAC(string& pers_id, string& comp_id)
 {
     QSqlQuery query;
@@ -376,10 +389,12 @@ void Data::writePAC(string& pers_id, string& comp_id)
         query.exec();
 }
 
+//Hreinsar tolfu i database
 bool Data::clear(int& type)
 {
     QSqlQuery query;
-    if (type == 1){
+    if (type == 1)
+    {
         if(query.exec("DELETE FROM persons"))
             return true;
     }
@@ -403,6 +418,8 @@ bool Data::clear(int& type)
     return false;
 }
 
+//les inn inn vector upplysingar ur toflunni funfacts
+//sem inniheldur strengi af stadreyndum
 void Data::getFact(vector<Facts>& fac)
 {
     QSqlQuery query("SELECT ID, fact FROM funfacts");

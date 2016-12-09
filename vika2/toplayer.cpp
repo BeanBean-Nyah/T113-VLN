@@ -12,21 +12,25 @@ TopLayer::TopLayer()
 {
 
 }
+
+//Fall sem er keyrt i byrjun til ad sja hvort tenging vid database nadist
+//og keyrir sidan forritid
 void TopLayer::run()
 {
     Domain d;
     if (d.openDatabase())
     {
         cout << "Database: connection ok" << endl;
+        help();
+        cout << "\n Enter -help to display the command list again " << endl;
+        while(selection())
+        {
+
+        }
     } else {
         cout << "Error: connection with database failed" << endl;
     }
-    help();
-    cout << "\n Enter -help to display the command list again " << endl;
-    while(selection())
-    {
 
-    }
 }
 void TopLayer::help()
 {
@@ -70,7 +74,7 @@ void TopLayer::print(vector<Person>& pers)
     cout << "======================================================" << endl << endl;
 }
 
-//Prentar ut eina linu ur vector
+//Prentar ut valda linu ur upplysingum um persons
 void TopLayer::printLine(vector<Person>& pers, const int& i)
 {
     int k = i - 1;
@@ -91,6 +95,8 @@ void TopLayer::printLine(vector<Person>& pers, const int& i)
     cout << pers[k].getDeath()<<endl;
     cout << "===================================================" << endl << endl;
 }
+
+//Prentar ut valda linu ur upplysingum um computer
 void TopLayer::printLineComputer(vector<Computer>& comp, const int& i)
 {
     int k = i - 1;
@@ -137,6 +143,7 @@ void TopLayer::printList(vector<Person>& p)
     }
     cout << "=======================================================" << endl << endl;
 }
+
 //Prentar ut lista yfir tolvur
 void TopLayer::printComputer(vector<Computer> comp)
 {
@@ -159,6 +166,8 @@ void TopLayer::printComputer(vector<Computer> comp)
     }
     cout << "=========================================================" << endl << endl;
 }
+
+//Prentar ut lista yfir tolvur med numerum fyrir framan
 void TopLayer::printListComputer(vector<Computer>& p)
 {
     cout << left << setw(5) << "Nr." << setw(25) << "Name" << setw(10)
@@ -192,7 +201,7 @@ bool TopLayer::selection()
     {
         if (!(isListEmpty()))
         {
-            cout << "================ All lists is are empty =================" << endl << endl;
+            cout << "================ All lists are empty =================" << endl << endl;
         }
         else
         {
@@ -242,7 +251,7 @@ bool TopLayer::selection()
                 default:
                         cout <<"";
             }
-       }
+         }
         system("pause");
         clearScreen();
         help();
@@ -299,6 +308,9 @@ bool TopLayer::selection()
         }
         else
         {
+            switch(PersOrComp())
+            {
+                case 'p': editPerson();
             switch(PersOrComp()) {
                 case 'p':
                     {
@@ -324,6 +336,7 @@ bool TopLayer::selection()
         system("pause");
         clearScreen();
         help();
+        }
     }
     else if (input == "-remove")
     {
@@ -377,7 +390,8 @@ bool TopLayer::selection()
         cout << "Type 'connections' if you want to clear all connections between persons and computers" << endl;
         cout << "Type 'everything' if you want to clear everything from the database" << endl;
         cout << "Type 'back' if you want to go back" << endl;
-        do {
+        do
+        {
             cin >> input;
             Lower_Ans(input);
             if (input != "persons" && input != "computers" && input != "connections" &&
@@ -410,6 +424,8 @@ bool TopLayer::selection()
     }
     return true;
 }
+
+//Baetir vid nyrri person i database
 string TopLayer::newPerson()
 {
     string firstname, sex, birth, death, tempPersName, persID;
@@ -459,6 +475,8 @@ string TopLayer::newPerson()
 
     return persID;
 }
+
+//Leitar af upplysingum i persons
 void TopLayer::searchPerson()
 {
     if (isPersListEmpty())
@@ -490,8 +508,10 @@ void TopLayer::searchPerson()
              cout << "================ Search results ==================" << endl;
              print(p);
          }
-     }
+    }
 }
+
+//Prentar sorteradan lista af persons eftir valinni sort
 void TopLayer::sortPerson()
 {
     vector<Person> p;
@@ -507,6 +527,8 @@ void TopLayer::sortPerson()
     cout << "========================= List =======================" << endl;
     print(p);
 }
+
+//Breytir upplysingum um person i database
 void TopLayer::editPerson()
 {
     string input, newElement, newValue;
@@ -534,7 +556,8 @@ void TopLayer::editPerson()
         {
             newValue = getNewSex();
         } else if (input == "-birth") {
-            do {
+            do
+            {
                 newValue = getNewBirth();
                 cout << (atoi(newValue.c_str())) << endl;
                 cout << (atoi(p[lineNumber-1].getDeath().c_str())) << endl;
@@ -544,7 +567,8 @@ void TopLayer::editPerson()
                 }
             } while ((atoi(newValue.c_str())) > (atoi(p[lineNumber-1].getDeath().c_str())));
         } else if (input == "-death") {
-            do {
+            do
+            {
                 newValue = getNewDeath();
                 if ((atoi(p[lineNumber-1].getBirth().c_str())) > (atoi(newValue.c_str())))
                 {
@@ -560,7 +584,7 @@ void TopLayer::editPerson()
         d.edit(p, lineNumber, input, newValue);
         string yesorno;
         cout << "Do you want to edit another element in this entry? " << endl << endl;
-        cout << "Type -yes if you want to else type anything else: ";
+        cout << "Type -yes if you want to, if not type anything else: ";
         cin >> yesorno;
         if (yesorno == "-yes")
         {
@@ -573,6 +597,8 @@ void TopLayer::editPerson()
         }
     }
 }
+
+//Merkir person eydda i database
 void TopLayer::removePerson()
 {
     vector<Person> p;
@@ -586,6 +612,8 @@ void TopLayer::removePerson()
     cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
 
 }
+
+//Baetir nyrri tolvu vid i database
 string TopLayer::newComputer()
 {
     vector<Computer> comp;
@@ -600,7 +628,8 @@ string TopLayer::newComputer()
     {
         cout << "You successfully added a new computer!" << endl << endl;
         comp = d.computerList();
-        for (unsigned int i = 0; i < comp.size(); i++) {
+        for (unsigned int i = 0; i < comp.size(); i++)
+        {
             tempCompName = comp[i].getName();
             if (tempCompName == cName)
             {
@@ -616,6 +645,7 @@ string TopLayer::newComputer()
 
 }
 
+//Leitar af upplysingum ur computers
 void TopLayer::searchComputer()
 {
     if (isCompListEmpty())
@@ -648,6 +678,8 @@ void TopLayer::searchComputer()
         }
     }
 }
+
+//Prentar sorteradan lista af persons eftir valinni sort
 void TopLayer::sortComputer()
 {
     vector<Computer> c;
@@ -663,6 +695,8 @@ void TopLayer::sortComputer()
     cout << "========================= List =======================" << endl;
     printComputer(c);
 }
+
+//Breytir upplysingum um computer
 void TopLayer::editComputer()
 {
     string input, newElement, newValue;
@@ -703,7 +737,7 @@ void TopLayer::editComputer()
         d.editComputer(c, lineNumber, input, newValue);
         string yesorno;
         cout << "Do you want to edit another element in this entry? " << endl << endl;
-        cout << "Type -yes if you want to else type anything else: ";
+        cout << "Type -yes if you want to, if not type anything else: ";
         cin >> yesorno;
         if (yesorno == "-yes")
         {
@@ -716,6 +750,8 @@ void TopLayer::editComputer()
         }
     }
 }
+
+//Merkir computer eydda i database
 void TopLayer::removeComputer()
 {
     vector<Computer> comp;
@@ -729,12 +765,13 @@ void TopLayer::removeComputer()
     cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
 }
 
+//Tengur person og computer saman og skrifar vensl ut i database
 void TopLayer::connectToPerson(string& ID, int& type)
 {
     string yesorno, choice, inneryesorno;
     bool YN = true;
     cout << "Do you want to connect a person and computer together? " << endl;
-    cout << "Type yes if you want to, else anything else: ";
+    cout << "Type yes if you want to, if not type anything else: ";
     cin >> yesorno;
 
     if (yesorno == "yes")
@@ -824,7 +861,7 @@ void TopLayer::connectToPerson(string& ID, int& type)
             }
 
             cout << "Do you want to connect another person and computer together? " << endl;
-            cout << "Type yes if you want to, else anything else: ";
+            cout << "Type yes if you want to, if not anything else: ";
             cin >> inneryesorno;
             inneryesorno = Lower_Ans(inneryesorno);
             if (inneryesorno == "yes")
@@ -862,6 +899,7 @@ bool TopLayer::isListEmpty()
     }
 }
 
+//Athugar hvort einhverjar upplysingar seu i computers
 bool TopLayer::isCompListEmpty()
 {
     vector<Computer> c;
@@ -879,6 +917,7 @@ bool TopLayer::isCompListEmpty()
     return true;
 }
 
+//Athugar hvort einhverjar upplysingar seu i persons
 bool TopLayer::isPersListEmpty()
 {
     vector<Person> p;
@@ -901,11 +940,13 @@ bool TopLayer::contains_number(const string &c)
 {
     return (c.find_first_of("0123456789") != string::npos);
 }
+
 // Villutjekk, athugar hvort thad se bokstafur i strengnum
 bool TopLayer::contains_letters(const string &c)
 {
     return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM") != string::npos);
 }
+
 // Gerir alla stafi i streng lower case
 string TopLayer::Lower_Ans(string word)
 {
@@ -930,6 +971,7 @@ void TopLayer::clearScreen()
 {
     system("cls");
 }
+
 //Skilar valinni linu ur lista
 int TopLayer::lineEntry(const vector<Person>& p)
 {
@@ -952,6 +994,8 @@ int TopLayer::lineEntry(const vector<Person>& p)
     cout << endl;
     return lineNumber;
 }
+
+// Skilar numir a valinni linu
 int TopLayer::lineEntryComputer(const vector<Computer>& p)
 {
     unsigned int lineNumber = 1;
@@ -973,6 +1017,7 @@ int TopLayer::lineEntryComputer(const vector<Computer>& p)
     cout << endl;
     return lineNumber;
 }
+
 // Skilar input-i fra notanda
 string TopLayer::getInputType(int& type)
 {
@@ -1012,6 +1057,7 @@ string TopLayer::getInputType(int& type)
     return input;
 }
 
+//Skilar type af hverju tu velur
 string TopLayer::getInputSortType(int& type)
 {
     string input;
@@ -1057,6 +1103,7 @@ string TopLayer::getInputSortType(int& type)
     }
     return input;
 }
+
 // Skilar nyju firstname
 string TopLayer::getNewFirstname()
 {
@@ -1075,6 +1122,8 @@ string TopLayer::getNewFirstname()
     while (contains_number(firstname));
     return firstname;
 }
+
+//Skilar nyju nafni a computer
 string TopLayer::getNewCompname()
 {
     string firstname;
@@ -1084,6 +1133,7 @@ string TopLayer::getNewCompname()
         firstname = capFirstLetter(firstname);
 return firstname;
 }
+
 // Skilar nyju sex
 string TopLayer::getNewSex()
 {
@@ -1100,6 +1150,7 @@ string TopLayer::getNewSex()
     } while (sex != "Male" && sex != "Female");
     return sex;
 }
+
 // Skilar nyju birth
 string TopLayer::getNewBirth()
 {
@@ -1116,6 +1167,7 @@ string TopLayer::getNewBirth()
     while (contains_letters(birth));
     return birth;
 }
+
 // Skilar nyju death
 string TopLayer::getNewDeath()
 {
@@ -1130,11 +1182,13 @@ string TopLayer::getNewDeath()
         }
     }
     while (contains_letters(death));
-    if (death == "-") {
+    if (death == "-")
+    {
         death = "99999999";
     }
     return death;
 }
+
 // Skilar nyju ari fyrir computer
 string TopLayer::getNewDate()
 {
@@ -1152,6 +1206,7 @@ string TopLayer::getNewDate()
 
     return year;
 }
+
 // Skilar nyju type-i fyrir computer
 string TopLayer::getNewType()
 {
@@ -1190,6 +1245,7 @@ string TopLayer::getNewBuilt()
     return built;
 }
 
+// skilar vali
 char TopLayer::PersOrComp()
 {
     char selector;
@@ -1203,6 +1259,9 @@ char TopLayer::PersOrComp()
     return selector;
 }
 
+//Prentar ut lista af computers og persons saman
+//Ber saman vector persons og computer vid vector af tengingum thar a milli
+//og prentar ut videigandi upplysingar
 void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
 {
     vector<Person> pers;
@@ -1211,10 +1270,7 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
     pers = d.list();
     comp = d.computerList();
     string id;
-    for (unsigned int i = 0; i < comp.size(); i++)
-    {
 
-    }
     cout << left << setw(25) << "Computer" << setw(20)
          << "Creators" << setw(10) << "Year" << setw(10) << "Built" << endl << endl;
     for (unsigned int i = 0; i < comp.size(); i++)
@@ -1239,8 +1295,10 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                 id = pAc[k].getPers_ID();
                 for (unsigned int j = 0; j < pers.size(); j++)
                 {
-                    if (pers[j].getID() == id) {
-                        if (t > 0) {
+                    if (pers[j].getID() == id)
+                    {
+                        if (t > 0)
+                        {
                             cout.width(25);
                             cout<<left;
                             cout << "";
@@ -1255,21 +1313,6 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                     }
                 }
             }
-            /*else if (!(comp[i].getID() == pAc[k].getComp_ID()) && t == 0)
-            {
-                if (t == 0)
-                {
-                    cout.width(20);
-                    cout<<left;
-                    cout << "";
-                    cout.width(10);
-                    cout<<left;
-                    cout << comp[i].getYear();
-                    cout.width(10);
-                    cout<<left;
-                    cout << comp[i].getBuilt() << endl;
-                }
-            }*/
             t++;
         }
     } cout << endl << "=========================================================" << endl << endl;
