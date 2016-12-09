@@ -192,7 +192,7 @@ bool toplayer::selection()
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
@@ -216,13 +216,25 @@ bool toplayer::selection()
             switch (selector)
             {
                 case 'p':
-                        pers = d.list();
-                        sortPerson();
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            pers = d.list();
+                            sortPerson();
+                        }
                         break;
+                    }
+
                 case 'c':
-                        comp = d.computerList();
-                        sortComputer();
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            comp = d.computerList();
+                            sortComputer();
+                        }
                         break;
+                    }
+
                 case 'b':
                         pAc = d.persAndCompList();
                         cout << "========================= List ==========================" << endl;
@@ -279,42 +291,32 @@ bool toplayer::selection()
         clearScreen();
         help();
     }
-    else if (input == "-sort")
-    {
-        if (!(isListEmpty()))
-        {
-            cout << "================ List is empty =================" << endl << endl;
-        }
-        else
-        {
-            switch(PersOrComp())
-            {
-                case 'p': sortPerson();
-                          break;
-                case 'c': sortComputer();
-                          break;
-
-                default : cout << "Fatal error have you tried turning it off and on again" << endl;
-            }
-        }
-        system("pause");
-        clearScreen();
-        help();
-    }
     else if (input == "-edit")
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
             switch(PersOrComp()) {
-                case 'p': editPerson();
+                case 'p':
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            editPerson();
+                        }
                         break;
+                    }
 
-                case 'c': editComputer();
+                case 'c':
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            editComputer();
+                        }
                         break;
+                    }
 
                 default : cout << "Fatal error have you tried turning it off and on again" << endl;
             }
@@ -327,16 +329,27 @@ bool toplayer::selection()
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
             switch(PersOrComp())
             {
-                case 'p': removePerson();
+                case 'p':
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            removePerson();
+                        }
                         break;
-
-                case 'c': removeComputer();
+                    }
+                case 'c':
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            removeComputer();
+                        }
+                    }
                         break;
 
                 default : cout << "Fatal error have you tried turning it off and on again" << endl;
@@ -436,24 +449,21 @@ string toplayer::newPerson()
                 persID = pers[i].getID();
             }
         }
-        //int type = 0;
-        //connectToPerson(persID, type);
+
     }
     else
     {
         cout << "This exact person already exists in the database, so it wasn't added!" << endl << endl;
     }
 
-    //system("pause");
-    //clearScreen();
-    //help();
+
     return persID;
 }
 void toplayer::searchPerson()
 {
-    if (!(isListEmpty()))
+    if (isPersListEmpty())
     {
-        cout << "================ List is empty =================" << endl << endl;
+        cout << "";
     }
     else
     {
@@ -597,24 +607,20 @@ string toplayer::newComputer()
                 compID = comp[i].getID();
             }
         }
-        //int type = 1;
-        //connectToPerson(compID, type);
     }
     else
     {
         cout << "This exact computer already exists in the database, so it wasn't added!" << endl << endl;
     }
     return compID;
-    //system("pause");
-    //clearScreen();
-    //help();
+
 }
 
 void toplayer::searchComputer()
 {
-    if (!(isListEmpty()))
+    if (isCompListEmpty())
     {
-        cout << "================ List is empty =================" << endl << endl;
+        cout << "";
     }
     else
     {
@@ -854,6 +860,40 @@ bool toplayer::isListEmpty()
     {
         return false;
     }
+}
+
+bool toplayer::isCompListEmpty()
+{
+    vector<Computer> c;
+    domain d;
+    c = d.computerList();
+    if (c.size() > 0)
+    {
+        return false;
+    }
+    else
+    {
+        cout << "================ List is empty =================" << endl << endl;
+        return true;
+    }
+    return true;
+}
+
+bool toplayer::isPersListEmpty()
+{
+    vector<Person> p;
+    domain d;
+    p = d.list();
+    if (p.size() > 0)
+    {
+        return false;
+    }
+    else
+    {
+        cout << "================ List is empty =================" << endl << endl;
+        return true;
+    }
+    return true;
 }
 
 // Villutjekk, athugar hvort thad se tolustafur i strengnum
