@@ -1,5 +1,5 @@
-#include "toplayer.h"
-#include "domain.h"
+#include "TopLayer.h"
+#include "Domain.h"
 #include <iostream>
 #include <algorithm>
 #include <cctype>
@@ -8,13 +8,13 @@
 
 using namespace std;
 
-toplayer::toplayer()
+TopLayer::TopLayer()
 {
 
 }
-void toplayer::run()
+void TopLayer::run()
 {
-    domain d;
+    Domain d;
     if (d.openDatabase())
     {
         cout << "Database: connection ok" << endl;
@@ -28,7 +28,7 @@ void toplayer::run()
 
     }
 }
-void toplayer::help()
+void TopLayer::help()
 {
     cout << "*********************************************************" << endl;
     cout << "**                                                     **" << endl;
@@ -48,7 +48,7 @@ void toplayer::help()
 }
 
 //Prentar ut lista med ollum personum ur vector
-void toplayer::print(vector<Person>& pers)
+void TopLayer::print(vector<Person>& pers)
 {
     cout << left << setw(25) << "Name" << setw(10)
          << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
@@ -71,7 +71,7 @@ void toplayer::print(vector<Person>& pers)
 }
 
 //Prentar ut eina linu ur vector
-void toplayer::printLine(vector<Person>& pers, const int& i)
+void TopLayer::printLine(vector<Person>& pers, const int& i)
 {
     int k = i - 1;
     cout << endl << "================ Line to edit =====================" << endl;
@@ -91,7 +91,7 @@ void toplayer::printLine(vector<Person>& pers, const int& i)
     cout << pers[k].getDeath()<<endl;
     cout << "===================================================" << endl << endl;
 }
-void toplayer::printLineComputer(vector<Computer>& comp, const int& i)
+void TopLayer::printLineComputer(vector<Computer>& comp, const int& i)
 {
     int k = i - 1;
     cout << endl << "================ Line to edit =====================" << endl;
@@ -113,7 +113,7 @@ void toplayer::printLineComputer(vector<Computer>& comp, const int& i)
 }
 
 //Prentar ut lista med numerum fyrir framan hvern einstakling
-void toplayer::printList(vector<Person>& p)
+void TopLayer::printList(vector<Person>& p)
 {
     cout << left << setw(5) << "Nr." << setw(25) << "Name" << setw(10)
          << "Sex" << setw(10) << "Birth" << setw(10) << "Death" << endl << endl;
@@ -138,7 +138,7 @@ void toplayer::printList(vector<Person>& p)
     cout << "=======================================================" << endl << endl;
 }
 //Prentar ut lista yfir tolvur
-void toplayer::printComputer(vector<Computer> comp)
+void TopLayer::printComputer(vector<Computer> comp)
 {
     cout << left << setw(25) << "Name" << setw(10)
          << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
@@ -159,7 +159,7 @@ void toplayer::printComputer(vector<Computer> comp)
     }
     cout << "=========================================================" << endl << endl;
 }
-void toplayer::printListComputer(vector<Computer>& p)
+void TopLayer::printListComputer(vector<Computer>& p)
 {
     cout << left << setw(5) << "Nr." << setw(25) << "Name" << setw(10)
          << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
@@ -184,7 +184,7 @@ void toplayer::printListComputer(vector<Computer>& p)
     cout << "=======================================================" << endl << endl;
 }
 
-bool toplayer::selection()
+bool TopLayer::selection()
 {
     string input;
     cin >> input;
@@ -192,14 +192,14 @@ bool toplayer::selection()
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
             vector<Person> pers;
             vector<Computer> comp;
             vector<PersonsAndComputers> pAc;
-            domain d;
+            Domain d;
             char selector;
             do
             {
@@ -216,13 +216,25 @@ bool toplayer::selection()
             switch (selector)
             {
                 case 'p':
-                        pers = d.list();
-                        sortPerson();
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            pers = d.list();
+                            sortPerson();
+                        }
                         break;
+                    }
+
                 case 'c':
-                        comp = d.computerList();
-                        sortComputer();
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            comp = d.computerList();
+                            sortComputer();
+                        }
                         break;
+                    }
+
                 case 'b':
                         pAc = d.persAndCompList();
                         cout << "========================= List ==========================" << endl;
@@ -255,7 +267,7 @@ bool toplayer::selection()
     else if (input == "-new")
     {
         int type;
-        domain d;
+        Domain d;
         switch(PersOrComp())
         {
             case 'p':
@@ -279,42 +291,32 @@ bool toplayer::selection()
         clearScreen();
         help();
     }
-    else if (input == "-sort")
-    {
-        if (!(isListEmpty()))
-        {
-            cout << "================ List is empty =================" << endl << endl;
-        }
-        else
-        {
-            switch(PersOrComp())
-            {
-                case 'p': sortPerson();
-                          break;
-                case 'c': sortComputer();
-                          break;
-
-                default : cout << "Fatal error have you tried turning it off and on again" << endl;
-            }
-        }
-        system("pause");
-        clearScreen();
-        help();
-    }
     else if (input == "-edit")
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
             switch(PersOrComp()) {
-                case 'p': editPerson();
+                case 'p':
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            editPerson();
+                        }
                         break;
+                    }
 
-                case 'c': editComputer();
+                case 'c':
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            editComputer();
+                        }
                         break;
+                    }
 
                 default : cout << "Fatal error have you tried turning it off and on again" << endl;
             }
@@ -327,16 +329,27 @@ bool toplayer::selection()
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
             switch(PersOrComp())
             {
-                case 'p': removePerson();
+                case 'p':
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            removePerson();
+                        }
                         break;
-
-                case 'c': removeComputer();
+                    }
+                case 'c':
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            removeComputer();
+                        }
+                    }
                         break;
 
                 default : cout << "Fatal error have you tried turning it off and on again" << endl;
@@ -348,7 +361,7 @@ bool toplayer::selection()
     }
     else if (input == "-funfact")
     {
-        domain d;
+        Domain d;
         string fact = d.funFact();
         cout << endl << fact << endl << endl;
         system("pause");
@@ -357,7 +370,7 @@ bool toplayer::selection()
     }
     else if (input == "-clear")
     {
-        domain d;
+        Domain d;
         string input;
         cout << "Type 'persons' if you want to clear all persons from the database" << endl;
         cout << "Type 'computers' if you want to clear all computers from the database" << endl;
@@ -397,7 +410,7 @@ bool toplayer::selection()
     }
     return true;
 }
-string toplayer::newPerson()
+string TopLayer::newPerson()
 {
     string firstname, sex, birth, death, tempPersName, persID;
     vector<Person> pers;
@@ -424,7 +437,7 @@ string toplayer::newPerson()
         death.clear();
     }
 
-    domain d;
+    Domain d;
     if (d.add(firstname, sex, birth, death))
     {
         cout << "You successfully added a new person!" << endl << endl;
@@ -436,30 +449,27 @@ string toplayer::newPerson()
                 persID = pers[i].getID();
             }
         }
-        //int type = 0;
-        //connectToPerson(persID, type);
+
     }
     else
     {
         cout << "This exact person already exists in the database, so it wasn't added!" << endl << endl;
     }
 
-    //system("pause");
-    //clearScreen();
-    //help();
+
     return persID;
 }
-void toplayer::searchPerson()
+void TopLayer::searchPerson()
 {
-    if (!(isListEmpty()))
+    if (isPersListEmpty())
     {
-        cout << "================ List is empty =================" << endl << endl;
+        cout << "";
     }
     else
     {
         vector<Person> p;
         int gildi = 0;
-        domain d;
+        Domain d;
         string whattype, input;
         cout << "What do you want to search for?" << endl;
         cout << "-name" << endl << "-sex"
@@ -482,7 +492,7 @@ void toplayer::searchPerson()
          }
      }
 }
-void toplayer::sortPerson()
+void TopLayer::sortPerson()
 {
     vector<Person> p;
     int gildi = 0;
@@ -492,17 +502,17 @@ void toplayer::sortPerson()
          << "   -birthasc" << endl << "   -birthdesc" << endl
          << "   -deathasc" << endl << "   -deathdesc" << endl;
     string input = getInputSortType(gildi);
-    domain d;
+    Domain d;
     p = d.sorting(input);
     cout << "========================= List =======================" << endl;
     print(p);
 }
-void toplayer::editPerson()
+void TopLayer::editPerson()
 {
     string input, newElement, newValue;
     bool yesno = true;
     vector<Person> p;
-    domain d;
+    Domain d;
     p = d.list();
     printList(p);
     cout << "Which entry do you want to edit? " << endl;
@@ -563,10 +573,10 @@ void toplayer::editPerson()
         }
     }
 }
-void toplayer::removePerson()
+void TopLayer::removePerson()
 {
     vector<Person> p;
-    domain d;
+    Domain d;
     p = d.list();
     cout << "========================= List ========================" << endl;
     printList(p);
@@ -576,10 +586,10 @@ void toplayer::removePerson()
     cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
 
 }
-string toplayer::newComputer()
+string TopLayer::newComputer()
 {
     vector<Computer> comp;
-    domain d;
+    Domain d;
     string cName, cYear, cType, cBuilt, compID, tempCompName;
     cName = getNewCompname();
     cYear = getNewDate();
@@ -597,30 +607,26 @@ string toplayer::newComputer()
                 compID = comp[i].getID();
             }
         }
-        //int type = 1;
-        //connectToPerson(compID, type);
     }
     else
     {
         cout << "This exact computer already exists in the database, so it wasn't added!" << endl << endl;
     }
     return compID;
-    //system("pause");
-    //clearScreen();
-    //help();
+
 }
 
-void toplayer::searchComputer()
+void TopLayer::searchComputer()
 {
-    if (!(isListEmpty()))
+    if (isCompListEmpty())
     {
-        cout << "================ List is empty =================" << endl << endl;
+        cout << "";
     }
     else
     {
         vector<Computer> p;
         int gildi = 1;
-        domain d;
+        Domain d;
         string whattype, input;
         cout << "What do you want to search for?" << endl;
         cout << "-name" << endl << "-year"
@@ -642,7 +648,7 @@ void toplayer::searchComputer()
         }
     }
 }
-void toplayer::sortComputer()
+void TopLayer::sortComputer()
 {
     vector<Computer> c;
     int gildi = 1;
@@ -652,17 +658,17 @@ void toplayer::sortComputer()
          << "   -typeasc"  << endl << "   -typedesc"  << endl
          << "   -builtasc" << endl << "   -builtdesc" << endl;
     string input = getInputSortType(gildi);
-    domain d;
+    Domain d;
     c = d.sortComputer(input);
     cout << "========================= List =======================" << endl;
     printComputer(c);
 }
-void toplayer::editComputer()
+void TopLayer::editComputer()
 {
     string input, newElement, newValue;
     bool yesno = true;
     vector<Computer> c;
-    domain d;
+    Domain d;
     c = d.computerList();
     printListComputer(c);
     cout << "Which entry do you want to edit? " << endl;
@@ -710,10 +716,10 @@ void toplayer::editComputer()
         }
     }
 }
-void toplayer::removeComputer()
+void TopLayer::removeComputer()
 {
     vector<Computer> comp;
-    domain d;
+    Domain d;
     comp = d.computerList();
     cout << "========================= List ========================" << endl;
     printListComputer(comp);
@@ -723,7 +729,7 @@ void toplayer::removeComputer()
     cout << "You successfully removed a line " << lineNumber + 1 << endl << endl;
 }
 
-void toplayer::connectToPerson(string& ID, int& type)
+void TopLayer::connectToPerson(string& ID, int& type)
 {
     string yesorno, choice, inneryesorno;
     bool YN = true;
@@ -750,7 +756,7 @@ void toplayer::connectToPerson(string& ID, int& type)
             while (choice != "new" && choice != "old");
             vector<Person> pers;
             vector<Computer> comp;
-            domain d;
+            Domain d;
             string persID, compID;
             if (type == 1)
             {
@@ -835,10 +841,10 @@ void toplayer::connectToPerson(string& ID, int& type)
 
 
 //Athugar hvort listinn se tomur
-bool toplayer::isListEmpty()
+bool TopLayer::isListEmpty()
 {
     vector<Person> p;
-    domain d;
+    Domain d;
     vector<Computer> c;
     c = d.computerList();
     p = d.list();
@@ -856,25 +862,59 @@ bool toplayer::isListEmpty()
     }
 }
 
+bool TopLayer::isCompListEmpty()
+{
+    vector<Computer> c;
+    Domain d;
+    c = d.computerList();
+    if (c.size() > 0)
+    {
+        return false;
+    }
+    else
+    {
+        cout << "================ List is empty =================" << endl << endl;
+        return true;
+    }
+    return true;
+}
+
+bool TopLayer::isPersListEmpty()
+{
+    vector<Person> p;
+    Domain d;
+    p = d.list();
+    if (p.size() > 0)
+    {
+        return false;
+    }
+    else
+    {
+        cout << "================ List is empty =================" << endl << endl;
+        return true;
+    }
+    return true;
+}
+
 // Villutjekk, athugar hvort thad se tolustafur i strengnum
-bool toplayer::contains_number(const string &c)
+bool TopLayer::contains_number(const string &c)
 {
     return (c.find_first_of("0123456789") != string::npos);
 }
 // Villutjekk, athugar hvort thad se bokstafur i strengnum
-bool toplayer::contains_letters(const string &c)
+bool TopLayer::contains_letters(const string &c)
 {
     return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM") != string::npos);
 }
 // Gerir alla stafi i streng lower case
-string toplayer::Lower_Ans(string word)
+string TopLayer::Lower_Ans(string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator
     return word;
 }
 
 // Fixar input thannig ad fyrsti stafur er alltaf stor og rest litlir
-string toplayer::capFirstLetter(string& str)
+string TopLayer::capFirstLetter(string& str)
 {
     string output = Lower_Ans(str);
     size_t f = output.find(" ");
@@ -886,12 +926,12 @@ string toplayer::capFirstLetter(string& str)
 }
 
 // Clear -ar console
-void toplayer::clearScreen()
+void TopLayer::clearScreen()
 {
     system("cls");
 }
 //Skilar valinni linu ur lista
-int toplayer::lineEntry(const vector<Person>& p)
+int TopLayer::lineEntry(const vector<Person>& p)
 {
     unsigned int lineNumber = 1;
     cout << "Type the line number: ";
@@ -912,7 +952,7 @@ int toplayer::lineEntry(const vector<Person>& p)
     cout << endl;
     return lineNumber;
 }
-int toplayer::lineEntryComputer(const vector<Computer>& p)
+int TopLayer::lineEntryComputer(const vector<Computer>& p)
 {
     unsigned int lineNumber = 1;
     cout << "Type the line number: ";
@@ -934,7 +974,7 @@ int toplayer::lineEntryComputer(const vector<Computer>& p)
     return lineNumber;
 }
 // Skilar input-i fra notanda
-string toplayer::getInputType(int& type)
+string TopLayer::getInputType(int& type)
 {
     string input;
     if (type == 0)
@@ -972,7 +1012,7 @@ string toplayer::getInputType(int& type)
     return input;
 }
 
-string toplayer::getInputSortType(int& type)
+string TopLayer::getInputSortType(int& type)
 {
     string input;
     if (type == 0)
@@ -1018,7 +1058,7 @@ string toplayer::getInputSortType(int& type)
     return input;
 }
 // Skilar nyju firstname
-string toplayer::getNewFirstname()
+string TopLayer::getNewFirstname()
 {
     string firstname;
     cout << "Enter name: ";
@@ -1035,7 +1075,7 @@ string toplayer::getNewFirstname()
     while (contains_number(firstname));
     return firstname;
 }
-string toplayer::getNewCompname()
+string TopLayer::getNewCompname()
 {
     string firstname;
     cout << "Enter computer name: ";
@@ -1045,7 +1085,7 @@ string toplayer::getNewCompname()
 return firstname;
 }
 // Skilar nyju sex
-string toplayer::getNewSex()
+string TopLayer::getNewSex()
 {
     string sex;
     cout << "Enter sex: ";
@@ -1061,7 +1101,7 @@ string toplayer::getNewSex()
     return sex;
 }
 // Skilar nyju birth
-string toplayer::getNewBirth()
+string TopLayer::getNewBirth()
 {
     string birth;
     cout << "Enter year of birth: ";
@@ -1077,7 +1117,7 @@ string toplayer::getNewBirth()
     return birth;
 }
 // Skilar nyju death
-string toplayer::getNewDeath()
+string TopLayer::getNewDeath()
 {
     string death;
     cout << "Enter year of death, if the person has not died please type \"-\": ";
@@ -1096,7 +1136,7 @@ string toplayer::getNewDeath()
     return death;
 }
 // Skilar nyju ari fyrir computer
-string toplayer::getNewDate()
+string TopLayer::getNewDate()
 {
     string year;
     cout << "Enter year: ";
@@ -1113,7 +1153,7 @@ string toplayer::getNewDate()
     return year;
 }
 // Skilar nyju type-i fyrir computer
-string toplayer::getNewType()
+string TopLayer::getNewType()
 {
     string type;
     cout << "Enter type, you can choose 'Mechanical', 'Electronic' or 'Transistor': ";
@@ -1133,7 +1173,7 @@ string toplayer::getNewType()
 
 
 // Skilar hvort computer var built eda ekki
-string toplayer::getNewBuilt()
+string TopLayer::getNewBuilt()
 {
     string built;
     cout << "Was the computer built: ";
@@ -1150,7 +1190,7 @@ string toplayer::getNewBuilt()
     return built;
 }
 
-char toplayer::PersOrComp()
+char TopLayer::PersOrComp()
 {
     char selector;
     do
@@ -1163,11 +1203,11 @@ char toplayer::PersOrComp()
     return selector;
 }
 
-void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
+void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
 {
     vector<Person> pers;
     vector<Computer> comp;
-    domain d;
+    Domain d;
     pers = d.list();
     comp = d.computerList();
     string id;

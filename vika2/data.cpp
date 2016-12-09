@@ -1,19 +1,20 @@
-#include "data.h"
+#include "Data.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 
 using namespace std;
-data::data()
+Data::Data()
 {
 }
 
-bool data::openDatabase()
+bool Data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
 
     //m_db.setDatabaseName("vika2.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
+
     m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\Verkefni.sqlite");
 
@@ -21,6 +22,9 @@ bool data::openDatabase()
 
   // m_db.setDatabaseName("vika2.sqlite");
    //m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
+
+    m_db.setDatabaseName("..\\..\\verkefni2.sqlite");
+    //m_db.setDatabaseName("..\\..\\sqldatabase\\Verkefni.sqlite");
 
 
     if (!m_db.open())
@@ -33,7 +37,7 @@ bool data::openDatabase()
     }
 }
 
-void data::read(vector<Person>& pers)
+void Data::read(vector<Person>& pers)
 {
     QSqlQuery query("SELECT ID, Name, Sex, Birth, Death, Status FROM persons");
     int idID = query.record().indexOf("ID");
@@ -62,7 +66,7 @@ void data::read(vector<Person>& pers)
     }
 }
 
-void data::write(string& firstname, string& sex, string& birth, string& death)
+void Data::write(string& firstname, string& sex, string& birth, string& death)
 {
     QSqlQuery query;
     QString qfirstname = QString::fromStdString(firstname);
@@ -81,7 +85,7 @@ void data::write(string& firstname, string& sex, string& birth, string& death)
     query.exec();
 }
 
-vector<Person> data::sortPersons(string& type)
+vector<Person> Data::sortPersons(string& type)
 {
     vector<Person> pers;
     QSqlQuery query;
@@ -146,7 +150,7 @@ vector<Person> data::sortPersons(string& type)
     return pers;
 }
 
-void data::remove(string& ID, int& type)
+void Data::remove(string& ID, int& type)
 {
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
@@ -164,7 +168,7 @@ void data::remove(string& ID, int& type)
     query.exec();
 }
 
-void data::edit(string& ID, string& value, string& type)
+void Data::edit(string& ID, string& value, string& type)
 {
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
@@ -196,7 +200,7 @@ void data::edit(string& ID, string& value, string& type)
     query.exec();
 }
 
-void data::readComputer(vector<Computer>& comp)
+void Data::readComputer(vector<Computer>& comp)
 {
     QSqlQuery query("SELECT computer_ID, computer_Name, computer_Year, "
                    "computer_Type, computer_Built, computer_Status FROM computer");
@@ -227,7 +231,7 @@ void data::readComputer(vector<Computer>& comp)
     }
 }
 
-void data::writeComputer(string& name, string& year, string& type, string& built)
+void Data::writeComputer(string& name, string& year, string& type, string& built)
 {
     QSqlQuery query;
     QString qname = QString::fromStdString(name);
@@ -243,7 +247,7 @@ void data::writeComputer(string& name, string& year, string& type, string& built
         query.exec();
 }
 
-void data::editComp(string& ID, string& value, string& type)
+void Data::editComp(string& ID, string& value, string& type)
 {
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
@@ -276,7 +280,7 @@ void data::editComp(string& ID, string& value, string& type)
 }
 
 
-vector<Computer> data::sortComputer(string& type)
+vector<Computer> Data::sortComputer(string& type)
 {
     vector<Computer> comp;
     QSqlQuery query;
@@ -347,7 +351,7 @@ vector<Computer> data::sortComputer(string& type)
     return comp;
 }
 
-void data::getPACjoined(vector<PersonsAndComputers>& pAc)
+void Data::getPACjoined(vector<PersonsAndComputers>& pAc)
 {
     QSqlQuery query("SELECT ID, computer_ID, person_ID, pac_status FROM personsandcomputers");
 
@@ -371,7 +375,7 @@ void data::getPACjoined(vector<PersonsAndComputers>& pAc)
     }
 }
 
-void data::writePAC(string& pers_id, string& comp_id)
+void Data::writePAC(string& pers_id, string& comp_id)
 {
     QSqlQuery query;
     QString qpers_id = QString::fromStdString(pers_id);
@@ -382,7 +386,7 @@ void data::writePAC(string& pers_id, string& comp_id)
         query.exec();
 }
 
-bool data::clear(int& type)
+bool Data::clear(int& type)
 {
     QSqlQuery query;
     if (type == 1){
@@ -409,7 +413,7 @@ bool data::clear(int& type)
     return false;
 }
 
-void data::getFact(vector<Facts>& fac)
+void Data::getFact(vector<Facts>& fac)
 {
     QSqlQuery query("SELECT ID, fact FROM funfacts");
 
