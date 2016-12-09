@@ -230,7 +230,7 @@ bool TopLayer::selection()
                 default:
                         cout <<"";
             }
-       }
+         }
         system("pause");
         clearScreen();
         help();
@@ -309,7 +309,8 @@ bool TopLayer::selection()
         }
         else
         {
-            switch(PersOrComp()) {
+            switch(PersOrComp())
+            {
                 case 'p': editPerson();
                         break;
 
@@ -364,7 +365,8 @@ bool TopLayer::selection()
         cout << "Type 'connections' if you want to clear all connections between persons and computers" << endl;
         cout << "Type 'everything' if you want to clear everything from the database" << endl;
         cout << "Type 'back' if you want to go back" << endl;
-        do {
+        do
+        {
             cin >> input;
             Lower_Ans(input);
             if (input != "persons" && input != "computers" && input != "connections" &&
@@ -480,7 +482,7 @@ void TopLayer::searchPerson()
              cout << "================ Search results ==================" << endl;
              print(p);
          }
-     }
+    }
 }
 void TopLayer::sortPerson()
 {
@@ -524,7 +526,8 @@ void TopLayer::editPerson()
         {
             newValue = getNewSex();
         } else if (input == "-birth") {
-            do {
+            do
+            {
                 newValue = getNewBirth();
                 cout << (atoi(newValue.c_str())) << endl;
                 cout << (atoi(p[lineNumber-1].getDeath().c_str())) << endl;
@@ -534,7 +537,8 @@ void TopLayer::editPerson()
                 }
             } while ((atoi(newValue.c_str())) > (atoi(p[lineNumber-1].getDeath().c_str())));
         } else if (input == "-death") {
-            do {
+            do
+            {
                 newValue = getNewDeath();
                 if ((atoi(p[lineNumber-1].getBirth().c_str())) > (atoi(newValue.c_str())))
                 {
@@ -590,7 +594,8 @@ string TopLayer::newComputer()
     {
         cout << "You successfully added a new computer!" << endl << endl;
         comp = d.computerList();
-        for (unsigned int i = 0; i < comp.size(); i++) {
+        for (unsigned int i = 0; i < comp.size(); i++)
+        {
             tempCompName = comp[i].getName();
             if (tempCompName == cName)
             {
@@ -1090,7 +1095,8 @@ string TopLayer::getNewDeath()
         }
     }
     while (contains_letters(death));
-    if (death == "-") {
+    if (death == "-")
+    {
         death = "99999999";
     }
     return death;
@@ -1186,8 +1192,10 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                 id = pAc[k].getPers_ID();
                 for (unsigned int j = 0; j < pers.size(); j++)
                 {
-                    if (pers[j].getID() == id) {
-                        if (t > 0) {
+                    if (pers[j].getID() == id)
+                    {
+                        if (t > 0)
+                        {
                             cout.width(25);
                             cout<<left;
                             cout << "";
@@ -1195,10 +1203,12 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                         cout.width(20);
                         cout<<left;
                         cout << pers[j].getFirstname();
-                        if (t > 0) {
+                        if (t > 0)
+                        {
                             cout << endl;
                         }
-                        if (t == 0) {
+                        if (t == 0)
+                        {
                         cout.width(10);
                         cout<<left;
                         cout << comp[i].getYear();
