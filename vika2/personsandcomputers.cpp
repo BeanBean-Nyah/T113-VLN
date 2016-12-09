@@ -1,4 +1,4 @@
-#include "personsandcomputers.h"
+#include "PersonsAndComputers.h"
 
 PersonsAndComputers::PersonsAndComputers()
 {

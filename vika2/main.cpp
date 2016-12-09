@@ -1,7 +1,7 @@
 #include <iostream>
-#include "toplayer.h"
-#include "data.h"
-#include "person.h"
+#include "TopLayer.h"
+#include "Data.h"
+#include "Person.h"
 #include <vector>
 
 
@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    toplayer ui;
+    TopLayer ui;
     ui.run();
     return 0;
 }

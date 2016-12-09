@@ -1,20 +1,20 @@
 #ifndef DOMAIN_H
 #define DOMAIN_H
-#include "person.h"
-#include "personsandcomputers.h"
+#include "Person.h"
+#include "PersonsAndComputers.h"
 #include <vector>
 #include <iostream>
-#include "data.h"
+#include "Data.h"
 #include <algorithm>
 
 using namespace std;
 
-class domain
+class Domain
 {
 private:
 
 public:
-    domain();
+    Domain();
 
     bool openDatabase();
 

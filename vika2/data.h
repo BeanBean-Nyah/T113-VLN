@@ -1,10 +1,10 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include "person.h"
-#include "computer.h"
-#include "personsandcomputers.h"
-#include "facts.h"
+#include "Person.h"
+#include "Computer.h"
+#include "PersonsAndComputers.h"
+#include "Facts.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -16,12 +16,12 @@
 #include <QVariant>
 
 
-class data
+class Data
 {
 private:
 
 public:
-    data();
+    Data();
     void read(vector<Person>& pers);
     void readComputer(vector<Computer>& comp);
     void write(string& firstname, string& sex, string& birth, string& death);
