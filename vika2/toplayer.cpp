@@ -952,20 +952,7 @@ void TopLayer::editPaC()
             compName = comp[i].getName();
         }
     }
-    cout << compName << endl;
-    for (unsigned int i = 0; i < pAc.size(); i++)
-    {
-        if (compID == pAc[i].getComp_ID())
-        {
-            for (unsigned int k = 0; k < pers.size(); k++)
-            {
-                if (pers[k].getID() == pAc[i].getPers_ID())
-                {
-                    cout << pers[k].getFirstname() << endl;
-                }
-            }
-        }
-    }
+
     cout << "Do you want to 'remove' person from this computer or 'add' a person to this computer?" << endl;
     string addorremove;
     do {
