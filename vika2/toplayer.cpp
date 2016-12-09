@@ -140,11 +140,11 @@ void TopLayer::printList(vector<Person>& p)
 //Prentar ut lista yfir tolvur
 void TopLayer::printComputer(vector<Computer> comp)
 {
-    cout << left << setw(20) << "Name" << setw(10)
+    cout << left << setw(25) << "Name" << setw(10)
          << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
     for(unsigned int i = 0; i < comp.size(); i++)
     {
-        cout.width(20);
+        cout.width(25);
         cout<<left;
         cout << comp[i].getName();
         cout.width(10);
@@ -1211,6 +1211,10 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
     pers = d.list();
     comp = d.computerList();
     string id;
+    for (unsigned int i = 0; i < comp.size(); i++)
+    {
+
+    }
     cout << left << setw(25) << "Computer" << setw(20)
          << "Creators" << setw(10) << "Year" << setw(10) << "Built" << endl << endl;
     for (unsigned int i = 0; i < comp.size(); i++)
@@ -1218,6 +1222,15 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
         cout.width(25);
         cout<<left;
         cout << comp[i].getName();
+        cout.width(20);
+        cout<<left;
+        cout << "";
+        cout.width(10);
+        cout<<left;
+        cout << comp[i].getYear();
+        cout.width(10);
+        cout<<left;
+        cout << comp[i].getBuilt() << endl;
         int t = 0;
         for (unsigned int k = 0; k < pAc.size(); k++)
         {
@@ -1235,21 +1248,29 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                         cout.width(20);
                         cout<<left;
                         cout << pers[j].getFirstname();
-                        if (t > 0) {
+                        if (t > 0)
+                        {
                             cout << endl;
-                        }
-                        if (t == 0) {
-                        cout.width(10);
-                        cout<<left;
-                        cout << comp[i].getYear();
-                        cout.width(10);
-                        cout<<left;
-                        cout << comp[i].getBuilt()<<endl;
                         }
                     }
                 }
-                t++;
             }
+            /*else if (!(comp[i].getID() == pAc[k].getComp_ID()) && t == 0)
+            {
+                if (t == 0)
+                {
+                    cout.width(20);
+                    cout<<left;
+                    cout << "";
+                    cout.width(10);
+                    cout<<left;
+                    cout << comp[i].getYear();
+                    cout.width(10);
+                    cout<<left;
+                    cout << comp[i].getBuilt() << endl;
+                }
+            }*/
+            t++;
         }
     } cout << endl << "=========================================================" << endl << endl;
 }

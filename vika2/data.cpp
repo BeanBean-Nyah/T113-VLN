@@ -14,8 +14,8 @@ bool Data::openDatabase()
 
     //m_db.setDatabaseName("vika2.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
-    m_db.setDatabaseName("..\\..\\verkefni2.sqlite");
-    //m_db.setDatabaseName("..\\..\\sqldatabase\\Verkefni.sqlite");
+    //m_db.setDatabaseName("..\\..\\verkefni2.sqlite");
+    m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
 
     if (!m_db.open())
     {

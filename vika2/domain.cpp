@@ -114,16 +114,16 @@ vector<Person> Domain::search(string& whattype, string& input)
     Data dat;
     vector<Person> persons, res;
     dat.read(persons);
+    string val, innerinput;
+    size_t found;
 
     for(unsigned int i = 0; i < persons.size(); i++)
     {
-
-
         if (whattype == "-name")
         {
-            string name = Lower_Ans(persons[i].getFirstname());
-            string innerinput = Lower_Ans(input);
-            size_t found = name.find(innerinput);
+            val = Lower_Ans(persons[i].getFirstname());
+            innerinput = Lower_Ans(input);
+            found = val.find(innerinput);
             if (found!=string::npos)
             {
                 Person p(persons[i].getID(), persons[i].getFirstname(),
@@ -133,7 +133,10 @@ vector<Person> Domain::search(string& whattype, string& input)
         }
         else if (whattype == "-sex")
         {
-            if(persons[i].getSex() == input)
+            val = Lower_Ans(persons[i].getSex());
+            innerinput = Lower_Ans(input);
+            found = val.find(innerinput);
+            if (found!=string::npos)
             {
                 Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
@@ -142,7 +145,10 @@ vector<Person> Domain::search(string& whattype, string& input)
         }
         else if (whattype == "-birthyear")
         {
-            if(persons[i].getBirth() == input)
+            val = Lower_Ans(persons[i].getBirth());
+            innerinput = Lower_Ans(input);
+            found = val.find(innerinput);
+            if (found!=string::npos)
             {
                 Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
@@ -151,7 +157,10 @@ vector<Person> Domain::search(string& whattype, string& input)
         }
         else if (whattype == "-deathyear")
         {
-            if(persons[i].getDeath() == input)
+            val = Lower_Ans(persons[i].getDeath());
+            innerinput = Lower_Ans(input);
+            found = val.find(innerinput);
+            if (found!=string::npos)
             {
                 Person p(persons[i].getID(), persons[i].getFirstname(),
                        persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
