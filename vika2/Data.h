@@ -36,6 +36,7 @@ public:
 
     void getPACjoined(vector<PersonsAndComputers>& pAc);
     void writePAC(string& pers_id, string& comp_id);
+    bool editPAC(string& ID);
     void getFact(vector<Facts>& fac);
 
     bool clear(int& type);

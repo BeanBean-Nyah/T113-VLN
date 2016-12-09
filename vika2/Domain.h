@@ -34,6 +34,7 @@ public:
     vector<Computer> computerList();
 
     bool connectPtoC(string& persID, string& compID);
+    bool editPtoC(string& ID);
 
     void remove(vector<Person>& pers, int& line);
     void removeComputer(vector<Computer>& comp, int& line);

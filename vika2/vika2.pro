@@ -20,10 +20,10 @@ SOURCES += main.cpp \
     facts.cpp
 
 HEADERS += \
-    data.h \
-    domain.h \
-    toplayer.h \
-    person.h \
-    computer.h \
-    personsandcomputers.h \
-    facts.h
+    Computer.h \
+    Data.h \
+    Domain.h \
+    Facts.h \
+    Person.h \
+    PersonsAndComputers.h \
+    TopLayer.h

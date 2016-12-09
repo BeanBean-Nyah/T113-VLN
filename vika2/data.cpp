@@ -13,12 +13,7 @@ Data::Data()
 bool Data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-
-    //m_db.setDatabaseName("vika2.sqlite");
-    m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
-    //m_db.setDatabaseName("..\\..\\verkefni2.sqlite");
-    //m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
-
+    m_db.setDatabaseName("..\\vika2\\databaseFinal.sqlite");
 
     if (!m_db.open())
     {
@@ -387,6 +382,19 @@ void Data::writePAC(string& pers_id, string& comp_id)
         query.bindValue(":pers_id", qpers_id);
         query.bindValue(":comp_id", qcomp_id);
         query.exec();
+}
+
+bool Data::editPAC(string& ID)
+{
+    QSqlQuery query;
+    QString qID = QString::fromStdString(ID);
+    query.prepare("UPDATE personsandcomputers SET pac_status = 1 WHERE ID = :id");
+    query.bindValue(":id", qID);
+    if (query.exec())
+    {
+        return true;
+    }
+    return false;
 }
 
 //Hreinsar tolfu i database

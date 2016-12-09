@@ -236,6 +236,19 @@ vector<PersonsAndComputers> Domain::persAndCompList()
     return pAc;
 }
 
+
+
+
+bool Domain::editPtoC(string& ID)
+{
+    Data dat;
+    if (dat.editPAC(ID))
+    {
+        return true;
+    }
+    return false;
+}
+
 //skilar vector af nidurstodum ur leit
 vector<Computer> Domain::searchComputer(string& whattype, string& input)
 {
@@ -349,7 +362,9 @@ bool Domain::clear(string& type)
     }
     Data d;
     if(d.clear(ttype))
+    {
         return true;
+    }
     return false;
 }
 
@@ -359,3 +374,4 @@ string Domain::Lower_Ans(string word)
     transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator
     return word;
 }
+

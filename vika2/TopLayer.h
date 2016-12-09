@@ -32,8 +32,13 @@ private:
     void printLineComputer(vector<Computer>& comp, const int& i);
     void printList(vector<Person>& p);
     void printListComputer(vector<Computer>& p);
+    void printPersAndComp(vector<PersonsAndComputers> pAc);
+    void printListPersandComp(vector<PersonsAndComputers>& pAc);
+    void editPaC();
+
 
     char PersOrComp();
+    char PCB();
 
     bool contains_number(const string &c);
     bool contains_letters(const string &c);
@@ -47,6 +52,7 @@ private:
 
     int lineEntry(const vector<Person>& p);
     int lineEntryComputer(const vector<Computer>& p);
+    int lineEntryPaC(const vector<PersonsAndComputers>& p);
     void printComputer(vector<Computer> comp);
 
     void connectToPerson(string& compID, int& type);
@@ -62,9 +68,6 @@ private:
     string getNewDate();
     string getNewType();
     string getNewBuilt();
-
-    void printPersAndComp(vector<PersonsAndComputers> pAc);
-
 };
 
 #endif // TopLayer_H

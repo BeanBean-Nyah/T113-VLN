@@ -17,6 +17,11 @@ public:
         return _ID;
     }
 
+    void setID(string& ID)
+    {
+        _ID = ID;
+    }
+
     // Notad til ad sortera eftir Fæðingarári
     int getBirthint() const
     {
