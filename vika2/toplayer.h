@@ -19,8 +19,8 @@ private:
     void help();
     void editComputer();
     void editPerson();
-    void newComputer();
-    void newPerson();
+    string newComputer();
+    string newPerson();
     void removeComputer();
     void removePerson();
     void searchComputer();
