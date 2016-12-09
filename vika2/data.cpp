@@ -17,10 +17,6 @@ bool data::openDatabase()
     //m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\Verkefni.sqlite");
 
-
-
-
-
     if (!m_db.open())
     {
        return false;
