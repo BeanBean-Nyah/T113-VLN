@@ -389,7 +389,8 @@ void Data::writePAC(string& pers_id, string& comp_id)
 bool Data::clear(int& type)
 {
     QSqlQuery query;
-    if (type == 1){
+    if (type == 1)
+    {
         if(query.exec("DELETE FROM persons"))
             return true;
     }

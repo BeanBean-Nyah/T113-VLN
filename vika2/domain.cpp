@@ -36,7 +36,8 @@ bool Domain::openDatabase()
     if (dat.openDatabase())
     {
         return true;
-    } else
+    }
+    else
     {
         return false;
     }
@@ -53,8 +54,10 @@ bool Domain::add(string& firstname, string& sex, string& birth, string& death)
         if (firstname == persons[i].getFirstname() && sex == persons[i].getSex() &&
                 birth == persons[i].getBirth() && death == persons[i].getDeath())
         {
-            check = false;
-        } else {
+          check = false;
+        }
+        else
+        {
             check = true;
         }
     }
@@ -117,8 +120,6 @@ vector<Person> Domain::search(string& whattype, string& input)
 
     for(unsigned int i = 0; i < persons.size(); i++)
     {
-
-
         if (whattype == "-name")
         {
             string name = Lower_Ans(persons[i].getFirstname());
@@ -280,7 +281,8 @@ bool Domain::connectPtoC(string& persID, string& compID)
         if (persID == pAc[i].getPers_ID() && compID == pAc[i].getComp_ID())
         {
             check = false;
-        } else {
+        } else
+        {
             check = true;
         }
     }
