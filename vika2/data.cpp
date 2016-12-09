@@ -11,17 +11,14 @@ data::data()
 bool data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-<<<<<<< HEAD
 
     m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\Verkefni.sqlite");
 
     //m_db.setDatabaseName("vika2.sqlite");
 
-=======
     m_db.setDatabaseName("vika2.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
->>>>>>> 829f11b32472cceab91dd8f06b75859b51d77fe1
 
     if (!m_db.open())
     {
