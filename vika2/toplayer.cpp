@@ -111,7 +111,56 @@ void TopLayer::printLineComputer(vector<Computer>& comp, const int& i)
     cout << comp[k].getBuilt()<<endl;
     cout << "===================================================" << endl << endl;
 }
-
+void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
+{
+    vector<Person> pers;
+    vector<Computer> comp;
+    Domain d;
+    pers = d.list();
+    comp = d.computerList();
+    string id;
+    cout << left << setw(25) << "Computer" << setw(20)
+         << "Creators" << setw(10) << "Year" << setw(10) << "Built" << endl << endl;
+    for (unsigned int i = 0; i < comp.size(); i++)
+    {
+        cout.width(25);
+        cout<<left;
+        cout << comp[i].getName();
+        int t = 0;
+        for (unsigned int k = 0; k < pAc.size(); k++)
+        {
+            if (comp[i].getID() == pAc[k].getComp_ID())
+            {
+                id = pAc[k].getPers_ID();
+                for (unsigned int j = 0; j < pers.size(); j++)
+                {
+                    if (pers[j].getID() == id) {
+                        if (t > 0) {
+                            cout.width(25);
+                            cout<<left;
+                            cout << "";
+                        }
+                        cout.width(20);
+                        cout<<left;
+                        cout << pers[j].getFirstname();
+                        if (t > 0) {
+                            cout << endl;
+                        }
+                        if (t == 0) {
+                        cout.width(10);
+                        cout<<left;
+                        cout << comp[i].getYear();
+                        cout.width(10);
+                        cout<<left;
+                        cout << comp[i].getBuilt()<<endl;
+                        }
+                    }
+                }
+                t++;
+            }
+        }
+    } cout << "=========================================================" << endl << endl;
+}
 //Prentar ut lista med numerum fyrir framan hvern einstakling
 void TopLayer::printList(vector<Person>& p)
 {
@@ -137,28 +186,6 @@ void TopLayer::printList(vector<Person>& p)
     }
     cout << "=======================================================" << endl << endl;
 }
-//Prentar ut lista yfir tolvur
-void TopLayer::printComputer(vector<Computer> comp)
-{
-    cout << left << setw(25) << "Name" << setw(10)
-         << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
-    for(unsigned int i = 0; i < comp.size(); i++)
-    {
-        cout.width(25);
-        cout<<left;
-        cout << comp[i].getName();
-        cout.width(10);
-        cout<<left;
-        cout << comp[i].getYear();
-        cout.width(15);
-        cout<<left;
-        cout << comp[i].getType();
-        cout.width(10);
-        cout<<left;
-        cout << comp[i].getBuilt()<<endl;
-    }
-    cout << "=========================================================" << endl << endl;
-}
 void TopLayer::printListComputer(vector<Computer>& p)
 {
     cout << left << setw(5) << "Nr." << setw(25) << "Name" << setw(10)
@@ -183,6 +210,81 @@ void TopLayer::printListComputer(vector<Computer>& p)
     }
     cout << "=======================================================" << endl << endl;
 }
+void TopLayer::printListPersandComp(vector<PersonsAndComputers>& pAc)
+{
+        vector<Person> pers;
+        vector<Computer> comp;
+        Domain d;
+        pers = d.list();
+        comp = d.computerList();
+        string id;
+        cout << left << setw(5) << "Nr." << setw(25) << "Computer" << setw(20)
+             << "Creators" << setw(10) << "Year" << setw(10) << "Built" << endl << endl;
+        for (unsigned int i = 0; i < comp.size(); i++)
+        {
+            cout.width(5);
+            cout<< i+1;
+            cout.width(25);
+            cout<<left;
+            cout << comp[i].getName();
+            int t = 0;
+            for (unsigned int k = 0; k < pAc.size(); k++)
+            {
+                if (comp[i].getID() == pAc[k].getComp_ID())
+                {
+                    id = pAc[k].getPers_ID();
+                    for (unsigned int j = 0; j < pers.size(); j++)
+                    {
+                        if (pers[j].getID() == id) {
+                            if (t > 0) {
+                                cout.width(25);
+                                cout<<left;
+                                cout << "";
+                            }
+                            cout.width(20);
+                            cout<<left;
+                            cout << pers[j].getFirstname();
+                            if (t > 0) {
+                                cout << endl;
+                            }
+                            if (t == 0) {
+                            cout.width(10);
+                            cout<<left;
+                            cout << comp[i].getYear();
+                            cout.width(10);
+                            cout<<left;
+                            cout << comp[i].getBuilt()<<endl;
+                            }
+                        }
+                    }
+                    t++;
+                }
+            }
+        } cout << "=========================================================" << endl << endl;
+}
+
+//Prentar ut lista yfir tolvur
+void TopLayer::printComputer(vector<Computer> comp)
+{
+    cout << left << setw(25) << "Name" << setw(10)
+         << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
+    for(unsigned int i = 0; i < comp.size(); i++)
+    {
+        cout.width(25);
+        cout<<left;
+        cout << comp[i].getName();
+        cout.width(10);
+        cout<<left;
+        cout << comp[i].getYear();
+        cout.width(15);
+        cout<<left;
+        cout << comp[i].getType();
+        cout.width(10);
+        cout<<left;
+        cout << comp[i].getBuilt()<<endl;
+    }
+    cout << "=========================================================" << endl << endl;
+}
 
 bool TopLayer::selection()
 {
@@ -200,20 +302,7 @@ bool TopLayer::selection()
             vector<Computer> comp;
             vector<PersonsAndComputers> pAc;
             Domain d;
-            char selector;
-            do
-            {
-                cout << "Enter 'p' for person. \n" <<
-                        "Enter 'c' for computer \n" <<
-                        "Enter 'b' for computer and associated person  \n" <<
-                        "input: ";
-                cin >> selector;
-                if (selector != 'p' && selector != 'c' && selector != 'b')
-                {
-                    cout << "\"" << selector << "\"" << " Is not a valid command! Try again: ";
-                }
-            } while (selector !='c' && selector !='p' && selector != 'b');
-            switch (selector)
+            switch (PCB())
             {
                 case 'p':
                     {
@@ -224,7 +313,6 @@ bool TopLayer::selection()
                         }
                         break;
                     }
-
                 case 'c':
                     {
                         if (!(isCompListEmpty()))
@@ -246,6 +334,7 @@ bool TopLayer::selection()
         system("pause");
         clearScreen();
         help();
+
     }
     else if (input == "-search")
     {
@@ -299,10 +388,9 @@ bool TopLayer::selection()
         }
         else
         {
-            switch(PersOrComp())
-            {
-                case 'p': editPerson();
-            switch(PersOrComp()) {
+
+            switch(PCB())
+           {
                 case 'p':
                     {
                         if (!(isPersListEmpty()))
@@ -321,6 +409,9 @@ bool TopLayer::selection()
                         break;
                     }
 
+                case 'b': editPaC();
+                        break;
+
                 default : cout << "Fatal error have you tried turning it off and on again" << endl;
             }
         }
@@ -328,7 +419,6 @@ bool TopLayer::selection()
         clearScreen();
         help();
         }
-    }
     else if (input == "-remove")
     {
         if (!(isListEmpty()))
@@ -846,7 +936,29 @@ void TopLayer::connectToPerson(string& ID, int& type)
         } while(YN);
     }
 }
+void TopLayer::editPaC()
+{
+   Domain d;
+   vector<PersonsAndComputers>  pAc;
+   vector<Person> pers;
+   vector<Computer> comp;
+   pers = d.list();
+   comp = d.computerList();
+   pAc = d.persAndCompList();
 
+   printListPersandComp(pAc);
+   cout << "Which entry do you want to edit? " << endl;
+   int lineNumber1 = lineEntryPaC(pAc);
+   clearScreen();
+   printListComputer(comp);
+   cout << "Which computer do you want in this relation? " << endl;
+   int linenumber2 = lineEntryComputer(comp);
+   clearScreen();
+   printList(pers);
+   cout << "Which person do you want in this relation? " << endl;
+   int linenumber3 = lineEntry(pers);
+   d.editPtoC(pAc, lineNumber1, pers,linenumber3, comp,linenumber2);
+}
 
 //Athugar hvort listinn se tomur
 bool TopLayer::isListEmpty()
@@ -961,6 +1073,27 @@ int TopLayer::lineEntry(const vector<Person>& p)
     return lineNumber;
 }
 int TopLayer::lineEntryComputer(const vector<Computer>& p)
+{
+    unsigned int lineNumber = 1;
+    cout << "Type the line number: ";
+    do
+    {
+        if (lineNumber <= 0 || lineNumber > p.size())
+        {
+            cout << "Sorry this isn't a valid line, try again: ";
+        }
+        while (!(cin >> lineNumber))
+        {
+           cin.clear();
+           cin.ignore();
+           cout << "Invalid input, try again: ";
+        }
+    }
+    while (lineNumber <= 0 || lineNumber > p.size());
+    cout << endl;
+    return lineNumber;
+}
+int TopLayer::lineEntryPaC(const vector<PersonsAndComputers>& p)
 {
     unsigned int lineNumber = 1;
     cout << "Type the line number: ";
@@ -1211,8 +1344,24 @@ char TopLayer::PersOrComp()
     } while (selector !='c' && selector !='p');
     return selector;
 }
-
-void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
+char TopLayer::PCB()
+{
+    char selector;
+    do
+    {
+        cout << "Enter 'p' for person. \n" <<
+                "Enter 'c' for computer \n" <<
+                "Enter 'b' for computer and associated person  \n" <<
+                "input: ";
+        cin >> selector;
+        if (selector != 'p' && selector != 'c' && selector != 'b')
+        {
+            cout << "\"" << selector << "\"" << " Is not a valid command! Try again: ";
+        }
+    } while (selector !='c' && selector !='p' && selector != 'b');
+    return selector;
+}
+/*void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
 {
     vector<Person> pers;
     vector<Computer> comp;
@@ -1266,3 +1415,4 @@ void TopLayer::printPersAndComp(vector<PersonsAndComputers> pAc)
         }
     } cout << endl << "=========================================================" << endl << endl;
 }
+*/

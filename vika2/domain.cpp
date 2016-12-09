@@ -211,6 +211,15 @@ vector<PersonsAndComputers> Domain::persAndCompList()
     return pAc;
 }
 
+void Domain::editPtoC(vector<PersonsAndComputers>pAc, int line, vector<Person>pers, int line2, vector<Computer>comp, int line3)
+{
+    string relationID = pAc[line].getID();
+    string personID = pers[line2].getID();
+    string computerID = comp[line3].getID();
+    Data dat;
+    dat.editPAC(relationID, personID, computerID);
+}
+
 vector<Computer> Domain::searchComputer(string& whattype, string& input)
 {
     Data dat;

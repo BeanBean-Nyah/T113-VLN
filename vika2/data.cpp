@@ -12,10 +12,10 @@ bool Data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
 
-    //m_db.setDatabaseName("vika2.sqlite");
+    m_db.setDatabaseName("vika2.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\vika2.sqlite");
 
-    m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
+    //m_db.setDatabaseName("..\\vika2\\Vika2\\Verkefni.sqlite");
     //m_db.setDatabaseName("..\\..\\sqldatabase\\Verkefni.sqlite");
 
 
@@ -383,6 +383,18 @@ void Data::writePAC(string& pers_id, string& comp_id)
     query.prepare("INSERT INTO personsandcomputers (person_id, computer_id) VALUES (:pers_id, :comp_id)");
         query.bindValue(":pers_id", qpers_id);
         query.bindValue(":comp_id", qcomp_id);
+        query.exec();
+}
+void Data::editPAC(string& v_ID, string& pers_id, string& comp_id)
+{
+    QSqlQuery query;
+    QString qpers_id = QString::fromStdString(pers_id);
+    QString qcomp_id = QString::fromStdString(comp_id);
+    QString qID = QString::fromStdString(v_ID);
+    query.prepare("UPDATE personsandcomputers SET person_id = :pers_id, computer_id = :comp_id WHERE ID = :id)");
+        query.bindValue(":pers_id", qpers_id);
+        query.bindValue(":comp_id", qcomp_id);
+        query.bindValue(":id", qID);
         query.exec();
 }
 
