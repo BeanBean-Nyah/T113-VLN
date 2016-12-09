@@ -192,7 +192,7 @@ bool TopLayer::selection()
     {
         if (!(isListEmpty()))
         {
-            cout << "================ All lists is are empty =================" << endl << endl;
+            cout << "================ All lists are empty =================" << endl << endl;
         }
         else
         {
@@ -560,7 +560,7 @@ void TopLayer::editPerson()
         d.edit(p, lineNumber, input, newValue);
         string yesorno;
         cout << "Do you want to edit another element in this entry? " << endl << endl;
-        cout << "Type -yes if you want to else type anything else: ";
+        cout << "Type -yes if you want to, if not type anything else: ";
         cin >> yesorno;
         if (yesorno == "-yes")
         {
@@ -703,7 +703,7 @@ void TopLayer::editComputer()
         d.editComputer(c, lineNumber, input, newValue);
         string yesorno;
         cout << "Do you want to edit another element in this entry? " << endl << endl;
-        cout << "Type -yes if you want to else type anything else: ";
+        cout << "Type -yes if you want to, if not type anything else: ";
         cin >> yesorno;
         if (yesorno == "-yes")
         {
@@ -734,7 +734,7 @@ void TopLayer::connectToPerson(string& ID, int& type)
     string yesorno, choice, inneryesorno;
     bool YN = true;
     cout << "Do you want to connect a person and computer together? " << endl;
-    cout << "Type yes if you want to, else anything else: ";
+    cout << "Type yes if you want to, if not type anything else: ";
     cin >> yesorno;
 
     if (yesorno == "yes")
@@ -824,7 +824,7 @@ void TopLayer::connectToPerson(string& ID, int& type)
             }
 
             cout << "Do you want to connect another person and computer together? " << endl;
-            cout << "Type yes if you want to, else anything else: ";
+            cout << "Type yes if you want to, if not anything else: ";
             cin >> inneryesorno;
             inneryesorno = Lower_Ans(inneryesorno);
             if (inneryesorno == "yes")
