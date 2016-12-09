@@ -2,16 +2,16 @@
 #define TOPLAYER_H
 #include <vector>
 #include <string>
-#include "person.h"
-#include "computer.h"
-#include "personsandcomputers.h"
+#include "Person.h"
+#include "Computer.h"
+#include "PersonsAndComputers.h"
 #include <stdlib.h>
 #include <algorithm>
 
-class toplayer
+class TopLayer
 {
 public:
-    toplayer();
+    TopLayer();
     void run();
 
 private:
@@ -67,4 +67,4 @@ private:
 
 };
 
-#endif // TOPLAYER_H
+#endif // TopLayer_H

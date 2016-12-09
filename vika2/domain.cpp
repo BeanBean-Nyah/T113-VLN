@@ -1,19 +1,19 @@
-#include "domain.h"
-#include "data.h"
-#include "person.h"
+#include "Domain.h"
+#include "Data.h"
+#include "Person.h"
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
-domain::domain()
+Domain::Domain()
 {
 
 }
 
-string domain::funFact()
+string Domain::funFact()
 {
     string output;
-    data dat;
+    Data dat;
     vector<Facts> fact;
     dat.getFact(fact);
     int randomIndex = rand() % fact.size();
@@ -21,18 +21,18 @@ string domain::funFact()
     return output;
 }
 
-vector<Person> domain::list()
+vector<Person> Domain::list()
 {
-    data dat;
+    Data dat;
     vector<Person> persons;
     dat.read(persons);
 
     return persons;
 }
 
-bool domain::openDatabase()
+bool Domain::openDatabase()
 {
-    data dat;
+    Data dat;
     if (dat.openDatabase())
     {
         return true;
@@ -42,9 +42,9 @@ bool domain::openDatabase()
     }
 }
 
-bool domain::add(string& firstname, string& sex, string& birth, string& death)
+bool Domain::add(string& firstname, string& sex, string& birth, string& death)
 {
-    data dat;
+    Data dat;
     bool check = true;
     vector<Person> persons;
     dat.read(persons);
@@ -70,9 +70,9 @@ bool domain::add(string& firstname, string& sex, string& birth, string& death)
     return true;
 }
 
-bool domain::addComputer(string& name, string& year, string& type, string& built)
+bool Domain::addComputer(string& name, string& year, string& type, string& built)
 {
-    data dat;
+    Data dat;
     bool check = true;
     vector<Computer> comp;
     dat.readComputer(comp);
@@ -100,18 +100,18 @@ bool domain::addComputer(string& name, string& year, string& type, string& built
     return true;
 }
 
-vector<Person> domain::sorting(string& input)
+vector<Person> Domain::sorting(string& input)
 {
-    data dat;
+    Data dat;
     vector<Person> pers;
     pers = dat.sortPersons(input);
 
     return pers;
 }
 
-vector<Person> domain::search(string& whattype, string& input)
+vector<Person> Domain::search(string& whattype, string& input)
 {
-    data dat;
+    Data dat;
     vector<Person> persons, res;
     dat.read(persons);
 
@@ -162,57 +162,57 @@ vector<Person> domain::search(string& whattype, string& input)
     return res;
 }
 
-void domain::remove(vector<Person>& pers, int& line)
+void Domain::remove(vector<Person>& pers, int& line)
 {
     int type = 0;
     string ID = pers[line].getID();
-    data dat;
+    Data dat;
     dat.remove(ID, type);
 }
 
-void domain::edit(vector<Person>& pers, int& line, string& type, string& newValue)
+void Domain::edit(vector<Person>& pers, int& line, string& type, string& newValue)
 {
     string ID = pers[line].getID();
-    data dat;
+    Data dat;
     dat.edit(ID, newValue, type);
 }
 //Computer functions
 
-vector<Computer> domain::computerList()
+vector<Computer> Domain::computerList()
 {
     vector<Computer> comp;
-    data d;
+    Data d;
     d.readComputer(comp);
     return comp;
 }
 
-vector<Computer> domain::sortComputer(string& value)
+vector<Computer> Domain::sortComputer(string& value)
 {
     vector<Computer> comp;
-    data d;
+    Data d;
     comp = d.sortComputer(value);
     return comp;
 }
 
-void domain::removeComputer(vector<Computer>& comp, int& line)
+void Domain::removeComputer(vector<Computer>& comp, int& line)
 {
     int type = 1;
     string ID = comp[line].getID();
-    data dat;
+    Data dat;
     dat.remove(ID, type);
 }
 
-vector<PersonsAndComputers> domain::persAndCompList()
+vector<PersonsAndComputers> Domain::persAndCompList()
 {
     vector<PersonsAndComputers> pAc;
-    data d;
+    Data d;
     d.getPACjoined(pAc);
     return pAc;
 }
 
-vector<Computer> domain::searchComputer(string& whattype, string& input)
+vector<Computer> Domain::searchComputer(string& whattype, string& input)
 {
-    data dat;
+    Data dat;
     vector<Computer> computers, res;
     dat.readComputer(computers);
 
@@ -261,17 +261,17 @@ vector<Computer> domain::searchComputer(string& whattype, string& input)
     return res;
 }
 
-void domain::editComputer(vector<Computer>& comp, int& line, string& type, string& newValue)
+void Domain::editComputer(vector<Computer>& comp, int& line, string& type, string& newValue)
 {
     string ID = comp[line].getID();
-    data dat;
+    Data dat;
     dat.editComp(ID, newValue, type);
 
 }
 
-bool domain::connectPtoC(string& persID, string& compID)
+bool Domain::connectPtoC(string& persID, string& compID)
 {
-    data d;
+    Data d;
     bool check = true;
     vector<PersonsAndComputers> pAc;
     d.getPACjoined(pAc);
@@ -297,7 +297,7 @@ bool domain::connectPtoC(string& persID, string& compID)
 
 }
 
-bool domain::clear(string& type)
+bool Domain::clear(string& type)
 {
     int ttype = 0;
     if (type == "persons")
@@ -316,13 +316,13 @@ bool domain::clear(string& type)
     {
         ttype = 4;
     }
-    data d;
+    Data d;
     if(d.clear(ttype))
         return true;
     return false;
 }
 
-string domain::Lower_Ans(string word)
+string Domain::Lower_Ans(string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator
     return word;
