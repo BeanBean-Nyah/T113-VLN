@@ -38,6 +38,8 @@ private:
     bool contains_number(const string &c);
     bool contains_letters(const string &c);
     bool isListEmpty();
+    bool isPersListEmpty();
+    bool isCompListEmpty();
     bool selection();
 
     string capFirstLetter(string& str);

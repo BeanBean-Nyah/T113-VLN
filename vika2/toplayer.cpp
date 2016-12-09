@@ -140,11 +140,11 @@ void TopLayer::printList(vector<Person>& p)
 //Prentar ut lista yfir tolvur
 void TopLayer::printComputer(vector<Computer> comp)
 {
-    cout << left << setw(20) << "Name" << setw(10)
+    cout << left << setw(25) << "Name" << setw(10)
          << "Year" << setw(15) << "Type" << setw(10) << "Built" << endl << endl;
     for(unsigned int i = 0; i < comp.size(); i++)
     {
-        cout.width(20);
+        cout.width(25);
         cout<<left;
         cout << comp[i].getName();
         cout.width(10);
@@ -192,7 +192,7 @@ bool TopLayer::selection()
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
@@ -216,13 +216,25 @@ bool TopLayer::selection()
             switch (selector)
             {
                 case 'p':
-                        pers = d.list();
-                        sortPerson();
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            pers = d.list();
+                            sortPerson();
+                        }
                         break;
+                    }
+
                 case 'c':
-                        comp = d.computerList();
-                        sortComputer();
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            comp = d.computerList();
+                            sortComputer();
+                        }
                         break;
+                    }
+
                 case 'b':
                         pAc = d.persAndCompList();
                         cout << "========================= List ==========================" << endl;
@@ -279,43 +291,38 @@ bool TopLayer::selection()
         clearScreen();
         help();
     }
-    else if (input == "-sort")
-    {
-        if (!(isListEmpty()))
-        {
-            cout << "================ List is empty =================" << endl << endl;
-        }
-        else
-        {
-            switch(PersOrComp())
-            {
-                case 'p': sortPerson();
-                          break;
-                case 'c': sortComputer();
-                          break;
-
-                default : cout << "Fatal error have you tried turning it off and on again" << endl;
-            }
-        }
-        system("pause");
-        clearScreen();
-        help();
-    }
     else if (input == "-edit")
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
+<<<<<<< HEAD
             switch(PersOrComp())
             {
                 case 'p': editPerson();
+=======
+            switch(PersOrComp()) {
+                case 'p':
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            editPerson();
+                        }
+>>>>>>> 71406c5b06d72da5c2b681d19682ae366432fafe
                         break;
+                    }
 
-                case 'c': editComputer();
+                case 'c':
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            editComputer();
+                        }
                         break;
+                    }
 
                 default : cout << "Fatal error have you tried turning it off and on again" << endl;
             }
@@ -328,16 +335,27 @@ bool TopLayer::selection()
     {
         if (!(isListEmpty()))
         {
-            cout << "================ List is empty =================" << endl << endl;
+            cout << "================ All lists is are empty =================" << endl << endl;
         }
         else
         {
             switch(PersOrComp())
             {
-                case 'p': removePerson();
+                case 'p':
+                    {
+                        if (!(isPersListEmpty()))
+                        {
+                            removePerson();
+                        }
                         break;
-
-                case 'c': removeComputer();
+                    }
+                case 'c':
+                    {
+                        if (!(isCompListEmpty()))
+                        {
+                            removeComputer();
+                        }
+                    }
                         break;
 
                 default : cout << "Fatal error have you tried turning it off and on again" << endl;
@@ -438,24 +456,21 @@ string TopLayer::newPerson()
                 persID = pers[i].getID();
             }
         }
-        //int type = 0;
-        //connectToPerson(persID, type);
+
     }
     else
     {
         cout << "This exact person already exists in the database, so it wasn't added!" << endl << endl;
     }
 
-    //system("pause");
-    //clearScreen();
-    //help();
+
     return persID;
 }
 void TopLayer::searchPerson()
 {
-    if (!(isListEmpty()))
+    if (isPersListEmpty())
     {
-        cout << "================ List is empty =================" << endl << endl;
+        cout << "";
     }
     else
     {
@@ -602,24 +617,20 @@ string TopLayer::newComputer()
                 compID = comp[i].getID();
             }
         }
-        //int type = 1;
-        //connectToPerson(compID, type);
     }
     else
     {
         cout << "This exact computer already exists in the database, so it wasn't added!" << endl << endl;
     }
     return compID;
-    //system("pause");
-    //clearScreen();
-    //help();
+
 }
 
 void TopLayer::searchComputer()
 {
-    if (!(isListEmpty()))
+    if (isCompListEmpty())
     {
-        cout << "================ List is empty =================" << endl << endl;
+        cout << "";
     }
     else
     {
@@ -859,6 +870,40 @@ bool TopLayer::isListEmpty()
     {
         return false;
     }
+}
+
+bool TopLayer::isCompListEmpty()
+{
+    vector<Computer> c;
+    Domain d;
+    c = d.computerList();
+    if (c.size() > 0)
+    {
+        return false;
+    }
+    else
+    {
+        cout << "================ List is empty =================" << endl << endl;
+        return true;
+    }
+    return true;
+}
+
+bool TopLayer::isPersListEmpty()
+{
+    vector<Person> p;
+    Domain d;
+    p = d.list();
+    if (p.size() > 0)
+    {
+        return false;
+    }
+    else
+    {
+        cout << "================ List is empty =================" << endl << endl;
+        return true;
+    }
+    return true;
 }
 
 // Villutjekk, athugar hvort thad se tolustafur i strengnum
