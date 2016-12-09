@@ -1171,11 +1171,11 @@ void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
     pers = d.list();
     comp = d.computerList();
     string id;
-    cout << left << setw(20) << "Computer" << setw(20)
+    cout << left << setw(25) << "Computer" << setw(20)
          << "Creators" << setw(10) << "Year" << setw(10) << "Built" << endl << endl;
     for (unsigned int i = 0; i < comp.size(); i++)
     {
-        cout.width(20);
+        cout.width(25);
         cout<<left;
         cout << comp[i].getName();
         int t = 0;
@@ -1188,7 +1188,7 @@ void toplayer::printPersAndComp(vector<PersonsAndComputers> pAc)
                 {
                     if (pers[j].getID() == id) {
                         if (t > 0) {
-                            cout.width(20);
+                            cout.width(25);
                             cout<<left;
                             cout << "";
                         }
