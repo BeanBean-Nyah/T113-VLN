@@ -373,6 +373,33 @@ void data::writePAC(string& pers_id, string& comp_id)
         query.exec();
 }
 
+bool data::clear(int& type)
+{
+    QSqlQuery query;
+    if (type == 1){
+        if(query.exec("DELETE FROM persons"))
+            return true;
+    }
+    else if (type == 2)
+    {
+        if(query.exec("DELETE FROM computer"))
+            return true;
+    }
+    else if (type == 3)
+    {
+        if (query.exec("DELETE FROM personsandcomputers"))
+            return true;
+    }
+    else if (type == 4)
+    {
+        query.exec("DELETE FROM persons");
+        query.exec("DELETE FROM computer");
+        query.exec("DELETE FROM personsandcomputers");
+        return true;
+    }
+    return false;
+}
+
 void data::getFact(vector<Facts>& fac)
 {
     QSqlQuery query("SELECT ID, fact FROM funfacts");

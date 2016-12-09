@@ -38,6 +38,8 @@ public:
     void writePAC(string& pers_id, string& comp_id);
     void getFact(vector<Facts>& fac);
 
+    bool clear(int& type);
+
 
 };
 
