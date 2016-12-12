@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     domain.cpp \
     facts.cpp \
     person.cpp \
-    personsandcomputers.cpp
+    personsandcomputers.cpp \
+    addnewdialog.cpp
 
 HEADERS  += mainwindow.h \
     Computer.h \
@@ -30,6 +31,8 @@ HEADERS  += mainwindow.h \
     Domain.h \
     Facts.h \
     Person.h \
-    PersonsAndComputers.h
+    PersonsAndComputers.h \
+    addnewdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    addnewdialog.ui

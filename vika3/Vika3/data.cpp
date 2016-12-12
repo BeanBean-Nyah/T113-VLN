@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <QDebug>
 
 using namespace std;
 Data::Data()
@@ -13,7 +14,7 @@ Data::Data()
 bool Data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName("..\\vika2\\databaseFinal.sqlite");
+    m_db.setDatabaseName("databaseFinal.sqlite");
 
     if (!m_db.open())
     {
