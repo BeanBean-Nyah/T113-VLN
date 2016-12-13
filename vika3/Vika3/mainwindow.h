@@ -5,6 +5,7 @@
 #include "Domain.h"
 #include "Computer.h"
 #include "addnewdialog.h"
+#include "dialogedit.h"
 
 #include <vector>
 #include <QMainWindow>
@@ -35,6 +36,8 @@ private slots:
     void on_tblPersons_clicked(const QModelIndex &index);
 
     void on_input_filter_textChanged(const QString &arg1);
+
+    void on_btnEdit_clicked();
 
 private:
     Ui::MainWindow *ui;
