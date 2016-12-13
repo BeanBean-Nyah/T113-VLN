@@ -6,7 +6,7 @@
 
 QT      += core gui
 QT      += sql
-
+QT      += widgets
 
 CONFIG += c++11
 

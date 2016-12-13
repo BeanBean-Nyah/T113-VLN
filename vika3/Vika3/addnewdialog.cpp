@@ -7,12 +7,18 @@ AddNewDialog::AddNewDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->input_person_sex->addItem("");
     ui->input_person_sex->addItem("Female");
     ui->input_person_sex->addItem("Male");
 
+    ui->input_computer_type->addItem("");
     ui->input_computer_type->addItem("Electronic");
     ui->input_computer_type->addItem("Mechanical");
     ui->input_computer_type->addItem("Transistor");
+
+    ui->input_computer_built->addItem("");
+    ui->input_computer_built->addItem("Yes");
+    ui->input_computer_built->addItem("No");
 
 }
 
@@ -77,23 +83,40 @@ void AddNewDialog::on_radioButton_both_toggled(bool checked)
 
 void AddNewDialog::on_pushButton_clicked()
 {
+
+    if (ui->radioButton_new_person->isChecked())
+    {
+        int personSuccess = addNewPerson();
+    }
+    else if (ui->radioButton_new_computer->isChecked())
+    {
+        int computerSuccess = addNewComputer();
+    }
+    else if (ui->radioButton_both->isChecked())
+    {
+        int personSuccess = addNewPerson();
+        int computerSuccess = addNewComputer();
+    }
+}
+
+int AddNewDialog::addNewPerson()
+{
     QString name = ui->input_person_name->text();
-    //QString sex = ui->input_person_sex->text();
+    QString sex = ui->input_person_sex->currentText();
     QString birth = ui->input_person_birth->text();
     QString death = ui->input_person_death->text();
 
-    if (name.isEmpty() || birth.isEmpty() || death.isEmpty())
+    if (name.isEmpty() || sex.isEmpty() || birth.isEmpty())
     {
-        //do nothing
-        return;
+        //skila villu um hvad er ad
+        return 2;
     }
-    string sex = "male";
     string sname = name.toStdString();
+    string ssex = sex.toStdString();
     string sbirth = birth.toStdString();
     string sdeath = death.toStdString();
-    Domain d;
 
-    if (d.add(sname, sex, sbirth, sdeath))
+    if (domain.add(sname, ssex, sbirth, sdeath))
     {
         ui->input_person_name->setText("");
         ui->input_person_birth->setText("");
@@ -102,8 +125,38 @@ void AddNewDialog::on_pushButton_clicked()
     }
     else
     {
+        // skila villu um ad ekki hafi tekist ad baeta vid personu
         this->done(1);
     }
+}
+
+int AddNewDialog::addNewComputer()
+{
+    QString name = ui->input_computer_name->text();
+    QString year = ui->input_computer_year->text();
+    QString type = ui->input_computer_type->currentText();
+    QString built = ui->input_computer_built->currentText();
+
+    if (name.isEmpty() || year.isEmpty() || type.isEmpty() || built.isEmpty())
+    {
+        //skila villu um hvad er ad
+        return 2;
+    }
+    string sname = name.toStdString();
+    string syear = year.toStdString();
+    string stype = type.toStdString();
+    string sbuilt = built.toStdString();
 
 
+    if (domain.addComputer(sname, syear, stype, sbuilt))
+    {
+        ui->input_computer_name->setText("");
+        ui->input_computer_year->setText("");
+        this->done(0);
+    }
+    else
+    {
+        // skila villu um ad ekki hafi tekist ad baeta vid personu
+        this->done(1);
+    }
 }

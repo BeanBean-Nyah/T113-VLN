@@ -92,6 +92,7 @@ void MainWindow::on_btnNew_clicked()
     {
         ui->input_filter->setText("");
         displayAllPersons();
+        displayAllComputers();
     }
     else if (status == 1)
     {

@@ -4,6 +4,7 @@
 #include "Domain.h"
 
 #include <QDialog>
+#include <QAbstractButton>
 
 namespace Ui {
 class AddNewDialog;
@@ -30,6 +31,10 @@ private slots:
 
 private:
     Ui::AddNewDialog *ui;
+    Domain domain;
+
+    int addNewPerson();
+    int addNewComputer();
 };
 
 #endif // ADDNEWDIALOG_H

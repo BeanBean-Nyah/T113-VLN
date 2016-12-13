@@ -165,11 +165,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="input_computer_built">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-      </widget>
+      <widget class="QComboBox" name="input_computer_built"/>
      </item>
     </layout>
    </item>
