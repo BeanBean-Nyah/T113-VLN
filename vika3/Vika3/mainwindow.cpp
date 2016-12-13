@@ -153,11 +153,14 @@ void MainWindow::on_btnDelete_clicked()
 void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 {
     ui->btnDelete->setEnabled(true);
+    ui->btnEdit->setEnabled(true);
+
 }
 
 void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 {
     ui->btnDelete->setEnabled(true);
+    ui->btnEdit->setEnabled(true);
 }
 
 void MainWindow::on_input_filter_textChanged(const QString &arg1)
@@ -171,4 +174,37 @@ void MainWindow::on_input_filter_textChanged(const QString &arg1)
 void MainWindow::on_comboBox_person_sort_currentIndexChanged(int index)
 {
     on_input_filter_textChanged("");
+
+}
+
+void MainWindow::on_btnEdit_clicked()
+{
+    if(ui->tblPersons->isActiveWindow())
+    {
+        int currentlySelected = ui->tblPersons->currentIndex().row();
+        vector<Person> pers = domain.list();
+        string name = pers[currentlySelected].getFirstname();
+        string sex = pers[currentlySelected].getSex();
+        string birth = pers[currentlySelected].getBirth();
+        string death = pers[currentlySelected].getDeath();
+
+        dialogEdit newdialogEdit;
+        newdialogEdit.setTextbox(name, sex, birth, death);
+        int status = newdialogEdit.exec();
+
+        if (status == 0)
+        {
+            ui->input_filter->setText("");
+            displayAllPersons();
+            displayAllComputers();
+        }
+        else if (status == 1)
+        {
+            // error
+        }
+    }
+    else if (ui->tblComputers->isActiveWindow())
+    {
+        //dostuff
+    }
 }
