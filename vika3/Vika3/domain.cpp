@@ -119,7 +119,7 @@ vector<Person> Domain::sorting(string& input)
 }
 
 //skilar vector af nidurstodum ur leit
-vector<Person> Domain::search(string& whattype, string& input)
+vector<Person> Domain::search(string& whattype, string input)
 {
     Data dat;
     vector<Person> persons, res;

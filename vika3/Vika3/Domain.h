@@ -24,7 +24,7 @@ public:
     vector<Computer> sortComputer(string& value);
     vector<Person> sorting(string& input);
 
-    vector<Person> search(string& whattype, string& input);
+    vector<Person> search(string& whattype, string input);
     vector<Computer> searchComputer(string& whattype, string& input);
 
     void edit(vector<Person>& pers, int& line, string& type, string& newValue);

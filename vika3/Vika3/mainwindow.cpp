@@ -87,7 +87,16 @@ void MainWindow::displayComputers(vector<Computer> comp)
 void MainWindow::on_btnNew_clicked()
 {
     AddNewDialog addNewDialog;
-    addNewDialog.exec();
+    int status = addNewDialog.exec();
+    if (status == 0)
+    {
+        ui->input_filter->setText("");
+        displayAllPersons();
+    }
+    else if (status == 1)
+    {
+        // error
+    }
 }
 
 void MainWindow::on_btnDelete_clicked()
@@ -108,4 +117,13 @@ void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 {
     ui->btnDelete->setEnabled(true);
+}
+
+void MainWindow::on_input_filter_textChanged(const QString &arg1)
+{
+    const string&& filterInput = ui->input_filter->text().toStdString();
+    Domain d;
+    string name = "-name";
+    vector<Person> pers = d.search(name, filterInput);
+    displayPersons(pers);
 }

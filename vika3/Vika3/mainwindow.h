@@ -9,6 +9,7 @@
 #include <vector>
 #include <QMainWindow>
 #include <QTableWidgetItem>
+#include <QDebug>
 
 
 
@@ -32,6 +33,8 @@ private slots:
     void on_tblComputers_clicked(const QModelIndex &index);
 
     void on_tblPersons_clicked(const QModelIndex &index);
+
+    void on_input_filter_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
