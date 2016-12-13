@@ -38,6 +38,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    Domain domain;
     void displayAllPersons();
     void displayPersons(vector<Person> pers);
     void displayAllComputers();

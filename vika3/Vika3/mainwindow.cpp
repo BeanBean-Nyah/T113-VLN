@@ -8,8 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    Domain d;
-    d.openDatabase();
+    domain.openDatabase();
     ui->setupUi(this);
 
 
@@ -25,8 +24,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::displayAllPersons()
 {
-    Domain d;
-    vector<Person> pers = d.list();
+    vector<Person> pers = domain.list();
     displayPersons(pers);
 
     currentlyDisplayedPersons = pers;
@@ -55,8 +53,7 @@ void MainWindow::displayPersons(vector<Person> pers)
 
 void MainWindow::displayAllComputers()
 {
-    Domain d;
-    vector<Computer> comp = d.computerList();
+    vector<Computer> comp = domain.computerList();
     displayComputers(comp);
 
     currentlyDisplayedComputers = comp;
@@ -102,11 +99,20 @@ void MainWindow::on_btnNew_clicked()
 
 void MainWindow::on_btnDelete_clicked()
 {
-    int currentlySelected = ui->tblComputers->currentIndex().row();
-    Domain d;
-    d.removeComputer(currentlyDisplayedComputers, currentlySelected);
-    displayAllComputers();
-    ui->btnDelete->setEnabled(false);
+    if (ui->tblPersons->isActiveWindow())
+    {
+        int currentlySelected = ui->tblPersons->currentIndex().row();
+        domain.remove(currentlyDisplayedPersons, currentlySelected);
+        displayAllPersons();
+        ui->btnDelete->setEnabled(false);
+    }
+    else if (ui->tblComputers->isActiveWindow())
+    {
+        int currentlySelected = ui->tblComputers->currentIndex().row();
+        domain.removeComputer(currentlyDisplayedComputers, currentlySelected);
+        displayAllComputers();
+        ui->btnDelete->setEnabled(false);
+    }
 }
 
 void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
@@ -123,8 +129,7 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 void MainWindow::on_input_filter_textChanged(const QString &arg1)
 {
     const string&& filterInput = ui->input_filter->text().toStdString();
-    Domain d;
     string name = "-name";
-    vector<Person> pers = d.search(name, filterInput);
+    vector<Person> pers = domain.search(name, filterInput);
     displayPersons(pers);
 }

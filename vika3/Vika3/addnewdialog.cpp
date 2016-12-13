@@ -94,6 +94,22 @@ void AddNewDialog::on_pushButton_clicked()
     }
     else if (ui->radioButton_both->isChecked())
     {
+        QString computername = ui->input_computer_name->text();
+        QString year = ui->input_computer_year->text();
+        QString type = ui->input_computer_type->currentText();
+        QString built = ui->input_computer_built->currentText();
+        QString personname = ui->input_person_name->text();
+        QString sex = ui->input_person_sex->currentText();
+        QString birth = ui->input_person_birth->text();
+        QString death = ui->input_person_death->text();
+
+        if (computername.isEmpty() || year.isEmpty() || type.isEmpty() || built.isEmpty() ||
+            personname.isEmpty() || sex.isEmpty() || birth.isEmpty())
+        {
+            //skila villu um hvad er ad
+            return;
+        }
+
         int personSuccess = addNewPerson();
         int computerSuccess = addNewComputer();
     }
