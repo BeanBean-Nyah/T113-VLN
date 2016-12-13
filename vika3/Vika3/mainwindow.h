@@ -36,6 +36,8 @@ private slots:
 
     void on_input_filter_textChanged(const QString &arg1);
 
+    void on_comboBox_person_sort_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     Domain domain;
@@ -43,6 +45,7 @@ private:
     void displayPersons(vector<Person> pers);
     void displayAllComputers();
     void displayComputers(vector<Computer> comp);
+    string getCurrentSortBy();
     vector<Person> currentlyDisplayedPersons;
     vector<Computer> currentlyDisplayedComputers;
 };

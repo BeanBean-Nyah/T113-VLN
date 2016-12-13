@@ -81,35 +81,35 @@ vector<Person> Data::sortPersons(string& type)
 {
     vector<Person> pers;
     QSqlQuery query;
-    if (type == "-nameasc")
+    if (type == "nameasc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Name ASC");
     }
-    else if (type == "-sexasc")
+    else if (type == "sexasc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Sex ASC");
     }
-    else if (type == "-birthasc")
+    else if (type == "birthasc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Birth ASC");
     }
-    else if (type == "-deathasc")
+    else if (type == "deathasc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Death ASC");
     }
-    else if (type == "-namedesc")
+    else if (type == "namedesc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Name DESC");
     }
-    else if (type == "-sexdesc")
+    else if (type == "sexdesc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Sex DESC");
     }
-    else if (type == "-birthdesc")
+    else if (type == "birthdesc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Birth DESC");
     }
-    else if (type == "-deathdesc")
+    else if (type == "deathdesc")
     {
         query.exec("SELECT ID, Name, Sex, Birth, Death, Status FROM persons ORDER BY Death DESC");
     }

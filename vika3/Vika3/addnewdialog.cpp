@@ -125,8 +125,22 @@ int AddNewDialog::addNewPerson()
     if (name.isEmpty() || sex.isEmpty() || birth.isEmpty())
     {
         //skila villu um hvad er ad
+        ui->label_error_message->setText("Entries marked with can not be empty! <span style = 'color: red'>*");
+        if (name.isEmpty())
+        {
+            ui->label_error_person_name->setText("<span style = 'color: red'>*");
+        }
+        if (sex.isEmpty())
+        {
+            ui->label_error_person_sex->setText("<span style = 'color: red'>*");
+        }
+        if (birth.isEmpty())
+        {
+            ui->label_error_person_birth->setText("<span style = 'color: red'>*");
+        }
         return 2;
     }
+
     string sname = name.toStdString();
     string ssex = sex.toStdString();
     string sbirth = birth.toStdString();

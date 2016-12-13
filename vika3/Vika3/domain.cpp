@@ -129,7 +129,7 @@ vector<Person> Domain::search(string& whattype, string input)
 
     for(unsigned int i = 0; i < persons.size(); i++)
     {
-        if (whattype == "-name")
+        if (whattype == "nameasc")
         {
             val = Lower_Ans(persons[i].getFirstname());
             innerinput = Lower_Ans(input);
@@ -141,7 +141,7 @@ vector<Person> Domain::search(string& whattype, string input)
                 res.push_back(p);
             }
         }
-        else if (whattype == "-sex")
+        else if (whattype == "sexasc")
         {
             val = Lower_Ans(persons[i].getSex());
             innerinput = Lower_Ans(input);
@@ -153,7 +153,7 @@ vector<Person> Domain::search(string& whattype, string input)
                 res.push_back(p);
             }
         }
-        else if (whattype == "-birthyear")
+        else if (whattype == "birthasc")
         {
             val = Lower_Ans(persons[i].getBirth());
             innerinput = Lower_Ans(input);
@@ -165,7 +165,7 @@ vector<Person> Domain::search(string& whattype, string input)
                 res.push_back(p);
             }
         }
-        else if (whattype == "-deathyear")
+        else if (whattype == "deathasc")
         {
             val = Lower_Ans(persons[i].getDeath());
             innerinput = Lower_Ans(input);

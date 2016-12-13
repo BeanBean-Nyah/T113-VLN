@@ -24,7 +24,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::displayAllPersons()
 {
-    vector<Person> pers = domain.list();
+    string type = getCurrentSortBy();
+    vector<Person> pers = domain.sorting(type);
     displayPersons(pers);
 
     currentlyDisplayedPersons = pers;
@@ -43,11 +44,14 @@ void MainWindow::displayPersons(vector<Person> pers)
         QString sex = QString::fromStdString(currentPerson.getSex());
         QString birth = QString::fromStdString(currentPerson.getBirth());
         QString death = QString::fromStdString(currentPerson.getDeath());
+        QString id = QString::fromStdString(currentPerson.getID());
 
         ui->tblPersons->setItem(row, 0, new QTableWidgetItem(name));
         ui->tblPersons->setItem(row, 1, new QTableWidgetItem(sex));
         ui->tblPersons->setItem(row, 2, new QTableWidgetItem(birth));
         ui->tblPersons->setItem(row, 3, new QTableWidgetItem(death));
+        ui->tblPersons->setItem(row, 4, new QTableWidgetItem(id));
+
     }
 }
 
@@ -81,6 +85,34 @@ void MainWindow::displayComputers(vector<Computer> comp)
     }
 }
 
+string MainWindow::getCurrentSortBy()
+{
+    string valueInOrderBy = ui->comboBox_person_sort->currentText().toStdString();
+
+    if (valueInOrderBy == "Name")
+    {
+        return "nameasc";
+    }
+    else if (valueInOrderBy == "Sex")
+    {
+        return "sexasc";
+    }
+    else if (valueInOrderBy == "Birth year")
+    {
+        return "birthasc";
+    }
+    else if (valueInOrderBy == "Year of death")
+    {
+        return "deathasc";
+    }
+    else
+    {
+        return "nameasc";
+    }
+
+    return valueInOrderBy;
+}
+
 void MainWindow::on_btnNew_clicked()
 {
     AddNewDialog addNewDialog;
@@ -99,8 +131,11 @@ void MainWindow::on_btnNew_clicked()
 
 void MainWindow::on_btnDelete_clicked()
 {
+
     if (ui->tblPersons->isActiveWindow())
     {
+        //QItemSelectionModel *select = ui->tblPersons->selectionModel();
+        //qDebug()<<select->selectedRows(3).value(0).data().toString();
         int currentlySelected = ui->tblPersons->currentIndex().row();
         domain.remove(currentlyDisplayedPersons, currentlySelected);
         displayAllPersons();
@@ -118,7 +153,6 @@ void MainWindow::on_btnDelete_clicked()
 void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 {
     ui->btnDelete->setEnabled(true);
-
 }
 
 void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
@@ -129,7 +163,12 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 void MainWindow::on_input_filter_textChanged(const QString &arg1)
 {
     const string&& filterInput = ui->input_filter->text().toStdString();
-    string name = "-name";
+    string name = getCurrentSortBy();
     vector<Person> pers = domain.search(name, filterInput);
     displayPersons(pers);
+}
+
+void MainWindow::on_comboBox_person_sort_currentIndexChanged(int index)
+{
+    on_input_filter_textChanged("");
 }
