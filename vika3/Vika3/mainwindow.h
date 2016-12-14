@@ -41,6 +41,11 @@ private slots:
 
     void on_btnEdit_clicked();
 
+    void on_radioButton_person_sort_asc_toggled(bool checked);
+
+    void on_radioButton_person_sort_desc_toggled(bool checked);
+
+
 private:
     Ui::MainWindow *ui;
     Domain domain;

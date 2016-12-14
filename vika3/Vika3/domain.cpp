@@ -123,59 +123,47 @@ vector<Person> Domain::search(string& whattype, string input)
 {
     Data dat;
     vector<Person> persons, res;
-    dat.read(persons);
-    string val, innerinput;
-    size_t found;
+    persons = dat.sortPersons(whattype);
+    string valname, valsex, valbirth, valdeath, innerinput;
+    size_t foundname, foundbirth, foundsex, founddeath;
 
     for(unsigned int i = 0; i < persons.size(); i++)
     {
-        if (whattype == "nameasc")
+        valname = Lower_Ans(persons[i].getFirstname());
+        valsex = Lower_Ans(persons[i].getSex());
+        valbirth = Lower_Ans(persons[i].getBirth());
+        valdeath = Lower_Ans(persons[i].getDeath());
+        innerinput = Lower_Ans(input);
+        foundname = valname.find(innerinput);
+        foundsex = valsex.find(innerinput);
+        foundbirth = valbirth.find(innerinput);
+        founddeath = valdeath.find(innerinput);
+
+        if (foundname!=string::npos)
         {
-            val = Lower_Ans(persons[i].getFirstname());
-            innerinput = Lower_Ans(input);
-            found = val.find(innerinput);
-            if (found!=string::npos)
-            {
-                Person p(persons[i].getID(), persons[i].getFirstname(),
-                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-                res.push_back(p);
-            }
+            Person p(persons[i].getID(), persons[i].getFirstname(),
+                     persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+            res.push_back(p);
+
         }
-        else if (whattype == "sexasc")
+        else if (foundsex!=string::npos)
         {
-            val = Lower_Ans(persons[i].getSex());
-            innerinput = Lower_Ans(input);
-            found = val.find(innerinput);
-            if (found!=string::npos)
-            {
-                Person p(persons[i].getID(), persons[i].getFirstname(),
-                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-                res.push_back(p);
-            }
+            Person p(persons[i].getID(), persons[i].getFirstname(),
+                     persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+            res.push_back(p);
+
         }
-        else if (whattype == "birthasc")
+        else if (foundbirth!=string::npos)
         {
-            val = Lower_Ans(persons[i].getBirth());
-            innerinput = Lower_Ans(input);
-            found = val.find(innerinput);
-            if (found!=string::npos)
-            {
-                Person p(persons[i].getID(), persons[i].getFirstname(),
-                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-                res.push_back(p);
-            }
+            Person p(persons[i].getID(), persons[i].getFirstname(),
+                     persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+            res.push_back(p);
         }
-        else if (whattype == "deathasc")
+        else if (founddeath!=string::npos)
         {
-            val = Lower_Ans(persons[i].getDeath());
-            innerinput = Lower_Ans(input);
-            found = val.find(innerinput);
-            if (found!=string::npos)
-            {
-                Person p(persons[i].getID(), persons[i].getFirstname(),
-                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-                res.push_back(p);
-            }
+            Person p(persons[i].getID(), persons[i].getFirstname(),
+                     persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+            res.push_back(p);
         }
     }
     return res;

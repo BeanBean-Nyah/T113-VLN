@@ -2,6 +2,7 @@
 #define DIALOGEDIT_H
 
 #include <QDialog>
+#include <QDebug>
 using namespace std;
 
 namespace Ui {
@@ -14,7 +15,7 @@ class dialogEdit : public QDialog
 
 public:
     explicit dialogEdit(QWidget *parent = 0);
-    void setTextbox(string _name, string _sex, string _birth, string _death);
+    void setTextbox(string& _name, string& _sex, string& _birth, string& _death);
     ~dialogEdit();
 
 private slots:

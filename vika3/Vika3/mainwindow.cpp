@@ -89,21 +89,37 @@ string MainWindow::getCurrentSortBy()
 {
     string valueInOrderBy = ui->comboBox_person_sort->currentText().toStdString();
 
-    if (valueInOrderBy == "Name")
+    if (valueInOrderBy == "Name" && ui->radioButton_person_sort_asc->isChecked())
     {
         return "nameasc";
     }
-    else if (valueInOrderBy == "Sex")
+    else if (valueInOrderBy == "Name" && ui->radioButton_person_sort_desc->isChecked())
+    {
+        return "namedesc";
+    }
+    else if (valueInOrderBy == "Sex" && ui->radioButton_person_sort_asc->isChecked())
     {
         return "sexasc";
     }
-    else if (valueInOrderBy == "Birth year")
+    else if (valueInOrderBy == "Sex" && ui->radioButton_person_sort_desc->isChecked())
+    {
+        return "sexdesc";
+    }
+    else if (valueInOrderBy == "Birth year" && ui->radioButton_person_sort_asc->isChecked())
     {
         return "birthasc";
     }
-    else if (valueInOrderBy == "Year of death")
+    else if (valueInOrderBy == "Birth year" && ui->radioButton_person_sort_desc->isChecked())
+    {
+        return "birthdesc";
+    }
+    else if (valueInOrderBy == "Year of death" && ui->radioButton_person_sort_asc->isChecked())
     {
         return "deathasc";
+    }
+    else if (valueInOrderBy == "Year of death" && ui->radioButton_person_sort_desc->isChecked())
+    {
+        return "deathdesc";
     }
     else
     {
@@ -140,6 +156,7 @@ void MainWindow::on_btnDelete_clicked()
         domain.remove(currentlyDisplayedPersons, currentlySelected);
         displayAllPersons();
         ui->btnDelete->setEnabled(false);
+        ui->input_filter->setText("");
     }
     else if (ui->tblComputers->isActiveWindow())
     {
@@ -166,8 +183,9 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 void MainWindow::on_input_filter_textChanged(const QString &arg1)
 {
     const string&& filterInput = ui->input_filter->text().toStdString();
-    string name = getCurrentSortBy();
-    vector<Person> pers = domain.search(name, filterInput);
+    string sort = getCurrentSortBy();
+    vector<Person> pers = domain.search(sort, filterInput);
+    currentlyDisplayedPersons = pers;
     displayPersons(pers);
 }
 
@@ -182,11 +200,11 @@ void MainWindow::on_btnEdit_clicked()
     if(ui->tblPersons->isActiveWindow())
     {
         int currentlySelected = ui->tblPersons->currentIndex().row();
-        vector<Person> pers = domain.list();
-        string name = pers[currentlySelected].getFirstname();
-        string sex = pers[currentlySelected].getSex();
-        string birth = pers[currentlySelected].getBirth();
-        string death = pers[currentlySelected].getDeath();
+        string name, sex, birth, death;
+        name = currentlyDisplayedPersons[currentlySelected].getFirstname();
+        sex = currentlyDisplayedPersons[currentlySelected].getSex();
+        birth = currentlyDisplayedPersons[currentlySelected].getBirth();
+        death = currentlyDisplayedPersons[currentlySelected].getDeath();
 
         dialogEdit newdialogEdit;
         newdialogEdit.setTextbox(name, sex, birth, death);
@@ -207,4 +225,17 @@ void MainWindow::on_btnEdit_clicked()
     {
         //dostuff
     }
+}
+
+
+
+void MainWindow::on_radioButton_person_sort_asc_toggled(bool checked)
+{
+    displayAllPersons();
+}
+
+
+void MainWindow::on_radioButton_person_sort_desc_toggled(bool checked)
+{
+    displayAllPersons();
 }
