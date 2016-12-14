@@ -224,7 +224,13 @@ vector<PersonsAndComputers> Domain::persAndCompList()
     return pAc;
 }
 
-
+vector<PersAndComp> Domain::persAndCompListTest()
+{
+    vector<PersAndComp> pAc;
+    Data d;
+    d.getPACjoinedTest(pAc);
+    return pAc;
+}
 
 
 bool Domain::editPtoC(string& ID)

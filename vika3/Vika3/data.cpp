@@ -373,6 +373,33 @@ void Data::getPACjoined(vector<PersonsAndComputers>& pAc)
     }
 }
 
+void Data::getPACjoinedTest(vector<PersAndComp>& pAc)
+{
+    QSqlQuery query("SELECT p.name, c.computer_name FROM persons p INNER JOIN "
+                    "computer c ON c.computer_id = pc.computer_id INNER JOIN personsandcomputers "
+                    "pc ON pc.computer_ID = c.computer_id WHERE pc.computer_ID = c.computer_id AND p.ID = pc.person_id");
+
+    int pacID = query.record().indexOf("pac_ID");
+    int pac_status = query.record().indexOf("pac_status");
+    int persName = query.record().indexOf("p.name");
+    int compName = query.record().indexOf("c.computer_name");
+
+    while (query.next())
+    {
+        if (query.value(pac_status) == 0)
+        {
+            QString qid = query.value(pacID).toString();
+            string id = qid.toLocal8Bit().constData();
+            QString qpersName = query.value(persName).toString();
+            string pName = qpersName.toLocal8Bit().constData();
+            QString qcompName = query.value(compName).toString();
+            string cName = qcompName.toLocal8Bit().constData();
+            PersAndComp pc(id, pName, cName);
+            pAc.push_back(pc);
+        }
+    }
+}
+
 //Skrifar tengls person og computer ut i tolfuna personsandcomputers
 void Data::writePAC(string& pers_id, string& comp_id)
 {

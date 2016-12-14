@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     displayAllPersons();
     displayAllComputers();
+    displayAllPersAndComp();
 
 }
 
@@ -85,6 +86,87 @@ void MainWindow::displayComputers(vector<Computer> comp)
     }
 }
 
+void MainWindow::displayAllPersAndComp()
+{
+    vector<PersAndComp> pAc = domain.persAndCompListTest();
+    displayPersAndComp(pAc);
+    currentlyDisplayedPersAndComp = pAc;
+}
+
+void MainWindow::displayPersAndComp(vector<PersAndComp> pAc)
+{
+    ui->tblPersAndComp->clearContents();
+
+    ui->tblPersAndComp->setStyleSheet("QTableWidget::item { padding-left: 40px }");
+    ui->tblPersAndComp->setRowCount(pAc.size());
+
+    qDebug() << pAc.size();
+
+    for (unsigned int row = 0; row < pAc.size(); row++)
+    {
+        PersAndComp current = pAc.at(row);
+
+        QString compName = QString::fromStdString(current.getPersName());
+        QString persName = QString::fromStdString(current.getCompName());
+
+        ui->tblComputers->setItem(row, 0, new QTableWidgetItem(compName));
+        ui->tblComputers->setItem(row, 1, new QTableWidgetItem(persName));
+    }
+}
+
+/*
+void MainWindow::displayPersAndComp(vector<PersonsAndComputers> pAc)
+{
+    vector<Person> pers = domain.list();
+
+    vector<Computer> comp = domain.computerList();
+
+    ui->tblPersAndComp->clearContents();
+
+    ui->tblPersAndComp->setRowCount(pAc.size());
+
+    int row = 0;
+    string id;
+    for (unsigned int r = 0; r < comp.size(); r++)
+    {
+        Computer currentComputer = comp.at(r);
+        QString compName = QString::fromStdString(currentComputer.getName());
+        QString year = QString::fromStdString(currentComputer.getYear());
+        QString built = QString::fromStdString(currentComputer.getType());
+
+        ui->tblPersAndComp->setItem(row, 0, new QTableWidgetItem(compName));
+        ui->tblPersAndComp->setItem(row, 2, new QTableWidgetItem(year));
+        ui->tblPersAndComp->setItem(row, 3, new QTableWidgetItem(built));
+
+        int t = 0;
+        for (unsigned int k = 0; k < pAc.size(); k++)
+        {
+            if (comp[r].getID() == pAc[k].getComp_ID())
+            {
+                id = pAc[k].getPers_ID();
+                for (unsigned int j = 0; j < pers.size(); j++)
+                {
+                    if (pers[j].getID() == id)
+                    {
+                        Person currentPerson = pers.at(j);
+
+                        QString persName = QString::fromStdString(currentPerson.getFirstname());
+
+                        ui->tblPersAndComp->setItem(row, 1, new QTableWidgetItem(persName));
+
+                        if (row < comp.size())
+                        {
+                            row++;
+                        }
+                    }
+                }
+            }
+            t++;
+        }
+    }
+}
+*/
+
 string MainWindow::getCurrentSortBy()
 {
     string valueInOrderBy = ui->comboBox_person_sort->currentText().toStdString();
@@ -150,8 +232,6 @@ void MainWindow::on_btnDelete_clicked()
 
     if (ui->tblPersons->isActiveWindow())
     {
-        //QItemSelectionModel *select = ui->tblPersons->selectionModel();
-        //qDebug()<<select->selectedRows(3).value(0).data().toString();
         int currentlySelected = ui->tblPersons->currentIndex().row();
         domain.remove(currentlyDisplayedPersons, currentlySelected);
         displayAllPersons();
@@ -165,13 +245,13 @@ void MainWindow::on_btnDelete_clicked()
         displayAllComputers();
         ui->btnDelete->setEnabled(false);
     }
+
 }
 
 void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
-{
+{        
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(true);
-
 }
 
 void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
@@ -200,14 +280,16 @@ void MainWindow::on_btnEdit_clicked()
     if(ui->tblPersons->isActiveWindow())
     {
         int currentlySelected = ui->tblPersons->currentIndex().row();
-        string name, sex, birth, death;
+        ui->tblPersons->currentIndex();
+        string name, sex, birth, death, id;
         name = currentlyDisplayedPersons[currentlySelected].getFirstname();
         sex = currentlyDisplayedPersons[currentlySelected].getSex();
         birth = currentlyDisplayedPersons[currentlySelected].getBirth();
         death = currentlyDisplayedPersons[currentlySelected].getDeath();
+        id = currentlyDisplayedPersons[currentlySelected].getID();
 
         dialogEdit newdialogEdit;
-        newdialogEdit.setTextbox(name, sex, birth, death);
+        newdialogEdit.setTextbox(id, name, sex, birth, death);
         int status = newdialogEdit.exec();
 
         if (status == 0)
@@ -225,6 +307,8 @@ void MainWindow::on_btnEdit_clicked()
     {
         //dostuff
     }
+    ui->btnDelete->setEnabled(false);
+    ui->btnEdit->setEnabled(false);
 }
 
 

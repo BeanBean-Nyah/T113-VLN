@@ -4,6 +4,7 @@
 #include "Person.h"
 #include "Computer.h"
 #include "PersonsAndComputers.h"
+#include "Persandcomp.h"
 #include "Facts.h"
 #include <iostream>
 #include <fstream>
@@ -35,6 +36,7 @@ public:
     vector<Computer> sortComputer(string& type);
 
     void getPACjoined(vector<PersonsAndComputers>& pAc);
+    void getPACjoinedTest(vector<PersAndComp>& pAc);
     void writePAC(string& pers_id, string& comp_id);
     bool editPAC(string& ID);
     void getFact(vector<Facts>& fac);

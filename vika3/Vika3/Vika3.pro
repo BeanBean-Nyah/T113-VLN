@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     person.cpp \
     personsandcomputers.cpp \
     addnewdialog.cpp \
-    dialogedit.cpp
+    dialogedit.cpp \
+    persandcomp.cpp
 
 HEADERS  += mainwindow.h \
     Computer.h \
@@ -35,7 +36,8 @@ HEADERS  += mainwindow.h \
     Person.h \
     PersonsAndComputers.h \
     addnewdialog.h \
-    dialogedit.h
+    dialogedit.h \
+    Persandcomp.h
 
 FORMS    += mainwindow.ui \
     addnewdialog.ui \

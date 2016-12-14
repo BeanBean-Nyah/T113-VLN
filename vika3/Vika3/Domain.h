@@ -2,6 +2,7 @@
 #define DOMAIN_H
 #include "Person.h"
 #include "PersonsAndComputers.h"
+#include "persandcomp.h"
 #include <vector>
 #include <iostream>
 #include "Data.h"
@@ -40,6 +41,7 @@ public:
     void removeComputer(vector<Computer>& comp, int& line);
 
     vector<PersonsAndComputers> persAndCompList();
+    vector<PersAndComp> persAndCompListTest();
     string Lower_Ans(string word);
 
     bool clear(string& type);

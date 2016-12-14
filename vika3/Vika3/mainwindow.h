@@ -4,6 +4,8 @@
 #include "Person.h"
 #include "Domain.h"
 #include "Computer.h"
+#include "PersonsAndComputers.h"
+#include "persandcomp.h"
 #include "addnewdialog.h"
 #include "dialogedit.h"
 
@@ -25,6 +27,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 
 private slots:
     void on_btnNew_clicked();
@@ -53,9 +56,15 @@ private:
     void displayPersons(vector<Person> pers);
     void displayAllComputers();
     void displayComputers(vector<Computer> comp);
+    void displayAllPersAndComp();
+    //void displayPersAndComp(vector<PersonsAndComputers> pAc);
+
+    void displayPersAndComp(vector<PersAndComp> pAc);
     string getCurrentSortBy();
     vector<Person> currentlyDisplayedPersons;
     vector<Computer> currentlyDisplayedComputers;
+    //vector<PersonsAndComputers> currentlyDisplayedPersAndComp;
+    vector<PersAndComp> currentlyDisplayedPersAndComp;
 };
 
 #endif // MAINWINDOW_H

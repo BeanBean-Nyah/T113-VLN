@@ -243,7 +243,28 @@
          </layout>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget_2"/>
+         <widget class="QTableWidget" name="tblPersAndComp">
+          <column>
+           <property name="text">
+            <string>Computers</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Creators</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Year</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Built</string>
+           </property>
+          </column>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -288,7 +309,7 @@
      <x>0</x>
      <y>0</y>
      <width>950</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -350,7 +371,7 @@
   <tabstop>btnEdit</tabstop>
   <tabstop>btnDelete</tabstop>
   <tabstop>tblComputers</tabstop>
-  <tabstop>tableWidget_2</tabstop>
+  <tabstop>tblPersAndComp</tabstop>
  </tabstops>
  <resources/>
  <connections/>
