@@ -138,6 +138,8 @@ void MainWindow::on_btnNew_clicked()
         ui->input_filter->setText("");
         displayAllPersons();
         displayAllComputers();
+
+        ui->statusBar->showMessage("Successfully added!", 2000);
     }
     else if (status == 1)
     {
@@ -238,4 +240,20 @@ void MainWindow::on_radioButton_person_sort_asc_toggled(bool checked)
 void MainWindow::on_radioButton_person_sort_desc_toggled(bool checked)
 {
     displayAllPersons();
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+        AddNewDialog addNewDialog;
+        int status = addNewDialog.exec();
+        if (status == 0)
+        {
+            ui->input_filter->setText("");
+            displayAllPersons();
+            displayAllComputers();
+        }
+        else if (status == 1)
+        {
+            // error
+        }
 }
