@@ -8,6 +8,7 @@
 #include "persandcomp.h"
 #include "addnewdialog.h"
 #include "dialogedit.h"
+#include "dialogeditcomputer.h"
 
 #include <vector>
 #include <QMainWindow>
@@ -38,7 +39,7 @@ private slots:
 
     void on_tblPersons_clicked(const QModelIndex &index);
 
-    void on_input_filter_textChanged(const QString &arg1);
+    void on_input_filter_person_textChanged(const QString &arg1);
 
     void on_comboBox_person_sort_currentIndexChanged(int index);
 
@@ -48,6 +49,15 @@ private slots:
 
     void on_radioButton_person_sort_desc_toggled(bool checked);
 
+    void on_actionNew_triggered();
+
+    void on_radioButton_computer_sort_asc_toggled(bool checked);
+
+    void on_radioButton_computer_sort_desc_toggled(bool checked);
+
+    void on_comboBox_computer_sort_currentIndexChanged(int index);
+
+    void on_input_filter_computer_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
@@ -60,7 +70,8 @@ private:
     //void displayPersAndComp(vector<PersonsAndComputers> pAc);
 
     void displayPersAndComp(vector<PersAndComp> pAc);
-    string getCurrentSortBy();
+    string getPersonCurrentSortBy();
+    string getComputerCurrentSortBy();
     vector<Person> currentlyDisplayedPersons;
     vector<Computer> currentlyDisplayedComputers;
     //vector<PersonsAndComputers> currentlyDisplayedPersAndComp;

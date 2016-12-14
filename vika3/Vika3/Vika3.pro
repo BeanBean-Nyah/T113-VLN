@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     personsandcomputers.cpp \
     addnewdialog.cpp \
     dialogedit.cpp \
-    persandcomp.cpp
+    persandcomp.cpp \
+    dialogeditcomputer.cpp
 
 HEADERS  += mainwindow.h \
     Computer.h \
@@ -37,8 +38,13 @@ HEADERS  += mainwindow.h \
     PersonsAndComputers.h \
     addnewdialog.h \
     dialogedit.h \
-    Persandcomp.h
+    Persandcomp.h \
+    dialogeditcomputer.h
 
 FORMS    += mainwindow.ui \
     addnewdialog.ui \
-    dialogedit.ui
+    dialogedit.ui \
+    dialogeditcomputer.ui
+
+RESOURCES += \
+    resources.qrc

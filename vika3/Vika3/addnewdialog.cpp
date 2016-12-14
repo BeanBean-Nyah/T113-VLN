@@ -170,6 +170,7 @@ int AddNewDialog::addNewComputer()
     if (name.isEmpty() || year.isEmpty() || type.isEmpty() || built.isEmpty())
     {
         //skila villu um hvad er ad
+
         return 2;
     }
     string sname = name.toStdString();

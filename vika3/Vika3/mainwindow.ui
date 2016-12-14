@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/images/laptop.png</normaloff>:/icons/images/laptop.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
@@ -46,7 +50,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="input_filter"/>
+             <widget class="QLineEdit" name="input_filter_person"/>
             </item>
            </layout>
           </item>
@@ -166,7 +170,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="txtComputer"/>
+           <widget class="QLineEdit" name="input_filter_computer"/>
           </item>
          </layout>
         </item>
@@ -179,11 +183,20 @@
            <enum>QAbstractItemView::SelectRows</enum>
           </property>
           <property name="showGrid">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sortingEnabled">
            <bool>false</bool>
           </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>Name</string>
@@ -215,6 +228,58 @@
           </column>
          </widget>
         </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Sort by</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_computer_sort">
+            <item>
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Year</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Type</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Built</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_computer_sort_asc">
+            <property name="text">
+             <string>Ascending</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_computer_sort_desc">
+            <property name="text">
+             <string>Descending</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
@@ -244,6 +309,15 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tblPersAndComp">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>Computers</string>
@@ -252,16 +326,6 @@
           <column>
            <property name="text">
             <string>Creators</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Year</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Built</string>
            </property>
           </column>
          </widget>
@@ -301,6 +365,13 @@
       </item>
      </layout>
     </item>
+    <item>
+     <widget class="QLabel" name="label_message">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -339,26 +410,46 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/images/addperson.png</normaloff>:/icons/images/addperson.png</iconset>
+   </property>
    <property name="text">
     <string>New</string>
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/images/exit.png</normaloff>:/icons/images/exit.png</iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
   <action name="actionEdit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/images/edit.png</normaloff>:/icons/images/edit.png</iconset>
+   </property>
    <property name="text">
     <string>Edit</string>
    </property>
   </action>
   <action name="actionRemove">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/images/remove.png</normaloff>:/icons/images/remove.png</iconset>
+   </property>
    <property name="text">
     <string>Remove</string>
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/images/about.png</normaloff>:/icons/images/about.png</iconset>
+   </property>
    <property name="text">
     <string>About</string>
    </property>
@@ -373,6 +464,8 @@
   <tabstop>tblComputers</tabstop>
   <tabstop>tblPersAndComp</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

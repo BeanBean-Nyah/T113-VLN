@@ -162,7 +162,7 @@ void Data::remove(string& ID, int& type)
 }
 
 //breytir voldum upplysingum i toflunni persons
-void Data::edit(string& ID, string& value, string& type)
+/*void Data::edit(string& ID, string& value, string& type)
 {
     QSqlQuery query;
     QString qID = QString::fromStdString(ID);
@@ -192,6 +192,24 @@ void Data::edit(string& ID, string& value, string& type)
         query.bindValue(":value", qvalue);
     }
     query.exec();
+}*/
+
+void Data::edit(string& ID, string& name, string& sex, string& birth, string& death)
+{
+    QSqlQuery query;
+    QString qID = QString::fromStdString(ID);
+    QString qName = QString::fromStdString(name);
+    QString qSex = QString::fromStdString(sex);
+    QString qBirth = QString::fromStdString(birth);
+    QString qDeath = QString::fromStdString(death);
+
+        query.prepare("Update persons SET name = :name, sex = :sex, birth = :birth, death = :death WHERE ID = :id");
+        query.bindValue(":id", qID);
+        query.bindValue(":name", qName);
+        query.bindValue(":sex", qSex);
+        query.bindValue(":birth", qBirth);
+        query.bindValue(":death", qDeath);
+        query.exec();
 }
 
 //les inn i vector allar upplysingar ur toflunni computer
@@ -244,36 +262,23 @@ void Data::writeComputer(string& name, string& year, string& type, string& built
 }
 
 //breytir voldum upplysingum i toflunni computer
-void Data::editComp(string& ID, string& value, string& type)
+void Data::editComp(string& _ID, string& _name, string& _year, string& _type, string& _built)
 {
     QSqlQuery query;
-    QString qID = QString::fromStdString(ID);
-    QString qvalue = QString::fromStdString(value);
-    if (type == "-name")
-    {
-        query.prepare("Update computer SET computer_name = :value WHERE computer_ID = :id");
+    QString qID = QString::fromStdString(_ID);
+    QString qName = QString::fromStdString(_name);
+    QString qYear = QString::fromStdString(_year);
+    QString qType = QString::fromStdString(_type);
+    QString qBuilt = QString::fromStdString(_built);
+
+        query.prepare("Update computer SET computer_name = :name, computer_year = :year, "
+                      "computer_type = :type, computer_built = :built WHERE computer_ID = :id");
         query.bindValue(":id", qID);
-        query.bindValue(":value", qvalue);
-    }
-    else if (type == "-year")
-    {
-        query.prepare("Update computer SET computer_year = :value WHERE computer_ID = :id");
-        query.bindValue(":id", qID);
-        query.bindValue(":value", qvalue);
-    }
-    else if (type == "-type")
-    {
-        query.prepare("Update computer SET computer_type = :value WHERE computer_ID = :id");
-        query.bindValue(":id", qID);
-        query.bindValue(":value", qvalue);
-    }
-    else if (type == "-built")
-    {
-        query.prepare("Update computer SET computer_built = :value WHERE computer_ID = :id");
-        query.bindValue(":id", qID);
-        query.bindValue(":value", qvalue);
-    }
-    query.exec();
+        query.bindValue(":name", qName);
+        query.bindValue(":year", qYear);
+        query.bindValue(":type", qType);
+        query.bindValue(":built", qBuilt);
+        query.exec();
 }
 
 //skilar upplysingar ur toflunni computer sorterudum eftir vali i vector
@@ -281,42 +286,42 @@ vector<Computer> Data::sortComputer(string& type)
 {
     vector<Computer> comp;
     QSqlQuery query;
-    if (type == "-nameasc")
+    if (type == "nameasc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_name ASC");
     }
-    else if (type == "-yearasc")
+    else if (type == "yearasc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_year ASC");
     }
-    else if (type == "-typeasc")
+    else if (type == "typeasc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_type ASC");
     }
-    else if (type == "-builtasc")
+    else if (type == "builtasc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_built ASC");
     }
-    else if (type == "-namedesc")
+    else if (type == "namedesc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_name DESC");
     }
-    else if (type == "-yeardesc")
+    else if (type == "yeardesc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_year DESC");
     }
-    else if (type == "-typedesc")
+    else if (type == "typedesc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_type DESC");
     }
-    else if (type == "-builtdesc")
+    else if (type == "builtdesc")
     {
         query.exec("SELECT computer_ID, computer_Name, computer_Year, computer_Type, "
                         "computer_Built, computer_Status FROM computer ORDER BY computer_built DESC");
@@ -375,28 +380,25 @@ void Data::getPACjoined(vector<PersonsAndComputers>& pAc)
 
 void Data::getPACjoinedTest(vector<PersAndComp>& pAc)
 {
-    QSqlQuery query("SELECT p.name, c.computer_name FROM persons p INNER JOIN "
-                    "computer c ON c.computer_id = pc.computer_id INNER JOIN personsandcomputers "
-                    "pc ON pc.computer_ID = c.computer_id WHERE pc.computer_ID = c.computer_id AND p.ID = pc.person_id");
-
-    int pacID = query.record().indexOf("pac_ID");
-    int pac_status = query.record().indexOf("pac_status");
-    int persName = query.record().indexOf("p.name");
-    int compName = query.record().indexOf("c.computer_name");
+    QSqlQuery query("SELECT pac_ID, pac_status, p.name, c.computer_name FROM persons p "
+                    "INNER JOIN computer c "
+                    "ON c.computer_id = pc.computer_id "
+                    "INNER JOIN personsandcomputers pc "
+                    "ON pc.computer_ID = c.computer_id "
+                    "WHERE pc.computer_ID = c.computer_id "
+                    "AND p.ID = pc.person_id "
+                    "AND p.Status = 0 "
+                    "AND c.computer_status = 0 "
+                    "AND pac_status = 0");
 
     while (query.next())
     {
-        if (query.value(pac_status) == 0)
-        {
-            QString qid = query.value(pacID).toString();
-            string id = qid.toLocal8Bit().constData();
-            QString qpersName = query.value(persName).toString();
-            string pName = qpersName.toLocal8Bit().constData();
-            QString qcompName = query.value(compName).toString();
-            string cName = qcompName.toLocal8Bit().constData();
-            PersAndComp pc(id, pName, cName);
-            pAc.push_back(pc);
-        }
+        string id = query.value("pac_ID").toString().toStdString();
+        string pName = query.value("name").toString().toStdString();
+        string cName = query.value("computer_name").toString().toStdString();
+        PersAndComp pc(id, pName, cName);
+        pAc.push_back(pc);
+
     }
 }
 

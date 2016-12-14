@@ -179,11 +179,16 @@ void Domain::remove(vector<Person>& pers, int& line)
 }
 
 //kallar i fall sem breytir upplysingum i database
-void Domain::edit(vector<Person>& pers, int& line, string& type, string& newValue)
+//void Domain::edit(vector<Person>& pers, int& line, string& type, string& newValue)
+//{
+//    string ID = pers[line].getID();
+//    Data dat;
+//    dat.edit(ID, newValue, type);
+//}
+void Domain::edit(string& _ID, string& _name, string& _sex, string& _birth, string& _death)
 {
-    string ID = pers[line].getID();
     Data dat;
-    dat.edit(ID, newValue, type);
+    dat.edit(_ID, _name, _sex, _birth, _death);
 }
 
 //Computer functions
@@ -244,64 +249,69 @@ bool Domain::editPtoC(string& ID)
 }
 
 //skilar vector af nidurstodum ur leit
-vector<Computer> Domain::searchComputer(string& whattype, string& input)
+vector<Computer> Domain::searchComputer(string& whattype, string input)
 {
     Data dat;
     vector<Computer> computers, res;
-    dat.readComputer(computers);
+    computers = dat.sortComputer(whattype);
+
+    string valname, valyear, valtype, valbuilt, innerinput;
+    size_t foundname, foundyear, foundtype, foundbuilt;
+
 
     for(unsigned int i = 0; i < computers.size(); i++)
     {
-        if (whattype == "-name")
+        valname = Lower_Ans(computers[i].getName());
+        valyear = Lower_Ans(computers[i].getYear());
+        valtype = Lower_Ans(computers[i].getType());
+        valbuilt = Lower_Ans(computers[i].getBuilt());
+        innerinput = Lower_Ans(input);
+        foundname = valname.find(innerinput);
+        foundyear = valyear.find(innerinput);
+        foundtype = valtype.find(innerinput);
+        foundbuilt = valbuilt.find(innerinput);
+
+        if (foundname!=string::npos)
         {
-            string name = Lower_Ans(computers[i].getName());
-            string innerinput = Lower_Ans(input);
-            size_t found = name.find(innerinput);
-            if (found!=string::npos)
-            {
-                Computer c(computers[i].getID(), computers[i].getName(),
+            Computer c(computers[i].getID(), computers[i].getName(),
                        computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
-                res.push_back(c);
-            }
+            res.push_back(c);
         }
-        else if (whattype == "-year")
+        else if (foundyear!=string::npos)
         {
-            if (computers[i].getYear() == input)
-            {
-                Computer c(computers[i].getID(), computers[i].getName(),
+            Computer c(computers[i].getID(), computers[i].getName(),
                        computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
-                res.push_back(c);
-            }
+            res.push_back(c);
         }
-        else if (whattype == "-type")
+        else if(foundtype!=string::npos)
         {
-            if(computers[i].getType() == input)
-            {
-                Computer c(computers[i].getID(), computers[i].getName(),
+            Computer c(computers[i].getID(), computers[i].getName(),
                        computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
-                res.push_back(c);
-            }
+            res.push_back(c);
         }
-        else if (whattype == "-built")
+        else if(foundbuilt!=string::npos)
         {
-            if(computers[i].getBuilt() == input)
-            {
-                Computer c(computers[i].getID(), computers[i].getName(),
+            Computer c(computers[i].getID(), computers[i].getName(),
                        computers[i].getYear(), computers[i].getType(), computers[i].getBuilt());
-                res.push_back(c);
-            }
+            res.push_back(c);
         }
+
     }
     return res;
 }
 
 //kallar i fall sem breytir um upplysingum computer i database
-void Domain::editComputer(vector<Computer>& comp, int& line, string& type, string& newValue)
+/*void Domain::editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built)
 {
     string ID = comp[line].getID();
     Data dat;
     dat.editComp(ID, newValue, type);
+}*/
 
+void Domain::editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built)
+{
+    Data dat;
+    dat.editComp(_ID, _name, _year, _type, _built);
 }
 
 //skilar tvi hvort thad tokst ad tengja person og computer saman

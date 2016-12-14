@@ -12,13 +12,14 @@ dialogEdit::~dialogEdit()
 {
     delete ui;
 }
-void dialogEdit::setTextbox(string& _id, string& _name, string& _sex, string& _birth, string& _death)
+
+void dialogEdit::setTextbox(string& _name, string& _sex, string& _birth, string& _death, string& _ID)
 {
     name = QString::fromStdString(_name);
     sex  = QString::fromStdString(_sex);
     birth = QString::fromStdString(_birth);
     death = QString::fromStdString(_death);
-    id = QString::fromStdString(_id);
+    id = _ID;
 
     ui->txtNewName->setText(name);
     ui->txtNewGender->setText(sex);
@@ -30,12 +31,17 @@ void dialogEdit::setTextbox(string& _id, string& _name, string& _sex, string& _b
 void dialogEdit::on_buttonBox_accepted() // todo a check for input errors
 {
     //set new values
-    string _name, _sex, _birth, _death;
-    _name = ui->txtNewName->text().toStdString();
-    _sex  = ui->txtNewGender->text().toStdString();
-    _birth = ui->txtNewBirth->text().toStdString();
-    _death = ui->txtNewDeath->text().toStdString();
+    name = ui->txtNewName->text();
+    sex  = ui->txtNewGender->text();
+    birth = ui->txtNewBirth->text();
+    death = ui->txtNewDeath->text();
+    string nName = name.toStdString();
+    string nSex = sex.toStdString();
+    string nBirth = birth.toStdString();
+    string nDeath = death.toStdString();
 
+    domain.edit(id, nName, nSex, nBirth, nDeath);
+    done(0);
     //return new values
 
 }

@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>images/laptop.png</file>
+        <file>images/about.png</file>
+        <file>images/addperson.png</file>
+        <file>images/edit.png</file>
+        <file>images/exit.png</file>
+        <file>images/remove.png</file>
+    </qresource>
+</RCC>
