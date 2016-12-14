@@ -40,3 +40,6 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     addnewdialog.ui \
     dialogedit.ui
+
+RESOURCES += \
+    resources.qrc
