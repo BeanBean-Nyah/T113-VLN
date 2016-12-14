@@ -1,6 +1,8 @@
 #ifndef DIALOGEDIT_H
 #define DIALOGEDIT_H
 
+#include "Domain.h"
+
 #include <QDialog>
 #include <QDebug>
 using namespace std;
@@ -15,8 +17,24 @@ class dialogEdit : public QDialog
 
 public:
     explicit dialogEdit(QWidget *parent = 0);
-    void setTextbox(string& _name, string& _sex, string& _birth, string& _death);
+    void setTextbox(string& _name, string& _sex, string& _birth, string& _death, string& _ID);
     ~dialogEdit();
+    string getName()
+    {
+        return name.toStdString();
+    }
+    string getSex()
+    {
+        return sex.toStdString();
+    }
+    string getBirt()
+    {
+        return birth.toStdString();
+    }
+    string getDeath()
+    {
+        return death.toStdString();
+    }
 
 private slots:
     void on_buttonBox_accepted();
@@ -27,6 +45,8 @@ private:
     QString sex;
     QString birth;
     QString death;
+
+    string id;
 };
 
 #endif // DIALOGEDIT_H

@@ -28,7 +28,6 @@ public:
     void writeComputer(string& name, string& year, string& type, string& built);
     void remove(string& name, int& type);
     void edit(string& ID, string& value, string& type);
-    void edit(string& ID, string& name, string& sex, string& birth, string& death);
     void editComp(string& ID, string& value, string& type);
     QSqlDatabase m_db;
     bool openDatabase();

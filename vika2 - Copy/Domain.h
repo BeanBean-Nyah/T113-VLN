@@ -24,11 +24,10 @@ public:
     vector<Computer> sortComputer(string& value);
     vector<Person> sorting(string& input);
 
-    vector<Person> search(string& whattype, string input);
+    vector<Person> search(string& whattype, string& input);
     vector<Computer> searchComputer(string& whattype, string& input);
 
     void edit(vector<Person>& pers, int& line, string& type, string& newValue);
-    void edit(string& _ID, string& _name, string& _sex, string& birth, string& death);
     void editComputer(vector<Computer>& comp, int& line, string& type, string& newValue);
 
     vector<Person> list();

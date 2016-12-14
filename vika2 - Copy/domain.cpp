@@ -119,51 +119,63 @@ vector<Person> Domain::sorting(string& input)
 }
 
 //skilar vector af nidurstodum ur leit
-vector<Person> Domain::search(string& whattype, string input)
+vector<Person> Domain::search(string& whattype, string& input)
 {
     Data dat;
     vector<Person> persons, res;
-    persons = dat.sortPersons(whattype);
-    string valname, valsex, valbirth, valdeath, innerinput;
-    size_t foundname, foundbirth, foundsex, founddeath;
+    dat.read(persons);
+    string val, innerinput;
+    size_t found;
 
     for(unsigned int i = 0; i < persons.size(); i++)
     {
-        valname = Lower_Ans(persons[i].getFirstname());
-        valsex = Lower_Ans(persons[i].getSex());
-        valbirth = Lower_Ans(persons[i].getBirth());
-        valdeath = Lower_Ans(persons[i].getDeath());
-        innerinput = Lower_Ans(input);
-        foundname = valname.find(innerinput);
-        foundsex = valsex.find(innerinput);
-        foundbirth = valbirth.find(innerinput);
-        founddeath = valdeath.find(innerinput);
-
-        if (foundname!=string::npos)
+        if (whattype == "-name")
         {
-            Person p(persons[i].getID(), persons[i].getFirstname(),
-                     persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-            res.push_back(p);
-
+            val = Lower_Ans(persons[i].getFirstname());
+            innerinput = Lower_Ans(input);
+            found = val.find(innerinput);
+            if (found!=string::npos)
+            {
+                Person p(persons[i].getID(), persons[i].getFirstname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
+            }
         }
-        else if (foundsex!=string::npos)
+        else if (whattype == "-sex")
         {
-            Person p(persons[i].getID(), persons[i].getFirstname(),
-                     persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-            res.push_back(p);
-
+            val = Lower_Ans(persons[i].getSex());
+            innerinput = Lower_Ans(input);
+            found = val.find(innerinput);
+            if (found!=string::npos)
+            {
+                Person p(persons[i].getID(), persons[i].getFirstname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
+            }
         }
-        else if (foundbirth!=string::npos)
+        else if (whattype == "-birthyear")
         {
-            Person p(persons[i].getID(), persons[i].getFirstname(),
-                     persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-            res.push_back(p);
+            val = Lower_Ans(persons[i].getBirth());
+            innerinput = Lower_Ans(input);
+            found = val.find(innerinput);
+            if (found!=string::npos)
+            {
+                Person p(persons[i].getID(), persons[i].getFirstname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
+            }
         }
-        else if (founddeath!=string::npos)
+        else if (whattype == "-deathyear")
         {
-            Person p(persons[i].getID(), persons[i].getFirstname(),
-                     persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
-            res.push_back(p);
+            val = Lower_Ans(persons[i].getDeath());
+            innerinput = Lower_Ans(input);
+            found = val.find(innerinput);
+            if (found!=string::npos)
+            {
+                Person p(persons[i].getID(), persons[i].getFirstname(),
+                       persons[i].getSex(), persons[i].getBirth(), persons[i].getDeath());
+                res.push_back(p);
+            }
         }
     }
     return res;
@@ -184,11 +196,6 @@ void Domain::edit(vector<Person>& pers, int& line, string& type, string& newValu
     string ID = pers[line].getID();
     Data dat;
     dat.edit(ID, newValue, type);
-}
-void Domain::edit(string& _ID, string& _name, string& _sex, string& _birth, string& _death)
-{
-    Data dat;
-    dat.edit(_ID, _name, _sex, _birth, _death);
 }
 
 //Computer functions

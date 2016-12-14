@@ -202,26 +202,42 @@ void MainWindow::on_btnEdit_clicked()
     if(ui->tblPersons->isActiveWindow())
     {
         int currentlySelected = ui->tblPersons->currentIndex().row();
-        string name, sex, birth, death;
+        string name, sex, birth, death, id;
         name = currentlyDisplayedPersons[currentlySelected].getFirstname();
         sex = currentlyDisplayedPersons[currentlySelected].getSex();
         birth = currentlyDisplayedPersons[currentlySelected].getBirth();
         death = currentlyDisplayedPersons[currentlySelected].getDeath();
+        id = currentlyDisplayedPersons[currentlySelected].getID();
 
         dialogEdit newdialogEdit;
-        newdialogEdit.setTextbox(name, sex, birth, death);
+        newdialogEdit.setTextbox(name, sex, birth, death, id);
         int status = newdialogEdit.exec();
+        name = newdialogEdit.getName();
 
         if (status == 0)
         {
+            name = newdialogEdit.getName();
+            sex = newdialogEdit.getSex();
+            birth = newdialogEdit.getBirt();
+            death = newdialogEdit.getDeath();
+            string nType = "-name";
+            string sType = "-sex";
+            string bType = "-birth";
+            string dType = "-death";
+            domain.edit(currentlyDisplayedPersons, currentlySelected, name, nType);
+            domain.edit(currentlyDisplayedPersons, currentlySelected, sex, sType);
+            domain.edit(currentlyDisplayedPersons, currentlySelected, birth, bType);
+            domain.edit(currentlyDisplayedPersons, currentlySelected, death, dType);
             ui->input_filter->setText("");
             displayAllPersons();
             displayAllComputers();
+            ui->btnEdit->setEnabled(false);
         }
         else if (status == 1)
         {
-            // error
+        ui->btnEdit->setEnabled(false);
         }
+
     }
     else if (ui->tblComputers->isActiveWindow())
     {
