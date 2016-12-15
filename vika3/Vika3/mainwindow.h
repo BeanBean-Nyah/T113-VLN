@@ -59,22 +59,33 @@ private slots:
 
     void on_input_filter_computer_textChanged(const QString &arg1);
 
+    void on_input_filter_both_textChanged(const QString &arg1);
+
+    void on_comboBox_sort_both_currentIndexChanged(int index);
+
+    void on_radioButton_sort_both_asc_toggled(bool checked);
+
+    void on_radioButton_sort_both_desc_toggled(bool checked);
+
+    void on_tblPersAndComp_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
     Domain domain;
+
     void displayAllPersons();
     void displayPersons(vector<Person> pers);
     void displayAllComputers();
     void displayComputers(vector<Computer> comp);
     void displayAllPersAndComp();
-    //void displayPersAndComp(vector<PersonsAndComputers> pAc);
-
     void displayPersAndComp(vector<PersAndComp> pAc);
+
     string getPersonCurrentSortBy();
     string getComputerCurrentSortBy();
+    string getBothCurrentSortBy();
+
     vector<Person> currentlyDisplayedPersons;
     vector<Computer> currentlyDisplayedComputers;
-    //vector<PersonsAndComputers> currentlyDisplayedPersAndComp;
     vector<PersAndComp> currentlyDisplayedPersAndComp;
 };
 

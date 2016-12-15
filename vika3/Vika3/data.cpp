@@ -157,42 +157,16 @@ void Data::remove(string& ID, int& type)
         query.prepare("UPDATE computer SET computer_status = 1 WHERE computer_ID = :id");
         query.bindValue(":id", qID);
     }
+    else if (type == 2)
+    {
+        query.prepare("UPDATE personsandcomputers SET pac_status = 1 WHERE pac_ID = :id");
+        query.bindValue(":id", qID);
+    }
 
     query.exec();
 }
 
 //breytir voldum upplysingum i toflunni persons
-/*void Data::edit(string& ID, string& value, string& type)
-{
-    QSqlQuery query;
-    QString qID = QString::fromStdString(ID);
-    QString qvalue = QString::fromStdString(value);
-    if (type == "-name")
-    {
-        query.prepare("Update persons SET name = :value WHERE ID = :id");
-        query.bindValue(":id", qID);
-        query.bindValue(":value", qvalue);
-    }
-    else if (type == "-sex")
-    {
-        query.prepare("Update persons SET sex = :value WHERE ID = :id");
-        query.bindValue(":id", qID);
-        query.bindValue(":value", qvalue);
-    }
-    else if (type == "-birth")
-    {
-        query.prepare("Update persons SET birth = :value WHERE ID = :id");
-        query.bindValue(":id", qID);
-        query.bindValue(":value", qvalue);
-    }
-    else if (type == "-death")
-    {
-        query.prepare("Update persons SET death = :value WHERE ID = :id");
-        query.bindValue(":id", qID);
-        query.bindValue(":value", qvalue);
-    }
-    query.exec();
-}*/
 
 void Data::edit(string& ID, string& name, string& sex, string& birth, string& death)
 {
@@ -351,6 +325,79 @@ vector<Computer> Data::sortComputer(string& type)
         }
     }
     return comp;
+}
+
+vector<PersAndComp> Data::sortBoth(string &type)
+{
+    vector<PersAndComp> pAc;
+    QSqlQuery query;
+    if (type == "computersasc")
+    {
+        query.exec("SELECT pac_ID, pac_status, p.name, c.computer_name FROM persons p "
+                   "INNER JOIN computer c "
+                   "ON c.computer_id = pc.computer_id "
+                   "INNER JOIN personsandcomputers pc "
+                   "ON pc.computer_ID = c.computer_id "
+                   "WHERE pc.computer_ID = c.computer_id "
+                   "AND p.ID = pc.person_id "
+                   "AND p.Status = 0 "
+                   "AND c.computer_status = 0 "
+                   "AND pac_status = 0 "
+                   "ORDER BY c.computer_name ASC");
+    }
+    else if (type == "computersdesc")
+    {
+        query.exec("SELECT pac_ID, pac_status, p.name, c.computer_name FROM persons p "
+                   "INNER JOIN computer c "
+                   "ON c.computer_id = pc.computer_id "
+                   "INNER JOIN personsandcomputers pc "
+                   "ON pc.computer_ID = c.computer_id "
+                   "WHERE pc.computer_ID = c.computer_id "
+                   "AND p.ID = pc.person_id "
+                   "AND p.Status = 0 "
+                   "AND c.computer_status = 0 "
+                   "AND pac_status = 0 "
+                   "ORDER BY c.computer_name DESC");
+    }
+    else if (type == "creatorsasc")
+    {
+        query.exec("SELECT pac_ID, pac_status, p.name, c.computer_name FROM persons p "
+                   "INNER JOIN computer c "
+                   "ON c.computer_id = pc.computer_id "
+                   "INNER JOIN personsandcomputers pc "
+                   "ON pc.computer_ID = c.computer_id "
+                   "WHERE pc.computer_ID = c.computer_id "
+                   "AND p.ID = pc.person_id "
+                   "AND p.Status = 0 "
+                   "AND c.computer_status = 0 "
+                   "AND pac_status = 0 "
+                   "ORDER BY p.name ASC");
+    }
+    else if (type == "creatorsdesc")
+    {
+        query.exec("SELECT pac_ID, pac_status, p.name, c.computer_name FROM persons p "
+                   "INNER JOIN computer c "
+                   "ON c.computer_id = pc.computer_id "
+                   "INNER JOIN personsandcomputers pc "
+                   "ON pc.computer_ID = c.computer_id "
+                   "WHERE pc.computer_ID = c.computer_id "
+                   "AND p.ID = pc.person_id "
+                   "AND p.Status = 0 "
+                   "AND c.computer_status = 0 "
+                   "AND pac_status = 0 "
+                   "ORDER BY p.name DESC");
+    }
+
+    while (query.next())
+    {
+        string id = query.value("pac_ID").toString().toStdString();
+        string pName = query.value("name").toString().toStdString();
+        string cName = query.value("computer_name").toString().toStdString();
+        PersAndComp pc(id, pName, cName);
+        pAc.push_back(pc);
+
+    }
+    return pAc;
 }
 
 //skrifar upplysingar ur toflunni personsandcomputers i vector

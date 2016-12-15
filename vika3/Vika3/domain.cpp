@@ -211,11 +211,28 @@ vector<Computer> Domain::sortComputer(string& value)
     return comp;
 }
 
+vector<PersAndComp> Domain::sortBoth(string &value)
+{
+    vector<PersAndComp> pAc;
+    Data d;
+    pAc = d.sortBoth(value);
+    return pAc;
+}
+
 //kallar i fall sem fjarlaegir computer ur database
 void Domain::removeComputer(vector<Computer>& comp, int& line)
 {
     int type = 1;
     string ID = comp[line].getID();
+    Data dat;
+    dat.remove(ID, type);
+}
+
+//kallar i fall sem fjarlaegir vensl ur database
+void Domain::removeConnection(vector<PersAndComp>& pAc, int& line)
+{
+    int type = 2;
+    string ID = pAc[line].getID();
     Data dat;
     dat.remove(ID, type);
 }
@@ -296,6 +313,39 @@ vector<Computer> Domain::searchComputer(string& whattype, string input)
             res.push_back(c);
         }
 
+    }
+    return res;
+}
+
+//skilar vector af nidurstodum ur leit
+vector<PersAndComp> Domain::searchBoth(string& whattype, string input)
+{
+    Data dat;
+    vector<PersAndComp> pAc, res;
+    pAc = dat.sortBoth(whattype);
+
+    string valcompname, valpersname, innerinput;
+    size_t foundcompname, foundpersname;
+
+
+    for(unsigned int i = 0; i < pAc.size(); i++)
+    {
+        valcompname = Lower_Ans(pAc[i].getCompName());
+        valpersname = Lower_Ans(pAc[i].getPersName());
+        innerinput = Lower_Ans(input);
+        foundcompname = valcompname.find(innerinput);
+        foundpersname = valpersname.find(innerinput);
+
+        if (foundcompname!=string::npos)
+        {
+            PersAndComp c(pAc[i].getID(), pAc[i].getPersName(), pAc[i].getCompName());
+            res.push_back(c);
+        }
+        else if (foundpersname!=string::npos)
+        {
+            PersAndComp c(pAc[i].getID(), pAc[i].getPersName(), pAc[i].getCompName());
+            res.push_back(c);
+        }
     }
     return res;
 }

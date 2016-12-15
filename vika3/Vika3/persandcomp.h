@@ -16,6 +16,11 @@ public:
         _compName = compName;
     }
 
+    string getID()
+    {
+        return _id;
+    }
+
     string getPersName()
     {
         return _persName;

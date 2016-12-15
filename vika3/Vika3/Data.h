@@ -33,8 +33,10 @@ public:
     void editComp(string& _ID, string& _name, string& _year, string& _type, string& _built);
     QSqlDatabase m_db;
     bool openDatabase();
+
     vector<Person> sortPersons(string& type);
     vector<Computer> sortComputer(string& type);
+    vector<PersAndComp> sortBoth(string& type);
 
     void getPACjoined(vector<PersonsAndComputers>& pAc);
     void getPACjoinedTest(vector<PersAndComp>& pAc);

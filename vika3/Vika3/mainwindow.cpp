@@ -91,7 +91,8 @@ void MainWindow::displayComputers(vector<Computer> comp)
 
 void MainWindow::displayAllPersAndComp()
 {
-    vector<PersAndComp> pAc = domain.persAndCompListTest();
+    string type = getBothCurrentSortBy();
+    vector<PersAndComp> pAc = domain.sortBoth(type);
     displayPersAndComp(pAc);
     currentlyDisplayedPersAndComp = pAc;
 }
@@ -113,59 +114,6 @@ void MainWindow::displayPersAndComp(vector<PersAndComp> pAc)
         ui->tblPersAndComp->setItem(row, 1, new QTableWidgetItem(persName));
     }
 }
-
-/*
-void MainWindow::displayPersAndComp(vector<PersonsAndComputers> pAc)
-{
-    vector<Person> pers = domain.list();
-
-    vector<Computer> comp = domain.computerList();
-
-    ui->tblPersAndComp->clearContents();
-
-    ui->tblPersAndComp->setRowCount(pAc.size());
-
-    int row = 0;
-    string id;
-    for (unsigned int r = 0; r < comp.size(); r++)
-    {
-        Computer currentComputer = comp.at(r);
-        QString compName = QString::fromStdString(currentComputer.getName());
-        QString year = QString::fromStdString(currentComputer.getYear());
-        QString built = QString::fromStdString(currentComputer.getType());
-
-        ui->tblPersAndComp->setItem(row, 0, new QTableWidgetItem(compName));
-        ui->tblPersAndComp->setItem(row, 2, new QTableWidgetItem(year));
-        ui->tblPersAndComp->setItem(row, 3, new QTableWidgetItem(built));
-
-        int t = 0;
-        for (unsigned int k = 0; k < pAc.size(); k++)
-        {
-            if (comp[r].getID() == pAc[k].getComp_ID())
-            {
-                id = pAc[k].getPers_ID();
-                for (unsigned int j = 0; j < pers.size(); j++)
-                {
-                    if (pers[j].getID() == id)
-                    {
-                        Person currentPerson = pers.at(j);
-
-                        QString persName = QString::fromStdString(currentPerson.getFirstname());
-
-                        ui->tblPersAndComp->setItem(row, 1, new QTableWidgetItem(persName));
-
-                        if (row < comp.size())
-                        {
-                            row++;
-                        }
-                    }
-                }
-            }
-            t++;
-        }
-    }
-}
-*/
 
 string MainWindow::getPersonCurrentSortBy()
 {
@@ -255,6 +203,34 @@ string MainWindow::getComputerCurrentSortBy()
     return valueInOrderBy;
 }
 
+string MainWindow::getBothCurrentSortBy()
+{
+    string valueInOrderBy = ui->comboBox_sort_both->currentText().toStdString();
+
+    if (valueInOrderBy == "Computers" && ui->radioButton_sort_both_asc->isChecked())
+    {
+        return "computersasc";
+    }
+    else if (valueInOrderBy == "Computers" && ui->radioButton_sort_both_desc->isChecked())
+    {
+        return "computersdesc";
+    }
+    else if (valueInOrderBy == "Creators" && ui->radioButton_sort_both_asc->isChecked())
+    {
+        return "creatorsasc";
+    }
+    else if (valueInOrderBy == "Creators" && ui->radioButton_sort_both_desc->isChecked())
+    {
+        return "creatorsdesc";
+    }
+    else
+    {
+        return "computersasc";
+    }
+
+    return valueInOrderBy;
+}
+
 void MainWindow::on_btnNew_clicked()
 {
     AddNewDialog addNewDialog;
@@ -293,6 +269,14 @@ void MainWindow::on_btnDelete_clicked()
         ui->btnDelete->setEnabled(false);
         ui->input_filter_computer->setText("");
     }
+    else if (currentTabIndex == 2)
+    {
+        int currentlySelected = ui->tblPersAndComp->currentIndex().row();
+        domain.removeConnection(currentlyDisplayedPersAndComp, currentlySelected);
+        displayAllPersAndComp();
+        ui->btnDelete->setEnabled(false);
+        ui->input_filter_both->setText("");
+    }
 
 }
 
@@ -306,6 +290,11 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 {
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(true);
+}
+
+void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
+{
+    ui->btnDelete->setEnabled(true);
 }
 
 void MainWindow::on_input_filter_person_textChanged(const QString &arg1)
@@ -329,6 +318,18 @@ void MainWindow::on_input_filter_computer_textChanged(const QString &arg1)
         vector<Computer> comp = domain.searchComputer(sort, filterInput);
         currentlyDisplayedComputers = comp;
         displayComputers(comp);
+    }
+}
+
+void MainWindow::on_input_filter_both_textChanged(const QString &arg1)
+{
+    if (ui->tblPersAndComp->isActiveWindow())
+    {
+        const string&& filterInput = ui->input_filter_both->text().toStdString();
+        string sort = getBothCurrentSortBy();
+        vector<PersAndComp> pAc = domain.searchBoth(sort, filterInput);
+        currentlyDisplayedPersAndComp = pAc;
+        displayPersAndComp(pAc);
     }
 }
 
@@ -381,19 +382,6 @@ void MainWindow::on_btnEdit_clicked()
     ui->btnEdit->setEnabled(false);
 }
 
-
-
-void MainWindow::on_radioButton_person_sort_asc_toggled(bool checked)
-{
-    displayAllPersons();
-}
-
-
-void MainWindow::on_radioButton_person_sort_desc_toggled(bool checked)
-{
-    displayAllPersons();
-}
-
 void MainWindow::on_actionNew_triggered()
 {
         AddNewDialog addNewDialog;
@@ -416,6 +404,16 @@ void MainWindow::on_comboBox_person_sort_currentIndexChanged(int index)
     on_input_filter_person_textChanged("");
 }
 
+void MainWindow::on_radioButton_person_sort_asc_toggled(bool checked)
+{
+    on_input_filter_person_textChanged("");
+}
+
+void MainWindow::on_radioButton_person_sort_desc_toggled(bool checked)
+{
+    on_input_filter_person_textChanged("");
+}
+
 void MainWindow::on_comboBox_computer_sort_currentIndexChanged(int index)
 {
     on_input_filter_computer_textChanged("");
@@ -423,14 +421,27 @@ void MainWindow::on_comboBox_computer_sort_currentIndexChanged(int index)
 
 void MainWindow::on_radioButton_computer_sort_asc_toggled(bool checked)
 {
-    displayAllComputers();
+    on_input_filter_computer_textChanged("");
 }
 
 void MainWindow::on_radioButton_computer_sort_desc_toggled(bool checked)
 {
-    displayAllComputers();
+    on_input_filter_computer_textChanged("");
 }
 
+void MainWindow::on_comboBox_sort_both_currentIndexChanged(int index)
+{
+    on_input_filter_both_textChanged("");
+}
 
+void MainWindow::on_radioButton_sort_both_asc_toggled(bool checked)
+{
+    on_input_filter_both_textChanged("");
+}
+
+void MainWindow::on_radioButton_sort_both_desc_toggled(bool checked)
+{
+    on_input_filter_both_textChanged("");
+}
 
 
