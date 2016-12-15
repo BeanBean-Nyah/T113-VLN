@@ -47,7 +47,11 @@ public:
 
     vector<PersonsAndComputers> persAndCompList();
     vector<PersAndComp> persAndCompListTest();
+
+    string capFirstLetter(string& str);
     string Lower_Ans(string word);
+    bool contains_letters(const string &c);
+    bool contains_number(const string &c);
 
     bool clear(string& type);
     string funFact();

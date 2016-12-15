@@ -403,25 +403,20 @@ vector<PersAndComp> Data::sortBoth(string &type)
 //skrifar upplysingar ur toflunni personsandcomputers i vector
 void Data::getPACjoined(vector<PersonsAndComputers>& pAc)
 {
-    QSqlQuery query("SELECT ID, computer_ID, person_ID, pac_status FROM personsandcomputers");
+    QSqlQuery query("SELECT pac_ID, computer_ID, person_ID, pac_status "
+                    "FROM personsandcomputers "
+                    "WHERE pac_status = 0");
 
-    int idID = query.record().indexOf("ID");
-    int idComp_ID = query.record().indexOf("computer_ID");
-    int idPers_ID = query.record().indexOf("person_ID");
-    int idStatus = query.record().indexOf("pac_status");
     while (query.next())
     {
-        if (query.value(idStatus) == 0)
-        {
-            QString qid = query.value(idID).toString();
-            string id = qid.toLocal8Bit().constData();
-            QString qcomp_id = query.value(idComp_ID).toString();
-            string comp_id = qcomp_id.toLocal8Bit().constData();
-            QString qpers_id = query.value(idPers_ID).toString();
-            string pers_id = qpers_id.toLocal8Bit().constData();
-            PersonsAndComputers pc(id, pers_id, comp_id);
-            pAc.push_back(pc);
-        }
+
+        string id = query.value("pac_ID").toString().toStdString();
+        string comp_id = query.value("computer_ID").toString().toStdString();
+        string pers_id = query.value("person_ID").toString().toStdString();
+
+        PersonsAndComputers pc(id, pers_id, comp_id);
+        pAc.push_back(pc);
+
     }
 }
 

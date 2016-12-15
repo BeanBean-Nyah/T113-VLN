@@ -238,11 +238,11 @@ void MainWindow::on_btnNew_clicked()
     {
         AddNewDialog addNewDialog;
         int status = addNewDialog.exec();
-        if (status == 0)
+        if (status == 1)
         {
-            //ui->statusBar->showMessage("Successfully added!", 2000);
+            ui->statusBar->showMessage("Successfully added!", 2000);
         }
-        else if (status == 1)
+        else if (status == 2)
         {
             // error
         }
@@ -251,15 +251,16 @@ void MainWindow::on_btnNew_clicked()
     {
         DialogNewRelation dialogNewRelation;
         int status = dialogNewRelation.exec();
-        if (status == 0)
+        if (status == 1)
         {
-            //ui->statusBar->showMessage("Successfully added!", 2000);
+            ui->statusBar->showMessage("Successfully added new relaiton!", 3000);
         }
-        else if (status == 1)
+        else if (status == 2)
         {
-            // error
+            ui->statusBar->showMessage("This exact relation already exists!", 3000);
         }
     }
+    ui->input_filter_both->setText("");
     ui->input_filter_person->setText("");
     ui->input_filter_computer->setText("");
     displayAllPersons();

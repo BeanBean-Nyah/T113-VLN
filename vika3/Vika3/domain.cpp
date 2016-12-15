@@ -381,6 +381,7 @@ bool Domain::connectPtoC(string& persID, string& compID)
             check = true;
         }
     }
+
     if (check)
     {
         d.writePAC(persID, compID);
@@ -422,10 +423,33 @@ bool Domain::clear(string& type)
     return false;
 }
 
-//breytir ollum stofum i streng i lagstafi
+// Villutjekk, athugar hvort thad se tolustafur i strengnum
+bool Domain::contains_number(const string &c)
+{
+    return (c.find_first_of("0123456789") != string::npos);
+}
+
+// Villutjekk, athugar hvort thad se bokstafur i strengnum
+bool Domain::contains_letters(const string &c)
+{
+    return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM") != string::npos);
+}
+
+// Gerir alla stafi i streng lower case
 string Domain::Lower_Ans(string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator
     return word;
 }
 
+// Fixar input thannig ad fyrsti stafur er alltaf stor og rest litlir
+string Domain::capFirstLetter(string& str)
+{
+    string output = Lower_Ans(str);
+    size_t f = output.find(" ");
+    output[0] = toupper(output[0]);
+    output[f+1] = toupper(output[f+1]);
+    f = output.find(" ",f+1);
+    output[f+1] = toupper(output[f+1]);
+    return output;
+}
