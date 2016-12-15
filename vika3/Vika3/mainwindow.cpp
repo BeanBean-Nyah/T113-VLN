@@ -259,6 +259,10 @@ void MainWindow::on_btnDelete_clicked()
         domain.remove(currentlyDisplayedPersons, currentlySelected);
         displayAllPersons();
         ui->btnDelete->setEnabled(false);
+        ui->btnDelete->setEnabled(false);
+        ui->btnEdit->setEnabled(false);
+        ui->actionEdit->setEnabled(false);
+        ui->actionRemove->setEnabled(false);
         ui->input_filter_computer->setText("");
     }
     else if (currentTabIndex == 1)
@@ -267,6 +271,10 @@ void MainWindow::on_btnDelete_clicked()
         domain.removeComputer(currentlyDisplayedComputers, currentlySelected);
         displayAllComputers();
         ui->btnDelete->setEnabled(false);
+        ui->btnDelete->setEnabled(false);
+        ui->btnEdit->setEnabled(false);
+        ui->actionEdit->setEnabled(false);
+        ui->actionRemove->setEnabled(false);
         ui->input_filter_computer->setText("");
     }
     else if (currentTabIndex == 2)
@@ -275,6 +283,9 @@ void MainWindow::on_btnDelete_clicked()
         domain.removeConnection(currentlyDisplayedPersAndComp, currentlySelected);
         displayAllPersAndComp();
         ui->btnDelete->setEnabled(false);
+        ui->btnEdit->setEnabled(false);
+        ui->actionEdit->setEnabled(false);
+        ui->actionRemove->setEnabled(false);
         ui->input_filter_both->setText("");
     }
 
@@ -284,17 +295,24 @@ void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 {        
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(true);
+    ui->actionEdit->setEnabled(true);
+    ui->actionRemove->setEnabled(true);
 }
 
 void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 {
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(true);
+    ui->actionEdit->setEnabled(true);
+    ui->actionRemove->setEnabled(true);
 }
 
 void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
 {
     ui->btnDelete->setEnabled(true);
+    ui->btnEdit->setEnabled(true);
+    ui->actionEdit->setEnabled(true);
+    ui->actionRemove->setEnabled(true);
 }
 
 void MainWindow::on_input_filter_person_textChanged(const QString &arg1)
@@ -380,6 +398,8 @@ void MainWindow::on_btnEdit_clicked()
     displayAllPersAndComp();
     ui->btnDelete->setEnabled(false);
     ui->btnEdit->setEnabled(false);
+    ui->actionEdit->setEnabled(false);
+    ui->actionRemove->setEnabled(false);
 }
 
 void MainWindow::on_actionNew_triggered()
@@ -432,4 +452,28 @@ void MainWindow::on_radioButton_sort_both_desc_toggled(bool checked)
     on_input_filter_both_textChanged("");
 }
 
+void MainWindow::on_actionAbout_triggered()
+{
+    DialogAbout about;
+    about.exec();
+}
 
+void MainWindow::on_actionAbout_toggled(bool arg1)
+{
+
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    QApplication::exit(0);
+}
+
+void MainWindow::on_actionEdit_triggered()
+{
+    on_btnEdit_clicked();
+}
+
+void MainWindow::on_actionRemove_triggered()
+{
+    on_btnDelete_clicked();
+}
