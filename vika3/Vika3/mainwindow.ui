@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Persons and computers</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
@@ -421,7 +421,7 @@
      <x>0</x>
      <y>0</y>
      <width>950</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -469,6 +469,9 @@
    </property>
   </action>
   <action name="actionEdit">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/icons/images/edit.png</normaloff>:/icons/images/edit.png</iconset>
@@ -478,6 +481,9 @@
    </property>
   </action>
   <action name="actionRemove">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/icons/images/remove.png</normaloff>:/icons/images/remove.png</iconset>

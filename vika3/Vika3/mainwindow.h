@@ -10,6 +10,7 @@
 #include "dialogedit.h"
 #include "dialogeditcomputer.h"
 #include "dialognewrelation.h"
+#include "dialogabout.h"
 
 #include <vector>
 #include <QMainWindow>
@@ -69,6 +70,16 @@ private slots:
     void on_radioButton_sort_both_desc_toggled(bool checked);
 
     void on_tblPersAndComp_clicked(const QModelIndex &index);
+
+    void on_actionAbout_toggled(bool arg1);
+
+    void on_actionAbout_triggered();
+
+    void on_actionExit_triggered();
+
+    void on_actionEdit_triggered();
+
+    void on_actionRemove_triggered();
 
 private:
     Ui::MainWindow *ui;
