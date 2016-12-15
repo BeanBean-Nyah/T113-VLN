@@ -112,6 +112,20 @@ void AddNewDialog::on_pushButton_clicked()
 
         int personSuccess = addNewPerson();
         int computerSuccess = addNewComputer();
+
+        if (personSuccess == 0 && computerSuccess == 0)
+        {
+            vector<Person> pers = domain.list();
+            vector<Computer> comp = domain.computerList();
+
+            string persID = pers[(pers.size()-1)].getID();
+            string compID = comp[(comp.size()-1)].getID();
+
+            if (domain.connectPtoC(persID, compID))
+            {
+                //skila ad thad tokst
+            }
+        }
     }
 }
 

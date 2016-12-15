@@ -43,7 +43,7 @@
      <item>
       <widget class="QRadioButton" name="radioButton_both">
        <property name="text">
-        <string>Both</string>
+        <string>Connected</string>
        </property>
       </widget>
      </item>
