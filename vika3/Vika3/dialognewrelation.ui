@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>513</width>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,21 +15,40 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout"/>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QTableWidget" name="tableWidget_computers">
+       <column>
+        <property name="text">
+         <string>Computers</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tableWidget_creators">
+       <column>
+        <property name="text">
+         <string>Creators</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButton_save">
        <property name="text">
-        <string>PushButton</string>
+        <string>Connect together</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButton_cancel">
        <property name="text">
-        <string>PushButton</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>
