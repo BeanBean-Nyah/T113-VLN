@@ -4,7 +4,7 @@
 #include "Person.h"
 #include "Computer.h"
 #include "PersonsAndComputers.h"
-#include "Persandcomp.h"
+#include "persandcomp.h"
 #include "Facts.h"
 #include <iostream>
 #include <fstream>
