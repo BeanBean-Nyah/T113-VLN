@@ -59,6 +59,7 @@ bool Domain::add(string& firstname, string& sex, string& birth, string& death)
                 birth == persons[i].getBirth() && death == persons[i].getDeath())
         {
           check = false;
+          break;
         }
         else
         {
@@ -90,6 +91,7 @@ bool Domain::addComputer(string& name, string& year, string& type, string& built
                 type == comp[i].getType() && built == comp[i].getBuilt())
         {
             check = false;
+            break;
         }
         else
         {

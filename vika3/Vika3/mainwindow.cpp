@@ -238,9 +238,17 @@ void MainWindow::on_btnNew_clicked()
     {
         AddNewDialog addNewDialog;
         int status = addNewDialog.exec();
-        if (status == 1)
+        if (status == 3)
         {
-            ui->statusBar->showMessage("Successfully added!", 2000);
+            ui->statusBar->showMessage("Successfully added new person!", 3000);
+        }
+        else if (status == 4)
+        {
+            ui->statusBar->showMessage("Successfully added new computer!", 3000);
+        }
+        else if (status == 5)
+        {
+            ui->statusBar->showMessage("Successfully added new person and computer!", 3000);
         }
         else if (status == 2)
         {

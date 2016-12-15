@@ -31,6 +31,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    vector<Person> currentlyDisplayedPersons;
+    vector<Computer> currentlyDisplayedComputers;
 
 private slots:
     void on_btnNew_clicked();
@@ -96,8 +98,7 @@ private:
     string getComputerCurrentSortBy();
     string getBothCurrentSortBy();
 
-    vector<Person> currentlyDisplayedPersons;
-    vector<Computer> currentlyDisplayedComputers;
+
     vector<PersAndComp> currentlyDisplayedPersAndComp;
 };
 

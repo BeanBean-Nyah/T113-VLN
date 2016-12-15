@@ -84,37 +84,100 @@ void AddNewDialog::on_radioButton_both_toggled(bool checked)
 void AddNewDialog::on_pushButton_clicked()
 {
     clearErrors();
+    QString computername = ui->input_computer_name->text();
+    QString year = ui->input_computer_year->text();
+    QString type = ui->input_computer_type->currentText();
+    QString built = ui->input_computer_built->currentText();
+    QString personname = ui->input_person_name->text();
+    QString sex = ui->input_person_sex->currentText();
+    QString birth = ui->input_person_birth->text();
+    QString death = ui->input_person_death->text();
+
+    string spersname = personname.toStdString();
+    spersname = domain.capFirstLetter(spersname);
+    string ssex = sex.toStdString();
+    string sbirth = birth.toStdString();
+    string sdeath = death.toStdString();
+    string scompname = computername.toStdString();
+    scompname = domain.capFirstLetter(scompname);
+    string syear = year.toStdString();
+    string stype = type.toStdString();
+    string sbuilt = built.toStdString();
+
     if (ui->radioButton_new_person->isChecked())
     {
         int personSuccess = addNewPerson();
+        if (personSuccess == 1)
+        {
+            if (domain.add(spersname, ssex, sbirth, sdeath))
+            {
+                ui->input_person_name->setText("");
+                ui->input_person_birth->setText("");
+                ui->input_person_death->setText("");
+                ui->input_person_sex->setCurrentIndex(0);
+                this->done(3);
+            }
+            else
+            {
+                ui->label_error_message->setText("This exact person already exists!");
+            }
+        }
+
     }
     else if (ui->radioButton_new_computer->isChecked())
     {
         int computerSuccess = addNewComputer();
+        if (computerSuccess == 1)
+        {
+            if (domain.addComputer(scompname, syear, stype, sbuilt))
+            {
+                ui->input_computer_name->setText("");
+                ui->input_computer_year->setText("");
+                ui->input_computer_type->setCurrentIndex(0);
+                ui->input_computer_built->setCurrentIndex(0);
+                this->done(4);
+            }
+        }
+        else
+        {
+            ui->label_error_message->setText("This exact computer already exists!");
+        }
     }
     else if (ui->radioButton_both->isChecked())
     {
-        QString computername = ui->input_computer_name->text();
-        QString year = ui->input_computer_year->text();
-        QString type = ui->input_computer_type->currentText();
-        QString built = ui->input_computer_built->currentText();
-        QString personname = ui->input_person_name->text();
-        QString sex = ui->input_person_sex->currentText();
-        QString birth = ui->input_person_birth->text();
-        QString death = ui->input_person_death->text();
-
-        if (computername.isEmpty() || year.isEmpty() || type.isEmpty() || built.isEmpty() ||
-            personname.isEmpty() || sex.isEmpty() || birth.isEmpty())
-        {
-            //skila villu um hvad er ad
-            return;
-        }
-
         int personSuccess = addNewPerson();
         int computerSuccess = addNewComputer();
 
-        if (personSuccess == 0 && computerSuccess == 0)
+        if (personSuccess == 1 && computerSuccess == 1)
         {
+            if (domain.add(spersname, ssex, sbirth, sdeath))
+            {
+                if (domain.addComputer(scompname, syear, stype, sbuilt))
+                {
+                    ui->input_person_name->setText("");
+                    ui->input_person_birth->setText("");
+                    ui->input_person_death->setText("");
+                    ui->input_person_sex->setCurrentIndex(0);
+                    ui->input_computer_name->setText("");
+                    ui->input_computer_year->setText("");
+                    ui->input_computer_type->setCurrentIndex(0);
+                    ui->input_computer_built->setCurrentIndex(0);
+                }
+                else
+                {
+                    vector<Person> pers = domain.list();
+                    int line = pers.size() - 1;
+                    domain.remove(pers, line);
+                    ui->label_error_message->setText("This exact computer already exists!");
+                    return;
+                }
+            }
+            else
+            {
+                ui->label_error_message->setText("This exact person already exists!");
+                return;
+            }
+
             vector<Person> pers = domain.list();
             vector<Computer> comp = domain.computerList();
 
@@ -123,7 +186,7 @@ void AddNewDialog::on_pushButton_clicked()
 
             if (domain.connectPtoC(persID, compID))
             {
-                //skila ad thad tokst
+                done(5);
             }
         }
     }
@@ -184,18 +247,7 @@ int AddNewDialog::addNewPerson()
         return 2;
     }
 
-    if (domain.add(sname, ssex, sbirth, sdeath))
-    {
-        ui->input_person_name->setText("");
-        ui->input_person_birth->setText("");
-        ui->input_person_death->setText("");
-        this->done(1);
-    }
-    else
-    {
-        // skila villu um ad ekki hafi tekist ad baeta vid personu
-        this->done(2);
-    }
+    return 1;
 }
 
 int AddNewDialog::addNewComputer()
@@ -240,17 +292,8 @@ int AddNewDialog::addNewComputer()
         ui->label_error_message->setText("The computer must have been built some year!");
         return 2;
     }
-    if (domain.addComputer(sname, syear, stype, sbuilt))
-    {
-        ui->input_computer_name->setText("");
-        ui->input_computer_year->setText("");
-        this->done(1);
-    }
-    else
-    {
-        // skila villu um ad ekki hafi tekist ad baeta vid personu
-        this->done(2);
-    }
+
+    return 1;
 }
 
 void AddNewDialog::clearErrors()
