@@ -6,6 +6,7 @@
 
 #include <QDialog>
 #include <QDebug>
+#include <string>
 
 using namespace std;
 

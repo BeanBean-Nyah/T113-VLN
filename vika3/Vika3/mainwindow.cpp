@@ -337,8 +337,8 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
 {
     ui->btnDelete->setEnabled(true);
-    ui->btnEdit->setEnabled(true);
-    ui->actionEdit->setEnabled(true);
+    ui->btnEdit->setEnabled(false);
+    ui->actionEdit->setEnabled(false);
     ui->actionRemove->setEnabled(true);
 }
 
@@ -397,13 +397,32 @@ void MainWindow::on_btnEdit_clicked()
 
         if (status == 0)
         {
-
+            ui->statusBar->showMessage("This exact person already exists!", 3000);
         }
         else if (status == 1)
         {
-
+            ui->statusBar->showMessage("Successfully edited a person!", 3000);
         }
-
+        else if (status == 2)
+        {
+            ui->statusBar->showMessage("Name, sex or birth can't be empty!", 3000);
+        }
+        else if (status == 3)
+        {
+            ui->statusBar->showMessage("Name can not contain numbers!", 3000);
+        }
+        else if (status == 4)
+        {
+            ui->statusBar->showMessage("Year of birth and death can not contain letters!", 3000);
+        }
+        else if (status == 5)
+        {
+            ui->statusBar->showMessage("Year of birth and death can not be in the future!", 3000);
+        }
+        else if (status == 6)
+        {
+            ui->statusBar->showMessage("Persons can not be born after they die!", 3000);
+        }
     }
     else if (currentTabIndex == 1)
     {
@@ -418,6 +437,35 @@ void MainWindow::on_btnEdit_clicked()
         DialogEditComputer  newdialogEditComputer;
         newdialogEditComputer.setTextbox(name, year, type, built, id);
         int status = newdialogEditComputer.exec();
+
+        if (status == 0)
+        {
+            ui->statusBar->showMessage("This exact computer already exists!", 3000);
+        }
+        else if (status == 1)
+        {
+            ui->statusBar->showMessage("Successfully edited a computer!", 3000);
+        }
+        else if (status == 2)
+        {
+            ui->statusBar->showMessage("Name, type and built cant be empty!", 3000);
+        }
+        else if (status == 3)
+        {
+            ui->statusBar->showMessage("Year can not contain letters!", 3000);
+        }
+        else if (status == 4)
+        {
+            ui->statusBar->showMessage("The computer must have been built some year!", 3000);
+        }
+        else if (status == 5)
+        {
+            ui->statusBar->showMessage("The computer cant be built in the future!", 3000);
+        }
+        else if (status == 6)
+        {
+            ui->statusBar->showMessage("If the compter has some year it must have been built!", 3000);
+        }
     }
 
     displayAllPersons();

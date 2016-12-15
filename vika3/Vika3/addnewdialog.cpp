@@ -292,6 +292,16 @@ int AddNewDialog::addNewComputer()
         ui->label_error_message->setText("The computer must have been built some year!");
         return 2;
     }
+    if (sbuilt == "No" && !(syear.empty()))
+    {
+        ui->label_error_message->setText("If the compter has some year it must have been built!");
+        return 2;
+    }
+    if (atoi(syear.c_str()) > 2016)
+    {
+        ui->label_error_message->setText("The computer cant be built in the future!");
+        return 2;
+    }
 
     return 1;
 }

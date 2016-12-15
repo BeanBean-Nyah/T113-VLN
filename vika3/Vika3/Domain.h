@@ -30,10 +30,8 @@ public:
     vector<Computer> searchComputer(string& whattype, string input);
     vector<PersAndComp> searchBoth(string& whattype, string input);
 
-    void edit(vector<Person>& pers, int& line, string& type, string& newValue);
-    void edit(string& _ID, string& _name, string& _sex, string& birth, string& death);
-    void editComputer(vector<Computer>& comp, int& line, string& type, string& newValue);
-    void editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built);
+    bool edit(string& _ID, string& _name, string& _sex, string& birth, string& death);
+    bool editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built);
 
     vector<Person> list();
     vector<Computer> computerList();
