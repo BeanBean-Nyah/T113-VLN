@@ -233,21 +233,39 @@ string MainWindow::getBothCurrentSortBy()
 
 void MainWindow::on_btnNew_clicked()
 {
-    AddNewDialog addNewDialog;
-    int status = addNewDialog.exec();
-    if (status == 0)
+    int currentTabIndex = ui->tabWidget->currentIndex();
+    if (currentTabIndex == 0 || currentTabIndex == 1)
     {
-        //ui->statusBar->showMessage("Successfully added!", 2000);
+        AddNewDialog addNewDialog;
+        int status = addNewDialog.exec();
+        if (status == 0)
+        {
+            //ui->statusBar->showMessage("Successfully added!", 2000);
+        }
+        else if (status == 1)
+        {
+            // error
+        }
     }
-    else if (status == 1)
+    else if (currentTabIndex == 2)
     {
-        // error
+        DialogNewRelation dialogNewRelation;
+        int status = dialogNewRelation.exec();
+        if (status == 0)
+        {
+            //ui->statusBar->showMessage("Successfully added!", 2000);
+        }
+        else if (status == 1)
+        {
+            // error
+        }
     }
     ui->input_filter_person->setText("");
     ui->input_filter_computer->setText("");
     displayAllPersons();
     displayAllComputers();
     displayAllPersAndComp();
+
 }
 
 void MainWindow::on_btnDelete_clicked()
