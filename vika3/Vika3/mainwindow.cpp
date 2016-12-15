@@ -251,6 +251,14 @@ void MainWindow::on_btnNew_clicked()
     {
         DialogNewRelation dialogNewRelation;
         int status = dialogNewRelation.exec();
+        if (status == 0)
+        {
+            //ui->statusBar->showMessage("Successfully added!", 2000);
+        }
+        else if (status == 1)
+        {
+            // error
+        }
     }
     ui->input_filter_person->setText("");
     ui->input_filter_computer->setText("");

@@ -75,8 +75,22 @@ void DialogNewRelation::displayComputers(vector<Computer> comp)
 void DialogNewRelation::on_pushButton_save_clicked()
 {
     int currentlySelectedComp = ui->tableWidget_computers->currentIndex().row();
-    int currentlySelectedPers = ui->tableWidget_computers->currentIndex().row();
-    done(0);
+    int currentlySelectedPers = ui->tableWidget_creators->currentIndex().row();
+    string persID = currentlyDisplayedPersons[currentlySelectedPers].getID();
+    string compID = currentlyDisplayedComputers[currentlySelectedComp].getID();
+
+    if (domain.connectPtoC(persID, compID))
+    {
+        //skila ad tenging hafi tekist
+        done(0);
+    }
+    else
+    {
+        //skila ad tenging se nu thegar til
+        done(2);
+    }
+
+
 }
 
 void DialogNewRelation::on_pushButton_cancel_clicked()
