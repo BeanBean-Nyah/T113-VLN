@@ -1,4 +1,4 @@
-#include "Persandcomp.h"
+#include "persandcomp.h"
 
 PersAndComp::PersAndComp()
 {
