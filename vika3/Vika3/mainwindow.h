@@ -9,6 +9,7 @@
 #include "addnewdialog.h"
 #include "dialogedit.h"
 #include "dialogeditcomputer.h"
+#include "dialognewrelation.h"
 
 #include <vector>
 #include <QMainWindow>

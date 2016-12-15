@@ -237,7 +237,7 @@ void MainWindow::on_btnNew_clicked()
     int status = addNewDialog.exec();
     if (status == 0)
     {
-        ui->statusBar->showMessage("Successfully added!", 2000);
+        //ui->statusBar->showMessage("Successfully added!", 2000);
     }
     else if (status == 1)
     {
@@ -384,19 +384,7 @@ void MainWindow::on_btnEdit_clicked()
 
 void MainWindow::on_actionNew_triggered()
 {
-        AddNewDialog addNewDialog;
-        int status = addNewDialog.exec();
-        if (status == 0)
-        {
-            ui->input_filter_person->setText("");
-            ui->input_filter_computer->setText("");
-            displayAllPersons();
-            displayAllComputers();
-        }
-        else if (status == 1)
-        {
-            // error
-        }
+    on_btnNew_clicked();
 }
 
 void MainWindow::on_comboBox_person_sort_currentIndexChanged(int index)
