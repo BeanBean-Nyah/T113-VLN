@@ -83,7 +83,7 @@ void AddNewDialog::on_radioButton_both_toggled(bool checked)
 
 void AddNewDialog::on_pushButton_clicked()
 {
-
+    clearErrors();
     if (ui->radioButton_new_person->isChecked())
     {
         int personSuccess = addNewPerson();
@@ -139,7 +139,7 @@ int AddNewDialog::addNewPerson()
     if (name.isEmpty() || sex.isEmpty() || birth.isEmpty())
     {
         //skila villu um hvad er ad
-        ui->label_error_message->setText("Entries marked with can not be empty! <span style = 'color: red'>*");
+        ui->label_error_message->setText("Entries marked red * with can not be empty!");
         if (name.isEmpty())
         {
             ui->label_error_person_name->setText("<span style = 'color: red'>*");
@@ -156,21 +156,45 @@ int AddNewDialog::addNewPerson()
     }
 
     string sname = name.toStdString();
+    sname = domain.capFirstLetter(sname);
     string ssex = sex.toStdString();
     string sbirth = birth.toStdString();
     string sdeath = death.toStdString();
+
+    if (domain.contains_number(sname))
+    {
+        ui->label_error_message->setText("Name can not contain numbers!");
+        return 2;
+    }
+
+    if (domain.contains_letters(sbirth) || domain.contains_letters(sdeath))
+    {
+        ui->label_error_message->setText("Year of birth and death can not contain letters");
+        return 2;
+    }
+    if (atoi(sbirth.c_str()) > 2016 || atoi(sdeath.c_str()) > 2016)
+    {
+        ui->label_error_message->setText("Year of birth and death can not be in the future!");
+        return 2;
+    }
+
+    if (atoi(sbirth.c_str()) > atoi(sdeath.c_str()) && sdeath != "")
+    {
+        ui->label_error_message->setText("Persons can not be born after they die!");
+        return 2;
+    }
 
     if (domain.add(sname, ssex, sbirth, sdeath))
     {
         ui->input_person_name->setText("");
         ui->input_person_birth->setText("");
         ui->input_person_death->setText("");
-        this->done(0);
+        this->done(1);
     }
     else
     {
         // skila villu um ad ekki hafi tekist ad baeta vid personu
-        this->done(1);
+        this->done(2);
     }
 }
 
@@ -181,27 +205,63 @@ int AddNewDialog::addNewComputer()
     QString type = ui->input_computer_type->currentText();
     QString built = ui->input_computer_built->currentText();
 
-    if (name.isEmpty() || year.isEmpty() || type.isEmpty() || built.isEmpty())
+    if (name.isEmpty() || type.isEmpty() || built.isEmpty())
     {
         //skila villu um hvad er ad
 
+        ui->label_error_message->setText("Entries marked red * with can not be empty!");
+        if (name.isEmpty())
+        {
+            ui->label_error_computer_name->setText("<span style = 'color: red'>*");
+        }
+        if (type.isEmpty())
+        {
+            ui->label_error_computer_type->setText("<span style = 'color: red'>*");
+        }
+        if (built.isEmpty())
+        {
+            ui->label_error_computer_built->setText("<span style = 'color: red'>*");
+        }
         return 2;
     }
     string sname = name.toStdString();
+    sname = domain.capFirstLetter(sname);
     string syear = year.toStdString();
     string stype = type.toStdString();
     string sbuilt = built.toStdString();
 
-
+    if (domain.contains_letters(syear))
+    {
+        ui->label_error_message->setText("Year can not contain letters!");
+        return 2;
+    }
+    if (sbuilt == "Yes" && syear.empty())
+    {
+        ui->label_error_message->setText("The computer must have been built some year!");
+        return 2;
+    }
     if (domain.addComputer(sname, syear, stype, sbuilt))
     {
         ui->input_computer_name->setText("");
         ui->input_computer_year->setText("");
-        this->done(0);
+        this->done(1);
     }
     else
     {
         // skila villu um ad ekki hafi tekist ad baeta vid personu
-        this->done(1);
+        this->done(2);
     }
 }
+
+void AddNewDialog::clearErrors()
+{
+    ui->label_error_message->setText("");
+    ui->label_error_person_name->setText("");
+    ui->label_error_person_birth->setText("");
+    ui->label_error_person_sex->setText("");
+    ui->label_error_computer_type->setText("");
+    ui->label_error_computer_built->setText("");
+    ui->label_error_computer_year->setText("");
+    ui->label_error_computer_name->setText("");
+}
+

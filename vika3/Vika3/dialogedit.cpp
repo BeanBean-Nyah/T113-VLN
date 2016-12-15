@@ -41,7 +41,7 @@ void dialogEdit::on_buttonBox_accepted() // todo a check for input errors
     string nDeath = death.toStdString();
 
     domain.edit(id, nName, nSex, nBirth, nDeath);
-    done(0);
+    done(1);
     //return new values
 
 }

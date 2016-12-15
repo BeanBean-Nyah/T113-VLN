@@ -3,6 +3,7 @@
 
 #include "Domain.h"
 
+#include <stdlib.h>
 #include <QDialog>
 #include <QAbstractButton>
 
@@ -32,6 +33,8 @@ private slots:
 private:
     Ui::AddNewDialog *ui;
     Domain domain;
+
+    void clearErrors();
 
     int addNewPerson();
     int addNewComputer();
