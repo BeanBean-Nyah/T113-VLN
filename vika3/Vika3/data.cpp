@@ -614,17 +614,18 @@ bool Data::editInfo(string& _ID, QString& _newInfo)
 
 string Data::getInfoComputer(string& _ID)
 {
-    //get person info
+    //get comp info
     QSqlQuery query;
     QString info;
     QString qID = QString::fromStdString(_ID);
+
 
     query.prepare("SELECT computer_about FROM computer Where computer_ID = :ID");
     query.bindValue(":ID", qID);
     query.exec();
 
     query.first();
-    info = query.value(0).toString();
+        info = query.value(0).toString();
 
     return info.toStdString();
 }

@@ -48,17 +48,26 @@ void DialogMoreInfo::on_btnBrowse_clicked()
                         "Image Files (*.png *.jpg *.bmp)"
                     );
 
-    if (filename.length())
+    if(filename.endsWith(".jpg",Qt::CaseSensitive) || filename.endsWith(".png",Qt::CaseSensitive) ||
+            filename.endsWith(".bmp",Qt::CaseSensitive))
     {
-        QPixmap pixmap(filename);
-        ui->label_image->setPixmap(
-            pixmap.scaled(250, 250, Qt::IgnoreAspectRatio, Qt::FastTransformation));
-        QByteArray inByteArray;
-        QBuffer inBuffer( &inByteArray );
-        inBuffer.open( QIODevice::WriteOnly );
-        pixmap.save( &inBuffer, "PNG" );
-        domain.picture(id, inByteArray);
+        if (filename.length())
+        {
+            QPixmap pixmap(filename);
+            ui->label_image->setPixmap(
+                pixmap.scaled(250, 250, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+            QByteArray inByteArray;
+            QBuffer inBuffer( &inByteArray );
+            inBuffer.open( QIODevice::WriteOnly );
+            pixmap.save( &inBuffer, "PNG" );
+            domain.picture(id, inByteArray);
+        }
     }
+    else
+    {
+          ui->label_errmsg->setText("Invalid filetype!");
+    }
+
 
 
 }
