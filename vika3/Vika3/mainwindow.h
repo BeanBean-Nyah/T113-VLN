@@ -40,39 +40,39 @@ private slots:
 
     void on_btnDelete_clicked();
 
-    void on_tblComputers_clicked(const QModelIndex &index);
+    void on_tblComputers_clicked();
 
-    void on_tblPersons_clicked(const QModelIndex &index);
+    void on_tblPersons_clicked();
 
-    void on_input_filter_person_textChanged(const QString &arg1);
+    void on_input_filter_person_textChanged();
 
-    void on_comboBox_person_sort_currentIndexChanged(int index);
+    void on_comboBox_person_sort_currentIndexChanged();
 
     void on_btnEdit_clicked();
 
-    void on_radioButton_person_sort_asc_toggled(bool checked);
+    void on_radioButton_person_sort_asc_toggled();
 
-    void on_radioButton_person_sort_desc_toggled(bool checked);
+    void on_radioButton_person_sort_desc_toggled();
 
     void on_actionNew_triggered();
 
-    void on_radioButton_computer_sort_asc_toggled(bool checked);
+    void on_radioButton_computer_sort_asc_toggled();
 
-    void on_radioButton_computer_sort_desc_toggled(bool checked);
+    void on_radioButton_computer_sort_desc_toggled();
 
-    void on_comboBox_computer_sort_currentIndexChanged(int index);
+    void on_comboBox_computer_sort_currentIndexChanged();
 
-    void on_input_filter_computer_textChanged(const QString &arg1);
+    void on_input_filter_computer_textChanged();
 
-    void on_input_filter_both_textChanged(const QString &arg1);
+    void on_input_filter_both_textChanged();
 
-    void on_comboBox_sort_both_currentIndexChanged(int index);
+    void on_comboBox_sort_both_currentIndexChanged();
 
-    void on_radioButton_sort_both_asc_toggled(bool checked);
+    void on_radioButton_sort_both_asc_toggled();
 
-    void on_radioButton_sort_both_desc_toggled(bool checked);
+    void on_radioButton_sort_both_desc_toggled();
 
-    void on_tblPersAndComp_clicked(const QModelIndex &index);
+    void on_tblPersAndComp_clicked();
 
     void on_actionAbout_triggered();
 
@@ -84,13 +84,13 @@ private slots:
 
     void on_btnMoreInfo_clicked();
 
-    void on_tblPersons_doubleClicked(const QModelIndex &index);
+    void on_tblPersons_doubleClicked();
 
-    void on_tblComputers_doubleClicked(const QModelIndex &index);
+    void on_tblComputers_doubleClicked();
 
     void on_actionBiography_triggered();
 
-    void on_tabWidget_tabBarClicked(int index);
+    void on_tabWidget_tabBarClicked();
 
 private:
     Ui::MainWindow *ui;

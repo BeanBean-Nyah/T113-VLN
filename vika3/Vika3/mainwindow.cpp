@@ -342,7 +342,7 @@ void MainWindow::on_btnDelete_clicked()
 }
 
 //enable ar videigandi takka
-void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
+void MainWindow::on_tblComputers_clicked()
 {        
     ui->btnMoreInfo->setEnabled(true);
     ui->btnDelete->setEnabled(true);
@@ -353,7 +353,7 @@ void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 }
 
 //enable ar videigandi takka
-void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
+void MainWindow::on_tblPersons_clicked()
 {
     ui->btnMoreInfo->setEnabled(true);
     ui->btnDelete->setEnabled(true);
@@ -364,7 +364,7 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 }
 
 //enable ar videigandi takka
-void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
+void MainWindow::on_tblPersAndComp_clicked()
 {
     ui->btnMoreInfo->setEnabled(false);
     ui->btnDelete->setEnabled(true);
@@ -375,7 +375,7 @@ void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
 }
 
 //medhondlar leit
-void MainWindow::on_input_filter_person_textChanged(const QString &arg1)
+void MainWindow::on_input_filter_person_textChanged()
 {
     if (ui->tblPersons->isActiveWindow())
     {
@@ -388,7 +388,7 @@ void MainWindow::on_input_filter_person_textChanged(const QString &arg1)
 }
 
 //medhondlar leit
-void MainWindow::on_input_filter_computer_textChanged(const QString &arg1)
+void MainWindow::on_input_filter_computer_textChanged()
 {
     if (ui->tblComputers->isActiveWindow())
     {
@@ -401,7 +401,7 @@ void MainWindow::on_input_filter_computer_textChanged(const QString &arg1)
 }
 
 //medhondlar leit
-void MainWindow::on_input_filter_both_textChanged(const QString &arg1)
+void MainWindow::on_input_filter_both_textChanged()
 {
     if (ui->tblPersAndComp->isActiveWindow())
     {
@@ -524,49 +524,49 @@ void MainWindow::on_actionNew_triggered()
 
 //==========================
 //kallar i filter foll
-void MainWindow::on_comboBox_person_sort_currentIndexChanged(int index)
+void MainWindow::on_comboBox_person_sort_currentIndexChanged()
 {
-    on_input_filter_person_textChanged("");
+    on_input_filter_person_textChanged();
 }
 
-void MainWindow::on_radioButton_person_sort_asc_toggled(bool checked)
+void MainWindow::on_radioButton_person_sort_asc_toggled()
 {
-    on_input_filter_person_textChanged("");
+    on_input_filter_person_textChanged();
 }
 
-void MainWindow::on_radioButton_person_sort_desc_toggled(bool checked)
+void MainWindow::on_radioButton_person_sort_desc_toggled()
 {
-    on_input_filter_person_textChanged("");
+    on_input_filter_person_textChanged();
 }
 
-void MainWindow::on_comboBox_computer_sort_currentIndexChanged(int index)
+void MainWindow::on_comboBox_computer_sort_currentIndexChanged()
 {
-    on_input_filter_computer_textChanged("");
+    on_input_filter_computer_textChanged();
 }
 
-void MainWindow::on_radioButton_computer_sort_asc_toggled(bool checked)
+void MainWindow::on_radioButton_computer_sort_asc_toggled()
 {
-    on_input_filter_computer_textChanged("");
+    on_input_filter_computer_textChanged();
 }
 
-void MainWindow::on_radioButton_computer_sort_desc_toggled(bool checked)
+void MainWindow::on_radioButton_computer_sort_desc_toggled()
 {
-    on_input_filter_computer_textChanged("");
+    on_input_filter_computer_textChanged();
 }
 
-void MainWindow::on_comboBox_sort_both_currentIndexChanged(int index)
+void MainWindow::on_comboBox_sort_both_currentIndexChanged()
 {
-    on_input_filter_both_textChanged("");
+    on_input_filter_both_textChanged();
 }
 
-void MainWindow::on_radioButton_sort_both_asc_toggled(bool checked)
+void MainWindow::on_radioButton_sort_both_asc_toggled()
 {
-    on_input_filter_both_textChanged("");
+    on_input_filter_both_textChanged();
 }
 
-void MainWindow::on_radioButton_sort_both_desc_toggled(bool checked)
+void MainWindow::on_radioButton_sort_both_desc_toggled()
 {
-    on_input_filter_both_textChanged("");
+    on_input_filter_both_textChanged();
 }
 //+++++++++++++++++++++++++++++
 
@@ -608,7 +608,7 @@ void MainWindow::on_btnMoreInfo_clicked()
 
         DialogMoreInfo dialogMoreInfo;
         dialogMoreInfo.setInfo(id, name, birth, death, sex);
-        int status = dialogMoreInfo.exec();
+        dialogMoreInfo.exec();
     }
     else if(currentTabIndex == 1)
     {
@@ -622,17 +622,17 @@ void MainWindow::on_btnMoreInfo_clicked()
 
         DialogMoreInfoComputer dialogMoreInfo;
         dialogMoreInfo.setInfo(id, name, year, type, built, name);
-        int status = dialogMoreInfo.exec();
+        dialogMoreInfo.exec();
     }
 }
 
-void MainWindow::on_tblPersons_doubleClicked(const QModelIndex &index)
+void MainWindow::on_tblPersons_doubleClicked()
 {
     on_btnMoreInfo_clicked();
 }
 
 
-void MainWindow::on_tblComputers_doubleClicked(const QModelIndex &index)
+void MainWindow::on_tblComputers_doubleClicked()
 {
     on_btnMoreInfo_clicked();
 }
@@ -642,9 +642,12 @@ void MainWindow::on_actionBiography_triggered()
     on_btnMoreInfo_clicked();
 }
 
-void MainWindow::on_tabWidget_tabBarClicked(int index)
+void MainWindow::on_tabWidget_tabBarClicked()
 {
     ui->btnDelete->setEnabled(false);
     ui->btnEdit->setEnabled(false);
     ui->btnMoreInfo->setEnabled(false);
+    ui->actionEdit->setEnabled(false);
+    ui->actionBiography->setEnabled(false);
+    ui->actionRemove->setEnabled(false);
 }
