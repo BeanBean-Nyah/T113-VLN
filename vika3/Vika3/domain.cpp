@@ -533,13 +533,15 @@ string Domain::aboutComputer(string& _ID)
 {
     Data d;
     string retValue = d.getInfoComputer(_ID);
-    return d.getInfoComputer(retValue);
+    return retValue;
 }
+
 bool Domain::editInfo(string& _ID, QString& _newInfo)
 {
     Data d;
     return d.editInfo(_ID, _newInfo);
 }
+
 bool Domain::editInfoComputer(string& _ID, QString& _newInfo)
 {
     Data d;

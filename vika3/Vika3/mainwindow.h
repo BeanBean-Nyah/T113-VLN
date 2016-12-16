@@ -88,6 +88,8 @@ private slots:
 
     void on_tblPersons_doubleClicked(const QModelIndex &index);
 
+    void on_tblComputers_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
     Domain domain;

@@ -596,3 +596,8 @@ void MainWindow::on_tblPersons_doubleClicked(const QModelIndex &index)
 {
     on_btnMoreInfo_clicked();
 }
+
+void MainWindow::on_tblComputers_doubleClicked(const QModelIndex &index)
+{
+    on_btnMoreInfo_clicked();
+}
