@@ -21,6 +21,7 @@ void DialogEditComputer::setTextbox(string& _name, string& _year, string& _type,
     type = QString::fromStdString(_type);
     built = QString::fromStdString(_built);
     id = _ID;
+
     int typeIndex, builtIndex;
     if (_type == "Electronic")
     {

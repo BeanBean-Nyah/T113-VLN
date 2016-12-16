@@ -12,6 +12,7 @@
 #include "dialognewrelation.h"
 #include "dialogabout.h"
 #include "dialogmoreinfo.h"
+#include "dialogmoreinfocomputer.h"
 
 #include <vector>
 #include <QMainWindow>
