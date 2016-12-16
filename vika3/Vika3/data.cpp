@@ -547,3 +547,38 @@ QByteArray Data::getPic(string& ID)
 
     return outByteArray;
 }
+
+string Data::getInfo(string& _ID)
+{
+    //get person info
+    QSqlQuery query;
+    QString info;
+    QString qID = QString::fromStdString(_ID);
+
+    query.prepare("SELECT about FROM persons Where ID = :ID");
+    query.bindValue(":ID", qID);
+    query.exec();
+
+    query.first();
+        info = query.value(0).toString();
+        qDebug() << info;
+
+    return info.toStdString();
+}
+
+string Data::getInfoComputer(string& _ID)
+{
+    //get person info
+    QSqlQuery query;
+    QString info;
+    QString qID = QString::fromStdString(_ID);
+
+    query.prepare("SELECT computer_about FROM computer Where ID = :ID");
+    query.bindValue(":ID", qID);
+
+    query.first();
+    info = query.value(0).toString();
+    qDebug() << info;
+
+    return info.toStdString();
+}

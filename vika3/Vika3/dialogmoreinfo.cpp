@@ -1,6 +1,7 @@
 #include "dialogmoreinfo.h"
 #include "ui_dialogmoreinfo.h"
 
+
 DialogMoreInfo::DialogMoreInfo(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogMoreInfo)
@@ -24,16 +25,18 @@ void DialogMoreInfo::setInfo(string& _ID, string &_name, string &_birth, string 
     QByteArray outByteArray = domain.getPic(id);
     QPixmap outPixmap = QPixmap();
     outPixmap.loadFromData( outByteArray );
+    string sabout = domain.aboutPerson(_ID);
+    about = QString::fromStdString(sabout);
 
 
     ui->label_name->setText(name);
     ui->label_birth->setText(birth);
     ui->label_death->setText(death);
-    ui->textEdit_bio->setText(sex);
     ui->label_image->setPixmap(
         outPixmap.scaled(250, 250, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
 
+    ui->textEdit_bio->setText(about);
 }
 
 void DialogMoreInfo::on_btnBrowse_clicked()

@@ -48,6 +48,9 @@ public:
 
     bool editPic(string& ID, QByteArray pic);
     QByteArray getPic(string& ID);
+    string getInfo(string& _ID);
+    string getInfoComputer(string& _ID);
+
 
 };
 

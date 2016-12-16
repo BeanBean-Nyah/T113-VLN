@@ -36,6 +36,7 @@ private:
     QString sex;
     QString birth;
     QString death;
+    QString about;
     Domain domain;
 
     string id;

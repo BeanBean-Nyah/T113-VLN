@@ -56,6 +56,8 @@ public:
 
     void picture(string& id, QByteArray pic);
     QByteArray getPic(string& id);
+    string aboutPerson(string& _ID);
+    string aboutComputer(string& _ID);
 };
 
 #endif // DOMAIN_H

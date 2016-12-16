@@ -508,3 +508,16 @@ QByteArray Domain::getPic(string& id)
     QByteArray outByteArray = d.getPic(id);
     return outByteArray;
 }
+
+string Domain::aboutPerson(string& _ID)
+{
+    Data dat;
+    string retValue = dat.getInfo(_ID);
+    return retValue;
+}
+
+string Domain::aboutComputer(string& _ID)
+{
+    Data dat;
+    return dat.getInfoComputer(_ID);
+}
