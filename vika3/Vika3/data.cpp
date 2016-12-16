@@ -548,6 +548,36 @@ QByteArray Data::getPic(string& ID)
     return outByteArray;
 }
 
+bool Data::editPicComputer(string& ID, QByteArray pic)
+{
+    QSqlQuery query;
+    QString qID = QString::fromStdString(ID);
+
+    query.prepare("Update computer SET computer_imagedata = :img WHERE computer_Id = :id");
+    query.bindValue(":id", qID);
+    query.bindValue(":img", pic);
+
+    if (query.exec())
+    {
+        return true;
+    }
+    return false;
+}
+
+QByteArray Data::getPicComputer(string& ID)
+{
+    QSqlQuery query;
+    QString qID = QString::fromStdString(ID);
+    QByteArray outByteArray;
+    query.prepare("SELECT computer_imagedata FROM computer WHERE computer_Id = :id");
+    query.bindValue(":id", qID);
+    query.exec();
+
+    query.first();
+        outByteArray = query.value(0).toByteArray();
+
+    return outByteArray;
+}
 string Data::getInfo(string& _ID)
 {
     //get person info
@@ -561,7 +591,6 @@ string Data::getInfo(string& _ID)
 
     query.first();
         info = query.value(0).toString();
-
 
     return info.toStdString();
 }
@@ -590,8 +619,9 @@ string Data::getInfoComputer(string& _ID)
     QString info;
     QString qID = QString::fromStdString(_ID);
 
-    query.prepare("SELECT computer_about FROM computer Where ID = :ID");
-    query.bindValue(":ID", qID);
+    query.prepare("SELECT computer_about FROM computer Where computer_ID = :id");
+    query.bindValue(":id", qID);
+    query.exec();
 
     query.first();
     info = query.value(0).toString();
@@ -603,7 +633,7 @@ bool Data::editInfoComputer(string& _ID,QString& _newInfo)
 {
     QSqlQuery query;
     QString qID = QString::fromStdString(_ID);
-    query.prepare("UPDATE computer SET computer_about = :about Where ID = :ID");
+    query.prepare("UPDATE computer SET computer_about = :about Where computer_ID = :ID");
     query.bindValue(":ID", qID);
     query.bindValue(":about", _newInfo);
 
