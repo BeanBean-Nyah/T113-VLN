@@ -74,8 +74,6 @@ private slots:
 
     void on_tblPersAndComp_clicked(const QModelIndex &index);
 
-    void on_actionAbout_toggled(bool arg1);
-
     void on_actionAbout_triggered();
 
     void on_actionExit_triggered();
@@ -91,6 +89,8 @@ private slots:
     void on_tblComputers_doubleClicked(const QModelIndex &index);
 
     void on_actionBiography_triggered();
+
+    void on_tabWidget_tabBarClicked(int index);
 
 private:
     Ui::MainWindow *ui;

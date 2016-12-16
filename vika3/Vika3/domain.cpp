@@ -495,7 +495,8 @@ string Domain::capFirstLetter(string& str)
     return output;
 }
 
-//skilar
+//=====================
+//foll til ad na i og skrifa myndir
 void Domain::picture(string& id, QByteArray pic)
 {
     Data d;
@@ -521,7 +522,10 @@ QByteArray Domain::getPicComputer(string& id)
     QByteArray outByteArray = d.getPicComputer(id);
     return outByteArray;
 }
+//+++++++++++++++++
 
+//==================
+//foll til ad na i og skrifa upplysingar um biography
 string Domain::aboutPerson(string& _ID)
 {
     Data d;
@@ -547,3 +551,4 @@ bool Domain::editInfoComputer(string& _ID, QString& _newInfo)
     Data d;
     return d.editInfoComputer(_ID, _newInfo);
 }
+//++++++++++++++++++

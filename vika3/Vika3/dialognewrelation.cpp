@@ -20,6 +20,7 @@ DialogNewRelation::~DialogNewRelation()
 
 }
 
+//naer i videigandi vector
 void DialogNewRelation::displayAllPersons()
 {
     string type = "nameasc";
@@ -29,9 +30,9 @@ void DialogNewRelation::displayAllPersons()
     currentlyDisplayedPersons = pers;
 }
 
+//setur inn upplysingar i toflu
 void DialogNewRelation::displayPersons(vector<Person> pers)
 {
-
     ui->tableWidget_creators->clearContents();
 
     ui->tableWidget_creators->setRowCount(pers.size());
@@ -43,10 +44,10 @@ void DialogNewRelation::displayPersons(vector<Person> pers)
         QString id = QString::fromStdString(currentPerson.getID());
 
         ui->tableWidget_creators->setItem(row, 0, new QTableWidgetItem(name));
-
     }
 }
 
+//naer i vector sorteradan
 void DialogNewRelation::displayAllComputers()
 {
     string type = "nameasc";
@@ -56,6 +57,7 @@ void DialogNewRelation::displayAllComputers()
     currentlyDisplayedComputers = comp;
 }
 
+//listar upplysingar i toflu
 void DialogNewRelation::displayComputers(vector<Computer> comp)
 {
     ui->tableWidget_computers->clearContents();
@@ -68,10 +70,10 @@ void DialogNewRelation::displayComputers(vector<Computer> comp)
         QString name = QString::fromStdString(currentComputer.getName());
 
         ui->tableWidget_computers->setItem(row, 0, new QTableWidgetItem(name));
-
     }
 }
 
+//Vistar ny relation i database
 void DialogNewRelation::on_pushButton_save_clicked()
 {
     int currentlySelectedComp = ui->tableWidget_computers->currentIndex().row();
@@ -89,10 +91,9 @@ void DialogNewRelation::on_pushButton_save_clicked()
         //skila ad tenging se nu thegar til
         done(2);
     }
-
-
 }
 
+//lokar glugga
 void DialogNewRelation::on_pushButton_cancel_clicked()
 {
     done(0);

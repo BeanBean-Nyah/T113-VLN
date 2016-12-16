@@ -27,8 +27,8 @@ AddNewDialog::~AddNewDialog()
     delete ui;
 }
 
-
-
+//keyrir þegar hakad er i person
+//enable ar videigandi reiti
 void AddNewDialog::on_radioButton_new_person_toggled(bool checked)
 {
     if(checked)
@@ -47,8 +47,8 @@ void AddNewDialog::on_radioButton_new_person_toggled(bool checked)
     }
 }
 
-
-
+//keyrir þegar hakad er i computer
+//enable ar videigandi reiti
 void AddNewDialog::on_radioButton_new_computer_toggled(bool checked)
 {
     if(checked)
@@ -67,6 +67,8 @@ void AddNewDialog::on_radioButton_new_computer_toggled(bool checked)
     }
 }
 
+//keyrir þegar hakad er i both
+//enable ar videigandi reiti
 void AddNewDialog::on_radioButton_both_toggled(bool checked)
 {
     if(checked)
@@ -81,6 +83,7 @@ void AddNewDialog::on_radioButton_both_toggled(bool checked)
     }
 }
 
+//baetir vid personu eda computer eda baedi ef ollum skilyrdum er fullnaegt
 void AddNewDialog::on_pushButton_clicked()
 {
     clearErrors();
@@ -192,6 +195,7 @@ void AddNewDialog::on_pushButton_clicked()
     }
 }
 
+//skilar villubodum ef eh vantar
 int AddNewDialog::addNewPerson()
 {
     QString name = ui->input_person_name->text();
@@ -250,6 +254,7 @@ int AddNewDialog::addNewPerson()
     return 1;
 }
 
+//skilar villubodum ef eitthvad vantar
 int AddNewDialog::addNewComputer()
 {
     QString name = ui->input_computer_name->text();
@@ -306,6 +311,7 @@ int AddNewDialog::addNewComputer()
     return 1;
 }
 
+//Hreinar villubod sem birtast a skja
 void AddNewDialog::clearErrors()
 {
     ui->label_error_message->setText("");

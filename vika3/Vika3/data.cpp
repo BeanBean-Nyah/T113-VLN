@@ -167,7 +167,6 @@ void Data::remove(string& ID, int& type)
 }
 
 //breytir voldum upplysingum i toflunni persons
-
 void Data::edit(string& ID, string& name, string& sex, string& birth, string& death)
 {
     QSqlQuery query;
@@ -327,6 +326,7 @@ vector<Computer> Data::sortComputer(string& type)
     return comp;
 }
 
+//skilar sorterudum vector med venslum
 vector<PersAndComp> Data::sortBoth(string &type)
 {
     vector<PersAndComp> pAc;
@@ -420,6 +420,7 @@ void Data::getPACjoined(vector<PersonsAndComputers>& pAc)
     }
 }
 
+// fyllir inn i vector vensl, thar sem nafn personu og computer er sett inn asamt id i
 void Data::getPACjoinedTest(vector<PersAndComp>& pAc)
 {
     QSqlQuery query("SELECT pac_ID, pac_status, p.name, c.computer_name FROM persons p "
@@ -456,6 +457,7 @@ void Data::writePAC(string& pers_id, string& comp_id)
         query.exec();
 }
 
+//merkir vensl eydd
 bool Data::editPAC(string& ID)
 {
     QSqlQuery query;
@@ -517,6 +519,7 @@ void Data::getFact(vector<Facts>& fac)
     }
 }
 
+//setur inn mynd i database
 bool Data::editPic(string& ID, QByteArray pic)
 {
     QSqlQuery query;
@@ -533,6 +536,7 @@ bool Data::editPic(string& ID, QByteArray pic)
     return false;
 }
 
+//naer i mynd ur database
 QByteArray Data::getPic(string& ID)
 {
     QSqlQuery query;
@@ -548,6 +552,7 @@ QByteArray Data::getPic(string& ID)
     return outByteArray;
 }
 
+// setur inn mynd i database
 bool Data::editPicComputer(string& ID, QByteArray pic)
 {
     QSqlQuery query;
@@ -564,6 +569,7 @@ bool Data::editPicComputer(string& ID, QByteArray pic)
     return false;
 }
 
+//naer i mynd i database
 QByteArray Data::getPicComputer(string& ID)
 {
     QSqlQuery query;
@@ -578,6 +584,8 @@ QByteArray Data::getPicComputer(string& ID)
 
     return outByteArray;
 }
+
+//naer i biograph um pers i database
 string Data::getInfo(string& _ID)
 {
     //get person info
@@ -595,6 +603,7 @@ string Data::getInfo(string& _ID)
     return info.toStdString();
 }
 
+//skrifar upplysingar um pers i database
 bool Data::editInfo(string& _ID, QString& _newInfo)
 {
    QSqlQuery query;
@@ -612,6 +621,7 @@ bool Data::editInfo(string& _ID, QString& _newInfo)
 
 }
 
+//naer i upplysinar um comp i database
 string Data::getInfoComputer(string& _ID)
 {
     //get comp info
@@ -630,6 +640,7 @@ string Data::getInfoComputer(string& _ID)
     return info.toStdString();
 }
 
+//skrifar upplysingar um comp i database
 bool Data::editInfoComputer(string& _ID,QString& _newInfo)
 {
     QSqlQuery query;
