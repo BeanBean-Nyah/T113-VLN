@@ -80,7 +80,7 @@ void DialogMoreInfoComputer::on_pushButton_edit_bio_clicked()
 {
     ui->pushButton_save_bio->setEnabled(true);
     ui->pushButton_edit_bio->setEnabled(false);
-    ui->textEdit_bio->setEnabled(true);
+    ui->textEdit_bio->setReadOnly(false);
 }
 
 void DialogMoreInfoComputer::on_pushButton_save_bio_clicked()
@@ -89,5 +89,5 @@ void DialogMoreInfoComputer::on_pushButton_save_bio_clicked()
     domain.editInfoComputer(id, newText);
     ui->pushButton_save_bio->setEnabled(false);
     ui->pushButton_edit_bio->setEnabled(true);
-    ui->textEdit_bio->setEnabled(false);
+    ui->textEdit_bio->setReadOnly(true);
 }

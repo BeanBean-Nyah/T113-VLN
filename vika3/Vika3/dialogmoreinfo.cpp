@@ -76,7 +76,7 @@ void DialogMoreInfo::on_pushButton_edit_bio_clicked()
 {
     ui->pushButton_save_bio->setEnabled(true);
     ui->pushButton_edit_bio->setEnabled(false);
-    ui->textEdit_bio->setEnabled(true);
+    ui->textEdit_bio->setReadOnly(false);
 }
 
 void DialogMoreInfo::on_pushButton_save_bio_clicked()
@@ -85,5 +85,5 @@ void DialogMoreInfo::on_pushButton_save_bio_clicked()
     domain.editInfo(id, newText);
     ui->pushButton_save_bio->setEnabled(false);
     ui->pushButton_edit_bio->setEnabled(true);
-    ui->textEdit_bio->setEnabled(false);
+    ui->textEdit_bio->setReadOnly(true);
 }
