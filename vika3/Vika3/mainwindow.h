@@ -13,6 +13,7 @@
 #include "dialogabout.h"
 #include "dialogmoreinfo.h"
 #include "dialogmoreinfocomputer.h"
+#include "dialogfunfact.h"
 
 #include <vector>
 #include <QMainWindow>
@@ -91,6 +92,8 @@ private slots:
     void on_actionBiography_triggered();
 
     void on_tabWidget_tabBarClicked();
+
+    void on_actionFun_fact_triggered();
 
 private:
     Ui::MainWindow *ui;

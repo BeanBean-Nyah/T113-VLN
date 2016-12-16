@@ -14,7 +14,7 @@ Data::Data()
 bool Data::openDatabase()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName("databaseFinal.sqlite");
+    m_db.setDatabaseName("..\\vika3\\databaseFinal.sqlite");
 
     if (!m_db.open())
     {

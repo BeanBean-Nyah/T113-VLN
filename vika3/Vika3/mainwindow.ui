@@ -20,7 +20,7 @@
    <string>Persons and computers</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset>
     <normaloff>:/icons/images/laptop.png</normaloff>:/icons/images/laptop.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -465,6 +465,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionFun_fact"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -473,7 +474,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/icons/images/addperson.png</normaloff>:/icons/images/addperson.png</iconset>
    </property>
    <property name="text">
@@ -482,7 +483,7 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/icons/images/exit.png</normaloff>:/icons/images/exit.png</iconset>
    </property>
    <property name="text">
@@ -494,7 +495,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/icons/images/edit.png</normaloff>:/icons/images/edit.png</iconset>
    </property>
    <property name="text">
@@ -506,7 +507,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/icons/images/remove.png</normaloff>:/icons/images/remove.png</iconset>
    </property>
    <property name="text">
@@ -515,7 +516,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/icons/images/about.png</normaloff>:/icons/images/about.png</iconset>
    </property>
    <property name="text">
@@ -527,11 +528,16 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/icons/images/biography.png</normaloff>:/icons/images/biography.png</iconset>
    </property>
    <property name="text">
     <string>Biography</string>
+   </property>
+  </action>
+  <action name="actionFun_fact">
+   <property name="text">
+    <string>Fun fact</string>
    </property>
   </action>
  </widget>
@@ -544,8 +550,6 @@
   <tabstop>tblComputers</tabstop>
   <tabstop>tblPersAndComp</tabstop>
  </tabstops>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

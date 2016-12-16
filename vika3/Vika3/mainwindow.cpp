@@ -631,7 +631,6 @@ void MainWindow::on_tblPersons_doubleClicked()
     on_btnMoreInfo_clicked();
 }
 
-
 void MainWindow::on_tblComputers_doubleClicked()
 {
     on_btnMoreInfo_clicked();
@@ -650,4 +649,11 @@ void MainWindow::on_tabWidget_tabBarClicked()
     ui->actionEdit->setEnabled(false);
     ui->actionBiography->setEnabled(false);
     ui->actionRemove->setEnabled(false);
+}
+
+//opnar glugga sem birtir funfact
+void MainWindow::on_actionFun_fact_triggered()
+{
+    DialogFunFact funfact;
+    funfact.exec();
 }
