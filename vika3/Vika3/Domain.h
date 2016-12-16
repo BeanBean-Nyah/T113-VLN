@@ -53,6 +53,8 @@ public:
 
     bool clear(string& type);
     string funFact();
+    string aboutPerson(string& _ID);
+    string aboutComputer(string& _ID);
 };
 
 #endif // DOMAIN_H

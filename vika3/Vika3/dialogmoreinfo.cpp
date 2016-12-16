@@ -1,6 +1,7 @@
 #include "dialogmoreinfo.h"
 #include "ui_dialogmoreinfo.h"
 
+
 DialogMoreInfo::DialogMoreInfo(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogMoreInfo)
@@ -21,11 +22,14 @@ void DialogMoreInfo::setInfo(string& _ID, string &_name, string &_birth, string 
     death = QString::fromStdString(_death);
     id = _ID;
 
+    string sabout = domain.aboutPerson(_ID);
+    about = QString::fromStdString(sabout);
+
 
     ui->label_name->setText(name);
     ui->label_birth->setText(birth);
     ui->label_death->setText(death);
-    ui->textEdit_bio->setText(sex);
+    ui->textEdit_bio->setText(about);
 }
 
 void DialogMoreInfo::on_btnBrowse_clicked()

@@ -46,6 +46,9 @@ public:
 
     bool clear(int& type);
 
+    string getInfo(string& _ID);
+    string getInfoComputer(string& _ID);
+
 
 };
 

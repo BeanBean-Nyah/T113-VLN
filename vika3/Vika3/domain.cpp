@@ -494,3 +494,16 @@ string Domain::capFirstLetter(string& str)
     output[f+1] = toupper(output[f+1]);
     return output;
 }
+
+string Domain::aboutPerson(string& _ID)
+{
+    Data dat;
+    string retValue = dat.getInfo(_ID);
+    return retValue;
+}
+
+string Domain::aboutComputer(string& _ID)
+{
+    Data dat;
+    return dat.getInfoComputer(_ID);
+}
