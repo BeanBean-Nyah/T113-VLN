@@ -48,6 +48,8 @@ public:
 
     bool editPic(string& ID, QByteArray pic);
     QByteArray getPic(string& ID);
+    bool editPicComputer(string& ID, QByteArray pic);
+    QByteArray getPicComputer(string& ID);
     string getInfo(string& _ID);
     bool editInfo(string& _ID, QString& _newInfo);
     string getInfoComputer(string& _ID);

@@ -576,6 +576,20 @@ void MainWindow::on_btnMoreInfo_clicked()
         dialogMoreInfo.setInfo(id, name, birth, death, sex);
         int status = dialogMoreInfo.exec();
     }
+    else if(currentTabIndex == 1)
+    {
+        int currentlySelected = ui->tblComputers->currentIndex().row();
+        string name, year, type, built, id;
+        name = currentlyDisplayedComputers[currentlySelected].getName();
+        year = currentlyDisplayedComputers[currentlySelected].getYear();
+        type = currentlyDisplayedComputers[currentlySelected].getType();
+        built = currentlyDisplayedComputers[currentlySelected].getBuilt();
+        id = currentlyDisplayedComputers[currentlySelected].getID();
+
+        DialogMoreInfoComputer dialogMoreInfo;
+        dialogMoreInfo.setInfo(id, name, year, type, built, name);
+        int status = dialogMoreInfo.exec();
+    }
 }
 
 void MainWindow::on_tblPersons_doubleClicked(const QModelIndex &index)

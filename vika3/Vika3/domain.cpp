@@ -509,6 +509,19 @@ QByteArray Domain::getPic(string& id)
     return outByteArray;
 }
 
+void Domain::pictureComputer(string& id, QByteArray pic)
+{
+    Data d;
+    d.editPicComputer(id, pic);
+}
+
+QByteArray Domain::getPicComputer(string& id)
+{
+    Data d;
+    QByteArray outByteArray = d.getPicComputer(id);
+    return outByteArray;
+}
+
 string Domain::aboutPerson(string& _ID)
 {
     Data d;
@@ -519,7 +532,8 @@ string Domain::aboutPerson(string& _ID)
 string Domain::aboutComputer(string& _ID)
 {
     Data d;
-    return d.getInfoComputer(_ID);
+    string retValue = d.getInfoComputer(_ID);
+    return d.getInfoComputer(retValue);
 }
 bool Domain::editInfo(string& _ID, QString& _newInfo)
 {
