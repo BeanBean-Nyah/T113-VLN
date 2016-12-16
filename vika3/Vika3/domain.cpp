@@ -511,13 +511,23 @@ QByteArray Domain::getPic(string& id)
 
 string Domain::aboutPerson(string& _ID)
 {
-    Data dat;
-    string retValue = dat.getInfo(_ID);
+    Data d;
+    string retValue = d.getInfo(_ID);
     return retValue;
 }
 
 string Domain::aboutComputer(string& _ID)
 {
-    Data dat;
-    return dat.getInfoComputer(_ID);
+    Data d;
+    return d.getInfoComputer(_ID);
+}
+bool Domain::editInfo(string& _ID, QString& _newInfo)
+{
+    Data d;
+    return d.editInfo(_ID, _newInfo);
+}
+bool Domain::editInfoComputer(string& _ID, QString& _newInfo)
+{
+    Data d;
+    return d.editInfoComputer(_ID, _newInfo);
 }
