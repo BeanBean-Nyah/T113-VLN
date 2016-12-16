@@ -11,6 +11,7 @@
 #include "dialogeditcomputer.h"
 #include "dialognewrelation.h"
 #include "dialogabout.h"
+#include "dialogmoreinfo.h"
 
 #include <vector>
 #include <QMainWindow>
@@ -30,6 +31,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 
 
 private slots:
@@ -80,6 +82,8 @@ private slots:
     void on_actionEdit_triggered();
 
     void on_actionRemove_triggered();
+
+    void on_btnMoreInfo_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -238,11 +238,19 @@ void MainWindow::on_btnNew_clicked()
     {
         AddNewDialog addNewDialog;
         int status = addNewDialog.exec();
-        if (status == 0)
+        if (status == 3)
         {
-            //ui->statusBar->showMessage("Successfully added!", 2000);
+            ui->statusBar->showMessage("Successfully added new person!", 3000);
         }
-        else if (status == 1)
+        else if (status == 4)
+        {
+            ui->statusBar->showMessage("Successfully added new computer!", 3000);
+        }
+        else if (status == 5)
+        {
+            ui->statusBar->showMessage("Successfully added new person and computer!", 3000);
+        }
+        else if (status == 2)
         {
             // error
         }
@@ -251,15 +259,16 @@ void MainWindow::on_btnNew_clicked()
     {
         DialogNewRelation dialogNewRelation;
         int status = dialogNewRelation.exec();
-        if (status == 0)
+        if (status == 1)
         {
-            //ui->statusBar->showMessage("Successfully added!", 2000);
+            ui->statusBar->showMessage("Successfully added new relaiton!", 3000);
         }
-        else if (status == 1)
+        else if (status == 2)
         {
-            // error
+            ui->statusBar->showMessage("This exact relation already exists!", 3000);
         }
     }
+    ui->input_filter_both->setText("");
     ui->input_filter_person->setText("");
     ui->input_filter_computer->setText("");
     displayAllPersons();
@@ -276,7 +285,7 @@ void MainWindow::on_btnDelete_clicked()
         int currentlySelected = ui->tblPersons->currentIndex().row();
         domain.remove(currentlyDisplayedPersons, currentlySelected);
         displayAllPersons();
-        ui->btnDelete->setEnabled(false);
+        ui->btnMoreInfo->setEnabled(false);
         ui->btnDelete->setEnabled(false);
         ui->btnEdit->setEnabled(false);
         ui->actionEdit->setEnabled(false);
@@ -288,7 +297,7 @@ void MainWindow::on_btnDelete_clicked()
         int currentlySelected = ui->tblComputers->currentIndex().row();
         domain.removeComputer(currentlyDisplayedComputers, currentlySelected);
         displayAllComputers();
-        ui->btnDelete->setEnabled(false);
+        ui->btnMoreInfo->setEnabled(false);
         ui->btnDelete->setEnabled(false);
         ui->btnEdit->setEnabled(false);
         ui->actionEdit->setEnabled(false);
@@ -300,6 +309,7 @@ void MainWindow::on_btnDelete_clicked()
         int currentlySelected = ui->tblPersAndComp->currentIndex().row();
         domain.removeConnection(currentlyDisplayedPersAndComp, currentlySelected);
         displayAllPersAndComp();
+        ui->btnMoreInfo->setEnabled(false);
         ui->btnDelete->setEnabled(false);
         ui->btnEdit->setEnabled(false);
         ui->actionEdit->setEnabled(false);
@@ -311,6 +321,7 @@ void MainWindow::on_btnDelete_clicked()
 
 void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 {        
+    ui->btnMoreInfo->setEnabled(true);
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(true);
     ui->actionEdit->setEnabled(true);
@@ -319,6 +330,7 @@ void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 
 void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 {
+    ui->btnMoreInfo->setEnabled(true);
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(true);
     ui->actionEdit->setEnabled(true);
@@ -327,9 +339,10 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 
 void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
 {
+    ui->btnMoreInfo->setEnabled(false);
     ui->btnDelete->setEnabled(true);
-    ui->btnEdit->setEnabled(true);
-    ui->actionEdit->setEnabled(true);
+    ui->btnEdit->setEnabled(false);
+    ui->actionEdit->setEnabled(false);
     ui->actionRemove->setEnabled(true);
 }
 
@@ -388,13 +401,32 @@ void MainWindow::on_btnEdit_clicked()
 
         if (status == 0)
         {
-
+            ui->statusBar->showMessage("This exact person already exists!", 3000);
         }
         else if (status == 1)
         {
-
+            ui->statusBar->showMessage("Successfully edited a person!", 3000);
         }
-
+        else if (status == 2)
+        {
+            ui->statusBar->showMessage("Name, sex or birth can't be empty!", 3000);
+        }
+        else if (status == 3)
+        {
+            ui->statusBar->showMessage("Name can not contain numbers!", 3000);
+        }
+        else if (status == 4)
+        {
+            ui->statusBar->showMessage("Year of birth and death can not contain letters!", 3000);
+        }
+        else if (status == 5)
+        {
+            ui->statusBar->showMessage("Year of birth and death can not be in the future!", 3000);
+        }
+        else if (status == 6)
+        {
+            ui->statusBar->showMessage("Persons can not be born after they die!", 3000);
+        }
     }
     else if (currentTabIndex == 1)
     {
@@ -409,11 +441,41 @@ void MainWindow::on_btnEdit_clicked()
         DialogEditComputer  newdialogEditComputer;
         newdialogEditComputer.setTextbox(name, year, type, built, id);
         int status = newdialogEditComputer.exec();
+
+        if (status == 0)
+        {
+            ui->statusBar->showMessage("This exact computer already exists!", 3000);
+        }
+        else if (status == 1)
+        {
+            ui->statusBar->showMessage("Successfully edited a computer!", 3000);
+        }
+        else if (status == 2)
+        {
+            ui->statusBar->showMessage("Name, type and built cant be empty!", 3000);
+        }
+        else if (status == 3)
+        {
+            ui->statusBar->showMessage("Year can not contain letters!", 3000);
+        }
+        else if (status == 4)
+        {
+            ui->statusBar->showMessage("The computer must have been built some year!", 3000);
+        }
+        else if (status == 5)
+        {
+            ui->statusBar->showMessage("The computer cant be built in the future!", 3000);
+        }
+        else if (status == 6)
+        {
+            ui->statusBar->showMessage("If the compter has some year it must have been built!", 3000);
+        }
     }
 
     displayAllPersons();
     displayAllComputers();
     displayAllPersAndComp();
+    ui->btnMoreInfo->setEnabled(false);
     ui->btnDelete->setEnabled(false);
     ui->btnEdit->setEnabled(false);
     ui->actionEdit->setEnabled(false);
@@ -494,4 +556,24 @@ void MainWindow::on_actionEdit_triggered()
 void MainWindow::on_actionRemove_triggered()
 {
     on_btnDelete_clicked();
+}
+
+void MainWindow::on_btnMoreInfo_clicked()
+{
+
+    int currentTabIndex = ui->tabWidget->currentIndex();
+    if(currentTabIndex == 0)
+    {
+        int currentlySelected = ui->tblPersons->currentIndex().row();
+        string name, sex, birth, death, id;
+        name = currentlyDisplayedPersons[currentlySelected].getFirstname();
+        sex = currentlyDisplayedPersons[currentlySelected].getSex();
+        birth = currentlyDisplayedPersons[currentlySelected].getBirth();
+        death = currentlyDisplayedPersons[currentlySelected].getDeath();
+        id = currentlyDisplayedPersons[currentlySelected].getID();
+
+        DialogMoreInfo dialogMoreInfo;
+        dialogMoreInfo.setInfo(id, name, birth, death, sex);
+        int status = dialogMoreInfo.exec();
+    }
 }

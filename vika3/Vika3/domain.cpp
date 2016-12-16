@@ -59,6 +59,7 @@ bool Domain::add(string& firstname, string& sex, string& birth, string& death)
                 birth == persons[i].getBirth() && death == persons[i].getDeath())
         {
           check = false;
+          break;
         }
         else
         {
@@ -90,6 +91,7 @@ bool Domain::addComputer(string& name, string& year, string& type, string& built
                 type == comp[i].getType() && built == comp[i].getBuilt())
         {
             check = false;
+            break;
         }
         else
         {
@@ -179,16 +181,35 @@ void Domain::remove(vector<Person>& pers, int& line)
 }
 
 //kallar i fall sem breytir upplysingum i database
-//void Domain::edit(vector<Person>& pers, int& line, string& type, string& newValue)
-//{
-//    string ID = pers[line].getID();
-//    Data dat;
-//    dat.edit(ID, newValue, type);
-//}
-void Domain::edit(string& _ID, string& _name, string& _sex, string& _birth, string& _death)
+bool Domain::edit(string& _ID, string& _name, string& _sex, string& _birth, string& _death)
 {
     Data dat;
-    dat.edit(_ID, _name, _sex, _birth, _death);
+    bool check = true;
+    vector<Person> persons;
+    dat.read(persons);
+    for (unsigned int i = 0; i < persons.size(); i++)
+    {
+        if (_name == persons[i].getFirstname() && _sex == persons[i].getSex() &&
+                _birth == persons[i].getBirth() && _death == persons[i].getDeath())
+        {
+          check = false;
+          break;
+        }
+        else
+        {
+            check = true;
+        }
+    }
+    if (check)
+    {
+        dat.edit(_ID, _name, _sex, _birth, _death);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
 }
 
 //Computer functions
@@ -351,17 +372,37 @@ vector<PersAndComp> Domain::searchBoth(string& whattype, string input)
 }
 
 //kallar i fall sem breytir um upplysingum computer i database
-/*void Domain::editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built)
-{
-    string ID = comp[line].getID();
-    Data dat;
-    dat.editComp(ID, newValue, type);
-}*/
 
-void Domain::editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built)
+
+bool Domain::editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built)
 {
     Data dat;
-    dat.editComp(_ID, _name, _year, _type, _built);
+    bool check = true;
+    vector<Computer> comp;
+    dat.readComputer(comp);
+    for (unsigned int i = 0; i < comp.size(); i++)
+    {
+        if (_name == comp[i].getName() && _year == comp[i].getYear() &&
+                _type == comp[i].getType() && _built == comp[i].getBuilt())
+        {
+            check = false;
+            break;
+        }
+        else
+        {
+            check = true;
+        }
+    }
+    if (check)
+    {
+        dat.editComp(_ID, _name, _year, _type, _built);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
 }
 
 //skilar tvi hvort thad tokst ad tengja person og computer saman
@@ -381,6 +422,7 @@ bool Domain::connectPtoC(string& persID, string& compID)
             check = true;
         }
     }
+
     if (check)
     {
         d.writePAC(persID, compID);
@@ -422,10 +464,33 @@ bool Domain::clear(string& type)
     return false;
 }
 
-//breytir ollum stofum i streng i lagstafi
+// Villutjekk, athugar hvort thad se tolustafur i strengnum
+bool Domain::contains_number(const string &c)
+{
+    return (c.find_first_of("0123456789") != string::npos);
+}
+
+// Villutjekk, athugar hvort thad se bokstafur i strengnum
+bool Domain::contains_letters(const string &c)
+{
+    return (c.find_first_of("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM") != string::npos);
+}
+
+// Gerir alla stafi i streng lower case
 string Domain::Lower_Ans(string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator
     return word;
 }
 
+// Fixar input thannig ad fyrsti stafur er alltaf stor og rest litlir
+string Domain::capFirstLetter(string& str)
+{
+    string output = Lower_Ans(str);
+    size_t f = output.find(" ");
+    output[0] = toupper(output[0]);
+    output[f+1] = toupper(output[f+1]);
+    f = output.find(" ",f+1);
+    output[f+1] = toupper(output[f+1]);
+    return output;
+}

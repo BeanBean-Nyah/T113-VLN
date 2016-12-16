@@ -82,7 +82,7 @@ void DialogNewRelation::on_pushButton_save_clicked()
     if (domain.connectPtoC(persID, compID))
     {
         //skila ad tenging hafi tekist
-        done(0);
+        done(1);
     }
     else
     {
@@ -95,5 +95,5 @@ void DialogNewRelation::on_pushButton_save_clicked()
 
 void DialogNewRelation::on_pushButton_cancel_clicked()
 {
-    done(1);
+    done(0);
 }

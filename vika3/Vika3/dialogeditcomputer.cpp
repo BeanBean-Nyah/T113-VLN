@@ -6,6 +6,7 @@ DialogEditComputer::DialogEditComputer(QWidget *parent) :
     ui(new Ui::DialogEditComputer)
 {
     ui->setupUi(this);
+
 }
 
 DialogEditComputer::~DialogEditComputer()
@@ -56,12 +57,51 @@ void DialogEditComputer::on_pushButton_save_clicked()
     type = ui->comboBoxNewType->currentText();
     built = ui->comboBoxNewBuilt->currentText();
     string nName = name.toStdString();
+    nName = domain.capFirstLetter(nName);
     string nYear = year.toStdString();
     string nType = type.toStdString();
     string nBuilt = built.toStdString();
 
-    domain.editComputer(id, nName, nYear, nType, nBuilt);
-    done(1);
+    if (name.isEmpty() || type.isEmpty() || built.isEmpty())
+    {
+        //Name, type and built cant be empty!
+        done(2);
+    }
+    if (domain.contains_letters(nYear))
+    {
+        //Year can not contain letters!
+        done(3);
+        return;
+    }
+    if (nBuilt == "Yes" && nYear.empty())
+    {
+        //The computer must have been built some year!
+        done(4);
+        return;
+    }
+    if (atoi(nYear.c_str()) > 2016)
+    {
+        //The computer cant be built in the future!
+        done(5);
+        return;
+    }
+    if (nBuilt == "No" && !(nYear.empty()))
+    {
+        //If the compter has some year it must have been built!
+        done(6);
+        return;
+    }
+
+    if (domain.editComputer(id, nName, nYear, nType, nBuilt))
+    {
+        done(1);
+    }
+
+    else
+    {
+        done(0);
+    }
+
 }
 
 void DialogEditComputer::on_pushButton_cancel_clicked()

@@ -30,10 +30,8 @@ public:
     vector<Computer> searchComputer(string& whattype, string input);
     vector<PersAndComp> searchBoth(string& whattype, string input);
 
-    void edit(vector<Person>& pers, int& line, string& type, string& newValue);
-    void edit(string& _ID, string& _name, string& _sex, string& birth, string& death);
-    void editComputer(vector<Computer>& comp, int& line, string& type, string& newValue);
-    void editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built);
+    bool edit(string& _ID, string& _name, string& _sex, string& birth, string& death);
+    bool editComputer(string& _ID, string& _name, string& _year, string& _type, string& _built);
 
     vector<Person> list();
     vector<Computer> computerList();
@@ -47,7 +45,11 @@ public:
 
     vector<PersonsAndComputers> persAndCompList();
     vector<PersAndComp> persAndCompListTest();
+
+    string capFirstLetter(string& str);
     string Lower_Ans(string word);
+    bool contains_letters(const string &c);
+    bool contains_number(const string &c);
 
     bool clear(string& type);
     string funFact();
