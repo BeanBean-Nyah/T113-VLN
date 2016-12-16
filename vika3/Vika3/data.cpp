@@ -566,6 +566,23 @@ string Data::getInfo(string& _ID)
     return info.toStdString();
 }
 
+bool Data::editInfo(string& _ID, QString& _newInfo)
+{
+   QSqlQuery query;
+   QString qID = QString::fromStdString(_ID);
+
+   query.prepare("UPDATE persons SET about = :about Where ID = :id");
+   query.bindValue(":id", qID);
+   query.bindValue(":about", _newInfo);
+
+   if(query.exec())
+   {
+       return true;
+   }
+   return false;
+
+}
+
 string Data::getInfoComputer(string& _ID)
 {
     //get person info
@@ -581,4 +598,19 @@ string Data::getInfoComputer(string& _ID)
     qDebug() << info;
 
     return info.toStdString();
+}
+
+bool Data::editInfoComputer(string& _ID,QString& _newInfo)
+{
+    QSqlQuery query;
+    QString qID = QString::fromStdString(_ID);
+    query.prepare("UPDATE computer SET computer_about = :about Where ID = :ID");
+    query.bindValue(":ID", qID);
+    query.bindValue(":about", _newInfo);
+
+    if(query.exec())
+    {
+        return true;
+    }
+    return false;
 }
