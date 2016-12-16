@@ -56,6 +56,8 @@ public:
 
     void picture(string& id, QByteArray pic);
     QByteArray getPic(string& id);
+    void pictureComputer(string& id, QByteArray pic);
+    QByteArray getPicComputer(string& id);
     string aboutPerson(string& _ID);
     string aboutComputer(string& _ID);
     bool editInfo(string& _ID, QString& _newInfo);
