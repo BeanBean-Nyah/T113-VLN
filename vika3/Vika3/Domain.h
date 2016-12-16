@@ -53,6 +53,9 @@ public:
 
     bool clear(string& type);
     string funFact();
+
+    void picture(string& id, QByteArray pic);
+    QByteArray getPic(string& id);
 };
 
 #endif // DOMAIN_H

@@ -577,3 +577,8 @@ void MainWindow::on_btnMoreInfo_clicked()
         int status = dialogMoreInfo.exec();
     }
 }
+
+void MainWindow::on_tblPersons_doubleClicked(const QModelIndex &index)
+{
+    on_btnMoreInfo_clicked();
+}

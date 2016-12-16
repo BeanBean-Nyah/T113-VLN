@@ -6,6 +6,7 @@
 #include <QDialog>
 #include <QFileDialog>
 #include <QPixmap>
+#include <QBuffer>
 
 namespace Ui {
 class DialogMoreInfo;

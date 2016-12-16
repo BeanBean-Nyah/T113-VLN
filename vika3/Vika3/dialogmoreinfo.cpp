@@ -21,11 +21,19 @@ void DialogMoreInfo::setInfo(string& _ID, string &_name, string &_birth, string 
     death = QString::fromStdString(_death);
     id = _ID;
 
+    QByteArray outByteArray = domain.getPic(id);
+    QPixmap outPixmap = QPixmap();
+    outPixmap.loadFromData( outByteArray );
+
 
     ui->label_name->setText(name);
     ui->label_birth->setText(birth);
     ui->label_death->setText(death);
     ui->textEdit_bio->setText(sex);
+    ui->label_image->setPixmap(
+        outPixmap.scaled(250, 250, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+
+
 }
 
 void DialogMoreInfo::on_btnBrowse_clicked()
@@ -40,43 +48,21 @@ void DialogMoreInfo::on_btnBrowse_clicked()
     if (filename.length())
     {
         QPixmap pixmap(filename);
-        ui->label_image->setPixmap(pixmap);
+        ui->label_image->setPixmap(
+            pixmap.scaled(250, 250, Qt::IgnoreAspectRatio, Qt::FastTransformation));
+        QByteArray inByteArray;
+        QBuffer inBuffer( &inByteArray );
+        inBuffer.open( QIODevice::WriteOnly );
+        pixmap.save( &inBuffer, "PNG" );
+        domain.picture(id, inByteArray);
 
     }
     else
     {
 
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void DialogMoreInfo::on_pushButton_edit_bio_clicked()
 {
@@ -89,4 +75,5 @@ void DialogMoreInfo::on_pushButton_save_bio_clicked()
 {
     ui->pushButton_save_bio->setEnabled(false);
     ui->pushButton_edit_bio->setEnabled(true);
+    ui->textEdit_bio->setEnabled(false);
 }

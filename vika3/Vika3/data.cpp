@@ -516,3 +516,34 @@ void Data::getFact(vector<Facts>& fac)
         fac.push_back(f);
     }
 }
+
+bool Data::editPic(string& ID, QByteArray pic)
+{
+    QSqlQuery query;
+    QString qID = QString::fromStdString(ID);
+
+    query.prepare("Update persons SET imagedata = :img WHERE Id = :id");
+    query.bindValue(":id", qID);
+    query.bindValue(":img", pic);
+
+    if (query.exec())
+    {
+        return true;
+    }
+    return false;
+}
+
+QByteArray Data::getPic(string& ID)
+{
+    QSqlQuery query;
+    QString qID = QString::fromStdString(ID);
+    QByteArray outByteArray;
+    query.prepare("SELECT imagedata FROM persons WHERE Id = :id");
+    query.bindValue(":id", qID);
+    query.exec();
+
+    query.first();
+        outByteArray = query.value(0).toByteArray();
+
+    return outByteArray;
+}

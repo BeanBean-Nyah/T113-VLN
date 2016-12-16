@@ -494,3 +494,17 @@ string Domain::capFirstLetter(string& str)
     output[f+1] = toupper(output[f+1]);
     return output;
 }
+
+//skilar
+void Domain::picture(string& id, QByteArray pic)
+{
+    Data d;
+    d.editPic(id, pic);
+}
+
+QByteArray Domain::getPic(string& id)
+{
+    Data d;
+    QByteArray outByteArray = d.getPic(id);
+    return outByteArray;
+}

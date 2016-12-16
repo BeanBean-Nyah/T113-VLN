@@ -46,6 +46,8 @@ public:
 
     bool clear(int& type);
 
+    bool editPic(string& ID, QByteArray pic);
+    QByteArray getPic(string& ID);
 
 };
 
