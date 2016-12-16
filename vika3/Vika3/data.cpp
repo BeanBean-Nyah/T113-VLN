@@ -561,7 +561,7 @@ string Data::getInfo(string& _ID)
 
     query.first();
         info = query.value(0).toString();
-        qDebug() << info;
+
 
     return info.toStdString();
 }
@@ -595,7 +595,6 @@ string Data::getInfoComputer(string& _ID)
 
     query.first();
     info = query.value(0).toString();
-    qDebug() << info;
 
     return info.toStdString();
 }
