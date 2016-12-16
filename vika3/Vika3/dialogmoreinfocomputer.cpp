@@ -13,6 +13,7 @@ DialogMoreInfoComputer::~DialogMoreInfoComputer()
     delete ui;
 }
 
+//setur videigandi upplysingar i videigandi glugga
 void DialogMoreInfoComputer::setInfo(string& _ID, string &_name, string &_year, string &_type, string &_built, string &_about)
 {
     name = QString::fromStdString(_name);
@@ -42,6 +43,7 @@ void DialogMoreInfoComputer::setInfo(string& _ID, string &_name, string &_year, 
     ui->textEdit_bio->setText(about);
 }
 
+//opnar nyjan glugga thar sem tu getur valid nyja mynd
 void DialogMoreInfoComputer::on_btnBrowse_clicked()
 {
     QString filename = QFileDialog::getOpenFileName(
@@ -76,6 +78,7 @@ void DialogMoreInfoComputer::on_btnBrowse_clicked()
 
 }
 
+//enable ar breytingar i videigandi glugga
 void DialogMoreInfoComputer::on_pushButton_edit_bio_clicked()
 {
     ui->pushButton_save_bio->setEnabled(true);
@@ -83,6 +86,7 @@ void DialogMoreInfoComputer::on_pushButton_edit_bio_clicked()
     ui->textEdit_bio->setReadOnly(false);
 }
 
+//vistar breytingar
 void DialogMoreInfoComputer::on_pushButton_save_bio_clicked()
 {
     QString newText = ui->textEdit_bio->toPlainText();

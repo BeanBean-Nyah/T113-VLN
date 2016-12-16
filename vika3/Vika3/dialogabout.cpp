@@ -13,6 +13,7 @@ DialogAbout::~DialogAbout()
     delete ui;
 }
 
+//lokar glugga
 void DialogAbout::on_btnOk_clicked()
 {
     done(1);

@@ -14,6 +14,7 @@ DialogEditComputer::~DialogEditComputer()
     delete ui;
 }
 
+//fyllir upp i texaboxin med videigandi upplysingum
 void DialogEditComputer::setTextbox(string& _name, string& _year, string& _type, string& _built, string& _ID)
 {
     name = QString::fromStdString(_name);
@@ -51,6 +52,8 @@ void DialogEditComputer::setTextbox(string& _name, string& _year, string& _type,
     ui->comboBoxNewBuilt->setCurrentIndex(builtIndex);
 
 }
+
+//villucheckar input og skilar videigandi skilabodum
 void DialogEditComputer::on_pushButton_save_clicked()
 {
     name = ui->txtNewName->text();
@@ -105,6 +108,7 @@ void DialogEditComputer::on_pushButton_save_clicked()
 
 }
 
+//lokar glugga
 void DialogEditComputer::on_pushButton_cancel_clicked()
 {
     done(0);

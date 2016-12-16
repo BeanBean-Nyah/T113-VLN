@@ -14,6 +14,7 @@ DialogMoreInfo::~DialogMoreInfo()
     delete ui;
 }
 
+//setur videigandi upplysingar i videigandi glugga
 void DialogMoreInfo::setInfo(string& _ID, string &_name, string &_birth, string &_death, string &_about)
 {
     name = QString::fromStdString(_name);
@@ -39,6 +40,7 @@ void DialogMoreInfo::setInfo(string& _ID, string &_name, string &_birth, string 
     ui->textEdit_bio->setText(about);
 }
 
+//opnar nyjan glugga thar sem tu getur valid nyja mynd
 void DialogMoreInfo::on_btnBrowse_clicked()
 {
     QString filename = QFileDialog::getOpenFileName(
@@ -72,6 +74,7 @@ void DialogMoreInfo::on_btnBrowse_clicked()
 
 }
 
+//enable ar breytingar a texta i glugga
 void DialogMoreInfo::on_pushButton_edit_bio_clicked()
 {
     ui->pushButton_save_bio->setEnabled(true);
@@ -79,6 +82,7 @@ void DialogMoreInfo::on_pushButton_edit_bio_clicked()
     ui->textEdit_bio->setReadOnly(false);
 }
 
+//vistar breytingar
 void DialogMoreInfo::on_pushButton_save_bio_clicked()
 {
     QString newText = ui->textEdit_bio->toPlainText();

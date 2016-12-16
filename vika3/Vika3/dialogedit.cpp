@@ -15,6 +15,7 @@ dialogEdit::~dialogEdit()
     delete ui;
 }
 
+//fyllir upp i texaboxin med videigandi upplysingum
 void dialogEdit::setTextbox(string& _name, string& _sex, string& _birth, string& _death, string& _ID)
 {
     name = QString::fromStdString(_name);
@@ -39,7 +40,8 @@ void dialogEdit::setTextbox(string& _name, string& _sex, string& _birth, string&
 
 }
 
-void dialogEdit::on_buttonBox_accepted() // todo a check for input errors
+//villucheckar input og skilar videigandi skilabodum
+void dialogEdit::on_buttonBox_accepted()
 {
     //set new values
     name = ui->txtNewName->text();

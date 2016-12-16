@@ -34,6 +34,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//naer i vector
 void MainWindow::displayAllPersons()
 {
     string type = getPersonCurrentSortBy();
@@ -43,6 +44,7 @@ void MainWindow::displayAllPersons()
     currentlyDisplayedPersons = pers;
 }
 
+//displayar vectorinn i videigandi toflu
 void MainWindow::displayPersons(vector<Person> pers)
 {
     ui->tblPersons->clearContents();
@@ -67,6 +69,7 @@ void MainWindow::displayPersons(vector<Person> pers)
     }
 }
 
+//naer i vector
 void MainWindow::displayAllComputers()
 {
     string type = getComputerCurrentSortBy();
@@ -76,6 +79,7 @@ void MainWindow::displayAllComputers()
     currentlyDisplayedComputers = comp;
 }
 
+//displayar vectorinn i videigandi toflu
 void MainWindow::displayComputers(vector<Computer> comp)
 {
     ui->tblComputers->clearContents();
@@ -97,6 +101,7 @@ void MainWindow::displayComputers(vector<Computer> comp)
     }
 }
 
+//naer i vector
 void MainWindow::displayAllPersAndComp()
 {
     string type = getBothCurrentSortBy();
@@ -105,6 +110,7 @@ void MainWindow::displayAllPersAndComp()
     currentlyDisplayedPersAndComp = pAc;
 }
 
+//displayar vectorinn i videigandi toflu
 void MainWindow::displayPersAndComp(vector<PersAndComp> pAc)
 {
     ui->tblPersAndComp->clearContents();
@@ -123,6 +129,7 @@ void MainWindow::displayPersAndComp(vector<PersAndComp> pAc)
     }
 }
 
+//skilar hverju a ad sortera eftir
 string MainWindow::getPersonCurrentSortBy()
 {
     string valueInOrderBy = ui->comboBox_person_sort->currentText().toStdString();
@@ -167,6 +174,7 @@ string MainWindow::getPersonCurrentSortBy()
     return valueInOrderBy;
 }
 
+//skilar hverju a ad sortera eftir
 string MainWindow::getComputerCurrentSortBy()
 {
     string valueInOrderBy = ui->comboBox_computer_sort->currentText().toStdString();
@@ -211,6 +219,7 @@ string MainWindow::getComputerCurrentSortBy()
     return valueInOrderBy;
 }
 
+//skilar hverju a ad sortera eftir
 string MainWindow::getBothCurrentSortBy()
 {
     string valueInOrderBy = ui->comboBox_sort_both->currentText().toStdString();
@@ -239,6 +248,7 @@ string MainWindow::getBothCurrentSortBy()
     return valueInOrderBy;
 }
 
+//opnar nyjan glugga til ad baeta vid pers og comp
 void MainWindow::on_btnNew_clicked()
 {
     int currentTabIndex = ui->tabWidget->currentIndex();
@@ -285,6 +295,7 @@ void MainWindow::on_btnNew_clicked()
 
 }
 
+//eydir valinni pers, comp eda relation
 void MainWindow::on_btnDelete_clicked()
 {
     int currentTabIndex = ui->tabWidget->currentIndex();
@@ -330,6 +341,7 @@ void MainWindow::on_btnDelete_clicked()
 
 }
 
+//enable ar videigandi takka
 void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 {        
     ui->btnMoreInfo->setEnabled(true);
@@ -340,6 +352,7 @@ void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
     ui->actionBiography->setEnabled(true);
 }
 
+//enable ar videigandi takka
 void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 {
     ui->btnMoreInfo->setEnabled(true);
@@ -350,6 +363,7 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
     ui->actionBiography->setEnabled(true);
 }
 
+//enable ar videigandi takka
 void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
 {
     ui->btnMoreInfo->setEnabled(false);
@@ -360,6 +374,7 @@ void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
     ui->actionBiography->setEnabled(false);
 }
 
+//medhondlar leit
 void MainWindow::on_input_filter_person_textChanged(const QString &arg1)
 {
     if (ui->tblPersons->isActiveWindow())
@@ -372,6 +387,7 @@ void MainWindow::on_input_filter_person_textChanged(const QString &arg1)
     }
 }
 
+//medhondlar leit
 void MainWindow::on_input_filter_computer_textChanged(const QString &arg1)
 {
     if (ui->tblComputers->isActiveWindow())
@@ -384,6 +400,7 @@ void MainWindow::on_input_filter_computer_textChanged(const QString &arg1)
     }
 }
 
+//medhondlar leit
 void MainWindow::on_input_filter_both_textChanged(const QString &arg1)
 {
     if (ui->tblPersAndComp->isActiveWindow())
@@ -396,6 +413,8 @@ void MainWindow::on_input_filter_both_textChanged(const QString &arg1)
     }
 }
 
+//opnar nyjan glugga
+//og baetir vid i database ef thad eru engar villur
 void MainWindow::on_btnEdit_clicked()
 {
     int currentTabIndex = ui->tabWidget->currentIndex();
@@ -497,11 +516,14 @@ void MainWindow::on_btnEdit_clicked()
     ui->actionBiography->setEnabled(false);
 }
 
+//kallar i takka
 void MainWindow::on_actionNew_triggered()
 {
     on_btnNew_clicked();
 }
 
+//==========================
+//kallar i filter foll
 void MainWindow::on_comboBox_person_sort_currentIndexChanged(int index)
 {
     on_input_filter_person_textChanged("");
@@ -546,16 +568,13 @@ void MainWindow::on_radioButton_sort_both_desc_toggled(bool checked)
 {
     on_input_filter_both_textChanged("");
 }
+//+++++++++++++++++++++++++++++
 
+//opnar about glugga
 void MainWindow::on_actionAbout_triggered()
 {
     DialogAbout about;
     about.exec();
-}
-
-void MainWindow::on_actionAbout_toggled(bool arg1)
-{
-
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -621,4 +640,11 @@ void MainWindow::on_tblComputers_doubleClicked(const QModelIndex &index)
 void MainWindow::on_actionBiography_triggered()
 {
     on_btnMoreInfo_clicked();
+}
+
+void MainWindow::on_tabWidget_tabBarClicked(int index)
+{
+    ui->btnDelete->setEnabled(false);
+    ui->btnEdit->setEnabled(false);
+    ui->btnMoreInfo->setEnabled(false);
 }
