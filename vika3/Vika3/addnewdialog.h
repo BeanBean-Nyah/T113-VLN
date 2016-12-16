@@ -33,6 +33,7 @@ private slots:
 private:
     Ui::AddNewDialog *ui;
     Domain domain;
+
     void clearErrors();
 
     int addNewPerson();

@@ -7,6 +7,7 @@
 #include <QDialog>
 #include <QDebug>
 #include <string>
+#include <QComboBox>
 
 using namespace std;
 

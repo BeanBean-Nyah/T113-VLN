@@ -6,6 +6,8 @@ dialogEdit::dialogEdit(QWidget *parent) :
     ui(new Ui::dialogEdit)
 {
     ui->setupUi(this);
+    ui->txtNewGender->addItem("Female");
+    ui->txtNewGender->addItem("Male");
 }
 
 dialogEdit::~dialogEdit()
@@ -20,9 +22,18 @@ void dialogEdit::setTextbox(string& _name, string& _sex, string& _birth, string&
     birth = QString::fromStdString(_birth);
     death = QString::fromStdString(_death);
     id = _ID;
+    int currentSexIndex = 0;
+    if (sex == "Female")
+    {
+        currentSexIndex = 1;
+    }
+    else if (sex == "Male")
+    {
+        currentSexIndex = 2;
+    }
 
     ui->txtNewName->setText(name);
-    ui->txtNewGender->setText(sex);
+    ui->txtNewGender->setCurrentIndex(currentSexIndex);
     ui->txtNewBirth->setText(birth);
     ui->txtNewDeath->setText(death);
 
@@ -32,7 +43,7 @@ void dialogEdit::on_buttonBox_accepted() // todo a check for input errors
 {
     //set new values
     name = ui->txtNewName->text();
-    sex  = ui->txtNewGender->text();
+    sex  = ui->txtNewGender->currentText();
     birth = ui->txtNewBirth->text();
     death = ui->txtNewDeath->text();
     string nName = name.toStdString();

@@ -6,6 +6,7 @@ DialogEditComputer::DialogEditComputer(QWidget *parent) :
     ui(new Ui::DialogEditComputer)
 {
     ui->setupUi(this);
+
 }
 
 DialogEditComputer::~DialogEditComputer()

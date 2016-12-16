@@ -34,13 +34,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="label_2">
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="text">
           <string>Gender</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="txtNewGender"/>
+        <widget class="QComboBox" name="txtNewGender"/>
        </item>
       </layout>
      </item>

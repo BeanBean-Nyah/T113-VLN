@@ -11,6 +11,7 @@
 #include "dialogeditcomputer.h"
 #include "dialognewrelation.h"
 #include "dialogabout.h"
+#include "dialogmoreinfo.h"
 
 #include <vector>
 #include <QMainWindow>
@@ -31,8 +32,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    vector<Person> currentlyDisplayedPersons;
-    vector<Computer> currentlyDisplayedComputers;
+
 
 private slots:
     void on_btnNew_clicked();
@@ -83,6 +83,8 @@ private slots:
 
     void on_actionRemove_triggered();
 
+    void on_btnMoreInfo_clicked();
+
 private:
     Ui::MainWindow *ui;
     Domain domain;
@@ -98,7 +100,8 @@ private:
     string getComputerCurrentSortBy();
     string getBothCurrentSortBy();
 
-
+    vector<Person> currentlyDisplayedPersons;
+    vector<Computer> currentlyDisplayedComputers;
     vector<PersAndComp> currentlyDisplayedPersAndComp;
 };
 

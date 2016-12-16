@@ -285,7 +285,7 @@ void MainWindow::on_btnDelete_clicked()
         int currentlySelected = ui->tblPersons->currentIndex().row();
         domain.remove(currentlyDisplayedPersons, currentlySelected);
         displayAllPersons();
-        ui->btnDelete->setEnabled(false);
+        ui->btnMoreInfo->setEnabled(false);
         ui->btnDelete->setEnabled(false);
         ui->btnEdit->setEnabled(false);
         ui->actionEdit->setEnabled(false);
@@ -297,7 +297,7 @@ void MainWindow::on_btnDelete_clicked()
         int currentlySelected = ui->tblComputers->currentIndex().row();
         domain.removeComputer(currentlyDisplayedComputers, currentlySelected);
         displayAllComputers();
-        ui->btnDelete->setEnabled(false);
+        ui->btnMoreInfo->setEnabled(false);
         ui->btnDelete->setEnabled(false);
         ui->btnEdit->setEnabled(false);
         ui->actionEdit->setEnabled(false);
@@ -309,6 +309,7 @@ void MainWindow::on_btnDelete_clicked()
         int currentlySelected = ui->tblPersAndComp->currentIndex().row();
         domain.removeConnection(currentlyDisplayedPersAndComp, currentlySelected);
         displayAllPersAndComp();
+        ui->btnMoreInfo->setEnabled(false);
         ui->btnDelete->setEnabled(false);
         ui->btnEdit->setEnabled(false);
         ui->actionEdit->setEnabled(false);
@@ -320,6 +321,7 @@ void MainWindow::on_btnDelete_clicked()
 
 void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 {        
+    ui->btnMoreInfo->setEnabled(true);
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(true);
     ui->actionEdit->setEnabled(true);
@@ -328,6 +330,7 @@ void MainWindow::on_tblComputers_clicked(const QModelIndex &index)
 
 void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 {
+    ui->btnMoreInfo->setEnabled(true);
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(true);
     ui->actionEdit->setEnabled(true);
@@ -336,6 +339,7 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
 
 void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
 {
+    ui->btnMoreInfo->setEnabled(false);
     ui->btnDelete->setEnabled(true);
     ui->btnEdit->setEnabled(false);
     ui->actionEdit->setEnabled(false);
@@ -471,6 +475,7 @@ void MainWindow::on_btnEdit_clicked()
     displayAllPersons();
     displayAllComputers();
     displayAllPersAndComp();
+    ui->btnMoreInfo->setEnabled(false);
     ui->btnDelete->setEnabled(false);
     ui->btnEdit->setEnabled(false);
     ui->actionEdit->setEnabled(false);
@@ -551,4 +556,24 @@ void MainWindow::on_actionEdit_triggered()
 void MainWindow::on_actionRemove_triggered()
 {
     on_btnDelete_clicked();
+}
+
+void MainWindow::on_btnMoreInfo_clicked()
+{
+
+    int currentTabIndex = ui->tabWidget->currentIndex();
+    if(currentTabIndex == 0)
+    {
+        int currentlySelected = ui->tblPersons->currentIndex().row();
+        string name, sex, birth, death, id;
+        name = currentlyDisplayedPersons[currentlySelected].getFirstname();
+        sex = currentlyDisplayedPersons[currentlySelected].getSex();
+        birth = currentlyDisplayedPersons[currentlySelected].getBirth();
+        death = currentlyDisplayedPersons[currentlySelected].getDeath();
+        id = currentlyDisplayedPersons[currentlySelected].getID();
+
+        DialogMoreInfo dialogMoreInfo;
+        dialogMoreInfo.setInfo(id, name, birth, death, sex);
+        int status = dialogMoreInfo.exec();
+    }
 }
