@@ -532,8 +532,7 @@ string Domain::aboutPerson(string& _ID)
 string Domain::aboutComputer(string& _ID)
 {
     Data d;
-    string retValue = d.getInfoComputer(_ID);
-    return d.getInfoComputer(retValue);
+    return d.getInfoComputer(_ID);
 }
 bool Domain::editInfo(string& _ID, QString& _newInfo)
 {

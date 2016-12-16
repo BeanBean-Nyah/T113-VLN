@@ -10,6 +10,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     domain.openDatabase();
     ui->setupUi(this);
+    ui->tblPersons->horizontalHeader()->setStretchLastSection(true);
+    ui->tblPersons->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tblComputers->horizontalHeader()->setStretchLastSection(true);
+    ui->tblComputers->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tblPersAndComp->horizontalHeader()->setStretchLastSection(true);
+    ui->tblPersAndComp->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    ui->tblComputers->horizontalHeader()->setVisible(true);
 
     ui->tblPersons->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tblComputers->setSelectionMode(QAbstractItemView::SingleSelection);

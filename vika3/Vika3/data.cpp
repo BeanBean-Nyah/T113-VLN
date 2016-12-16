@@ -619,8 +619,8 @@ string Data::getInfoComputer(string& _ID)
     QString info;
     QString qID = QString::fromStdString(_ID);
 
-    query.prepare("SELECT computer_about FROM computer Where computer_ID = :id");
-    query.bindValue(":id", qID);
+    query.prepare("SELECT computer_about FROM computer Where computer_ID = :ID");
+    query.bindValue(":ID", qID);
     query.exec();
 
     query.first();
