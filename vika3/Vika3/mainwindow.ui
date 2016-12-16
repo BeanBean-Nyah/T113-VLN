@@ -417,7 +417,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>More Info</string>
+         <string>Biography</string>
         </property>
        </widget>
       </item>
@@ -431,7 +431,7 @@
      <x>0</x>
      <y>0</y>
      <width>950</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -448,6 +448,8 @@
     </property>
     <addaction name="actionEdit"/>
     <addaction name="actionRemove"/>
+    <addaction name="separator"/>
+    <addaction name="actionBiography"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -509,6 +511,11 @@
    </property>
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionBiography">
+   <property name="text">
+    <string>Biography</string>
    </property>
   </action>
  </widget>
