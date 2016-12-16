@@ -347,7 +347,7 @@ void MainWindow::on_tblPersons_clicked(const QModelIndex &index)
     ui->btnEdit->setEnabled(true);
     ui->actionEdit->setEnabled(true);
     ui->actionRemove->setEnabled(true);
-    ui->actionBiography->setEnabled(false);
+    ui->actionBiography->setEnabled(true);
 }
 
 void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
@@ -357,7 +357,7 @@ void MainWindow::on_tblPersAndComp_clicked(const QModelIndex &index)
     ui->btnEdit->setEnabled(false);
     ui->actionEdit->setEnabled(false);
     ui->actionRemove->setEnabled(true);
-    ui->actionBiography->setEnabled(true);
+    ui->actionBiography->setEnabled(false);
 }
 
 void MainWindow::on_input_filter_person_textChanged(const QString &arg1)
