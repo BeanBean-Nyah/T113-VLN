@@ -58,12 +58,8 @@ void DialogMoreInfo::on_btnBrowse_clicked()
         inBuffer.open( QIODevice::WriteOnly );
         pixmap.save( &inBuffer, "PNG" );
         domain.picture(id, inByteArray);
-
     }
-    else
-    {
 
-    }
 
 }
 
@@ -76,6 +72,8 @@ void DialogMoreInfo::on_pushButton_edit_bio_clicked()
 
 void DialogMoreInfo::on_pushButton_save_bio_clicked()
 {
+    QString newText = ui->textEdit_bio->toPlainText();
+    domain.editInfo(id, newText);
     ui->pushButton_save_bio->setEnabled(false);
     ui->pushButton_edit_bio->setEnabled(true);
     ui->textEdit_bio->setEnabled(false);
