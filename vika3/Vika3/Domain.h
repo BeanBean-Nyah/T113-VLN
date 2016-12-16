@@ -58,6 +58,8 @@ public:
     QByteArray getPic(string& id);
     string aboutPerson(string& _ID);
     string aboutComputer(string& _ID);
+    bool editInfo(string& _ID, QString& _newInfo);
+    bool editInfoComputer(string& _ID, QString& _newInfo);
 };
 
 #endif // DOMAIN_H
